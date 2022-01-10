@@ -5,7 +5,6 @@ library(gridExtra)
 library(tidyr)
 library(zoo) 
 library(tsibble)
-library(fpp2)
 library(pracma)
 
 #### Ekmans ####
@@ -99,7 +98,7 @@ ggplot(ek_v2, aes(yr_bp, cumul_depth_mm/10, colour = core_num)) +
   xlab("Couplet Number") +
   ylab("Core Depth (cm)")
 
-ggsave('figs/ekman_sed_rate_near_V2.png', width = 6, height = 4.5)
+#ggsave('figs/ekman_sed_rate_near_V2.png', width = 6, height = 4.5)
 
 ## carbon dates ##
 # A small twig from V1 at 347 cm results in a date of 1899-1819 cal BP. 
@@ -163,13 +162,13 @@ all_df <- rbind(ams_df %>% rename(core_num = ams_sample), ek_v2_cln) #%>% rbind(
 
 ggplot(all_df, aes(year, depth, colour = core_num)) +
   geom_point() +
-  geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=F, linetype = "dashed", size= 0.5) +
+  geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=T, linetype = "dashed", size= 0.5) +
   geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
   scale_y_continuous(trans = 'reverse') +
   xlab("Estimated Year (BP)") +
   ylab("Core Depth (cm)")
 
-ggsave('figs/sed_rates_V1_V2_ekmans.png', width = 6, height = 4.5)
+#ggsave('figs/sed_rates_V1_V2_ekmans.png', width = 6, height = 4.5)
 
 
 # Look at Long Core Varve Thickness Now 
@@ -393,9 +392,9 @@ ggplot(all_df, aes(year, depth, colour = core)) +
   xlab("Estimated Year (BP)") +
   ylab("Core Depth (cm)")
 
-#ggsave('figs/longcore_cumulative_depth_vs_estimated_year_w_ams.png', width = 6, height = 4.5)
+ggsave('figs/longcore_cumulative_depth_vs_estimated_year_w_ams.png', width = 6, height = 4.5)
 
-# Gaussian Smoothing Function
+#### Gaussian Smoothing Function ####
 comb$core[comb$core == 'V1_varve'] = "V1"
 comb$core[comb$core == 'V2_varve'] = "V2"
 
