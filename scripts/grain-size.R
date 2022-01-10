@@ -4,9 +4,7 @@ library(plotly)
 library(gridExtra)
 library(tidyr)
 
-setwd("D:/AlexC/OneDrive - University of Toronto/School/Grad School/Cariboo/Analysis/Sediment/Grain Size")
-
-v1 <- read.csv("CB17_Jan_GranSize_mar23_v1_noFloods.csv") %>% 
+v1 <- read.csv("data/Sediment/Grain Size/CB17_Jan_GranSize_mar23_v1_noFloods.csv") %>% 
   rename(depth = Depth..cm., 
          year = Year..AD., 
          D50 = Dx..50., 
@@ -68,11 +66,11 @@ v1Perc <- ggplot() +
 p <- grid.arrange(v1Plot_yr, v1Perc, ncol=2)
 
 
-ggsave("figs/v1_D50_particlePercent.png",p,  width = 4, height = 8)
+ggsave("figs/grain-size/v1_D50_particlePercent.png", p,  width = 4, height = 8)
 
 ##### V2 #####
 
-v2 <- read.csv("CB17_Jan_GranSize_mar23_v2_noFloods.csv")%>% 
+v2 <- read.csv("data/Sediment/Grain Size/CB17_Jan_GranSize_mar23_v2_noFloods.csv")%>% 
   rename(depth = Depth..cm., 
          year = Year, 
          D50 = Dx..50., 
@@ -137,4 +135,73 @@ p
 
 ggsave("figs/v2_D50_particlePercent.png",p,  width = 4, height = 8)
 
+## Long plots Std. Departure
 
+v1.sd.fltr <- sd(v1_D50$D50, na.rm = T)
+v1.mean.fltr <- mean(v1_D50$D50, na.rm = T)
+
+v1_D50$stdep <- (v1_D50$D50 - v1.mean.fltr)/v1.sd.fltr
+
+
+v2.sd.fltr <- sd(v2_D50$D50, na.rm = T)
+v2.mean.fltr <- mean(v2_D50$D50, na.rm = T)
+
+v2_D50$stdep <- (v2_D50$D50 - v2.mean.fltr)/v2.sd.fltr
+
+## carbon dates ##
+# A small twig from V1 at 347 cm results in a date of 1899-1819 cal BP. 
+# A 4 cm long twig from V2 at 222 cm results in a date of 490-316 cal BP. 
+# Since the first date from V2 was much younger than than expected, 
+# a second sample from V2 was analyzed by combining a small twig at 286 cm and pine needle at 294 cm. 
+# A date of 2045-1895 cal BP was determined.
+
+# plot on depth 
+v1_date <- (1899 + 1819) / 2 # mid point yr for v1 @ 347 cm
+
+v1_C14 <- data.frame(depth_cm = 347, year = v1_date) # n = 1
+
+v2b_depth <- (286 + 294) / 2 # avg depth for combined V2 sample
+
+v2_date_b <- (2045 + 1895) / 2 # mid point yr for v2 @ 286 + 294 cm
+v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
+
+v2_C14 <- data.frame(depth_cm = 286, year = 1970) # n = 2
+
+ams_df <- tibble(
+  year = c(0, v1_date, 0, v2_date_a, 0, v2_date_b),
+  depth = c(0, 347, 0, 222, 0, v2b_depth),
+  ams_sample = c('V1', 'V1', 'V2a', 'V2a', 'V2b', 'V2b')
+)
+
+v1_plot <- 
+  v1_D50 %>% 
+  ggplot(aes(x = depth*10)) +
+  geom_point(aes(y = stdep), alpha = 1/4) +
+  geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
+  geom_point(aes(x = v1_C14$depth_cm * 10, y = -1.0)) +
+  geom_text(aes(x = v1_C14$depth_cm * 10, y = -1.70), label = "1819-1899 BP", vjust = 1) +
+  ylab("D50") +
+  xlab("") +
+  ggtitle("V1") +
+  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed") +
+  scale_x_continuous( sec.axis=sec_axis(trans=~ . * (v1_C14$year/(v1_C14$depth_cm*10)), name="Estimated Year (Linear Interpolation)")) # scale sec y axis based on c14
+v1_plot
+
+v2_plot <- 
+  v2_D50 %>% 
+  ggplot(aes(x = depth*10)) +
+  geom_point(aes(y = stdep), alpha = 1/4) +
+  geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
+  geom_point(aes(x = v2_C14$depth_cm * 10, y = -1.5)) +
+  geom_text(aes(x = v2_C14$depth_cm * 10, y = -1.75), label = "1895-2045 BP", vjust = 1) +
+  ylab("D50") +
+  xlab("Core Depth (mm)") +  
+  ggtitle("V2") +
+  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed") +
+  scale_x_continuous( sec.axis=sec_axis(trans=~ . * (v1_C14$year/(v1_C14$depth_cm*10)), name="Estimated Year (Linear Interpolation)")) # scale sec y axis based on c14
+
+v2_plot
+
+p <- grid.arrange(v1_plot, v2_plot, nrow=2)
+
+ggsave("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.png", p,  width = 11, height = 6)
