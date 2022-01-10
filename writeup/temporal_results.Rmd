@@ -13,21 +13,21 @@ Four glaciolacustrine sediment cores, which range from 2 – 4 m in length, were
 
 *Chronology*
 
-AMS radiocarbon dates obtained for cores V1 and V2 (Table 1) provide temporal control and evidence of sediment accumulation rates. A small twig from V1 at 347 cm yielded a date of 1899-1819 cal BP. Two separate samples were analyzed from V2, one comprised of a large twig at 222 cm yielding a date of 490-316 cal BP (V2a), and a combination of two separate organic pieces which were combined into one sample, a twig at 286 cm and a pine needle at 294 cm and provided a date of 2045-1895 cal BP (V2b). Figure 2, shows the dating calibration curves derived for the three AMS radiocarbon dates. The date provided for sample V2a, yields a sedimentation rate of 5.51 mm/yr, which is much higher, relative to the rates of 1.87 and 1.45 mm/yr provided for V1 and V2b respectively. Additional sedimentation rates derived from the Ekman surficial cores 13-15 are shown in Fig. 3, which are proximal to the V2 core (see Fig. 1), and exhibit sedimentation rates of 2.24, 2.52, and 2.31 mm/yr respectively. The consistency of the EK13-15 sedimentation rates with the V1 and V2b AMS sedimentation rate, suggests that the V2a sample may have been pulled down during the coring process due the large twig size of 4 cm resulting in a erroneously high sedimentation rate for V2a. Since no additional evidence was found to support the V2a sedimentation rate of 5.51 mm/yr, it was not included in subsequent analysis. The AMS radiocarbon dates from samples V1 and V2b, which were consistent with sedimentation rates provided by proximal Ekman surficial cores, provide an important temporal control when interpreting the following sediment analyses. Since the top section of cores V1 and V2 were disturbed, 110 cm for V1 and 70 cm at V2 they do not have a true temporal anchor of 0 yr BP at 0 cm. The AMS radiocarbon dates provide the best temporal control available for both cores.
+AMS radiocarbon dates obtained for cores V1 and V2 (Table 1) provide temporal control and evidence of sediment accumulation rates. A small twig from V1 at 347 cm yielded a date of 1899-1819 cal BP. Two separate samples were analyzed from V2, one comprised of a large twig at 222 cm yielding a date of 490-316 cal BP (V2a), and a combination of two separate organic pieces which were combined into one sample, a twig at 286 cm and a pine needle at 294 cm and provided a date of 2045-1895 cal BP (V2b). Figure 2, shows the dating calibration curves derived for the three AMS radiocarbon dates. The date provided for sample V2a, yields a sedimentation rate of 5.51 mm/yr, which is much higher, relative to the rates of 1.87 +/- 0.04 mm/yr and 1.47 +/- 0.11 mm/yr provided for V1 and V2b respectively. Additional sedimentation rates derived from the Ekman surficial cores 13-15 are shown in Fig. 3, which are proximal to the V2 core (see Fig. 1), and exhibit sedimentation rates of 2.24, 2.52, and 2.31 mm/yr respectively. Higher sedimentation rates are expected for the EKman samples are they are not subjected to the same level of compaction as the long cores. Still, the consistency of the EK13-15 sedimentation rates with the V1 and V2b AMS sedimentation rate, suggests that the V2a sample may have been pulled down during the coring process due the large twig size of 4 cm resulting in a erroneously high sedimentation rate for V2a. Since no additional evidence was found to support the V2a sedimentation rate of 5.51 mm/yr, it was not included in subsequent analysis. The AMS radiocarbon dates from samples V1 and V2b, which were consistent with sedimentation rates provided by proximal Ekman surficial cores, provide an important temporal control when interpreting the following sediment analyses. Since the top section of cores V1 and V2 were disturbed, 110 cm for V1 and 70 cm at V2 they do not have a true temporal anchor of 0 yr BP at 0 cm. The AMS radiocarbon dates provide the best temporal control available for both cores.
 
 ```{r map, echo=FALSE, fig.cap = "Location of long cores and Ekman surficial cores."}
 knitr::include_graphics("figs/map.png")
 ```
 
-```{r map, echo=FALSE, fig.cap = "Sediment accumulation rates derived from the three C14 dates for Cores V1 (Red), and V2 (Green and Blue. The black line is the line of best fit through all three ams radio carbon dates."}
+```{r amsRates, echo=FALSE, fig.cap = "Sediment accumulation rates derived from the three C14 dates for Cores V1 (Red), and V2 (Green and Blue. The black line is the line of best fit through all three ams radio carbon dates."}
 knitr::include_graphics("figs/ams_sed_rates.png")
 ```
 
-```{r map, echo=FALSE, fig.cap = "Sedimentation rates for Ekman surficial cores proximal to core V2."}
+```{r ekRates, echo=FALSE, fig.cap = "Sedimentation rates for Ekman surficial cores proximal to core V2."}
 knitr::include_graphics("figs/ekman_sed_rate_near_V2.png")
 ```
 
-```{r map, echo=FALSE, fig.cap = "Cumulative sedimentation rates for cores V1 and V2 and Ekman surficial cores EK13, 14, and 15 proximal to V2."}
+```{r amsEkRates, echo=FALSE, fig.cap = "Cumulative sedimentation rates for cores V1 and V2 and Ekman surficial cores EK13, 14, and 15 proximal to V2."}
 knitr::include_graphics("figs/sed_rates_V1_V2_ekmans.png")
 ```
 
@@ -37,4 +37,13 @@ The basal age for each core for was estimated using both the varve chronology an
 
 *Sediment Yield Statistics* 
 
-Higher sedimentation rates were observed proximal to the Cariboo River Delta in V1 compared to the more distal core V2, as in the Ekman surficial cores. Sedimentation rates estimated using varve chronology and AMS radiocarbon dates had a larger difference at V1 with 2.4 mm/yr and 1.87 mm/yr respectively. Closer agreement was observed at V2 with 1.5 mm/yr estimated by both the varve chronology and AMS radiocarbon dates. 
+Higher sedimentation rates were observed proximal to the Cariboo River Delta in V1 compared to the more distal core V2, as observed in the Ekman surficial cores. Sedimentation rates estimated using varve chronology and AMS radiocarbon dates had a larger difference at V1 with 2.4 mm/yr and 1.87 +/- 0.04 mm/yr respectively. Closer agreement was observed at V2 with 1.52 mm/yr estimated by the varve chronology and 1.47 +/- 0.11 mm/yr from the AMS radiocarbon date. Some error is observed between the sedimentation rates estimated by the varve chronology and the AMS radiocarbon dates, particularly for V1, likely due to some of the afformentioned sources of error in the varve chronology and AMS radiocarbon methods. Still, the relatively close agreement between the two sedimentation rates gives confidence in further interpretations on the varve chronology at the multi-decade to century time scales. 
+
+Fig.\@ref(fig:varves) shows the thickness of sediment varves demonstrate trends in suspended sediment delivery to Cariboo Lake over the past two millennium. The strongest signal in varve thickness occurs between 1250-2000 cal BP where the varve thickness is consistently above average for both cores during this time period. After this, trends in varve thickness between the two cores are not as consistent, but generally remain around average for both cores, aside from a signal of below average from 250-750 cal BP for V1 and 500-1000 cal BP for V2. 
+
+```{r varves, echo=FALSE, fig.cap = "Standardized departure from the mean varve thickness for cores V1 and V2."}
+knitr::include_graphics("figs/sed_rates_V1_V2_ekmans.png")
+```
+
+*Grain Size*
+

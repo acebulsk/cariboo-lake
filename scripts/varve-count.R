@@ -112,14 +112,16 @@ v1_date <- (1899 + 1819) / 2 # mid point yr for v1 @ 347 cm
 
 v1_C14 <- data.frame(depth_cm = 347, year = v1_date) # n = 1
 
-v2_date_286 <- (2045 + 1895) / 2 # mid point yr for v2 @ 286 cm
-v2_date_222 <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
+v2b_depth <- (286 + 294) / 2 # avg depth for combined V2 sample
+
+v2_date_b <- (2045 + 1895) / 2 # mid point yr for v2 @ 286 + 294 cm
+v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
 
 v2_C14 <- data.frame(depth_cm = 286, year = 1970) # n = 2
 
 ams_df <- tibble(
-  year = c(0, v1_date, 0, v2_date_222, 0, v2_date_286),
-  depth = c(0, 347, 0, 222, 0, 286),
+  year = c(0, v1_date, 0, v2_date_a, 0, v2_date_b),
+  depth = c(0, 347, 0, 222, 0, v2b_depth),
   ams_sample = c('V1', 'V1', 'V2a', 'V2a', 'V2b', 'V2b')
 )
 
@@ -431,8 +433,9 @@ v1_plot <-
     geom_point(aes(x = v1_C14$depth_cm * 10, y = -1.0)) +
     geom_text(aes(x = v1_C14$depth_cm * 10, y = -1.70), label = "1819-1899 BP", vjust = 1) +
     geom_line(aes(y = smooth)) +
-    ylab("Varve Thickness ASD") +
+    ylab("Varve Thickness Std. Dept.") +
     xlab("") +
+    ylim(c(-2, 5))+
     ggtitle("V1") +
     scale_x_continuous( sec.axis=sec_axis(trans=~ . * (v1_C14$year/(v1_C14$depth_cm*10)), name="Estimated Year (Linear Interpolation)"))+ # scale sec y axis based on c14
     geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed")
@@ -447,7 +450,8 @@ v2_plot <-
     geom_point(aes(x = v2_C14$depth_cm * 10, y = -1.5)) +
     geom_text(aes(x = v2_C14$depth_cm * 10, y = -1.75), label = "1895-2045 BP", vjust = 1) +
     xlab("Core Depth (mm)") +
-    ylab("Varve Thickness ASD") +
+    ylab("Varve Thickness Std. Dept.") +
+    ylim(c(-2, 5)) +
     ggtitle("V2") +
     scale_x_continuous( sec.axis=sec_axis(trans=~ . * (v2_C14$year/(v2_C14$depth_cm*10))))+ # scale sec y axis based on c14
     geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed")
