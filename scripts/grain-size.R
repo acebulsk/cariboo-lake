@@ -63,7 +63,7 @@ v1Perc <- ggplot() +
 #   scale_x_continuous(trans = "reverse") +
 #   facet_wrap(~group)
 
-p <- grid.arrange(v1Plot_yr, v1Perc, ncol=2)
+p <- grid.arrange(v1Plot_yr, v1Perc, ncol=2, widths = c(3, 7))
 
 
 ggsave("figs/grain-size/v1_D50_particlePercent.png", p,  width = 4, height = 8)
@@ -77,7 +77,17 @@ v2 <- read.csv("data/Sediment/Grain Size/CB17_Jan_GranSize_mar23_v2_noFloods.csv
          perc_clay = Result.In.Range....01.2...m, 
          perc_silt = Result.In.Range...2.63...m, 
          perc_sand = Result.In.Range...63.2000...m) %>% 
-  mutate(year_bp = abs(year - 2017))
+  mutate(year_bp = abs(year - 2017)) %>% 
+  filter(notes != "skewed by floods on either side")
+
+v2 %>% 
+  pivot_longer(c(D50, perc_clay:perc_sand)) %>% 
+  ggplot(aes(year_bp, x = value)) +
+  geom_point() +
+  facet_grid(~name, scales = 'free') +
+  xlab("D50 (μm)") +
+  scale_y_continuous(trans = "reverse") +
+  ylab("Year (BP)") 
 
 v2_D50 <- v2 %>% 
   select(depth, year_bp, D50) %>% 
@@ -130,7 +140,7 @@ v2Perc <- ggplot() +
 #   scale_x_continuous(trans = "reverse") +
 #   facet_wrap(~group)
 
-p <- grid.arrange(v2Plot_yr, v2Perc, ncol=2)
+p <- grid.arrange(v2Plot_yr, v2Perc, ncol=2, widths = c(3, 7))
 p
 
 ggsave("figs/v2_D50_particlePercent.png",p,  width = 4, height = 8)
@@ -175,30 +185,41 @@ ams_df <- tibble(
 
 v1_plot <- 
   v1_D50 %>% 
+  mutate(
+    smooth = smoother::smth(x = stdep, method = 'gaussian', window = 5),
+    mvavg = zoo::rollapply(stdep, 3, mean, align = 'center', fill = NA)
+  ) %>% 
   ggplot(aes(x = depth*10)) +
-  geom_point(aes(y = stdep), alpha = 1/4) +
-  geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
-  geom_point(aes(x = v1_C14$depth_cm * 10, y = -1.0)) +
+  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
+ # geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE, colour = "gray") +
+  geom_point(aes(y = stdep), alpha = 1/2) +
+  #geom_line(aes(y = smooth)) +
+  geom_line(aes(y = mvavg), colour = "gray") +
+  geom_point(aes(x = v1_C14$depth_cm * 10, y = -1.5), shape = 4) +
   geom_text(aes(x = v1_C14$depth_cm * 10, y = -1.70), label = "1819-1899 BP", vjust = 1) +
   ylab("D50") +
   xlab("") +
   ggtitle("V1") +
-  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed") +
   scale_x_continuous( sec.axis=sec_axis(trans=~ . * (v1_C14$year/(v1_C14$depth_cm*10)), name="Estimated Year (Linear Interpolation)")) # scale sec y axis based on c14
 v1_plot
 
 v2_plot <- 
   v2_D50 %>% 
+  mutate(
+    smooth = smoother::smth(x = stdep, method = 'gaussian', window = 3),
+    mvavg = zoo::rollapply(stdep, 5, mean, align = 'center', fill = NA)
+  ) %>% 
   ggplot(aes(x = depth*10)) +
-  geom_point(aes(y = stdep), alpha = 1/4) +
-  geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
-  geom_point(aes(x = v2_C14$depth_cm * 10, y = -1.5)) +
+  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
+  geom_point(aes(y = stdep), alpha = 1/2) +
+  #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
+  geom_line(aes(y = mvavg), colour = "gray") +
+  geom_point(aes(x = v2_C14$depth_cm * 10, y = -1.5), shape = 4) +
   geom_text(aes(x = v2_C14$depth_cm * 10, y = -1.75), label = "1895-2045 BP", vjust = 1) +
   ylab("D50") +
   xlab("Core Depth (mm)") +  
   ggtitle("V2") +
-  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ . * (v1_C14$year/(v1_C14$depth_cm*10)), name="Estimated Year (Linear Interpolation)")) # scale sec y axis based on c14
+  scale_x_continuous( sec.axis=sec_axis(trans=~ . * (v2_C14$year/(v2_C14$depth_cm*10)), name="Estimated Year (Linear Interpolation)")) # scale sec y axis based on c14
 
 v2_plot
 
