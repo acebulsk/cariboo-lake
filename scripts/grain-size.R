@@ -19,7 +19,8 @@ v1_D50 <- v1 %>%
   group_by(depth) %>% 
   summarize(across(year_bp:D50, mean)) %>% # averge double samples that were done to confirm smaller grain size at 259 cm
   ungroup() %>% 
-  pivot_longer(D50, names_to = "group", values_to = "D50") 
+  pivot_longer(D50, names_to = "group", values_to = "D50") %>% 
+  mutate(year_bp_new = depth * (v1_C14$year/(v1_C14$depth_cm))) # linear interpolation on AMS date
 
 v1_percentages <- v1 %>% 
   select(depth, year_bp, perc_clay:perc_sand) %>% 
@@ -94,7 +95,8 @@ v2_D50 <- v2 %>%
   group_by(depth) %>% 
   summarize(across(year_bp:D50, mean)) %>% # averge double samples that were done to confirm smaller grain size at 259 cm
   ungroup() %>% 
-  pivot_longer(D50, names_to = "group", values_to = "D50") 
+  pivot_longer(D50, names_to = "group", values_to = "D50") %>% 
+  mutate(year_bp_new = depth * (v2_C14$year/(v2_C14$depth_cm))) # linear interpolation on AMS date
 
 v2_percentages <- v2 %>% 
   select(depth, year_bp, perc_clay:perc_sand) %>% 
@@ -192,13 +194,13 @@ v1_plot <-
   ggplot(aes(x = depth*10)) +
   geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
  # geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE, colour = "gray") +
-  geom_point(aes(y = stdep), alpha = 1/2) +
+  geom_point(aes(y = stdep), alpha = 1) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = mvavg), colour = "gray") +
   geom_point(aes(x = v1_C14$depth_cm * 10, y = -1.5), shape = 4) +
   geom_text(aes(x = v1_C14$depth_cm * 10, y = -1.70), label = "1819-1899 BP", vjust = 1) +
   ylab("D50") +
-  xlab("") +
+  xlab("Core Depth (mm)") +  
   ggtitle("V1") +
   scale_x_continuous( sec.axis=sec_axis(trans=~ . * (v1_C14$year/(v1_C14$depth_cm*10)), name="Estimated Year (Linear Interpolation)")) # scale sec y axis based on c14
 v1_plot
@@ -211,7 +213,7 @@ v2_plot <-
   ) %>% 
   ggplot(aes(x = depth*10)) +
   geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
-  geom_point(aes(y = stdep), alpha = 1/2) +
+  geom_point(aes(y = stdep), alpha = 1) +
   #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
   geom_line(aes(y = mvavg), colour = "gray") +
   geom_point(aes(x = v2_C14$depth_cm * 10, y = -1.5), shape = 4) +
@@ -226,3 +228,13 @@ v2_plot
 p <- grid.arrange(v1_plot, v2_plot, nrow=2)
 
 ggsave("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.png", p,  width = 11, height = 6)
+
+#### combined ####
+
+rbind(v1_D50, v2_D50) %>% 
+  mutate(
+    group = case_when(
+    between(year_bp_new, 1500, 2100) ~ "2100 - 1500",
+    between(year_bp_new, 500, 1499) ~ "1499 - 500",
+    between(year_bp_new, 0, 499) ~ "499 - 0"
+  ))
