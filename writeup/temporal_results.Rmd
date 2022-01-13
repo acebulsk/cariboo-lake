@@ -16,19 +16,19 @@ Four glaciolacustrine sediment cores, which range from 2 – 4 m in length, were
 AMS radiocarbon dates obtained for cores V1 and V2 (Table 1) provide temporal control and evidence of sediment accumulation rates. A small twig from V1 at 347 cm yielded a date of 1899-1819 cal BP. Two separate samples were analyzed from V2, one comprised of a large twig at 222 cm yielding a date of 490-316 cal BP (V2a), and a combination of two separate organic pieces which were combined into one sample, a twig at 286 cm and a pine needle at 294 cm and provided a date of 2045-1895 cal BP (V2b). Figure 2, shows the dating calibration curves derived for the three AMS radiocarbon dates. The date provided for sample V2a, yields a sedimentation rate of 5.51 mm/yr, which is much higher, relative to the rates of 1.87 +/- 0.04 mm/yr and 1.47 +/- 0.11 mm/yr provided for V1 and V2b respectively. Additional sedimentation rates derived from the Ekman surficial cores 13-15 are shown in Fig. 3, which are proximal to the V2 core (see Fig. 1), and exhibit sedimentation rates of 2.24, 2.52, and 2.31 mm/yr respectively. Higher sedimentation rates are expected for the EKman samples are they are not subjected to the same level of compaction as the long cores. Still, the consistency of the EK13-15 sedimentation rates with the V1 and V2b AMS sedimentation rate, suggests that the V2a sample may have been pulled down during the coring process due the large twig size of 4 cm resulting in a erroneously high sedimentation rate for V2a. Since no additional evidence was found to support the V2a sedimentation rate of 5.51 mm/yr, it was not included in subsequent analysis. The AMS radiocarbon dates from samples V1 and V2b, which were consistent with sedimentation rates provided by proximal Ekman surficial cores, provide an important temporal control when interpreting the following sediment analyses. Since the top section of cores V1 and V2 were disturbed, 110 cm for V1 and 70 cm at V2 they do not have a true temporal anchor of 0 yr BP at 0 cm. The AMS radiocarbon dates provide the best temporal control available for both cores.
 
 ```{r map, echo=FALSE, fig.cap = "Location of long cores and Ekman surficial cores."}
-knitr::include_graphics("figs/map.png")
+knitr::include_graphics("../figs/map.png")
 ```
 
 ```{r amsRates, echo=FALSE, fig.cap = "Sediment accumulation rates derived from the three C14 dates for Cores V1 (Red), and V2 (Green and Blue. The black line is the line of best fit through all three ams radio carbon dates."}
-knitr::include_graphics("figs/ams_sed_rates.png")
+knitr::include_graphics("../figs/ams_sed_rates.png")
 ```
 
 ```{r ekRates, echo=FALSE, fig.cap = "Sedimentation rates for Ekman surficial cores proximal to core V2."}
-knitr::include_graphics("figs/ekman_sed_rate_near_V2.png")
+knitr::include_graphics("../figs/ekman_sed_rate_near_V2.png")
 ```
 
 ```{r amsEkRates, echo=FALSE, fig.cap = "Cumulative sedimentation rates for cores V1 and V2 and Ekman surficial cores EK13, 14, and 15 proximal to V2."}
-knitr::include_graphics("figs/sed_rates_V1_V2_ekmans.png")
+knitr::include_graphics("../figs/sed_rates_V1_V2_ekmans.png")
 ```
 
 The sediment laminae chronology from cores V1 and V2 are interpreted as annual couplets or varves. This interpretation was supported by the AMS radiocarbon dated samples from cores V1 and V2 which corresponded reasonably well with the age of the varve at the same depth. However, some error is present in the varve chronology due to the presence of disturbed sections of core, core compaction, undercounting, and subjectivity in classifying flood events. The degree of surface disturbance was larger than expected in both V1 and V2, due to the vibra coring process. This led to sections of the cores without visible laminae couples, primarily near the tops of the cores. A total of 127 cm of the core was disturbed at V1 and 75 cm was disturbed at V2. In the absence of laminae couplets in the disturbed sections, time was interpolated using a 30-year moving average sediment rate (as in Menounos et al., 2008). For core V1, laminae couplets were counted down to the core depth of 347 cm, where the AMS radiocarbon organic material was retrieved, which resulted in a varve estimated date of 1451 BP. Compared to the AMS radiocarbon estimate of 1899 - 1819 cal BP. For core V2 a date of 1886 BP was estimated by laminae couplet counting down to a core depth of 294 cm which matches up closely with the second AMS radiocarbon date of 2045-1895 cal BP of provided for V2. Based on this relatively close agreement between the AMS radiocarbon dated organic material and the varve chronology, laminae couplets at V1 and V2 are considered to be deposited annually. Close alignment was not expected due to the afformentioned error present in the varve counting methodology and the coarse resolution of the AMS radiocarbon date. 
@@ -41,9 +41,13 @@ Higher sedimentation rates were observed proximal to the Cariboo River Delta in 
 
 Fig.\@ref(fig:varves) shows the thickness of sediment varves demonstrate trends in suspended sediment delivery to Cariboo Lake over the past two millennium. The strongest signal in varve thickness occurs between 1250-2000 cal BP where the varve thickness is consistently above average for both cores during this time period. After this, trends in varve thickness between the two cores are not as consistent, but generally remain around average for both cores, aside from a signal of below average from 250-750 cal BP for V1 and 500-1000 cal BP for V2. 
 
-```{r varves, echo=FALSE, fig.cap = "Standardized departure from the mean varve thickness for cores V1 and V2."}
-knitr::include_graphics("figs/sed_rates_V1_V2_ekmans.png")
+```{r varves, echo=FALSE, fig.cap = "Standardized departure from the mean varve thickness for cores V1 and V2. The gray lines represent measured varve thickness, the black line is a 30-year gaussian filter as in (Menounous et al., 2008)."}
+knitr::include_graphics("figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr.png")
 ```
 
 *Grain Size*
 
+Figure \@ref(type:fig) shows the standardized departure from the mean D50 particle size of samples taken at ~5 cm intervals with event-based laminae deposits removed. Grain size fluctuations over the past ~2000 years show good correspondence between cores V1 and V2 deviations observed above the mean from 1500 - 2000 cal BP. From 500 to 1500 cal BP grain size is mainly below average 
+
+```{r particle, echo=FALSE, fig.cap = "Standardized departure from the mean D50 grain size for cores V1 and V2. The black points represent D50 grain size and the gray line is the 3 sample (~100 year average)."}
+knitr::include_graphics("'figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.png'")
