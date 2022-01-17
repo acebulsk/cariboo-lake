@@ -120,10 +120,11 @@ v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
 v2_C14 <- data.frame(depth_cm = 286, year = 1970) # n = 2
 
 ams_df <- tibble(
-  year = c(0, v1_date, 0, v2_date_a, 0, v2_date_b),
+  year_bp = c(0, v1_date, 0, v2_date_a, 0, v2_date_b),
   depth = c(0, 347, 0, 222, 0, v2b_depth),
   ams_sample = c('V1', 'V1', 'V2a', 'V2a', 'V2b', 'V2b')
-)
+) %>% 
+  mutate(year_ce = 2017 - year_bp)
 
 # Look at regression not through origin 
 
@@ -132,12 +133,11 @@ ams_scatter <- ams_df %>%
 
 scatter <- lm(depth ~ year, data = ams_scatter) # vibro ams point not through the origin 
 
-ggplot(ams_df, aes(year, depth, colour = ams_sample)) +
+ggplot(ams_df, aes(year_bp, depth, colour = ams_sample)) +
   geom_point() +
   scale_y_continuous(trans = 'reverse') +
   geom_smooth(method = 'lm', se = F, linetype = "dashed", size= 0.5) +
   geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
-  scale_y_continuous(trans = 'reverse') +
   xlab("Mid-Point Cal Year (BP)") +
   ylab("Core Depth (cm)")
 
@@ -146,23 +146,26 @@ ggsave('figs/ams_sed_rates.png', width = 6, height = 4.5)
 
 vibro_sed_rates <- ams_df %>% 
   group_by(ams_sample) %>% 
-  do(model = lm(depth ~ year, data = .)) %>% 
+  do(model = lm(depth ~ year_bp, data = .)) %>% 
   mutate(sed_rates = summary(model)$coeff[2] * 10) %>% # cm to mm
   select(-model)
 
 # make our ek_v2 df compatible so we can plot all together 
 ek_v2_cln <- ek_v2 %>% 
-  select(year = yr_bp, depth = cumul_depth_mm, core_num) %>% 
+  select(year_bp = yr_bp, depth = cumul_depth_mm, core_num) %>% 
   mutate(depth = depth / 10)
 
 # make our ek_v1 df compatible so we can plot all together 
 ek_v1_cln <- ek_v1 %>% 
-  select(year = yr_bp, depth = cumul_depth_mm, core_num) %>% 
+  select(year_bp = yr_bp, depth = cumul_depth_mm, core_num) %>% 
   mutate(depth = depth / 10)
 
-all_df <- rbind(ams_df %>% rename(core_num = ams_sample), ek_v2_cln) #%>% rbind(ek_v1_cln)
+all_df <- rbind(ams_df %>% 
+                  rename(core_num = ams_sample) %>% 
+                  select(year_bp, depth, core_num), 
+                  ek_v2_cln) #%>% rbind(ek_v1_cln)
 
-ggplot(all_df, aes(year, depth, colour = core_num)) +
+ggplot(all_df, aes(year_bp, depth, colour = core_num)) +
   geom_point() +
   geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=T, linetype = "dashed", size= 0.5) +
   geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
@@ -222,7 +225,10 @@ v1 <- v1 %>%
       lyr_flag == T ~ interp_yr,
       TRUE ~ 1
     ),
-    year_BP = cumsum(year_for_add)
+    year_BP = cumsum(year_for_add),
+    year_CE = 2017 - year_BP,
+    year_bp_lin_interp = core_depth * ((v1_C14$year)/(v1_C14$depth_cm*10)),
+    year_ce_lin_interp = 2017 - year_bp_lin_interp
   )
 
 v1.sd.fltr <- sd(v1$lyr_mm_cln, na.rm = T)
@@ -308,7 +314,10 @@ v2 <- v2 %>%
       lyr_flag == T ~ interp_yr,
       TRUE ~ 1
     ),
-    year_BP = cumsum(year_for_add)
+    year_BP = cumsum(year_for_add),
+    year_CE = 2017 - year_BP,
+    year_bp_lin_interp = core_depth * ((v2_C14$year)/(v2_C14$depth_cm*10)),
+    year_ce_lin_interp = 2017 - year_bp_lin_interp
   )
 
 v2.sd.fltr <- sd(v2$lyr_mm_cln, na.rm = T)
@@ -384,7 +393,8 @@ long_core_cln <- comb %>%
   select(year = year_BP, depth = core_depth, core) %>% 
   mutate(depth = depth / 10)
 
-all_df <- rbind(ams_df_cln, long_core_cln)
+all_df <- rbind(ams_df_cln %>%  select(year = year_bp, depth, core), long_core_cln) %>%
+  mutate(year_CE = 2017 - year)
 
 ggplot(all_df, aes(year, depth, colour = core)) +
   geom_point() +
@@ -412,32 +422,19 @@ gaus <- comb %>%
     smooth = smoother::smth(x = lyr_mm_stdep_fill, method = 'gaussian', window = 50)
   ) %>% dplyr::ungroup()
 
-ggplot(gaus) + 
-  geom_line(aes(core_depth, lyr_mm_stdep_fltr), alpha = 1/4) +
-  geom_line(aes(x = core_depth, y = smooth)) +
-  facet_wrap(~core, nrow = 2)
-
-  geom_point(aes(x = v2_C14$depth_cm, y = -1.5)) +
-  geom_text(aes(x = v2_C14$depth_cm, y = -1.75), label = "1895-2045 BP", vjust = 1) +
-  xlim(0, 290) +
-  ylab("Varve Thickness ASD") +
-  ggtitle("V2") +
-  scale_x_continuous(sec.axis=sec_axis(trans=~ . * (v2_C14$year/v2_C14$depth_cm), name="Estimated Year (Linear Interpolation)"))+ # scale sec y axis based on c14
-  geom_smooth(aes(depth_cm, ASD), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed")
-
 v1_plot <- 
   gaus %>% 
   filter(core == "V1") %>% 
   ggplot(aes(x = core_depth)) +
     geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
-    geom_point(aes(x = v1_C14$depth_cm * 10, y = -1.0)) +
-    geom_text(aes(x = v1_C14$depth_cm * 10, y = -1.70), label = "1819-1899 BP", vjust = 1) +
+    geom_point(aes(x = v1_C14$depth_cm * 10, y = -1.5)) +
+    geom_text(aes(x = v1_C14$depth_cm * 10, y = -1.70), label = "47 ± 75 yr. CE", vjust = 1) +
     geom_line(aes(y = smooth)) +
     ylab("Varve Thickness Std. Dept.") +
     xlab("") +
     ylim(c(-2, 5))+
     ggtitle("V1") +
-    scale_x_continuous( sec.axis=sec_axis(trans=~ . * (v1_C14$year/(v1_C14$depth_cm*10)), name="Estimated Year (Linear Interpolation)"))+ # scale sec y axis based on c14
+    scale_x_continuous(sec.axis=sec_axis(trans=~ 2017 - (. * ((v1_C14$year)/(v1_C14$depth_cm*10))), name="Year (CE)"))+ # scale sec y axis based on c14
     geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed")
 v1_plot
 
@@ -448,12 +445,14 @@ v2_plot <-
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
   geom_line(aes(y = smooth)) +
     geom_point(aes(x = v2_C14$depth_cm * 10, y = -1.5)) +
-    geom_text(aes(x = v2_C14$depth_cm * 10, y = -1.75), label = "1895-2045 BP", vjust = 1) +
+    geom_text(aes(x = v2_C14$depth_cm * 10, y = -1.75), label = "158 ± 40 yr. CE", vjust = 1) +
     xlab("Core Depth (mm)") +
     ylab("Varve Thickness Std. Dept.") +
     ylim(c(-2, 5)) +
     ggtitle("V2") +
-    scale_x_continuous( sec.axis=sec_axis(trans=~ . * (v2_C14$year/(v2_C14$depth_cm*10))))+ # scale sec y axis based on c14
+    scale_x_continuous(
+      sec.axis=sec_axis(
+        trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)"))+ # scale sec y axis based on c14
     geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed")
   
 v2_plot
