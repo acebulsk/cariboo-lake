@@ -406,7 +406,7 @@ ggplot(all_df, aes(year, depth, colour = core)) +
 
 ggsave('figs/longcore_cumulative_depth_vs_estimated_year_w_ams.png', width = 6, height = 4.5)
 
-#### Gaussian Smoothing Function ####
+#### Smoothing Functions ####
 comb$core[comb$core == 'V1_varve'] = "V1"
 comb$core[comb$core == 'V2_varve'] = "V2"
 
@@ -419,8 +419,25 @@ gaus <- comb %>%
         lyr_flag == F ~ lyr_mm_stdep
       ),
     lyr_mm_stdep_fill = imputeTS::na_interpolation(lyr_mm_stdep_fltr),
-    smooth = smoother::smth(x = lyr_mm_stdep_fill, method = 'gaussian', window = 50)
-  ) %>% dplyr::ungroup()
+    ma_30 = rollapply(lyr_mm_stdep_fltr, width = 30, by = 1, FUN = mean, na.rm = T, align = "center", partial = T), # partial defines minimum number of objects to continue 25yr window. set 3 to get data point at end of dataset 
+    smooth = smoother::smth(x = lyr_mm_stdep_fill, method = 'gaussian', window = 30)
+  ) %>% 
+  dplyr::ungroup() %>% 
+  mutate(
+    ma_30 = case_when(
+      is.na(lyr_mm_stdep_fltr) ~ lyr_mm_stdep_fltr,
+      TRUE ~ ma_30
+    )
+  )
+
+
+# remove some outlier points on the graph 
+
+# gaus$ma_30[gaus$core_depth == 1029.454] = NA
+# gaus$ma_30[gaus$core_depth == 1031.924] = NA
+# gaus$ma_30[gaus$core_depth == 479.264 & gaus$core == "V2"] = NA
+
+
 
 v1_plot <- 
   gaus %>% 
@@ -429,21 +446,26 @@ v1_plot <-
     geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
     geom_point(aes(x = v1_C14$depth_cm * 10, y = -1.5)) +
     geom_text(aes(x = v1_C14$depth_cm * 10, y = -1.70), label = "47 ± 75 yr. CE", vjust = 1) +
-    geom_line(aes(y = smooth)) +
+    #geom_line(aes(y = smooth)) +
+    geom_line(aes(y = ma_30)) +
     ylab("Varve Thickness Std. Dept.") +
-    xlab("") +
+    xlab("Core Depth (mm)") +
     ylim(c(-2, 5))+
     ggtitle("V1") +
     scale_x_continuous(sec.axis=sec_axis(trans=~ 2017 - (. * ((v1_C14$year)/(v1_C14$depth_cm*10))), name="Year (CE)"))+ # scale sec y axis based on c14
-    geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed")
+    geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed")+
+  theme_classic()
 v1_plot
+
+ggplotly((v1_plot))
 
 v2_plot <- 
   gaus %>% 
   filter(core == "V2") %>% 
   ggplot(aes(x = core_depth)) +
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
-  geom_line(aes(y = smooth)) +
+  geom_line(aes(y = ma_30)) +
+  # geom_line(aes(y = smooth)) +
     geom_point(aes(x = v2_C14$depth_cm * 10, y = -1.5)) +
     geom_text(aes(x = v2_C14$depth_cm * 10, y = -1.75), label = "158 ± 40 yr. CE", vjust = 1) +
     xlab("Core Depth (mm)") +
@@ -453,10 +475,13 @@ v2_plot <-
     scale_x_continuous(
       sec.axis=sec_axis(
         trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)"))+ # scale sec y axis based on c14
-    geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed")
+    geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed")+
+  theme_classic()
   
 v2_plot
+ggplotly((v2_plot))
+
   
 p <- grid.arrange(v1_plot, v2_plot, nrow=2)
 
-ggsave("figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr.png", p,  width = 11, height = 6)
+ggsave("figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png", p,  width = 11, height = 6)
