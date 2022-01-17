@@ -4,6 +4,29 @@ library(plotly)
 library(gridExtra)
 library(tidyr)
 
+## carbon dates ##
+# A small twig from V1 at 347 cm results in a date of 1899-1819 cal BP. 
+# A 4 cm long twig from V2 at 222 cm results in a date of 490-316 cal BP. 
+# Since the first date from V2 was much younger than than expected, 
+# a second sample from V2 was analyzed by combining a small twig at 286 cm and pine needle at 294 cm. 
+# A date of 2045-1895 cal BP was determined.
+
+v1_date <- (1899 + 1819) / 2 # mid point yr for v1 @ 347 cm
+
+v1_C14 <- data.frame(depth_cm = 347, year = v1_date) # n = 1
+
+v2b_depth <- (286 + 294) / 2 # avg depth for combined V2 sample
+
+v2_date_b <- (2045 + 1895) / 2 # mid point yr for v2 @ 286 + 294 cm
+v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
+
+v2_C14 <- data.frame(depth_cm = 286, year = 1970) # n = 2
+
+ams_df <- tibble(
+  year = c(0, v1_date, 0, v2_date_a, 0, v2_date_b),
+  depth = c(0, 347, 0, 222, 0, v2b_depth),
+  ams_sample = c('V1', 'V1', 'V2a', 'V2a', 'V2b', 'V2b')
+)
 v1 <- read.csv("data/Sediment/Grain Size/CB17_Jan_GranSize_mar23_v1_noFloods.csv") %>% 
   rename(depth = Depth..cm., 
          year = Year..AD., 
@@ -15,19 +38,23 @@ v1 <- read.csv("data/Sediment/Grain Size/CB17_Jan_GranSize_mar23_v1_noFloods.csv
   mutate(year_bp = abs(year - 2017))
 
 v1_D50 <- v1 %>% 
-  select(depth, year_bp, D50) %>% 
+  select(depth, year, D50) %>% 
   group_by(depth) %>% 
-  summarize(across(year_bp:D50, mean)) %>% # averge double samples that were done to confirm smaller grain size at 259 cm
+  summarize(across(year:D50, mean)) %>% # averge double samples that were done to confirm smaller grain size at 259 cm
   ungroup() %>% 
   pivot_longer(D50, names_to = "group", values_to = "D50") %>% 
-  mutate(year_bp_new = depth * (v1_C14$year/(v1_C14$depth_cm))) # linear interpolation on AMS date
+  mutate(year_bp_new = depth * (v1_C14$year/(v1_C14$depth_cm)),
+         year_ce_new = 2017 - year_bp_new)  # linear interpolation on AMS date
 
 v1_percentages <- v1 %>% 
   select(depth, year_bp, perc_clay:perc_sand) %>% 
   group_by(depth) %>% 
   summarize(across(year_bp:perc_sand, mean)) %>%  # averge double samples that were done to confirm smaller grain size at 259 cm
   ungroup() %>% 
-  pivot_longer(perc_clay:perc_sand, names_to = "group", values_to = "perc") 
+  pivot_longer(perc_clay:perc_sand, names_to = "group", values_to = "perc") %>% 
+  mutate(year_bp_new = depth * (v1_C14$year/(v1_C14$depth_cm)),
+         year_ce_new = 2017 - year_bp_new)  # linear interpolation on AMS date
+
 v1_percentages$group <- factor(v1_percentages$group, c("perc_sand", "perc_silt", "perc_clay"))
 
 
@@ -38,15 +65,15 @@ v1Plot <- ggplot(data = v1, aes(y = depth, x = D50)) +
   ylab("Depth (cm)") +
   scale_y_continuous(trans = "reverse")
 
-v1Plot_yr <- ggplot(data = v1_D50, aes(y = year_bp, x = D50)) +
+v1Plot_yr <- ggplot(data = v1_D50, aes(y = year_ce_new, x = D50)) +
   geom_point() +
   xlab("D50 (μm)") +
-  ylab("Year (BP)") +
-  scale_y_continuous(trans = "reverse")
+  ylab("Year (CE)") #+
+  #scale_y_continuous(trans = "reverse")
 
 
 v1Perc <- ggplot() +
-  geom_area(data = v1_percentages, aes(x = year_bp, y = perc, group = group, fill = group), position = "fill") +
+  geom_area(data = v1_percentages, aes(x = year_ce_new, y = perc, group = group, fill = group), position = "fill") +
   # geom_point(data = v1_D50, aes(y = D50, x = depth)) +
   coord_flip() +
   ylab("Percentage") +
@@ -67,7 +94,7 @@ v1Perc <- ggplot() +
 p <- grid.arrange(v1Plot_yr, v1Perc, ncol=2, widths = c(3, 7))
 
 
-ggsave("figs/grain-size/v1_D50_particlePercent.png", p,  width = 4, height = 8)
+ggsave("figs/grain-size/v1_D50_particlePercent.png", p,  width = 6, height = 8)
 
 ##### V2 #####
 
@@ -88,7 +115,7 @@ v2 %>%
   facet_grid(~name, scales = 'free') +
   xlab("D50 (μm)") +
   scale_y_continuous(trans = "reverse") +
-  ylab("Year (BP)") 
+  ylab("Year (CE)") 
 
 v2_D50 <- v2 %>% 
   select(depth, year_bp, D50) %>% 
@@ -96,14 +123,18 @@ v2_D50 <- v2 %>%
   summarize(across(year_bp:D50, mean)) %>% # averge double samples that were done to confirm smaller grain size at 259 cm
   ungroup() %>% 
   pivot_longer(D50, names_to = "group", values_to = "D50") %>% 
-  mutate(year_bp_new = depth * (v2_C14$year/(v2_C14$depth_cm))) # linear interpolation on AMS date
+  mutate(year_bp_new = depth * (v2_C14$year/(v2_C14$depth_cm)),
+         year_ce_new = 2017 - year_bp_new) # linear interpolation on AMS date
 
 v2_percentages <- v2 %>% 
   select(depth, year_bp, perc_clay:perc_sand) %>% 
   group_by(depth) %>% 
   summarize(across(perc_clay:perc_sand, mean)) %>%  # averge double samples that were done to confirm smaller grain size at 259 cm
   ungroup() %>% 
-  pivot_longer(perc_clay:perc_sand, names_to = "group", values_to = "perc") 
+  pivot_longer(perc_clay:perc_sand, names_to = "group", values_to = "perc")  %>% 
+  mutate(year_bp_new = depth * (v2_C14$year/(v2_C14$depth_cm)),
+         year_ce_new = 2017 - year_bp_new) # linear interpolation on AMS date
+
 v2_percentages$group <- factor(v2_percentages$group, c("perc_sand", "perc_silt", "perc_clay"))
 
 
@@ -114,17 +145,17 @@ v2Plot <- ggplot(data = v2_D50, aes(y = depth, x = D50)) +
   ylab("Depth (cm)") +
   scale_y_continuous(trans = "reverse")
 
-v2Plot_yr <- ggplot(data = v2_D50, aes(y = year_bp, x = D50)) +
+v2Plot_yr <- ggplot(data = v2_D50, aes(y = year_ce_new, x = D50)) +
   geom_point() +
   xlab("D50 (μm)") +
-  scale_y_continuous(trans = "reverse") +
-  ylab("Year (BP)") 
+  # scale_y_continuous(trans = "reverse") +
+  ylab("Year (CE)") 
 
 cbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 
 v2Perc <- ggplot() +
-  geom_area(data = v2_percentages, aes(x = depth, y = perc, group = group, fill = group), position = "fill") +
+  geom_area(data = v2_percentages, aes(x = year_ce_new, y = perc, group = group, fill = group), position = "fill") +
   # geom_point(data = v2_D50, aes(y = D50, x = depth)) +
   coord_flip() +
   ylab("Percent") +
@@ -160,36 +191,14 @@ v2.mean.fltr <- mean(v2_D50$D50, na.rm = T)
 
 v2_D50$stdep <- (v2_D50$D50 - v2.mean.fltr)/v2.sd.fltr
 
-## carbon dates ##
-# A small twig from V1 at 347 cm results in a date of 1899-1819 cal BP. 
-# A 4 cm long twig from V2 at 222 cm results in a date of 490-316 cal BP. 
-# Since the first date from V2 was much younger than than expected, 
-# a second sample from V2 was analyzed by combining a small twig at 286 cm and pine needle at 294 cm. 
-# A date of 2045-1895 cal BP was determined.
 
 # plot on depth 
-v1_date <- (1899 + 1819) / 2 # mid point yr for v1 @ 347 cm
-
-v1_C14 <- data.frame(depth_cm = 347, year = v1_date) # n = 1
-
-v2b_depth <- (286 + 294) / 2 # avg depth for combined V2 sample
-
-v2_date_b <- (2045 + 1895) / 2 # mid point yr for v2 @ 286 + 294 cm
-v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
-
-v2_C14 <- data.frame(depth_cm = 286, year = 1970) # n = 2
-
-ams_df <- tibble(
-  year = c(0, v1_date, 0, v2_date_a, 0, v2_date_b),
-  depth = c(0, 347, 0, 222, 0, v2b_depth),
-  ams_sample = c('V1', 'V1', 'V2a', 'V2a', 'V2b', 'V2b')
-)
 
 v1_plot <- 
   v1_D50 %>% 
   mutate(
     smooth = smoother::smth(x = stdep, method = 'gaussian', window = 5),
-    mvavg = zoo::rollapply(stdep, 3, mean, align = 'center', fill = NA)
+    mvavg = zoo::rollapply(stdep, width = 3, by = 1, FUN = mean, na.rm = T, align = "center", partial = T)
   ) %>% 
   ggplot(aes(x = depth*10)) +
   geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
@@ -202,7 +211,7 @@ v1_plot <-
   ylab("D50") +
   xlab("Core Depth (mm)") +  
   ggtitle("V1") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ . * (v1_C14$year/(v1_C14$depth_cm*10)), name="Estimated Year (Linear Interpolation)")) # scale sec y axis based on c14
+  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v1_C14$year/(v1_C14$depth_cm*10))), name="Year (CE)")) # scale sec y axis based on c14
 v1_plot
 
 v2_plot <- 
@@ -221,7 +230,7 @@ v2_plot <-
   ylab("D50") +
   xlab("Core Depth (mm)") +  
   ggtitle("V2") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ . * (v2_C14$year/(v2_C14$depth_cm*10)), name="Estimated Year (Linear Interpolation)")) # scale sec y axis based on c14
+  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)")) # scale sec y axis based on c14
 
 v2_plot
 
