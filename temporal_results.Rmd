@@ -16,15 +16,15 @@ Four glaciolacustrine sediment cores, which range from 2 – 4 m in length, were
 AMS radiocarbon dates obtained for cores V1 and V2 (Table 1) provide temporal control and evidence of sediment accumulation rates. A small twig from V1 at 347 cm yielded a date of 1899-1819 cal BP. Two separate samples were analyzed from V2, one comprised of a large twig at 222 cm yielding a date of 490-316 cal BP (V2a), and a combination of two separate organic pieces which were combined into one sample, a twig at 286 cm and a pine needle at 294 cm and provided a date of 2045-1895 cal BP (V2b). Figure 2, shows the dating calibration curves derived for the three AMS radiocarbon dates. The date provided for sample V2a, yields a sedimentation rate of 5.51 mm/yr, which is much higher, relative to the rates of 1.87 +/- 0.04 mm/yr and 1.47 +/- 0.11 mm/yr provided for V1 and V2b respectively. Additional sedimentation rates derived from the Ekman surficial cores 13-15 are shown in Fig. 3, which are proximal to the V2 core (see Fig. 1), and exhibit sedimentation rates of 2.24, 2.52, and 2.31 mm/yr respectively. Higher sedimentation rates are expected for the EKman samples are they are not subjected to the same level of compaction as the long cores. Still, the consistency of the EK13-15 sedimentation rates with the V1 and V2b AMS sedimentation rate, suggests that the V2a sample may have been pulled down during the coring process due the large twig size of 4 cm resulting in a erroneously high sedimentation rate for V2a. Since no additional evidence was found to support the V2a sedimentation rate of 5.51 mm/yr, it was not included in subsequent analysis. The AMS radiocarbon dates from samples V1 and V2b, which were consistent with sedimentation rates provided by proximal Ekman surficial cores, provide an important temporal control when interpreting the following sediment analyses. Since the top section of cores V1 and V2 were disturbed, 110 cm for V1 and 70 cm at V2 they do not have a true temporal anchor of 0 yr BP at 0 cm. The AMS radiocarbon dates provide the best temporal control available for both cores.
 
 ```{r map, echo=FALSE, fig.cap = "Location of long cores and Ekman surficial cores."}
-knitr::include_graphics("../figs/map.png")
+knitr::include_graphics("figs/map.png")
 ```
 
 ```{r amsRates, echo=FALSE, fig.cap = "Sediment accumulation rates derived from the three C14 dates for Cores V1 (Red), and V2 (Green and Blue. The black line is the line of best fit through all three ams radio carbon dates."}
-knitr::include_graphics("../figs/ams_sed_rates.png")
+knitr::include_graphics("figs/ams_sed_rates.png")
 ```
 
 ```{r ekRates, echo=FALSE, fig.cap = "Sedimentation rates for Ekman surficial cores proximal to core V2."}
-knitr::include_graphics("../figs/ekman_sed_rate_near_V2.png")
+knitr::include_graphics("figs/ekman_sed_rate_near_V2.png")
 ```
 
 ```{r amsEkRates, echo=FALSE, fig.cap = "Cumulative sedimentation rates for cores V1 and V2 and Ekman surficial cores EK13, 14, and 15 proximal to V2."}
@@ -41,11 +41,7 @@ Higher sedimentation rates were observed proximal to the Cariboo River Delta in 
 
 Fig.\@ref(fig:varves) shows varve thickness measured from V1 and V2, which illustrates trends in suspended sediment delivery to Cariboo Lake at sub-decadal to centennial time scales. At V1, the 30-year average varve thickness remains above average from CE 0-600, 850-950, 1000-1100, 1150-1200 and below average between CE 800-850, 950-1000, 1100-1150, and 1200-1850. At V2, varve thickness is above average between 0-250, 350-450, 550-600, 1500-1600, 1700-1800, and 1900-1950 and below average between: 250-350, 450-550, 1950-1500, 1450-1500, 1800-1900. Above average varve thickness is consistent between V1 and V2 between 0-500 CE, with a stronger signal observed for V1 which is closer to the main Cariboo River outlet. Below average varve thickness is observed at both V1 and V2 between 1000-1500 CE, with a stronger signal at V2. After this, trends in varve thickness between the two cores are not consistent, but generally remain below average for V1 and above average for V2. Sub-centennial trends are not reported due to the coarse temporal control for both V1 and V2. 
 
-```{r varves-a, echo=FALSE, fig.cap = "Standardized departure from the mean varve thickness for cores V1 and V2. The gray lines represent measured varve thickness, the black line is a 30-year gaussian filter as in (Menounous et al., 2008). The top axes, labelelled Year (CE), was estimated using linear interpolation from the AMS radiocarbon dates. The black points on the bottom graph of V1 and V2 denote the AMS radiocarbon age and depth of the respective sample.}
-knitr::include_graphics("figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr.png")
-```
-
-```{r varves-b, echo=FALSE, fig.cap = "Standardized departure from the mean varve thickness for cores V1 and V2. The gray lines represent measured varve thickness, the black line is a 30-year moving average, gaps correspond to portions of the core that did not have discernible varves. The top axes, labelelled Year (CE), was estimated using linear interpolation from the AMS radiocarbon dates. The black points on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample.}
+```{r varves-b, echo=FALSE, fig.cap = "Standardized departure from the mean varve thickness for cores V1 and V2. The gray lines represent measured varve thickness, the black line is a 30-year moving average, gaps correspond to portions of the core that did not have discernible varves. The top axes, labelelled Year (CE), was estimated using linear interpolation from the AMS radiocarbon dates. The black points on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
 knitr::include_graphics("figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png")
 ```
 
@@ -53,5 +49,5 @@ knitr::include_graphics("figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.pn
 
 Figure \@ref(fig:particle) shows grain size for both V1 and V2 is above average between 0-500 CE and below average from 700-1500 CE. After 1500 CE grain size follows an increasing trend at V1 and remains around average at V2 until 1950 CE and sharply increases. Overall, grain size fluctuations over the past 2000 years show good correspondence between cores V1 and V2. 
 
-```{r particle, echo=FALSE, fig.cap = "Standardized departure from the mean D50 grain size for cores V1 and V2. The black points represent D50 particle size and the gray line is the 3 sample (~100 year) moving average. The top axes, are calculated as per Figure \@ref(type:fig)."}
-knitr::include_graphics("'figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.png'")
+```{r particle, echo=FALSE, fig.cap = "Standardized departure from the mean D50 grain size for cores V1 and V2. The black points represent D50 particle size and the gray line is the 3 sample (~100 year) moving average. The top axes, are calculated as per Figure X."}
+knitr::include_graphics("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.png")

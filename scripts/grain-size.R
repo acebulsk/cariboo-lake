@@ -240,10 +240,10 @@ ggsave("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.png", p,  width 
 
 #### combined ####
 
-rbind(v1_D50, v2_D50) %>% 
-  mutate(
-    group = case_when(
-    between(year_bp_new, 1500, 2100) ~ "2100 - 1500",
-    between(year_bp_new, 500, 1499) ~ "1499 - 500",
-    between(year_bp_new, 0, 499) ~ "499 - 0"
-  ))
+# rbind(v1_D50, v2_D50) %>% 
+#   mutate(
+#     group = case_when(
+#     between(year_bp_new, 1500, 2100) ~ "2100 - 1500",
+#     between(year_bp_new, 500, 1499) ~ "1499 - 500",
+#     between(year_bp_new, 0, 499) ~ "499 - 0"
+#   ))
