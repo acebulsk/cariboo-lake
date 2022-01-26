@@ -207,12 +207,13 @@ v1_plot <-
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = mvavg), colour = "gray") +
   geom_point(aes(x = v1_C14$depth_cm * 10, y = -1.5), shape = 4) +
-  geom_text(aes(x = v1_C14$depth_cm * 10, y = -1.70), label = "1819-1899 BP", vjust = 1) +
-  ylab("D50") +
+  geom_text(aes(x = v1_C14$depth_cm * 10, y = -1.70), label = "47 ± 75 yr. CE", vjust = 1) +
+  ylab("D50 Std. Dept.") +
   xlab("Core Depth (mm)") +  
   ggtitle("V1") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v1_C14$year/(v1_C14$depth_cm*10))), name="Year (CE)")) # scale sec y axis based on c14
-v1_plot
+  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v1_C14$year/(v1_C14$depth_cm*10))), name="Year (CE)")) + # scale sec y axis based on c14
+  theme_classic()
+  v1_plot
 
 v2_plot <- 
   v2_D50 %>% 
@@ -226,12 +227,12 @@ v2_plot <-
   #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
   geom_line(aes(y = mvavg), colour = "gray") +
   geom_point(aes(x = v2_C14$depth_cm * 10, y = -1.5), shape = 4) +
-  geom_text(aes(x = v2_C14$depth_cm * 10, y = -1.75), label = "1895-2045 BP", vjust = 1) +
-  ylab("D50") +
+  geom_text(aes(x = v2_C14$depth_cm * 10, y = -1.75), label = "158 ± 40 yr. CE", vjust = 1) +
+  ylab("D50 Std. Dept.") +
   xlab("Core Depth (mm)") +  
   ggtitle("V2") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)")) # scale sec y axis based on c14
-
+  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)")) + # scale sec y axis based on c14
+  theme_classic()
 v2_plot
 
 p <- grid.arrange(v1_plot, v2_plot, nrow=2)
