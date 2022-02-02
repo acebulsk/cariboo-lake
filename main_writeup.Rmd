@@ -12,12 +12,12 @@ header-includes:
 
 ## Introduction
 
+
 ## Study Area
 
-Cariboo Lake is located in the foothills of the northern Columbia Mountains, 85 km northeast of Williams Lake, British Columbia \@ref(fig:map1). The lake receives runoff from an area of 3242 km^2^, and the watershed relief ranges from 2600 m asl in the headwaters to 600 m asl at the Cariboo Lake outlet. The Cariboo Lake watershed has 80 km ^2^ (as of 2017) of permanent ice cover which covers 2.4% of the total watershed. The most extensive glaciated terrain is proximal to Mt. Lunn roughly 60 km upstream of Cariboo Lake.
+Cariboo Lake is located in the northern foothills of the Columbia Mountains, 85 km northeast of Williams Lake, British Columbia \@ref(fig:map1). The lake receives runoff from an area of 3242 km^2^, and the watershed relief ranges from 2600 m asl in the headwaters to 600 m asl at the Cariboo Lake outlet. The Cariboo Lake watershed has 80 km ^2^ (as of 2017) of permanent ice cover which covers 2.4% of the total watershed. The most extensive glaciated terrain is proximal to Mt. Lunn roughly 60 km upstream of Cariboo Lake.
 
-The Cariboo River, located on the east end of the lake provides the main input of sediment into the lake.
-The bathymetry of Cariboo Lake shows evidence of past glacial scouring, indicated by deep scour channels \@ref(fig:map2). The lake is separated into two main basins, by the Keithley Creek fan delta. The upstream basin is called the main Cariboo Lake basin, and the downstream basin is called the Kiethley Creek basin. The bathymetry of the lake reaches a maximum depth of over 50 m in two scour channels within the cental part of the main Cariboo Lake basin. 
+The Cariboo River, located on the east end of the lake provides the main source of sediment into the lake. The bathymetry of Cariboo Lake shows evidence of past glacial scouring, indicated by deep scour channels \@ref(fig:map2). The lake is separated into two main basins, by the Keithley Creek fan delta. The upstream basin is called the main Cariboo Lake basin, and the downstream basin is called the Keithley Creek basin. The bathymetry of the lake reaches a maximum depth of over 50 m in two scour channels within the central part of the main Cariboo Lake basin. 
 
 
 
@@ -30,3 +30,13 @@ knitr::include_graphics("figs/map.png")
 ```
 
 Sediment connectivity to headwater glaciers along the Cariboo River is limited due to lake filtering by Lanezi and Sandy lake. Lanezi Lake is a deep fjord lake with a bathymetry reaching a maximum depth of 170 m. Sandy Lake is much shallower reaching a maximum depth of 6 m. The Matthews River, which meets the Cariboo River just below Lanezi Lake provides less filtered connection to meltwater from several alpine glaciers including the largest chunk of ice in the Cariboo Lake watershed, the Roberts Peak Galcier.
+
+## Methods
+
+*Field Methods*
+
+Thirty-four km of sub-bottom acoustic survey was collected across Cariboo Lake using a 10 kHz StrataBox 3510 HD. An Ekman dredge was used to collect ~10 cm^3^ cubes of sediment from the lake bottom. The dredge samples were subsampled using 80 mm diameter PVC pipe cylinders pushed into the block of sediment. The remaining sediment was kept as a bulk sediment sample. Four sediment cores (V1-V4) were collected using a Rossfelder submersible vibracorer with a 6 m long 70 mm diameter alluminum pipe. The Ekman subsample cores and the vibracores were split longitudinally with one half preserved as an archive and the other as a workgin half. The working half samples were prepared for imaging by scraping the core parallel to the sediment laminae to better illustrate the sediment stratigraphy. The stratigraphy of cores V1 and V2 were best preserved and were selected for detailed analysis. 
+
+*Laboratory Methods*
+
+The chronology of both cores was provided by AMS ^14^C dating of wood fragments and varve chronology. The Ekman dredge bulk samples were subsampled using a 2 mm sieve. Cores V1 and V2 were subsampled with 2 cm^3^ of sediment extracted at a 5 cm interval, with additional samples taken within stratigraphic breaks. Laminae couplets were digitally counted and measured for thickness using the ImageJ @imageJcite software. A loss-on-ignition analysis (550 °C) was conducted following methods in @Smith2003. Grain size analysis was provided by a Mastersizer Particle Size Analyzer 3000. Samples were prepared following methods by @Gray2010, which involved a removal of organic material using three sequential alloquots of 20% H202 unil the sample stopped reacting. To prevent flocculation of sediment grains the samples were dispersed in 0.05% solution of Calgon for 24 hours.
