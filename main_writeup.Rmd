@@ -1,0 +1,32 @@
+---
+title: "The Glaciolacustrine Sediment Record of Cariboo Lake, BC: Implications for Holocene Fluvial and Glacial Watershed Dynamics"
+author: "A. Cebulski, J. Desloges"
+date: "Feb 2, 2017"
+output:
+  bookdown::pdf_document2:
+      keep_tex: false
+header-includes:
+   - \usepackage{caption}
+   - \captionsetup[figure]{font=footnotesize}
+---
+
+## Introduction
+
+## Study Area
+
+Cariboo Lake is located in the foothills of the northern Columbia Mountains, 85 km northeast of Williams Lake, British Columbia \@ref(fig:map1). The lake receives runoff from an area of 3242 km^2^, and the watershed relief ranges from 2600 m asl in the headwaters to 600 m asl at the Cariboo Lake outlet. The Cariboo Lake watershed has 80 km ^2^ (as of 2017) of permanent ice cover which covers 2.4% of the total watershed. The most extensive glaciated terrain is proximal to Mt. Lunn roughly 60 km upstream of Cariboo Lake.
+
+The Cariboo River, located on the east end of the lake provides the main input of sediment into the lake.
+The bathymetry of Cariboo Lake shows evidence of past glacial scouring, indicated by deep scour channels \@ref(fig:map2). The lake is separated into two main basins, by the Keithley Creek fan delta. The upstream basin is called the main Cariboo Lake basin, and the downstream basin is called the Kiethley Creek basin. The bathymetry of the lake reaches a maximum depth of over 50 m in two scour channels within the cental part of the main Cariboo Lake basin. 
+
+
+
+```{r map1, echo=FALSE, fig.cap = "Map showing the Cariboo Lake basin."}
+knitr::include_graphics("figs/intro/map-sc.png")
+```
+
+```{r map2, echo=FALSE, fig.cap = "Map showing the Cariboo Lake bathymetry and coring locations."}
+knitr::include_graphics("figs/map.png")
+```
+
+Sediment connectivity to headwater glaciers along the Cariboo River is limited due to lake filtering by Lanezi and Sandy lake. Lanezi Lake is a deep fjord lake with a bathymetry reaching a maximum depth of 170 m. Sandy Lake is much shallower reaching a maximum depth of 6 m. The Matthews River, which meets the Cariboo River just below Lanezi Lake provides less filtered connection to meltwater from several alpine glaciers including the largest chunk of ice in the Cariboo Lake watershed, the Roberts Peak Galcier.

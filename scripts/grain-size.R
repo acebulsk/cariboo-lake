@@ -44,7 +44,8 @@ v1_D50 <- v1 %>%
   ungroup() %>% 
   pivot_longer(D50, names_to = "group", values_to = "D50") %>% 
   mutate(year_bp_new = depth * (v1_C14$year/(v1_C14$depth_cm)),
-         year_ce_new = 2017 - year_bp_new)  # linear interpolation on AMS date
+         year_ce_new = 2017 - year_bp_new,
+         diff_time = lag(year_ce_new) - year_ce_new)  # linear interpolation on AMS date
 
 v1_percentages <- v1 %>% 
   select(depth, year_bp, perc_clay:perc_sand) %>% 
@@ -124,7 +125,8 @@ v2_D50 <- v2 %>%
   ungroup() %>% 
   pivot_longer(D50, names_to = "group", values_to = "D50") %>% 
   mutate(year_bp_new = depth * (v2_C14$year/(v2_C14$depth_cm)),
-         year_ce_new = 2017 - year_bp_new) # linear interpolation on AMS date
+         year_ce_new = 2017 - year_bp_new,
+         diff_time = lag(year_ce_new) - year_ce_new) # linear interpolation on AMS date
 
 v2_percentages <- v2 %>% 
   select(depth, year_bp, perc_clay:perc_sand) %>% 

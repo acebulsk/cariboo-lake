@@ -3,7 +3,7 @@ title: "Cariboo Lake Results Draft: Section 3 Temporal Sedimentary Record"
 author: "Alex Cebulski"
 date: "January 9, 2022"
 output:
-  bookdown::pdf_document2:
+  bookdown::word_document2:
       keep_tex: false
 header-includes:
    - \usepackage{caption}
