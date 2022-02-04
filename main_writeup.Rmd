@@ -1,6 +1,6 @@
 ---
 title: "The Glaciolacustrine Sediment Record of Cariboo Lake, BC: Implications for Holocene Fluvial and Glacial Watershed Dynamics"
-author: "A. Cebulski, J. Desloges"
+author: "A.C. Cebulski, J.R. Desloges"
 date: "Feb 2, 2017"
 output:
   bookdown::pdf_document2:
@@ -12,6 +12,7 @@ header-includes:
 
 ## Introduction
 
+Records of the magnitude and rate of change of the environment that extend beyond currently observable record are crucial to understanding the processes and environmental and societal impacts of current climate change [@Turney2019; @Huber2012; @Nelson2016]. Environmental reconstructions at the sub-annual (e.g. ice cores, tree rings, and corals), to multi-decadal (e.g. sediments, pollen, boreholes) have proven useful in describing past environmental conditions across the globe [@Masson2013]. 
 
 ## Study Area
 
@@ -35,8 +36,8 @@ Sediment connectivity to headwater glaciers along the Cariboo River is limited d
 
 *Field Methods*
 
-Thirty-four km of sub-bottom acoustic survey was collected across Cariboo Lake using a 10 kHz StrataBox 3510 HD. An Ekman dredge was used to collect ~10 cm^3^ cubes of sediment from the lake bottom. The dredge samples were subsampled using 80 mm diameter PVC pipe cylinders pushed into the block of sediment. The remaining sediment was kept as a bulk sediment sample. Four sediment cores (V1-V4) were collected using a Rossfelder submersible vibracorer with a 6 m long 70 mm diameter alluminum pipe. The Ekman subsample cores and the vibracores were split longitudinally with one half preserved as an archive and the other as a workgin half. The working half samples were prepared for imaging by scraping the core parallel to the sediment laminae to better illustrate the sediment stratigraphy. The stratigraphy of cores V1 and V2 were best preserved and were selected for detailed analysis. 
+A field campaign was conducted during the summer of 2017 to collect sub-bottom acoustic soundings, dredge samples, and sediment cores. Thirty-four km of sub-bottom acoustic soundings were collected across Cariboo Lake using a 10 kHz StrataBox 3510 HD. An Ekman dredge was used to collect 20 ~10 cm^3^ samples of sediment from the lake bottom. The dredge samples were subsampled in the field using an 80 mm diameter PVC cylinder pushed into the block of sediment. The remaining sediment was kept as a bulk sediment sample. Four sediment cores (V1-V4) were collected using a Rossfelder submersible vibracorer with a 6 m long 70 mm diameter aluminum pipe. The Ekman subsample cores and the vibracores were split longitudinally with one half preserved as an archive and the other as a workging half. The working half samples were prepared for imaging by scraping the core parallel to the sediment laminae to create a flat surface which showed the sediment stratigraphy. The stratigraphy of cores V1 and V2 were best preserved and were selected for detailed analysis. 
 
 *Laboratory Methods*
 
-The chronology of both cores was provided by AMS ^14^C dating of wood fragments and varve chronology. The Ekman dredge bulk samples were subsampled using a 2 mm sieve. Cores V1 and V2 were subsampled with 2 cm^3^ of sediment extracted at a 5 cm interval, with additional samples taken within stratigraphic breaks. Laminae couplets were digitally counted and measured for thickness using the ImageJ @imageJcite software. A loss-on-ignition analysis (550 °C) was conducted following methods in @Smith2003. Grain size analysis was provided by a Mastersizer Particle Size Analyzer 3000. Samples were prepared following methods by @Gray2010, which involved a removal of organic material using three sequential alloquots of 20% H202 unil the sample stopped reacting. To prevent flocculation of sediment grains the samples were dispersed in 0.05% solution of Calgon for 24 hours.
+Cores V1 and V2 were subsampled with 2 cm^3^ of sediment extracted at a 5 cm interval, with additional samples taken within stratigraphic breaks. The Ekman bulk samples and vibracores were analyzed for laminae thickness, organic content, and particle size. Laminae couplets were digitally counted and measured for thickness using the ImageJ @imageJcite software. Organic content was determined by loss-on-ignition analysis (550 °C) following methods in @Smith2003. Samples were first weighed to provide an initial wet weight, then dried at 60 °C and weighed again after oven drying. The samples were then placed in a furnace at 550 °C for 2.5 hours and weighed a third time. Grain size analysis was conducted using a Mastersizer Particle Size Analyzer 3000. Samples were prepared following methods by @Gray2010 to remove the fine fraction of particles from organic material. This involved a removal of organic material using three sequential alloquots of 20% H202 until the sample stopped reacting. To prevent flocculation of sediment grains the samples were dispersed in 0.05% solution of Calgon for 24 hours. The chronology of both cores was provided by AMS ^14^C dating of wood fragments at the André E. Lalonde AMS Laboratory at the University of Ottawa and varve chronology from laninae counting.
