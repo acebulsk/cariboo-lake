@@ -28,3 +28,5 @@ vignettes/*.pdf
 .Renviron
 todo.md
 temporal_results.docx
+temporal_results.pdf
+2k-network/
