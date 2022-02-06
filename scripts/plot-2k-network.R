@@ -5,18 +5,216 @@
 
 library(lipdR)
 library(tidyverse)
+library(sf)
+library(tmap)
+library(gridExtra)
+
+tmap_mode("view")
+
+mid_rescaler <- function(mid = 0) {
+  function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
+    scales::rescale_mid(x, to, from, mid)
+  }
+}
 
 # GLOBAL TEMPERATURE RECONSTRUCTIONS
-glob_temp <- read.csv('2k-network/recons/Full_ensemble_median_and 95pct_range.txt')
+nms <- c('year', 'inst_data', 'median', 'perc_2.5', 'perc_97.5', 'avg_31_yr_raw', 'avg_31_yr_median', 'avg_31_yr_2.5', 'avg_31_yr_97.5')
+
+glob_temp <- read.delim('2k-network/recons/Full_ensemble_median_and 95pct_range.txt', skip = 4, col.names = nms) %>% 
+  mutate(grp = c(rep(seq(0,1950, 50), each = 50),  rbind(rep(2000, 17))))
+
+glob_median <- median(glob_temp$median, na.rm = T)
+glob_median_abs <- abs(glob_median)
+glob_std <- sd(glob_temp$median, na.rm = T)
+
+glob_temp_50 <- glob_temp %>% 
+  group_by(grp) %>% 
+  summarise(med = mean(median)) %>% 
+  mutate(grp = grp + 25,
+         anomaly = med + glob_median_abs,
+         stdep = (med - glob_median)/ glob_std) %>% 
+  filter(grp < 2000)
+
+glob_temp_50_p <- glob_temp_50 %>% 
+  ggplot(aes(x=grp, y = 'Temperature Anomaly', fill = stdep)) +
+  geom_tile() +
+  #scale_fill_distiller(palette = "BrBG", direction = 1, rescaler = mid_rescaler()) +
+  scale_fill_distiller(palette = "RdBu", direction = -1, rescaler = mid_rescaler()) +
+  # scale_x_reverse() +
+  xlab('Year (CE)') +
+  theme_bw() +
+  theme(legend.position = 'right',
+        axis.title.y = element_blank(),
+        legend.title = element_blank()) +
+  xlim(-50, 2000)
+glob_temp_50_p
+ggsave('figs/2k-network/global_anomalies_2k.jpg', width = 8, height = 1.5)
+
+
+
+glob_temp %>% 
+  ggplot(aes(year, median)) +
+  geom_line()
 
 # BRING IN HYDRO AND TEMP RECONSTRUCTIONS for last 12 centuries
 # file:///tmp/mozilla_alex0/Northern_hemisphere_hydroclima.PDF
 # https://www.ncei.noaa.gov/access/paleo-search/study/19725
 
-hydro_df <- readxl::read_xls('2k-network/Source_Data_Extended_Data_Figure_5.xls')
-temp_df <- readxl::read_xls('2k-network/Source_Data_Extended_Data_Figure_6.xls')
+map_df <- readxl::read_xls('2k-network/hydro-recons/Source_Data_Extended_Data_Figure_1.xls')
+hydro_df <- readxl::read_xls('2k-network/hydro-recons/Source_Data_Extended_Data_Figure_5.xls')
+temp_df <- readxl::read_xls('2k-network/hydro-recons/Source_Data_Extended_Data_Figure_6.xls')
+
+hydro_sf <- hydro_df %>% 
+  st_as_sf(coords = c('Longitude', 'Latitude'), crs = 4326)
+tm_shape(hydro_sf) +
+  tm_dots()
+
+temp_sf <- temp_df %>% 
+  st_as_sf(coords = c('Longitude', 'Latitude'), crs = 4326)
+tm_shape(temp_sf) +
+  tm_dots()
+
+#### hydro plots ####
+# find grid cell closest to cariboo
+
+needle_lt <- 53
+needle_ln <- -121
+
+match <- data.frame(Longitude = c(-117.15 , -116.45),
+                    Label = c("Sask. Glacier", "Sask. River"))
+
+blanks <- data.frame(name = rep(NA, 9),
+                     value = rep(NA, 9),
+                     Year = seq(50, 850, 100),
+                     Label = rep('Hydroclimate Anomaly',9))
+
+cariboo_hydro <- hydro_df %>% 
+  mutate(across(everything(), as.numeric),
+         Longitude = as.numeric(Longitude),
+         Latitude = as.numeric(Latitude),
+         long_diff = abs(Longitude - needle_ln),
+         lat_diff = abs(Latitude - needle_lt),
+         diff_sum = long_diff + lat_diff) %>% 
+  filter(diff_sum < 5.7) %>% 
+  select(-contains('diff')) %>% 
+  summarise(across(`800s`:`1900s`, mean)) %>% 
+  pivot_longer(`800s`:`1900s`) %>% 
+  mutate(Year = as.numeric(gsub("s", "", name)) + 50, # make it mid point 
+         value = as.numeric(value),
+         Label = 'Hydroclimate Anomaly') %>% 
+  filter(value != -999.000) %>% 
+  rbind(blanks)
+
+cariboo_hydro %>% 
+  ggplot(aes(x=Year, y = Label, fill = value)) +
+  geom_tile() +
+  scale_fill_distiller(palette = "RdBu", direction = 1, rescaler = mid_rescaler()) +
+  scale_x_reverse() +
+  xlab('Year (CE)') +
+  theme(legend.position = 'right',
+        axis.title.y = element_blank())
+  legent_position
+  
+ggsave('figs/2k-network/hydro_anomalies_2grids_12centuries.jpg', width = 8, height = 1.5)
+  
+#### temp plot ####
+needle_lt <- 53
+needle_ln <- -121
+
+match <- data.frame(Longitude = c(-117.15 , -116.45),
+                    Label = c("Sask. Glacier", "Sask. River"))
+
+blanks <- data.frame(name = rep(NA, 9),
+                     value = rep(NA, 9),
+                     Year = seq(50, 850, 100),
+                     Label = rep('Temperature Anomaly',9))
+
+cariboo_temp <- temp_df %>% 
+  mutate(across(everything(), as.numeric),
+         Longitude = as.numeric(Longitude),
+         Latitude = as.numeric(Latitude),
+         long_diff = abs(Longitude - needle_ln),
+         lat_diff = abs(Latitude - needle_lt),
+         diff_sum = long_diff + lat_diff) %>% 
+  filter(diff_sum < 5) %>% 
+  select(-contains('diff')) %>% 
+  summarise(across(`800s`:`1900s`, mean)) %>% 
+  pivot_longer(`800s`:`1900s`) %>% 
+  mutate(Year = as.numeric(gsub("s", "", name)) + 50, # make it mid point 
+         value = as.numeric(value),
+         Label = 'Temperature Anomaly') %>% 
+  filter(value != -999.000) %>% 
+  rbind(blanks)
 
 
+
+cariboo_temp %>% 
+  ggplot(aes(x=Year, y = Label, fill = value)) +
+  geom_tile() +
+  scale_fill_distiller(palette = "RdBu", direction = 1, rescaler = mid_rescaler()) +
+  scale_x_reverse() +
+  xlab('Year (CE)') +
+  theme(legend.position = 'right',
+        axis.title.y = element_blank())
+
+
+ggsave('figs/2k-network/temp_anomalies_4grids_12centuries.jpg', width = 8, height = 1.5)
+
+
+#### all ####
+all <- rbind(cariboo_hydro, cariboo_temp) %>% 
+  ggplot(aes(x=Year, y = Label, fill = value)) +
+  geom_tile() +
+  scale_fill_distiller(palette = "RdBu", direction = -1, rescaler = mid_rescaler(), na.value = 'transparent') +
+  #scale_fill_distiller(palette = "BrBG", direction = 1, rescaler = mid_rescaler(), na.value = 'transparent') +
+  # scale_x_reverse() +
+  xlab('Year (CE)') +
+  theme_bw() +
+  theme(legend.position = 'right',
+        axis.title.y = element_blank(),
+        axis.title.x = element_blank(),
+        legend.title = element_blank()) +
+  xlim(-50, 2000)
+
+all
+ggsave('figs/2k-network/both_anomalies_12centuries.jpg', width = 8, height = 2)
+
+#### combine 2k and 12 cent ####
+
+p <- list(all, glob_temp_50_p)
+cowplot::plot_grid(plotlist = p, nrow=2, align = 'v', labels = c("A", "B"))
+
+#### plot cariboo long core on climate proxy ####
+gs_v1 <- readRDS('figs/grain_size_v1.rds')
+gs_v2 <- readRDS('figs/grain_size_v2.rds')
+
+gs <- readRDS('data/Sediment/Grain Size/grain_size_v1_v2_combined.RDS') %>% 
+  mutate(year_ce_avg = round(year_ce_new))
+
+gs_plot <- 
+  gs %>% 
+  mutate(
+    smooth = smoother::smth(x = stdep, method = 'gaussian', window = 6),
+    mvavg = zoo::rollapply(stdep, 3, mean, align = 'center', fill = NA)
+  ) %>% 
+  ggplot(aes(x = year_ce_avg, color = core)) +
+  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
+  geom_point(aes(y = stdep), alpha = 1) +
+  #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
+  geom_line(aes(y = mvavg), colour = "gray") +
+  ylab("D50 Std. Dept.") +
+  # xlab("Year (CE)") +  
+  theme_bw()+
+  theme(legend.position = 'right',
+        axis.title.y = element_blank(),
+
+        axis.title.x = element_blank(),
+        legend.title = element_blank())
+
+
+
+p <- list(gs_plot, all, glob_temp_50_p)
+cowplot::plot_grid(plotlist = p, nrow=4, labels = c("A", "B", "C"), align = 'v')
 
 # THE STUFF BELOW IS RAW PROXY
 
@@ -24,6 +222,7 @@ temp_df <- readxl::read_xls('2k-network/Source_Data_Extended_Data_Figure_6.xls')
 #saveRDS(nam, 'nam.rds')
 
 nam <- readRDS('2k-network/NAm/nam.rds') 
+
 
 ##### plot good tree data ####
 select_tree_sites <- c('NAm-UpperWrightLakes.Graumlich.2005', 

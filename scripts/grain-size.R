@@ -213,7 +213,7 @@ v1_plot <-
   ylab("D50 Std. Dept.") +
   xlab("Core Depth (mm)") +  
   ggtitle("V1") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v1_C14$year/(v1_C14$depth_cm*10))), name="Year (CE)")) + # scale sec y axis based on c14
+  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v1_C14$year/(v1_C14$depth_cm*10))), name="Year (CE)"),trans = 'reverse') + # scale sec y axis based on c14
   theme_classic()
   v1_plot
 
@@ -233,13 +233,22 @@ v2_plot <-
   ylab("D50 Std. Dept.") +
   xlab("Core Depth (mm)") +  
   ggtitle("V2") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)")) + # scale sec y axis based on c14
-  theme_classic()
+  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)"),trans = 'reverse') + # scale sec y axis based on c14
+  theme_classic() 
 v2_plot
 
 p <- grid.arrange(v1_plot, v2_plot, nrow=2)
 
 ggsave("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.png", p,  width = 11, height = 6)
+
+saveRDS(v1_plot, 'figs/grain_size_v1.rds')
+saveRDS(v2_plot, 'figs/grain_size_v2.rds')
+
+
+grain_df <- rbind(v1_D50 %>% select(depth, year_ce_new, D50, stdep) %>% mutate(core = "V1"), 
+                  v2_D50 %>% select(depth, year_ce_new, D50, stdep) %>% mutate(core = "V2"))
+
+saveRDS(grain_df, 'data/Sediment/Grain Size/grain_size_v1_v2_combined.RDS')
 
 #### combined ####
 
