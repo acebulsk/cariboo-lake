@@ -6,6 +6,19 @@
 library(lipdR)
 library(tidyverse)
 
+# GLOBAL TEMPERATURE RECONSTRUCTIONS
+glob_temp <- read.csv('2k-network/recons/Full_ensemble_median_and 95pct_range.txt')
+
+# BRING IN HYDRO AND TEMP RECONSTRUCTIONS for last 12 centuries
+# file:///tmp/mozilla_alex0/Northern_hemisphere_hydroclima.PDF
+# https://www.ncei.noaa.gov/access/paleo-search/study/19725
+
+hydro_df <- readxl::read_xls('2k-network/Source_Data_Extended_Data_Figure_5.xls')
+temp_df <- readxl::read_xls('2k-network/Source_Data_Extended_Data_Figure_6.xls')
+
+
+
+# THE STUFF BELOW IS RAW PROXY
 
 #nam <- readLipd() 
 #saveRDS(nam, 'nam.rds')
