@@ -393,7 +393,7 @@ long_core_cln <- comb %>%
   select(year = year_BP, depth = core_depth, core) %>% 
   mutate(depth = depth / 10)
 
-all_df <- rbind(ams_df_cln %>%  select(year = year_bp, depth, core), long_core_cln) %>%
+all_df <- rbind(ams_df_cln %>%  select(year, depth, core), long_core_cln) %>%
   mutate(year_CE = 2017 - year)
 
 ggplot(all_df, aes(year, depth, colour = core)) +
@@ -404,7 +404,7 @@ ggplot(all_df, aes(year, depth, colour = core)) +
   xlab("Estimated Year (BP)") +
   ylab("Core Depth (cm)")
 
-ggsave('figs/longcore_cumulative_depth_vs_estimated_year_w_ams.png', width = 6, height = 4.5)
+ggsave('figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png', width = 6, height = 4.5)
 
 #### Smoothing Functions ####
 comb$core[comb$core == 'V1_varve'] = "V1"
@@ -430,6 +430,7 @@ gaus <- comb %>%
     )
   )
 
+saveRDS(gaus, 'data/long_cores/varve_thickness_v1_v2_working.RDS')
 
 # remove some outlier points on the graph 
 
@@ -443,18 +444,18 @@ v1_plot <-
   gaus %>% 
   filter(core == "V1") %>% 
   ggplot(aes(x = core_depth)) +
+    geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "black", size = 0.5, se=F, linetype="dashed")+
     geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
     geom_point(aes(x = v1_C14$depth_cm * 10, y = -1.5)) +
     geom_text(aes(x = v1_C14$depth_cm * 10, y = -1.70), label = "47 ± 75 yr. CE", vjust = 1) +
     #geom_line(aes(y = smooth)) +
     geom_line(aes(y = ma_30)) +
-    ylab("Varve Thickness Std. Dept.") +
+    ylab("VT Std. Dept.") +
     xlab("Core Depth (mm)") +
     ylim(c(-2, 5))+
     ggtitle("V1") +
-    scale_x_continuous(sec.axis=sec_axis(trans=~ 2017 - (. * ((v1_C14$year)/(v1_C14$depth_cm*10))), name="Year (CE)"))+ # scale sec y axis based on c14
-    geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed")+
-  theme_classic()
+    scale_x_continuous(sec.axis=sec_axis(trans=~ 2017 - (. * ((v1_C14$year)/(v1_C14$depth_cm*10))), name="Year (CE)"),trans = 'reverse')+ # scale sec y axis based on c14
+  theme_bw()
 v1_plot
 
 ggplotly((v1_plot))
@@ -463,20 +464,20 @@ v2_plot <-
   gaus %>% 
   filter(core == "V2") %>% 
   ggplot(aes(x = core_depth)) +
+  geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "black", size = 0.5, se=F, linetype="dashed")+
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
   geom_line(aes(y = ma_30)) +
   # geom_line(aes(y = smooth)) +
     geom_point(aes(x = v2_C14$depth_cm * 10, y = -1.5)) +
     geom_text(aes(x = v2_C14$depth_cm * 10, y = -1.75), label = "158 ± 40 yr. CE", vjust = 1) +
     xlab("Core Depth (mm)") +
-    ylab("Varve Thickness Std. Dept.") +
+    ylab("VT Std. Dept.") +
     ylim(c(-2, 5)) +
     ggtitle("V2") +
     scale_x_continuous(
       sec.axis=sec_axis(
-        trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)"))+ # scale sec y axis based on c14
-    geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "red", se=F, linetype="dashed")+
-  theme_classic()
+        trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)"), trans = 'reverse')+ # scale sec y axis based on c14
+  theme_bw()
   
 v2_plot
 ggplotly((v2_plot))

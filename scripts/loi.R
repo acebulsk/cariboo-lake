@@ -54,6 +54,13 @@ v2.mean.fltr <- mean(v2$LOI, na.rm = T)
 
 v2$stdep <- (v2$LOI - v2.mean.fltr)/v2.sd.fltr
 
+# save loi to rds
+
+out <- rbind(v1 %>% select(depth, year_ce_new, LOI, stdep) %>% mutate(core = "V1"), 
+             v2 %>% select(depth, year_ce_new, LOI, stdep) %>% mutate(core = "V2"))
+
+saveRDS(out, 'data/Sediment/LOI/loi_v1_v2_working.RDS')
+
 # plot on depth + estimated year
 
 v1_plot <- 
@@ -74,8 +81,8 @@ v1_plot <-
   xlab("Core Depth (mm)") + 
   ylim(c(-3.5, 3))+
   ggtitle("V1") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v1_C14$year/(v1_C14$depth_cm*10))), name="Year (CE)")) + # scale sec y axis based on c14
-  theme_classic()
+  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v1_C14$year/(v1_C14$depth_cm*10))), name="Year (CE)"), trans = 'reverse') + # scale sec y axis based on c14
+  theme_bw()
 v1_plot
 
 v2_plot <- 
@@ -95,8 +102,8 @@ v2_plot <-
   xlab("Core Depth (mm)") +
   ylim(c(-3.5, 3))+
   ggtitle("V2") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)")) + # scale sec y axis based on c14
-  theme_classic()
+  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)"), trans = 'reverse') + # scale sec y axis based on c14
+  theme_bw()
 v2_plot
 
 v2_plot2 <- 
