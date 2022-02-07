@@ -185,6 +185,9 @@ p <- list(all, glob_temp_50_p)
 cowplot::plot_grid(plotlist = p, nrow=2, align = 'v', labels = c("A", "B"))
 
 #### plot cariboo long core on climate proxy ####
+
+# gain size 
+
 gs_v1 <- readRDS('figs/grain_size_v1.rds')
 gs_v2 <- readRDS('figs/grain_size_v2.rds')
 
@@ -206,15 +209,59 @@ gs_plot <-
   # xlab("Year (CE)") +  
   theme_bw()+
   theme(legend.position = 'right',
-        axis.title.y = element_blank(),
+        axis.title.x = element_blank(),
+        legend.title = element_blank())
 
+# varve thickness 
+
+vt <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
+
+vt_plot <- 
+  vt %>% 
+  mutate(
+    mvavg = zoo::rollapply(lyr_mm_stdep_fltr, width = 100, by = 1, FUN = mean, na.rm = T, align = "center", partial = T), # partial defines minimum number of objects to continue 25yr window. set 3 to get data point at end of dataset 
+  ) %>% 
+  ggplot(aes(x = year_ce_lin_interp, colour = core)) +
+  geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5)+
+  geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
+  #geom_line(aes(y = smooth)) +
+  geom_line(aes(y = ma_30)) +
+  ylab("VT Std. Dept.") +
+  theme_bw()+
+  theme(legend.position = 'right',
+        axis.title.x = element_blank(),
+        legend.title = element_blank())
+vt_plot
+
+plotly::ggplotly()
+
+# LOI
+
+loi <- readRDS('data/Sediment/LOI/loi_v1_v2_working.RDS')
+
+loi_plot <- 
+  loi %>% 
+  mutate(
+    #  smooth = smoother::smth(x = stdep, method = 'gaussian', window = 3),
+    mvavg = zoo::rollapply(stdep, 3, mean, align = 'center', fill = NA)
+  ) %>% 
+  ggplot(aes(x = year_ce_new, colour = core)) +
+  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
+  geom_point(aes(y = stdep), alpha = 1) +
+  #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
+  geom_line(aes(y = mvavg), colour = "gray") +
+  ylab("LOI Std. Dept.") +
+  theme_bw() +
+  theme(legend.position = 'right',
         axis.title.x = element_blank(),
         legend.title = element_blank())
 
 
+p <- list(vt_plot, gs_plot, loi_plot, all, glob_temp_50_p)
+cp <- cowplot::plot_grid(plotlist = p, nrow=5, labels = c("A", "B", "C", "D", "E"), align = 'v', rel_heights = c(2,2,2,1.25,1.25))
 
-p <- list(gs_plot, all, glob_temp_50_p)
-cowplot::plot_grid(plotlist = p, nrow=4, labels = c("A", "B", "C"), align = 'v')
+cp
+cowplot::save_plot('figs/2k-network/all_core_stats_2k_anomalies.jpg', cp, base_width = 7, base_height = 8)
 
 # THE STUFF BELOW IS RAW PROXY
 
