@@ -1,3 +1,5 @@
+# some climate reconstructions https://pastglobalchanges.org/science/data/databases
+
 # query 2k network https://www.ncei.noaa.gov/pub/data/paleo/pages2k/pages2k-temperature-v2-2017/
 
 # wget -r -A.lpd --no-directories https://www.ncei.noaa.gov/pub/data/paleo/pages2k/pages2k-temperature-v2-2017/data-version-2.0.0/ files
@@ -17,26 +19,87 @@ mid_rescaler <- function(mid = 0) {
   }
 }
 
-# GLOBAL TEMPERATURE RECONSTRUCTIONS
+# Trouet, et al temperature reconstruction for North America aka A 1500-year reconstruction of annual mean temperature for temperate North America on decadal-to-multidecadal time scales
+# North America Last 2ka Decadal Temperature Reconstructions 
+# A 1500-year reconstruction of annual mean temperature for temperate North America on decadal-to-multidecadal time scales
+
+trouet <- read.delim('https://www.ncei.noaa.gov/pub/data/paleo/pages2k/trouet2013nam480pollen.txt', 
+                     comment.char = '#', skip = 1) %>% 
+  mutate(annom = temp2m.ann - median(temp2m.ann, na.rm = T))
+# save locally in case link goes offline
+# saveRDS(trouet, '2k-network/Trouet_et_al/NAM480.rds')
+
+tr <- ggplot(trouet, aes(x = age_AD, y = annom)) +
+  geom_smooth(aes(y = 0), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5)+
+  geom_line() +
+  geom_ribbon(aes(ymin = temp2m.ann.1SE.1 - median(temp2m.ann, na.rm = T), 
+                  ymax = temp2m.ann.1SE - median(temp2m.ann, na.rm = T), 
+                  fill = '1SE',), 
+              alpha = 0.2)+
+  geom_ribbon(aes(ymin = temp2m.ann.2SE.1 - median(temp2m.ann, na.rm = T), 
+                  ymax = temp2m.ann.2SE - median(temp2m.ann, na.rm = T), 
+                  fill = '2SE'), 
+              alpha = 0.2) +
+  scale_fill_manual(values = c("#08519C", "#9ECAE1"))+
+  xlim(c(0, 2000)) +
+  ylab('Air Temp. Anomaly °C') +
+  theme_bw() +
+  theme(legend.position = 'right',
+        axis.title.x = element_blank(),
+        legend.title = element_blank())
+tr
+
+# GLOBAL TEMPERATURE RECONSTRUCTIONS full 2k
+# https://www.ncei.noaa.gov/access/paleo-search/study/26872
+# manually calculated anomalies to match hard coded anomalies in the below procies 
 nms <- c('year', 'inst_data', 'median', 'perc_2.5', 'perc_97.5', 'avg_31_yr_raw', 'avg_31_yr_median', 'avg_31_yr_2.5', 'avg_31_yr_97.5')
 
-glob_temp <- read.delim('2k-network/recons/Full_ensemble_median_and 95pct_range.txt', skip = 4, col.names = nms) %>% 
-  mutate(grp = c(rep(seq(0,1950, 50), each = 50),  rbind(rep(2000, 17))))
+# ensemble_means from their R script this is what they use to make Fig. 1 in pub
+# fullens.bp.30.200 is what we want (not relative to instrument data)
 
-glob_median <- median(glob_temp$median, na.rm = T)
+load('2k-network/2k-recon/recons_filtered.RData')
+
+experiment.names<-c("CPS","PCR","M08","PAI","OIE","BHM","DA")
+
+fort <- zoo::fortify.zoo(fullens.bp.30.200)
+
+ensemble_long <- data.frame()
+for(i in rev(seq_along(experiment.names))){
+  ts <- fullens.bp.30.200[,i]
+  df <- zoo::fortify.zoo(ts, names = 'year_ce')
+  df$model <- experiment.names[i]
+  
+  ensemble_long <- rbind(ensemble_long, df)
+}
+
+ensemble_long %>% ggplot(aes(x = year_ce, y = ts, group = model, colour = model)) + geom_line()
+
+# checked and is same as '2k-network/2k-recon/Fig_1.pdf'
+
+ensemble_med <- ensemble_long %>% 
+  group_by(year_ce) %>% 
+  summarise(ts = median(ts),
+            model = 'ensemble')
+
+ggplot(ensemble_long, aes(x = year_ce, y = ts, group = model, colour = model)) + 
+  geom_line() +
+  geom_line(data = ensemble_med, color = "black")
+
+glob_temp <- ensemble_med
+glob_temp$grp <- c(rep(seq(0,1950, 50), each = 50)) + 25
+glob_median <- median(glob_temp$ts, na.rm = T)
 glob_median_abs <- abs(glob_median)
-glob_std <- sd(glob_temp$median, na.rm = T)
+glob_std <- sd(glob_temp$ts, na.rm = T)
 
 glob_temp_50 <- glob_temp %>% 
   group_by(grp) %>% 
-  summarise(med = mean(median)) %>% 
-  mutate(grp = grp + 25,
-         anomaly = med + glob_median_abs,
+  summarise(med = median(ts)) %>% 
+  mutate(anomaly = med - glob_median,
          stdep = (med - glob_median)/ glob_std) %>% 
   filter(grp < 2000)
 
 glob_temp_50_p <- glob_temp_50 %>% 
-  ggplot(aes(x=grp, y = 'Temperature Anomaly', fill = stdep)) +
+  ggplot(aes(x=grp, y = 'Temperature Anomaly (°C)', fill = anomaly)) +
   geom_tile() +
   #scale_fill_distiller(palette = "BrBG", direction = 1, rescaler = mid_rescaler()) +
   scale_fill_distiller(palette = "RdBu", direction = -1, rescaler = mid_rescaler()) +
@@ -45,20 +108,21 @@ glob_temp_50_p <- glob_temp_50 %>%
   theme_bw() +
   theme(legend.position = 'right',
         axis.title.y = element_blank(),
-        legend.title = element_blank()) +
+        legend.title = element_blank(),
+        legend.key.size = unit(0.3, 'cm')) +
   xlim(-50, 2000)
+
 glob_temp_50_p
+
 ggsave('figs/2k-network/global_anomalies_2k.jpg', width = 8, height = 1.5)
 
-
-
-glob_temp %>% 
-  ggplot(aes(year, median)) +
-  geom_line()
-
 # BRING IN HYDRO AND TEMP RECONSTRUCTIONS for last 12 centuries
+# Fredrik Charpentier Ljungqvist, Paul J. Krusic, Hanna S. Sundqvist, Eduardo Zorita, Gudrun Brattström, and David Frank. 2016. Northern Hemisphere hydroclimatic variability over the past twelve centuries. Nature, 532(7597), 94-98. doi: 10.1038/nature17418 
 # file:///tmp/mozilla_alex0/Northern_hemisphere_hydroclima.PDF
 # https://www.ncei.noaa.gov/access/paleo-search/study/19725
+# Source_Data_Extended_Data_Figure_6.xls: Centennial temperature proxy anomalies updated from ref. 15.
+# Source_Data_Extended_Data_Figure_5.xls: Simulated median values of annual precipitation from six atmosphere–ocean coupled general circulation models.
+# ANOMOLIES time series value - median
 
 map_df <- readxl::read_xls('2k-network/hydro-recons/Source_Data_Extended_Data_Figure_1.xls')
 hydro_df <- readxl::read_xls('2k-network/hydro-recons/Source_Data_Extended_Data_Figure_5.xls')
@@ -86,7 +150,7 @@ match <- data.frame(Longitude = c(-117.15 , -116.45),
 blanks <- data.frame(name = rep(NA, 9),
                      value = rep(NA, 9),
                      Year = seq(50, 850, 100),
-                     Label = rep('Hydroclimate Anomaly',9))
+                     Label = rep('Hydroclimate Anomaly (mm)',9))
 
 cariboo_hydro <- hydro_df %>% 
   mutate(across(everything(), as.numeric),
@@ -101,9 +165,15 @@ cariboo_hydro <- hydro_df %>%
   pivot_longer(`800s`:`1900s`) %>% 
   mutate(Year = as.numeric(gsub("s", "", name)) + 50, # make it mid point 
          value = as.numeric(value),
-         Label = 'Hydroclimate Anomaly') %>% 
+         Label = 'Hydroclimate Anomaly (mm)') %>% 
   filter(value != -999.000) %>% 
   rbind(blanks)
+
+
+cariboo_hydro_median <- median(cariboo_hydro$value, na.rm = T)
+
+cariboo_hydro <- cariboo_hydro %>% 
+    mutate(value = value - cariboo_hydro_median)
 
 cariboo_hydro %>% 
   ggplot(aes(x=Year, y = Label, fill = value)) +
@@ -113,7 +183,6 @@ cariboo_hydro %>%
   xlab('Year (CE)') +
   theme(legend.position = 'right',
         axis.title.y = element_blank())
-  legent_position
   
 ggsave('figs/2k-network/hydro_anomalies_2grids_12centuries.jpg', width = 8, height = 1.5)
   
@@ -127,7 +196,7 @@ match <- data.frame(Longitude = c(-117.15 , -116.45),
 blanks <- data.frame(name = rep(NA, 9),
                      value = rep(NA, 9),
                      Year = seq(50, 850, 100),
-                     Label = rep('Temperature Anomaly',9))
+                     Label = rep('Temperature Anomaly (°C)',9))
 
 cariboo_temp <- temp_df %>% 
   mutate(across(everything(), as.numeric),
@@ -142,7 +211,7 @@ cariboo_temp <- temp_df %>%
   pivot_longer(`800s`:`1900s`) %>% 
   mutate(Year = as.numeric(gsub("s", "", name)) + 50, # make it mid point 
          value = as.numeric(value),
-         Label = 'Temperature Anomaly') %>% 
+         Label = 'Temperature Anomaly (°C)') %>% 
   filter(value != -999.000) %>% 
   rbind(blanks)
 
@@ -173,7 +242,8 @@ all <- rbind(cariboo_hydro, cariboo_temp) %>%
   theme(legend.position = 'right',
         axis.title.y = element_blank(),
         axis.title.x = element_blank(),
-        legend.title = element_blank()) +
+        legend.title = element_blank(),
+        legend.key.size = unit(0.3, 'cm')) +
   xlim(-50, 2000)
 
 all
@@ -181,8 +251,8 @@ ggsave('figs/2k-network/both_anomalies_12centuries.jpg', width = 8, height = 2)
 
 #### combine 2k and 12 cent ####
 
-p <- list(all, glob_temp_50_p)
-cowplot::plot_grid(plotlist = p, nrow=2, align = 'v', labels = c("A", "B"))
+p <- list(all, tr, glob_temp_50_p)
+cowplot::plot_grid(plotlist = p, nrow=3, align = 'v', labels = c("A", "B"))
 
 #### plot cariboo long core on climate proxy ####
 
@@ -227,6 +297,7 @@ vt_plot <-
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = ma_30)) +
   ylab("VT Std. Dept.") +
+  ylim(c(-2.5, 5))+
   theme_bw()+
   theme(legend.position = 'right',
         axis.title.x = element_blank(),
@@ -257,8 +328,8 @@ loi_plot <-
         legend.title = element_blank())
 
 
-p <- list(vt_plot, gs_plot, loi_plot, all, glob_temp_50_p)
-cp <- cowplot::plot_grid(plotlist = p, nrow=5, labels = c("A", "B", "C", "D", "E"), align = 'v', rel_heights = c(2,2,2,1.25,1.25))
+p <- list(vt_plot, gs_plot, loi_plot, tr, all, glob_temp_50_p)
+cp <- cowplot::plot_grid(plotlist = p, nrow=6, labels = c("A", "B", "C", "D", "E", "F"), align = 'v', rel_heights = c(2,2,2,1.25,1.25))
 
 cp
 cowplot::save_plot('figs/2k-network/all_core_stats_2k_anomalies.jpg', cp, base_width = 7, base_height = 8)
