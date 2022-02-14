@@ -1,9 +1,11 @@
+# This script brings in some 2k network paleoclimate data and I added some 
+# glacier extent data to plot against Cariboo Lake sedimentary data
+
 # some climate reconstructions https://pastglobalchanges.org/science/data/databases
 
 # query 2k network https://www.ncei.noaa.gov/pub/data/paleo/pages2k/pages2k-temperature-v2-2017/
 
 # wget -r -A.lpd --no-directories https://www.ncei.noaa.gov/pub/data/paleo/pages2k/pages2k-temperature-v2-2017/data-version-2.0.0/ files
-
 
 library(lipdR)
 library(tidyverse)
@@ -13,11 +15,26 @@ library(gridExtra)
 
 tmap_mode("view")
 
+# custom function so ggplot has no colour at 0 value
 mid_rescaler <- function(mid = 0) {
   function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
     scales::rescale_mid(x, to, from, mid)
   }
 }
+
+# them for ggplots
+ggtheme_all <- theme(
+  legend.position = 'right',
+  legend.title = element_blank(),
+  axis.title.y = element_text(angle=0,vjust = 0.5),
+  axis.title.x = element_blank()
+)
+
+ggtheme_sel <- theme(
+  axis.text.y = element_blank(),
+  legend.text = element_blank(),
+  legend.key.size = unit(0, 'cm'),
+)
 
 #### solomina et al #### 
 # Solomina et al Glacier Advance Review for western canada she also sites Koch 2011
@@ -39,21 +56,20 @@ west_can_adv <- data.frame(
     Label = 'Glacier Advance'
   )
 
+
+
 glc_adv_plot <- west_can_adv %>% 
 ggplot(aes(x=Year, y = Label, fill = value)) +
   geom_tile() +
   scale_fill_distiller(na.value = 'transparent') +
   # scale_x_reverse() +
   xlab('Year (CE)') +
+  ylab('Peak Glacier Extent') +
   theme_bw() +
-  theme(legend.position = 'right',
-        axis.title.y = element_blank(),
-        axis.title.x = element_blank(),
-        legend.text = element_blank(),
-        legend.title = element_blank(),
-        legend.key.size = unit(0, 'cm')) +
+  ggtheme_all +
+  ggtheme_sel +
   xlim(c(-50, 2000))
-# glc_adv_plot
+ glc_adv_plot
 
 #### trouet et al ####
 # Trouet, et al temperature reconstruction for North America aka A 1500-year reconstruction of annual mean temperature for temperate North America on decadal-to-multidecadal time scales
@@ -79,11 +95,9 @@ tr <- ggplot(trouet, aes(x = age_AD, y = annom)) +
               alpha = 0.2) +
   scale_fill_manual(values = c("#08519C", "#9ECAE1"))+
   xlim(c(-50, 2000)) +
-  ylab('Air Temp. Anomaly °C') +
+  ylab('Regional T Anomaly (°C)') +
   theme_bw() +
-  theme(legend.position = 'right',
-        axis.title.x = element_blank(),
-        legend.title = element_blank())
+  ggtheme_all
 # tr
 
 #### global ####
@@ -142,17 +156,17 @@ glob_temp_50_p <- glob_temp_50 %>%
   #scale_fill_distiller(palette = "BrBG", direction = 1, rescaler = mid_rescaler()) +
   scale_fill_distiller(palette = "RdBu", direction = -1, rescaler = mid_rescaler()) +
   # scale_x_reverse() +
-  xlab('Year (CE)') +
+  ylab('Global T Anomaly (°C)') +
   theme_bw() +
-  theme(legend.position = 'right',
-        axis.title.y = element_blank(),
-        legend.title = element_blank(),
-        legend.key.size = unit(0.3, 'cm')) +
+  ggtheme_all +
+  xlab('Year (CE)') +
+  theme(legend.key.size = unit(0.3, 'cm'),
+        axis.text.y = element_blank()) +
   xlim(-50, 2000)
 
 # glob_temp_50_p
 
-ggsave('figs/2k-network/global_anomalies_2k.jpg', width = 8, height = 1.5)
+# ggsave('figs/2k-network/global_anomalies_2k.jpg', width = 8, height = 1.5)
 
 
 ##### 12 century hydro climate ####
@@ -223,18 +237,19 @@ hydro_anom_plot <- cariboo_hydro %>%
   # scale_x_reverse() +
   xlab('Year (CE)') +
   theme_bw() +
-  theme(legend.position = 'right',
-        axis.title.y = element_blank(),
-        axis.title.x = element_blank(),
-        legend.title = element_blank(),
-        legend.key.size = unit(0.3, 'cm')) +
-  xlim(-50, 2000)
+  ggtheme_all +
+  theme(
+    axis.text.y = element_blank(),
+    legend.key.size = unit(0.3, 'cm')) +
+  xlim(-50, 2000) +
+  ylab('Regional Precip. Anomaly (mm)')
 
 # hydro_anom_plot
   
-ggsave('figs/2k-network/hydro_anomalies_2grids_12centuries.jpg', width = 8, height = 1.5)
+# ggsave('figs/2k-network/hydro_anomalies_2grids_12centuries.jpg', width = 8, height = 1.5)
   
 # #### temp plot ####
+# this one was redundent with the better resolution trouet record
 # needle_lt <- 53
 # needle_ln <- -121
 # 
@@ -298,12 +313,11 @@ gs_plot <-
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  ylab("D50 Std. Dept.") +
+  ylab("D50 Sd. Dept.") +
   # xlab("Year (CE)") +  
   theme_bw()+
-  theme(legend.position = 'right',
-        axis.title.x = element_blank(),
-        legend.title = element_blank())
+  xlim(-50, 2000) +
+  ggtheme_all
 
 # varve thickness 
 
@@ -319,12 +333,12 @@ vt_plot <-
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = ma_30)) +
-  ylab("VT Std. Dept.") +
+  ylab("Varve Sd. Dept.") +
   ylim(c(-2.5, 5))+
   theme_bw()+
-  theme(legend.position = 'right',
-        axis.title.x = element_blank(),
-        legend.title = element_blank())
+  xlim(-50, 2000) +
+  ggtheme_all
+
 # vt_plot
 
 # plotly::ggplotly()
@@ -344,20 +358,22 @@ loi_plot <-
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  ylab("LOI Std. Dept.") +
+  ylab("LOI Sd. Dept.") +
   theme_bw() +
-  theme(legend.position = 'right',
-        axis.title.x = element_blank(),
-        legend.title = element_blank())
+  xlim(-50, 2000) +
+  ggtheme_all
+
 
 #### plot glac adv. temp anom, hydroclimate, cariboo sediment #### 
 
 p <- list(vt_plot, gs_plot, loi_plot, glc_adv_plot, tr, hydro_anom_plot, glob_temp_50_p)
 
-cp <- cowplot::plot_grid(plotlist = p, nrow=7, labels = c("A", "B", "C", "D", "E", "F", "G"), align = 'v', rel_heights = c(2,2,2,0.75,1.5, 1, 1.25))
+cp <- cowplot::plot_grid(plotlist = p, nrow=7, labels = c("A", "B", "C", "D", "E", "F", "G"), align = 'v', rel_heights = c(2,2,2,0.75,1.5, 1, 1))
 
 cp
-cowplot::save_plot('figs/2k-network/all_core_stats_2k_anomalies.jpg', cp, base_width = 7, base_height = 8)
+
+saveRDS(cp, 'figs/2k-network/all_core_stats_2k_anomalies.rds')
+cowplot::save_plot('figs/2k-network/all_core_stats_2k_anomalies.jpg', cp, base_width = 8, base_height = 8)
 
 # THE STUFF BELOW IS RAW PROXY
 
