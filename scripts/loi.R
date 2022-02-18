@@ -62,6 +62,13 @@ out <- rbind(v1 %>% select(depth, year_ce_new, LOI, stdep) %>% mutate(core = "V1
 saveRDS(out, 'data/Sediment/LOI/loi_v1_v2_working.RDS')
 
 # plot on depth + estimated year
+out <- readRDS('data/Sediment/LOI/loi_v1_v2_working.RDS')
+
+v1$depth <- v1$depth*10
+v2$depth <- v2$depth*10
+
+v1_ax_trans <- lm(depth ~ year_ce_new, data = v1)
+v2_ax_trans <- lm(depth ~ year_ce_new, data = v2)
 
 v1_plot <- 
   v1 %>% 
@@ -69,42 +76,51 @@ v1_plot <-
     smooth = smoother::smth(x = stdep, method = 'gaussian', window = 5),
     mvavg = zoo::rollapply(stdep, width = 3, by = 1, FUN = mean, na.rm = T, align = "center", partial = T)
   ) %>% 
-  ggplot(aes(x = depth*10)) +
+  ggplot(aes(x = year_ce_new)) +
   geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
   # geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE, colour = "gray") +
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  geom_point(aes(x = v1_C14$depth_cm * 10, y = -1.5), shape = 4) +
-  geom_text(aes(x = v1_C14$depth_cm * 10, y = -1.70), label = "47 ± 75 yr. CE", vjust = 1) +
+  geom_point(aes(x = 2017 - v1_C14$year, y = -2.5), shape = 4) +
+  geom_text(aes(x = 2017 - v1_C14$year, y = -2.70), label = "47 ± 75 yr. CE", vjust = 1) +
   ylab("LOI Std. Dept.") +
-  xlab("Core Depth (mm)") + 
-  ylim(c(-3.5, 3))+
+  xlab("Year (CE)") +  
   ggtitle("V1") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v1_C14$year/(v1_C14$depth_cm*10))), name="Year (CE)"), trans = 'reverse') + # scale sec y axis based on c14
+  scale_x_continuous(
+    limits = c(-75, 2050),
+    sec.axis=sec_axis( 
+      trans=~ . * summary(v1_ax_trans)$coeff[2] + summary(v1_ax_trans)$coeff[1] , 
+      name="Core Depth (mm)")) + # scale sec y axis based on c14  theme_bw()
   theme_bw()
 v1_plot
 
 v2_plot <- 
   v2 %>% 
   mutate(
-  #  smooth = smoother::smth(x = stdep, method = 'gaussian', window = 3),
-    mvavg = zoo::rollapply(stdep, 5, mean, align = 'center', fill = NA)
+    smooth = smoother::smth(x = stdep, method = 'gaussian', window = 5),
+    mvavg = zoo::rollapply(stdep, width = 3, by = 1, FUN = mean, na.rm = T, align = "center", partial = T)
   ) %>% 
-  ggplot(aes(x = depth*10)) +
+  ggplot(aes(x = year_ce_new)) +
   geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
+  # geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE, colour = "gray") +
   geom_point(aes(y = stdep), alpha = 1) +
-  #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
+  #geom_line(aes(y = smooth)) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  geom_point(aes(x = v2_C14$depth_cm * 10, y = -2), shape = 4) +
-  geom_text(aes(x = v2_C14$depth_cm * 10, y = -2.25), label = "158 ± 40 yr. CE", vjust = 1) +
+  geom_point(aes(x = 2017 - v2_C14$year, y = -2.5), shape = 4) +
+  geom_text(aes(x = 2017 - v2_C14$year, y = -2.70), label = "158 ± 40 yr. CE", vjust = 1) +
   ylab("LOI Std. Dept.") +
-  xlab("Core Depth (mm)") +
-  ylim(c(-3.5, 3))+
+  xlab("Year (CE)") +  
   ggtitle("V2") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)"), trans = 'reverse') + # scale sec y axis based on c14
+  scale_x_continuous(
+    limits = c(-75, 2050),
+    sec.axis=sec_axis( 
+      trans=~ . * summary(v2_ax_trans)$coeff[2] + summary(v2_ax_trans)$coeff[1] , 
+      name="Core Depth (mm)")) + # scale sec y axis based on c14  theme_bw()
   theme_bw()
 v2_plot
+
+
 
 v2_plot2 <- 
   v2 %>% 
@@ -118,7 +134,30 @@ v2_plot2 <-
   scale_x_reverse()
 
 
-ggplotly(v2_plot2)
-p <- grid.arrange(v1_plot, v2_plot, nrow=2)
+# ggplotly(v2_plot2)
+p <- list(v1_plot, v2_plot)
 
-ggsave("figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png", p,  width = 11, height = 6)
+cp <- cowplot::plot_grid(plotlist = p, nrow = 2, align = 'v')
+cp
+
+saveRDS(cp, "figs/V1_V2_LOI_vs_depth_and_C14_est_yr.rds")
+ggsave("figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png", cp,  width = 8.5, height = 6)
+
+loi_plot <- 
+  out %>% 
+  mutate(
+    smooth = smoother::smth(x = stdep, method = 'gaussian', window = 6),
+    mvavg = zoo::rollapply(stdep, 3, mean, align = 'center', fill = NA)
+  ) %>% 
+  ggplot(aes(x = year_ce_new, color = core)) +
+  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
+  geom_point(aes(y = stdep), alpha = 1) +
+  #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
+  geom_line(aes(y = mvavg), colour = "gray") +
+  ylab("LOI Std. Dept.") +
+  xlab("Year (CE)") +  
+  theme_bw()
+
+loi_plot
+
+saveRDS(loi_plot, 'figs/V1_V2_LOI_togeter_vs_depth_and_C14_est_yr.rds')

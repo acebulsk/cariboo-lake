@@ -195,6 +195,12 @@ v2_D50$stdep <- (v2_D50$D50 - v2.mean.fltr)/v2.sd.fltr
 
 
 # plot on depth 
+v1_D50$depth <- v1_D50$depth * 10 
+v2_D50$depth <- v2_D50$depth * 10 
+
+
+v1_ax_trans <- lm(depth ~ year_ce_new, data = v1_D50)
+v2_ax_trans <- lm(depth ~ year_ce_new, data = v2_D50)
 
 v1_plot <- 
   v1_D50 %>% 
@@ -202,20 +208,24 @@ v1_plot <-
     smooth = smoother::smth(x = stdep, method = 'gaussian', window = 5),
     mvavg = zoo::rollapply(stdep, width = 3, by = 1, FUN = mean, na.rm = T, align = "center", partial = T)
   ) %>% 
-  ggplot(aes(x = depth*10)) +
+  ggplot(aes(x = year_ce_new)) +
   geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
  # geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE, colour = "gray") +
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  geom_point(aes(x = v1_C14$depth_cm * 10, y = -1.5), shape = 4) +
-  geom_text(aes(x = v1_C14$depth_cm * 10, y = -1.70), label = "47 ± 75 yr. CE", vjust = 1) +
+  geom_point(aes(x = 2017 - v1_C14$year, y = -1.5), shape = 4) +
+  geom_text(aes(x = 2017 - v1_C14$year, y = -1.70), label = "47 ± 75 yr. CE", vjust = 1) +
   ylab("D50 Std. Dept.") +
-  xlab("Core Depth (mm)") +  
+  xlab("Year (CE)") +  
   ggtitle("V1") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v1_C14$year/(v1_C14$depth_cm*10))), name="Year (CE)"),trans = 'reverse') + # scale sec y axis based on c14
-  theme_classic()
-  v1_plot
+  scale_x_continuous(
+    limits = c(-50, 2050),
+    sec.axis=sec_axis( 
+      trans=~ . * summary(v1_ax_trans)$coeff[2] + summary(v1_ax_trans)$coeff[1] , 
+      name="Core Depth (mm)")) + # scale sec y axis based on c14  theme_bw()
+  theme_bw()
+v1_plot
 
 v2_plot <- 
   v2_D50 %>% 
@@ -223,23 +233,31 @@ v2_plot <-
     smooth = smoother::smth(x = stdep, method = 'gaussian', window = 3),
     mvavg = zoo::rollapply(stdep, 5, mean, align = 'center', fill = NA)
   ) %>% 
-  ggplot(aes(x = depth*10)) +
+  ggplot(aes(x = year_ce_new)) +
   geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  geom_point(aes(x = v2_C14$depth_cm * 10, y = -1.5), shape = 4) +
-  geom_text(aes(x = v2_C14$depth_cm * 10, y = -1.75), label = "158 ± 40 yr. CE", vjust = 1) +
+  geom_point(aes(x = 2017 - v2_C14$year, y = -1.5), shape = 4) +
+  geom_text(aes(x = 2017 - v2_C14$year, y = -1.75), label = "158 ± 40 yr. CE", vjust = 1) +
   ylab("D50 Std. Dept.") +
-  xlab("Core Depth (mm)") +  
+  xlab("Year (CE)") +  
   ggtitle("V2") +
-  scale_x_continuous( sec.axis=sec_axis(trans=~ 2017 - (. * (v2_C14$year/(v2_C14$depth_cm*10))), name="Year (CE)"),trans = 'reverse') + # scale sec y axis based on c14
-  theme_classic() 
+  ggtitle("V1") +
+  scale_x_continuous(
+    limits = c(-50, 2050),
+    sec.axis=sec_axis( 
+      trans=~ . * summary(v2_ax_trans)$coeff[2] + summary(v2_ax_trans)$coeff[1] , 
+      name="Core Depth (mm)")) + # scale sec y axis based on c14  theme_bw()
+  theme_bw()
 v2_plot
 
-p <- grid.arrange(v1_plot, v2_plot, nrow=2)
+p <- list(v1_plot, v2_plot)
 
-ggsave("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.png", p,  width = 11, height = 6)
+cp <- cowplot::plot_grid(plotlist = p, nrow = 2, align = 'v')
+
+saveRDS(cp, "figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.rds")
+ggsave("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.png", cp,  width = 8.5, height = 6)
 
 saveRDS(v1_plot, 'figs/grain_size_v1.rds')
 saveRDS(v2_plot, 'figs/grain_size_v2.rds')
@@ -252,10 +270,22 @@ saveRDS(grain_df, 'data/Sediment/Grain Size/grain_size_v1_v2_combined.RDS')
 
 #### combined ####
 
-# rbind(v1_D50, v2_D50) %>% 
-#   mutate(
-#     group = case_when(
-#     between(year_bp_new, 1500, 2100) ~ "2100 - 1500",
-#     between(year_bp_new, 500, 1499) ~ "1499 - 500",
-#     between(year_bp_new, 0, 499) ~ "499 - 0"
-#   ))
+gs <- readRDS('data/Sediment/Grain Size/grain_size_v1_v2_combined.RDS') %>% 
+  mutate(year_ce_avg = round(year_ce_new))
+
+gs_plot <- 
+  gs %>% 
+  mutate(
+    smooth = smoother::smth(x = stdep, method = 'gaussian', window = 6),
+    mvavg = zoo::rollapply(stdep, 3, mean, align = 'center', fill = NA)
+  ) %>% 
+  ggplot(aes(x = year_ce_avg, color = core)) +
+  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
+  geom_point(aes(y = stdep), alpha = 1) +
+  #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
+  geom_line(aes(y = mvavg), colour = "gray") +
+  ylab("D50 Sd. Dept.") +
+  xlab("Year (CE)") +  
+  theme_bw()
+
+saveRDS(gs_plot, 'figs/grain-size/grain_size_v1_v2_together.RDS')

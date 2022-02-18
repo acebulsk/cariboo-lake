@@ -1,8 +1,9 @@
 ---
 title: "Cariboo Lake Results Draft: Section 3 Temporal Sedimentary Record"
 author: "Alex Cebulski"
-date: "January 9, 2022"
+date: "Feb 13, 2022"
 output:
+  # bookdown::pdf_document2:
   bookdown::word_document2:
       keep_tex: false
 header-includes:
@@ -12,7 +13,7 @@ header-includes:
 
 ```{r setup, include=FALSE}
 library(dplyr)
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = F)
 knitr::opts_chunk$set(out.width = "100%", Figurealign = 'center')
 ```
 
@@ -42,11 +43,11 @@ The sediment laminae chronology from cores V1 and V2 are interpreted as annual c
 
 laminae couplets with thicknesses greater than 3 standard deviations from the mean were classified as event-based turbidite beds. Table \@ref(tab:turbTbl), shows the eight turbidites observed in V1 and nine turbidites observed in V2, and their corresponding laminae thickness and estimated year by AMS radiocarbon date. Figure \@ref(fig:turbScatter), shows the timing of the turbidite beds are not correlated between most of the turbidite events at V1 and V2. Therefore, it is likely the turbidite beds are formed by isolated events, proximal to the core location such as adjacent hillslope failures, turbidite side-wall slumps and/or very local debris flows. Since the turbidite beds were inferred to be localized events they were removed from the varve counting chronology. 
 
-```{r turbTbl, echo=F}
+```{r turbTbl, echo=F, fig.cap='Timing and thickness of turbidite laminae (Lam.) for V1 and V2. Est. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates.'}
 readRDS('figs/turbidite_tbl.rds') %>% 
   knitr::kable(digits = 2,
-               booktabs = T,
-               format = 'latex',
+               # booktabs = T,
+               # format = 'latex',
                caption = 'Timing and thickness of turbidite laminae (Lam.) for V1 and V2. Est. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates.')
 ```
 
@@ -62,24 +63,37 @@ The basal age for each core for was estimated using both the varve chronology an
 
 Higher sedimentation rates were observed proximal to the Cariboo River Delta in V1 compared to the more distal core V2, as was observed in the Ekman surficial cores. Sedimentation rates estimated using varve chronology and AMS radiocarbon dates had a larger difference at V1 with 2.4 mm/yr and 1.87 +/- 0.04 mm/yr respectively. Closer agreement was observed at V2 with 1.52 mm/yr estimated by the varve chronology and 1.47 +/- 0.11 mm/yr from the AMS radiocarbon date. Some error is observed between the sedimentation rates estimated by the varve chronology and the AMS radiocarbon dates, particularly for V1, likely due to some of the aforementioned sources of error in the varve chronology and AMS radiocarbon methods. Still, the relatively close agreement between the two sedimentation rates gives confidence in further interpretations of the varve chronology at multi-decade to century time scales. 
 
-Figure \@ref(fig:varves) shows varve thickness measured from V1 and V2, which illustrates trends in suspended sediment delivery to Cariboo Lake at sub-decadal to centennial time scales. The chronology for Figure \@ref(fig:varves) is calculated using linear interpolation from the single AMS radiocarbon date at V1 and V2. At V1, the 30-year average varve thickness remains above average from CE 0-600, 850-950, 1000-1100, 1150-1200 and below average between CE 800-850, 950-1000, 1100-1150, and 1200-1850. At V2, varve thickness is above average between CE 0-250, 350-450, 550-600, 1500-1600, 1700-1800, and 1900-1950 and below average between CE 250-350, 450-550, 1950-1500, 1450-1500, 1800-1900. Above average varve thickness is consistent between V1 and V2 between 0-500 CE, with a stronger signal observed for V1 which is closer to the main Cariboo River outlet. Below average varve thickness is observed at both V1 and V2 between 1000-1500 CE, with a stronger signal at V2. After this, trends in varve thickness between the two cores are not consistent, but generally remain below average for V1 and above average for V2. Sub-centennial trends are not reported due to the coarse temporal control for both V1 and V2. 
+Figure \@ref(fig:varves-a) shows varve thickness measured from V1 and V2, which illustrates trends in suspended sediment delivery to Cariboo Lake at sub-decadal to centennial time scales. The chronology for Figure \@ref(fig:varves-a) is calculated using linear interpolation from the single AMS radiocarbon date at V1 and V2. At V1, the 30-year average varve thickness remains above average from CE 0-600, 850-950, 1000-1100, 1150-1200 and below average between CE 800-850, 950-1000, 1100-1150, and 1200-1850. At V2, varve thickness is above average between CE 0-250, 350-450, 550-600, 1500-1600, 1700-1800, and 1900-1950 and below average between CE 250-350, 450-550, 1950-1500, 1450-1500, 1800-1900. Above average varve thickness is consistent between V1 and V2 between 0-500 CE, with a stronger signal observed for V1 which is closer to the main Cariboo River outlet. Below average varve thickness is observed at both V1 and V2 between 1000-1500 CE, with a stronger signal at V2. After this, trends in varve thickness between the two cores are not consistent, but generally remain below average for V1 and above average for V2. Sub-centennial trends are not reported due to the coarse temporal control for both V1 and V2. 
 
-```{r varves, echo=FALSE, fig.cap = "Standardized departure from the mean varve thickness for cores V1 and V2. The gray lines represent measured varve thickness, the black line is a 30-year moving average, gaps correspond to portions of the core that did not have discernible varves. The top axes, labelelled Year (CE), was estimated using linear interpolation from the AMS radiocarbon dates. The black points on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
-knitr::include_graphics("figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png")
+```{r varves-a, fig.width = 8, fig.height = 6, echo=FALSE, fig.cap = "OPTION A - Standardized departure from the mean varve thickness for cores V1 and V2. The gray lines represent measured varve thickness, the black line is a 30-year moving average, gaps correspond to portions of the core that did not have discernible varves. The top axes, labelelled Year (CE), was estimated using linear interpolation from the AMS radiocarbon dates. The black points on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
+readRDS('figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.rds')
 ```
+
+```{r varves-b, echo=FALSE, fig.width = 8.5, fig.height = 4, fig.cap = "OPTION B - Standardized departure from the mean varve thickness for cores V1 and V2. The gray lines represent measured varve thickness, the black line is a 30-year moving average, gaps correspond to portions of the core that did not have discernible varves. The top axes, labelelled Year (CE), was estimated using linear interpolation from the AMS radiocarbon dates. The black points on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
+readRDS("figs/V1_V2_varvethickness_together_vs_depth_and_C14_est_yr_ma.rds")
+```
+
 
 *Grain Size*
 
 Figure \@ref(fig:particle) shows that grain size for both V1 and V2 is above average between 0-500 CE and below average from 700-1500 CE. After 1500 CE grain size follows an increasing trend at V1 and at V2 grain size remains around average until 1950 CE where there is an increase. Overall, grain size fluctuations at a 100-year resolution show good correspondence between cores V1 and V2 over the past 2000 years. Event-based layers identified in the varve thickness chronology were removed from the grain size analysis presented here. The composition of sediment grains within the event-based layers were all characterised by a single mode with less than 0.01% clay, over 98% silt and less than 1% sand. The average D50 particle size of non-event based sediment is 7.6 µm and 6.4 µm for V1 and V2 respectively. The particle size distribution for non-event based sediment is characterized by a bi-modal distribution with an average composition of 13% clay, 86% silt, and 0.8% sand sized particles at V1 and 81% silt, 18% clay, and 0.5% sand sized at V2. 
 
-```{r particle, echo=FALSE, fig.cap = "Standardized departure from the mean D50 grain size for cores V1 and V2. The black points represent D50 particle size at 5 - 10 cm intervals and the gray line is the 3 sample (~125 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
-knitr::include_graphics("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.png")
+```{r particle, echo=FALSE, fig.width = 8, fig.height = 6, fig.cap = " OPTION A - Standardized departure from the mean D50 grain size for cores V1 and V2. The black points represent D50 particle size at 5 - 10 cm intervals and the gray line is the 3 sample (~125 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
+readRDS("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.rds")
+```
+
+```{r particle-b, echo=FALSE, fig.width = 8, fig.height = 4, fig.cap = " OPTION B - Standardized departure from the mean D50 grain size for cores V1 and V2. The black points represent D50 particle size at 5 - 10 cm intervals and the gray line is the 3 sample (~125 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
+readRDS("figs/grain-size/grain_size_v1_v2_together.RDS")
 ```
 
 *Loss on Ignition*
 
 Figure \@ref(fig:loi) shows the percent mass lost on ignition (LOI) for both V1 and V2. Higher levels of organic content are shown in V1 and V2 from from 0-1000 CE and mostly below average from 1000-2000 CE. Specific periods of above average LOI for V1 occur around CE 0-500, 650-1100, 1150, 1300, 1750-1850 and below average between 50 BCE - 50 CE, CE 550-650, 1150-1300, 1350-1750, 1850-2000. LOI is above between at V2 around CE 0-100, 250-500, 650-900, 1800-1950, and below average between 1000-1050, 1300-1600, 1950-2000. The average LOI at V1 and V2 is similar at 4.76% and 4.80% respectively suggesting that the flux of allochthonous organic material to the core locations is not dependent on distance from the main Cariboo River as it is easily transported through the lake due to the low density. 
 
-```{r loi, echo=FALSE, fig.cap = "Standardized departure from the mean percent LOI for cores V1 and V2. The black points represent percent LOI at 2.5 - 5 cm intervals and the gray line is the 3 sample (~75 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
-knitr::include_graphics("figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png")
+```{r loi, echo=FALSE, fig.width = 8, fig.height = 6, fig.cap = "Standardized departure from the mean percent LOI for cores V1 and V2. The black points represent percent LOI at 2.5 - 5 cm intervals and the gray line is the 3 sample (~75 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
+readRDS("figs/V1_V2_LOI_vs_depth_and_C14_est_yr.rds")
+```
+
+```{r loi-b, echo=FALSE, fig.width = 8, fig.height = 4, fig.cap = "Standardized departure from the mean percent LOI for cores V1 and V2. The black points represent percent LOI at 2.5 - 5 cm intervals and the gray line is the 3 sample (~75 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
+readRDS("figs/V1_V2_LOI_togeter_vs_depth_and_C14_est_yr.rds")
 ```

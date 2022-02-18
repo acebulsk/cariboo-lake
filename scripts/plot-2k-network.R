@@ -36,6 +36,8 @@ ggtheme_sel <- theme(
   legend.key.size = unit(0, 'cm'),
 )
 
+glob_lims <- c(-50, 2025)
+
 #### solomina et al #### 
 # Solomina et al Glacier Advance Review for western canada she also sites Koch 2011
 # Advances listed below are for western Canada, and correspond well to thick varves outlined
@@ -68,7 +70,7 @@ ggplot(aes(x=Year, y = Label, fill = value)) +
   theme_bw() +
   ggtheme_all +
   ggtheme_sel +
-  xlim(c(-50, 2000))
+  xlim(glob_lims)
  glc_adv_plot
 
 #### trouet et al ####
@@ -94,7 +96,7 @@ tr <- ggplot(trouet, aes(x = age_AD, y = annom)) +
                   fill = '2SE'), 
               alpha = 0.2) +
   scale_fill_manual(values = c("#08519C", "#9ECAE1"))+
-  xlim(c(-50, 2000)) +
+  xlim(glob_lims) +
   ylab('Regional T Anomaly (°C)') +
   theme_bw() +
   ggtheme_all
@@ -162,7 +164,7 @@ glob_temp_50_p <- glob_temp_50 %>%
   xlab('Year (CE)') +
   theme(legend.key.size = unit(0.3, 'cm'),
         axis.text.y = element_blank()) +
-  xlim(-50, 2000)
+  xlim(glob_lims)
 
 # glob_temp_50_p
 
@@ -241,7 +243,7 @@ hydro_anom_plot <- cariboo_hydro %>%
   theme(
     axis.text.y = element_blank(),
     legend.key.size = unit(0.3, 'cm')) +
-  xlim(-50, 2000) +
+  xlim(glob_lims) +
   ylab('Regional Precip. Anomaly (mm)')
 
 # hydro_anom_plot
@@ -316,7 +318,7 @@ gs_plot <-
   ylab("D50 Sd. Dept.") +
   # xlab("Year (CE)") +  
   theme_bw()+
-  xlim(-50, 2000) +
+  xlim(glob_lims) +
   ggtheme_all
 
 # varve thickness 
@@ -336,7 +338,7 @@ vt_plot <-
   ylab("Varve Sd. Dept.") +
   ylim(c(-2.5, 5))+
   theme_bw()+
-  xlim(-50, 2000) +
+  xlim(-50, 2025) +
   ggtheme_all
 
 # vt_plot
@@ -360,7 +362,7 @@ loi_plot <-
   geom_line(aes(y = mvavg), colour = "gray") +
   ylab("LOI Sd. Dept.") +
   theme_bw() +
-  xlim(-50, 2000) +
+  xlim(glob_lims) +
   ggtheme_all
 
 
