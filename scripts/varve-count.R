@@ -410,6 +410,8 @@ ggsave('figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png', w
 comb$core[comb$core == 'V1_varve'] = "V1"
 comb$core[comb$core == 'V2_varve'] = "V2"
 
+gaus <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
+
 gaus <- comb %>% 
   # filter(core == "V1") %>% 
   group_by(core) %>% 
