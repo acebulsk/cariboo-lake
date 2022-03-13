@@ -137,7 +137,7 @@ ggplot(ams_df, aes(year_bp, depth, colour = ams_sample)) +
   geom_point() +
   scale_y_continuous(trans = 'reverse') +
   geom_smooth(method = 'lm', se = F, linetype = "dashed", size= 0.5) +
-  geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
+  # geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
   xlab("Mid-Point Cal Year (BP)") +
   ylab("Core Depth (cm)")
 
@@ -163,17 +163,18 @@ ek_v1_cln <- ek_v1 %>%
 all_df <- rbind(ams_df %>% 
                   rename(core_num = ams_sample) %>% 
                   select(year_bp, depth, core_num), 
-                  ek_v2_cln) #%>% rbind(ek_v1_cln)
+                  ek_v2_cln) %>% 
+  filter(core_num != 'V2a')
 
 ggplot(all_df, aes(year_bp, depth, colour = core_num)) +
   geom_point() +
   geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=T, linetype = "dashed", size= 0.5) +
-  geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
+  # geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
   scale_y_continuous(trans = 'reverse') +
   xlab("Estimated Year (BP)") +
   ylab("Core Depth (cm)")
 
-#ggsave('figs/sed_rates_V1_V2_ekmans.png', width = 6, height = 4.5)
+ggsave('figs/sed_rates_V1_V2_ekmans.png', width = 6, height = 4.5)
 
 
 # Look at Long Core Varve Thickness Now 
@@ -447,6 +448,7 @@ gaus <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
 v1_ax_trans <- lm(core_depth ~ year_ce_lin_interp, data = gaus %>% filter(core == "V1"))
 v2_ax_trans <- lm(core_depth ~ year_ce_lin_interp, data = gaus %>% filter(core == "V2"))
 
+label_at <- function(n) function(x) ifelse(x %% n == 0, x, "")
 
 v1_plot <- 
   gaus %>% 
@@ -463,10 +465,12 @@ v1_plot <-
     ylim(c(-2, 5)) +
     ggtitle("V1") +
     scale_x_continuous(
+      breaks = 1:50,  labels = label_at(10),
       limits = c(-50, 2000),
-      sec.axis=sec_axis( 
-        trans=~ . * summary(v1_ax_trans)$coeff[2] + summary(v1_ax_trans)$coeff[1] , 
-        name="Core Depth (mm)")) + # scale sec y axis based on c14
+      labels = label_at(100)) +
+      # sec.axis=sec_axis( 
+      #   trans=~ . * summary(v1_ax_trans)$coeff[2] + summary(v1_ax_trans)$coeff[1] , 
+      #   name="Core Depth (mm)")) + # scale sec y axis based on c14
   theme_bw()
 v1_plot
 

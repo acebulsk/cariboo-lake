@@ -69,11 +69,6 @@ Figure \@ref(fig:varves-a) shows varve thickness measured from V1 and V2, which 
 readRDS('figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.rds')
 ```
 
-```{r varves-b, echo=FALSE, fig.width = 8.5, fig.height = 4, fig.cap = "OPTION B - Standardized departure from the mean varve thickness for cores V1 and V2. The gray lines represent measured varve thickness, the black line is a 30-year moving average, gaps correspond to portions of the core that did not have discernible varves. The top axes, labelelled Year (CE), was estimated using linear interpolation from the AMS radiocarbon dates. The black points on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
-readRDS("figs/V1_V2_varvethickness_together_vs_depth_and_C14_est_yr_ma.rds")
-```
-
-
 *Grain Size*
 
 Figure \@ref(fig:particle) shows that grain size for both V1 and V2 is above average between 0-500 CE and below average from 700-1500 CE. After 1500 CE grain size follows an increasing trend at V1 and at V2 grain size remains around average until 1950 CE where there is an increase. Overall, grain size fluctuations at a 100-year resolution show good correspondence between cores V1 and V2 over the past 2000 years. Event-based layers identified in the varve thickness chronology were removed from the grain size analysis presented here. The composition of sediment grains within the event-based layers were all characterised by a single mode with less than 0.01% clay, over 98% silt and less than 1% sand. The average D50 particle size of non-event based sediment is 7.6 µm and 6.4 µm for V1 and V2 respectively. The particle size distribution for non-event based sediment is characterized by a bi-modal distribution with an average composition of 13% clay, 86% silt, and 0.8% sand sized particles at V1 and 81% silt, 18% clay, and 0.5% sand sized at V2. 
