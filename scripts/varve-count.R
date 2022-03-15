@@ -196,17 +196,27 @@ plot(rownames(v1.ct), v1.ct$lyr_mm)
 
 summary(v1.ct$lyr_mm)
 
-v1.sd <- sd(v1.ct$lyr_mm, na.rm = T)
+v1.sd <- v1 %>% 
+  filter(!notes %in% c('disturbed', 'Disturbed')) %>% 
+  summarise(sd(lyr_mm, na.rm = T)) %>% 
+  as.numeric()
 
-v1.mean <- mean(v1.ct$lyr_mm, na.rm = T)
+v1.mean <- v1 %>% 
+  filter(!notes %in% c('disturbed', 'Disturbed')) %>% 
+  summarise(mean(lyr_mm, na.rm = T)) %>% 
+  as.numeric()
 
-v1.fvl <- v1.mean + (3*v1.sd) # rm couplets with thicknesses greater than 3 std above the mean 
+v1.fvl <- v1.mean + (7*v1.sd) # rm couplets with thicknesses greater than 3 std above the mean 
 
 sd_flag <- v1$lyr_mm > v1.fvl
 
-manual_flags <- nchar(v1$notes) > 3 # any cell that has more than 3 chars is disturbed or flood or tephra (1)
+manual_flags <- v1$notes %in% c('disturbed', 'Disturbed')
+
+# manual_flags <- nchar(v1$notes) > 3 # any cell that has more than 3 chars is disturbed or flood or tephra (1)
 
 v1$lyr_flag <- sd_flag | manual_flags
+
+v1$sd_flag <- sd_flag
 
 sum(v1$lyr_flag, na.rm = TRUE) # how many flags ? 
 
@@ -239,8 +249,8 @@ v1$lyr_mm_stdep <- (v1$lyr_mm - v1.mean.fltr)/v1.sd.fltr
 
 # create df of the floods 
 v1_turbidite <- v1 %>% 
-  filter(lyr_flag == T,
-         notes == 'flood')
+  filter(notes == 'flood', 
+         sd_flag == T)
 
 v1_mod <- data.frame(
   year_BP = seq(1:1643)
@@ -290,17 +300,34 @@ plot(rownames(v2.ct), v2.ct$lyr_mm)
 
 summary(v2.ct$lyr_mm)
 
-v2.sd <- sd(v2.ct$lyr_mm)
+notes <- unique(v2$notes)
+fltr_notes <- notes[!notes %in% c('', 'flood', 'Flood', 'TEPHRA')]
 
-v2.mean <- mean(v2.ct$lyr_mm)
+v2.sd <- v2 %>% 
+  filter(!notes %in% fltr_notes) %>% 
+  summarise(sd(lyr_mm, na.rm = T)) %>% 
+  as.numeric()
+
+v2.mean <- v2 %>% 
+  filter(!notes %in% fltr_notes) %>% 
+  summarise(mean(lyr_mm, na.rm = T)) %>% 
+  as.numeric()
+
+# v2.sd <- sd(v2.ct$lyr_mm)
+# 
+# v2.mean <- mean(v2.ct$lyr_mm)
 
 v2.fvl <- v2.mean + (3*v2.sd) # rm couplets with thicknesses greater than 3 std above the mean 
 
 sd_flag <- v2$lyr_mm > v2.fvl
 
-manual_flags <- nchar(v2$notes) > 0 # any cell that has text is disturbed or flood or tephra (1)
+manual_flags <- v2$notes %in% fltr_notes
+
+# manual_flags <- nchar(v2$notes) > 0 # any cell that has text is disturbed or flood or tephra (1)
 
 v2$lyr_flag <- sd_flag | manual_flags
+
+v2$sd_flag <- sd_flag
 
 sum(v2$lyr_flag, na.rm = TRUE) # how many flags ? 
 
@@ -333,7 +360,7 @@ v2$lyr_mm_stdep <- (v2$lyr_mm - v2.mean.fltr)/v2.sd.fltr
 
 # create df of the floods 
 v2_turbidite <- v2 %>% 
-  filter(lyr_flag == T,
+  filter(sd_flag == T,
          notes %in% c('flood', 'Flood'))
 
 turbidites <- rbind(
