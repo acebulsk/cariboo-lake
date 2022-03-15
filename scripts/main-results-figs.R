@@ -8,6 +8,10 @@ library(ggplot2)
 
 gaus <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
 
+# gaus$ma_30[gaus$core_depth == 1029.454] = NA
+# gaus$ma_30[gaus$core_depth == 1031.924] = NA
+# gaus$ma_30[gaus$core_depth == 479.264 & gaus$core == "V2"] = NA
+
 v1_ax_trans <- lm(core_depth ~ year_ce_lin_interp, data = gaus %>% filter(core == "V1"))
 v2_ax_trans <- lm(core_depth ~ year_ce_lin_interp, data = gaus %>% filter(core == "V2"))
 
@@ -28,13 +32,13 @@ v1_plot <-
   ylim(c(-2, 5)) +
   ggtitle("V1") +
   scale_x_continuous(
-    breaks = seq(0,2000, 250),  
+    breaks = seq(0,2000, 250),
     limits = c(-50, 2000),
-    labels = label_at(500),  
+    labels = label_at(500),
     sec.axis=sec_axis(
       trans=~ . * summary(v1_ax_trans)$coeff[2] + summary(v1_ax_trans)$coeff[1] ,
       name="Core Depth (mm)",
-      breaks = seq(4000,0, -500),  
+      breaks = seq(4000,0, -500),
       labels = label_at(1000)
     )) + # scale sec y axis based on c14
   theme_bw()
