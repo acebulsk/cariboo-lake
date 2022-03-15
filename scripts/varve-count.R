@@ -237,6 +237,11 @@ v1.mean.fltr <- mean(v1$lyr_mm_cln, na.rm = T)
 
 v1$lyr_mm_stdep <- (v1$lyr_mm - v1.mean.fltr)/v1.sd.fltr
 
+# create df of the floods 
+v1_turbidite <- v1 %>% 
+  filter(lyr_flag == T,
+         notes == 'flood')
+
 v1_mod <- data.frame(
   year_BP = seq(1:1643)
 ) %>% 
@@ -326,6 +331,16 @@ v2.mean.fltr <- mean(v2$lyr_mm_cln, na.rm = T)
 
 v2$lyr_mm_stdep <- (v2$lyr_mm - v2.mean.fltr)/v2.sd.fltr
 
+# create df of the floods 
+v2_turbidite <- v2 %>% 
+  filter(lyr_flag == T,
+         notes %in% c('flood', 'Flood'))
+
+turbidites <- rbind(
+  v1_turbidite %>% mutate(core = "V1"),
+  v2_turbidite %>% mutate(core = "V2")
+) %>% 
+  saveRDS('data/long_cores/V1_V2_turbidite_deposits.rds')
 
 v2_mod <- data.frame(
   year_BP = seq(1:1913)
@@ -394,10 +409,10 @@ long_core_cln <- comb %>%
   select(year = year_BP, depth = core_depth, core) %>% 
   mutate(depth = depth / 10)
 
-all_df <- rbind(ams_df_cln %>%  select(year, depth, core), long_core_cln) %>%
+all_df <- rbind(ams_df_cln %>%  select(year = year_bp, depth, core), long_core_cln) %>%
   mutate(year_CE = 2017 - year)
 
-ggplot(all_df, aes(year_bp, depth, colour = core_num)) +
+ggplot(all_df, aes(year, depth, colour = core)) +
   geom_point() +
   geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, linetype = "dashed", size= 0.5) +
   #geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
