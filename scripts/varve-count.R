@@ -206,7 +206,7 @@ v1.mean <- v1 %>%
   summarise(mean(lyr_mm, na.rm = T)) %>% 
   as.numeric()
 
-v1.fvl <- v1.mean + (7*v1.sd) # rm couplets with thicknesses greater than 3 std above the mean 
+v1.fvl <- v1.mean + (6*v1.sd) # rm couplets with thicknesses greater than 3 std above the mean 
 
 sd_flag <- v1$lyr_mm > v1.fvl
 
@@ -248,9 +248,11 @@ v1.mean.fltr <- mean(v1$lyr_mm_cln, na.rm = T)
 v1$lyr_mm_stdep <- (v1$lyr_mm - v1.mean.fltr)/v1.sd.fltr
 
 # create df of the floods 
+v1_751 <- v1[751,] # find flood at 229.0 cm which is in the grain size analysis
 v1_turbidite <- v1 %>% 
-  filter(notes == 'flood', 
-         sd_flag == T)
+  filter(!notes %in% c('disturbed', 'Disturbed'), 
+         sd_flag == T) %>% 
+  rbind(v1_751)
 
 v1_mod <- data.frame(
   year_BP = seq(1:1643)
@@ -268,6 +270,12 @@ v1_mod %>%
   geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=F, linetype = "dashed", size= 0.5) +
   xlab("Estimated Year (BP)") +
   ylab("Core Depth (cm)")
+
+v1_mod %>% 
+  filter(!notes %in% c('disturbed', 'Disturbed')) %>% 
+ggplot(aes(year_ce_lin_interp, lyr_mm)) +geom_point()
+
+ggplotly()
 
 # see old sed rate
 v1_lm_old <- lm(core_depth_excel ~ 0 + year_bp_excel, data = v1)
@@ -317,7 +325,9 @@ v2.mean <- v2 %>%
 # 
 # v2.mean <- mean(v2.ct$lyr_mm)
 
-v2.fvl <- v2.mean + (3*v2.sd) # rm couplets with thicknesses greater than 3 std above the mean 
+# v2.fvl <- v2.mean + (3*v2.sd) # rm couplets with thicknesses greater than 3 std above the mean 
+
+v2.fvl <- 3.9 # based off visual inspection
 
 sd_flag <- v2$lyr_mm > v2.fvl
 
@@ -361,7 +371,9 @@ v2$lyr_mm_stdep <- (v2$lyr_mm - v2.mean.fltr)/v2.sd.fltr
 # create df of the floods 
 v2_turbidite <- v2 %>% 
   filter(sd_flag == T,
-         notes %in% c('flood', 'Flood'))
+         notes %in% c('flood', 'Flood', ''),
+         year_ce_lin_interp > 300 # only keep the ones we have grain size for and were visually inspected as floods 
+         )
 
 turbidites <- rbind(
   v1_turbidite %>% mutate(core = "V1"),
@@ -385,6 +397,12 @@ ggplot(aes(value, core_depth, colour = name)) +
   geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=F, linetype = "dashed", size= 0.5) +
   xlab("Estimated Year (BP)") +
   ylab("Core Depth (cm)")
+
+v2_mod %>% 
+  filter(notes %in% c('', 'flood', 'Flood', 'TEPHRA')) %>% 
+  ggplot(aes(year_ce_lin_interp, lyr_mm)) +geom_point()
+
+ggplotly()
 
 # see old sed rate
 v2_lm_old <- lm(core_depth_excel ~ 0 + year_bp_excel, data = v2)
