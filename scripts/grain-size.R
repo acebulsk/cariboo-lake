@@ -4,47 +4,6 @@ library(plotly)
 library(gridExtra)
 library(tidyr)
 
-v1_tb <- c(44, 124, 120, 196, 251, 257)
-v2_tb <- c(88, 92, 168, 172, 224, 228)
-
-v2_discard <- c(120)
-
-# v1_xl <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_Jan_GranSize_mar23.xlsx',sheet = '226_Raw') %>% 
-#   filter(stringr::str_starts(`Sample Name`, 'Average')) %>% 
-#   mutate(core = 'V1')
-# 
-# v2_xl <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_Jan_GranSize_mar23.xlsx',sheet = '224_Raw') %>% 
-#   filter(stringr::str_starts(`Sample Name`, 'Average'),
-#          !stringr::str_detect(`Sample Name`, 'Sonic')) %>% 
-#   mutate(core = 'V2')
-# 
-# gs <- rbind(v1_xl, v2_xl)
-# 
-# strs <- 
-#   'Average of \'CB17_V2_|Average of \'CB17_V1_|Average of \'CB17_V2B_|Average of \'CB17_V2C_|cm|\''
-# 
-# gs$core_depth <- gsub(strs, "", gs$`Sample Name`)
-# 
-# tb <- gs %>% 
-#   filter(stringr::str_detect(core_depth, 'Flood') | stringr::str_detect(core_depth, 'flood')) 
-# 
-# tb$core_depth <- gsub('_.*', "", tb$core_depth)
-# 
-# tb$core_depth[1] <- 12 
-# 
-# gs_no_tb <- gs %>% 
-#   filter(!stringr::str_detect(core_depth, '[F]'),
-#          !stringr::str_detect(core_depth, '[f]')
-#          ) 
-# 
-# gs_no_tb$core_depth <- gsub('.*_', "", gs_no_tb$core_depth)
-# 
-# 
-# gs_new <- rbind(gs_no_tb, tb) %>% 
-#   mutate(core_depth = as.numeric(core_depth))
-
-# saveRDS(gs_new, 'data/long_cores/gain_size_w_floods.rds')
-
 ## carbon dates ##
 # A small twig from V1 at 347 cm results in a date of 1899-1819 cal BP. 
 # A 4 cm long twig from V2 at 222 cm results in a date of 490-316 cal BP. 
@@ -68,6 +27,57 @@ ams_df <- tibble(
   depth = c(0, 347, 0, 222, 0, v2b_depth),
   ams_sample = c('V1', 'V1', 'V2a', 'V2a', 'V2b', 'V2b')
 )
+
+# pull grain size from excel sheet 
+
+v1_tb <- c(44, 124, 120, 196, 251, 257)
+v2_tb <- c(88, 92, 168, 172, 224, 228)
+
+# v2_discard <- c(120)
+# 
+# v1_xl <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_Jan_GranSize_mar23.xlsx',sheet = '226_Raw') %>%
+#   filter(stringr::str_starts(`Sample Name`, 'Average')) %>%
+#   mutate(core = 'V1')
+# 
+# v2_xl <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_Jan_GranSize_mar23.xlsx',sheet = '224_Raw') %>%
+#   filter(stringr::str_starts(`Sample Name`, 'Average'),
+#          !stringr::str_detect(`Sample Name`, 'Sonic')) %>%
+#   mutate(core = 'V2')
+# 
+# gs <- rbind(v1_xl, v2_xl)
+# 
+# strs <-
+#   'Average of \'CB17_V2_|Average of \'CB17_V1_|Average of \'CB17_V2B_|Average of \'CB17_V2C_|cm|\''
+# 
+# gs$core_depth <- gsub(strs, "", gs$`Sample Name`)
+# 
+# tb <- gs %>%
+#   filter(stringr::str_detect(core_depth, 'Flood') | stringr::str_detect(core_depth, 'flood'))
+# 
+# tb$core_depth <- gsub('_.*', "", tb$core_depth)
+# 
+# tb$core_depth[1] <- 12
+# 
+# gs_no_tb <- gs %>%
+#   filter(!stringr::str_detect(core_depth, '[F]'),
+#          !stringr::str_detect(core_depth, '[f]')
+#          )
+# 
+# gs_no_tb$core_depth <- gsub('.*_', "", gs_no_tb$core_depth)
+# 
+# 
+# gs_new <- rbind(gs_no_tb, tb) %>%
+#   mutate(core_depth = as.numeric(core_depth),
+#          year_bp_new = case_when(
+#            core == "V1" ~ core_depth * (v1_C14$year/(v1_C14$depth_cm)),
+#            core == "V2" ~ core_depth * (v2_C14$year/(v2_C14$depth_cm))
+#          ),
+#          year_ce_new = 2017-year_bp_new)
+# 
+
+
+# V1
+
 v1 <- readRDS("data/long_cores/gain_size_w_floods.rds") %>% 
   filter(core == 'V1') %>% 
   rename(depth = core_depth, 
@@ -233,6 +243,10 @@ v2.sd.fltr <- sd(v2_D50$D50, na.rm = T)
 v2.mean.fltr <- mean(v2_D50$D50, na.rm = T)
 
 v2_D50$stdep <- (v2_D50$D50 - v2.mean.fltr)/v2.sd.fltr
+
+gs_new$stdep <- (gs_new$`Dx (50)` - v2.mean.fltr)/v2.sd.fltr
+
+saveRDS(gs_new, 'data/long_cores/gain_size_w_floods.rds')
 
 core_stats <- readRDS('data/long_cores/core_stats.rds')
 

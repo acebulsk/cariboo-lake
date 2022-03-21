@@ -51,8 +51,8 @@ readRDS('figs/turbidite_tbl.rds') %>%
                caption = 'Timing and thickness of turbidite laminae (Lam.) for V1 and V2. Est. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates.')
 ```
 
-```{r turbScatter, echo = F, fig.cap = "Timing and thickness of turbidite laminae in V1 and V2. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates."}
-knitr::include_graphics("figs/V1_V2_turbidite_vs_time.png")
+```{r turbScatter, echo = F, fig.cap = "Standardized departures for grain size and varve thickness for turbidites identified in V1 and V2. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates."}
+readRDS('figs/turbidite_plot.rds')
 ```
 
 For core V1, laminae couplets were counted down to a core depth of 347 cm, where the AMS radiocarbon organic material was retrieved. This resulted in a couplet-derived age estimated of 1450 BP compared to the AMS radiocarbon estimate of 1899 - 1819 cal BP. For core V2 a date of 1886 BP was estimated by couplet couplet counting down to a core depth of 294 cm which matches closely with the V2b AMS radiocarbon date of 2045-1895 cal BP. The better alignment between the couplet counting age and the AMS derived age in V2  can be attributed to the higher degree of core disturbance in V1 compared to V2.  Disturbed sections may have resulted in undercounting of some couplets. Based on the relatively close agreement between the AMS radiocarbon dated organic material and couplet counting, laminae couplets in  V1 and V2 are considered to be deposited annually. Close alignment was not expected due to the aforementioned error present in the couplet counting methodology and the limited 14C dates available. 

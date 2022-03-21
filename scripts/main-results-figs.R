@@ -89,7 +89,7 @@ saveRDS(cp, "figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.rds")
 
 # see grain-size.R for creation of df
 
-gs <- readRDS('data/Sediment/Grain Size/grain_size_v1_v2_combined.RDS') 
+gs <- readRDS('data/long_cores/grain_size_v1_v2_combined.RDS') 
 
 v1_plot <- 
   gs %>% 
@@ -167,13 +167,14 @@ saveRDS(v2_plot, 'figs/grain_size_v2.rds')
 
 # see loi.R for creation of loi df
 
-loi <- readRDS('data/Sediment/LOI/loi_v1_v2_working.RDS')
+loi <- readRDS('data/Sediment/LOI/loi_v1_v2_working.RDS') %>% 
+  filter(is.na(turbidite) == T)
 
 v1_plot <- 
   loi %>%
   filter(core == "V1") %>% 
   mutate(
-    smooth = smoother::smth(x = stdep, method = 'gaussian', window = 5),
+    # smooth = smoother::smth(x = stdep, method = 'gaussian', window = 5),
     mvavg = zoo::rollapply(stdep, width = 3, by = 1, FUN = mean, na.rm = T, align = "center", partial = T)
   ) %>% 
   ggplot(aes(x = year_ce_new)) +

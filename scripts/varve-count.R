@@ -245,6 +245,22 @@ v1 <- v1 %>%
 v1.sd.fltr <- sd(v1$lyr_mm_cln, na.rm = T)
 v1.mean.fltr <- mean(v1$lyr_mm_cln, na.rm = T)
 
+v1_stats <- data.frame(
+  stat = c(
+    'mean', 
+    'mean_no_flood',
+    'sd',
+    'sd_no_flood'
+  ),
+  value = c(
+    v1.mean,
+    v1.mean.fltr,
+    v1.sd,
+    v1.sd.fltr
+  ),
+  core = c(rep('V1', 4))
+)
+
 v1$lyr_mm_stdep <- (v1$lyr_mm - v1.mean.fltr)/v1.sd.fltr
 
 # create df of the floods 
@@ -365,6 +381,26 @@ v2 <- v2 %>%
 
 v2.sd.fltr <- sd(v2$lyr_mm_cln, na.rm = T)
 v2.mean.fltr <- mean(v2$lyr_mm_cln, na.rm = T)
+
+v2_stats <- data.frame(
+  stat = c(
+    'mean', 
+    'mean_no_flood',
+    'sd',
+    'sd_no_flood'
+  ),
+  value = c(
+    v2.mean,
+    v2.mean.fltr,
+    v2.sd,
+    v2.sd.fltr
+  ),
+  core = c(rep('V2', 4))
+)
+
+varve_stats <- rbind(v1_stats, v2_stats) %>% 
+  mutate(metric = 'varve_thickness') %>% 
+  saveRDS('data/long_cores/core_stats.rds')
 
 v2$lyr_mm_stdep <- (v2$lyr_mm - v2.mean.fltr)/v2.sd.fltr
 
