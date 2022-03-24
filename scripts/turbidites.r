@@ -10,7 +10,7 @@ core_stats <- readRDS('data/long_cores/core_stats.rds')
 
 # select from original visual inspection circa 2018, excel notes (all have mode == 1)
 
-v1_tb <- c(44, 124, 120, 196, 251, 257)
+v1_tb <- c(44, 124, 120, 196, 251) # rm 257 bc is duplicate of 251
 v2_tb <- c(88, 92, 168, 172, 224, 228)
 
 ## carbon dates ##
@@ -82,9 +82,9 @@ vt <- rbind(vt, v1_12) %>%
 
 # average varve thickness for turbidites
 
-v1_tb_vt_avg <- mean(vt$lyr_mm[vt$core == 'V1'])
+v1_tb_vt_avg <- mean(vt$value[vt$core == 'V1'])
 
-v2_tb_vt_avg <- mean(vt$lyr_mm[vt$core == 'V2'])
+v2_tb_vt_avg <- mean(vt$value[vt$core == 'V2'])
 
 
 # Look at turbidites from grain-size analysis
@@ -105,8 +105,8 @@ gs <- gs %>%  filter(core == 'V1' & record_number %in% v1_tb |
 
 gs %>% 
   group_by(core) %>% 
-  summarise(mean_d50 = mean(d50),
-            sd_d50 = sd(d50),
+  summarise(mean_d50 = mean(value),
+            sd_d50 = sd(value),
             count = n())
 
 gs_tb_new %>% 
@@ -150,14 +150,19 @@ tb_loi <- loi %>%
 
 # plot gs and vt
 
-tb <- rbind(vt, gs, tb_loi)
+# tb <- rbind(vt, gs, tb_loi)
+# 
+# saveRDS(tb, 'data/long_cores/turbidite_metrics.rds')
+
+tb <- readRDS('data/long_cores/turbidite_metrics.rds')
 
 p <- ggplot(tb, aes(x = year, y = stdep, colour = core)) +
   geom_point() +
+  geom_bar(stat = 'identity') +
   facet_grid(rows = vars(metric), scales="free_y") +
   xlab('Year (CE)') +
   ylab('Standardized Departure')+
-  theme_bw()
+  theme_bw() 
 
 saveRDS(p, 'figs/turbidite_plot.rds')
 

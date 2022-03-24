@@ -59,6 +59,18 @@ For core V1, laminae couplets were counted down to a core depth of 347 cm, where
 
 The basal age for each core is estimated using both the varve chronology and the AMS radiocarbon accumulation rate. The basal age of V1 at a depth of 382 cm is 1622 BP based on the varve chronology and 2046 cal BP, or about a 400 year difference from the extrapolated 14C date. The basal age of V2 at a depth of 291 cm is 1913 BP based on the varve chronology and 2007 cal BP by extrapolating the 14C. Accumulation rates estimated using varve chronology and AMS radiocarbon dates had a larger difference at V1 with 2.4 mm/yr and 1.87 +/- 0.04 mm/yr respectively. Closer agreement was observed at V2 with 1.52 mm/yr estimated by the varve chronology and 1.47 +/- 0.11 mm/yr from the AMS radiocarbon date. While V2 is likely the better predictor of changes in accumulation rates over the last 2000 years, both cores are considered below. 
 
+*Event-based Layers*
+
+Event-based layers, shown in Figure \@ref(fig:turbScatter) were removed prior to subsequent trend analyses of varve thickness, grain size, and percent organics. The event-based layers were identified if the thickness and grain size were at least 3 standard deviations from the mean, with mean standardized departures of 13.9 and 10.0 respectively. The loss on ignition (LOI) for the event-based layers do not show as strong of a departure from the mean with an average standardized departure of -1.8. Still, most of the event-based layers had below average LOI aside from two that were above average which occurred around 250 CE and 750 CE. 
+
+The timing of the even-based layers between V1 and V2 coincide for four of the seven layers. This could be due to some events occuring from strong precipitation or rain-on-snow events deliverying high sediment-yield to the lake wide leading to some coincident event layers at both cores. While some event layers may be more locally derived turbidite plumes from more local hillslope failures. The layers hypothesized to be from lake-wide events occur around 1250, 1600, and 1950 CE.
+
+The composition of sediment grains within the event-based layers were all characterized by a single mode with less than 0.01% clay, over 98% silt and less than 1% sand. The average D50 particle size of the event layers is 9.7 µm and 16.2 µm for V1 and V2 respectively and for couplet sediment is 7.6 µm and 6.4 µm for V1 and V2 respectively. The particle size distribution for the couplet sediments is characterized by a bi-modal distribution with an average composition of 13% clay, 86% silt, and 0.8% sand sized particles at V1 and 81% silt, 18% clay, and 0.5% sand sized at V2. 
+
+```{r turbScatter, echo = F, fig.cap = "Timing and Standardized Departures of turbidite thickness, grain size, and LOI for V1 and V2. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates."}
+knitr::include_graphics("figs/turbidite_plot.rds")
+```
+
 *Sediment Yield Statistics* 
 
 Figure \@ref(fig:varves-a) shows the time series of varve thickness measured from V1 and V2 and illustrates trends in suspended sediment delivery to Cariboo Lake. The measured couplet thicknesses in the two cores are plotted as standardized departures to facilitate comparison between the two cores. In each plot a 30-year moving average with a 1-year time step is plotted in black to emphasize decadal to centennial patterns in accumulation rate departures.  Chronologies in Figure \@ref(fig:varves-a) assume a linear interpolation from the single AMS radiocarbon dates. 
@@ -72,8 +84,6 @@ readRDS('figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.rds')
 *Grain Size*
 
 The temporal pattern in standardized departures of the D50 particle size shows a consistent pattern between the two cores (Figure \@ref(fig:particle)). Both V1 and V2 have above average grain size between 0 to 700 CE and below average from 700 to 1500 CE. After 1500 CE, grain size follows an increasing trend with average to above average grain size. V1 shows the more dramatic increase in grain size compared to V2.Overall, grain size fluctuations at the coarse resolution of about 100-years shows good correspondence between the two cores over the last 2000 years. 
-
-Event-based layers identified in the varve thickness chronology were removed from the grain size analysis presented here. The composition of sediment grains within the event-based layers were all characterised by a single mode with less than 0.01% clay, over 98% silt and less than 1% sand. The average D50 particle size of non-event based sediment is 7.6 µm and 6.4 µm for V1 and V2 respectively. The particle size distribution for non-event based sediment is characterized by a bi-modal distribution with an average composition of 13% clay, 86% silt, and 0.8% sand sized particles at V1 and 81% silt, 18% clay, and 0.5% sand sized at V2. 
 
 ```{r particle, echo=FALSE, fig.width = 8, fig.height = 6, fig.cap = " OPTION A - Standardized departure from the mean D50 grain size for cores V1 and V2. The black points represent D50 particle size at 5 - 10 cm intervals and the gray line is the 3 sample (~125 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
 readRDS("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.rds")
