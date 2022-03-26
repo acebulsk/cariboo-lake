@@ -41,19 +41,7 @@ knitr::include_graphics("figs/sed_rates_V1_V2_ekmans.png")
 
 The sediment laminae chronology from cores V1 and V2 are interpreted as annual couplets or varves. This interpretation is supported by the AMS radiocarbon dated samples from cores V1 and V2 which corresponded reasonably well with the age of the varve at the same depth. However, some error is present in the varve chronology due to the presence of disturbed sections of core, core compaction, undercounting, and subjectivity in classifying thicker graded and massive laminae/beds that interpreted as flood events. In the absence of laminae couplets, the time elapsed over disturbed sections, was interpolated using a 30-year moving average sediment rate following methods described in Menounos et al., 2008.
 
-Laminae couplets with thicknesses greater than 3 standard deviations from the mean were classified as event-based turbidite beds. These layers were also obsereved to have well defined beds and were well graded. Table 1, shows the eight turbidites observed in V1 and nine turbidites observed in V2, and their corresponding laminae thickness and estimated year using the 14C-derived accumulation rates. Figure 5, shows the timing of the turbidite beds are not correlated between V1 and V2. It is likely the turbidite beds are formed by more isolated events proximal to the core locations such as adjacent hillslope failures, subaqueous side-wall slumps and/or very local tributary stream floods. For the purpose of establishing an accumulation rate chronology based on the varve only couplets, the turbidite beds were removed from the varve counting chronology.
-
-```{r turbTbl, echo=F, fig.cap='Timing and thickness of turbidite laminae (Lam.) for V1 and V2. Est. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates.'}
-readRDS('figs/turbidite_tbl.rds') %>% 
-  knitr::kable(digits = 2,
-               # booktabs = T,
-               # format = 'latex',
-               caption = 'Timing and thickness of turbidite laminae (Lam.) for V1 and V2. Est. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates.')
-```
-
-```{r turbScatter, echo = F, fig.cap = "Standardized departures for grain size and varve thickness for turbidites identified in V1 and V2. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates."}
-readRDS('figs/turbidite_plot.rds')
-```
+Laminae couplets with thicknesses and grain size greater than 3 standard deviations from the mean were classified as event-based turbidite beds. These layers were observed to have defined beds and were well graded. Where possible the thickness, grain size statistics, and LOI were analyzed for each event layer. However, some layers did not have enough sediment to calculate both LOI and grain size. A more detailed description of the turbidite bed sediment characteristics is provided in the following section.
 
 For core V1, laminae couplets were counted down to a core depth of 347 cm, where the AMS radiocarbon organic material was retrieved. This resulted in a couplet-derived age estimated of 1450 BP compared to the AMS radiocarbon estimate of 1899 - 1819 cal BP. For core V2 a date of 1886 BP was estimated by couplet couplet counting down to a core depth of 294 cm which matches closely with the V2b AMS radiocarbon date of 2045-1895 cal BP. The better alignment between the couplet counting age and the AMS derived age in V2  can be attributed to the higher degree of core disturbance in V1 compared to V2.  Disturbed sections may have resulted in undercounting of some couplets. Based on the relatively close agreement between the AMS radiocarbon dated organic material and couplet counting, laminae couplets in  V1 and V2 are considered to be deposited annually. Close alignment was not expected due to the aforementioned error present in the couplet counting methodology and the limited 14C dates available. 
 
@@ -61,11 +49,45 @@ The basal age for each core is estimated using both the varve chronology and the
 
 *Event-based Layers*
 
-Event-based layers, shown in Figure \@ref(fig:turbScatter) were removed prior to subsequent trend analyses of varve thickness, grain size, and percent organics. The event-based layers were identified if the thickness and grain size were at least 3 standard deviations from the mean, with mean standardized departures of 13.9 and 10.0 respectively. The loss on ignition (LOI) for the event-based layers do not show as strong of a departure from the mean with an average standardized departure of -1.8. Still, most of the event-based layers had below average LOI aside from two that were above average which occurred around 250 CE and 750 CE. 
+The turbidite bed grain size, LOI, and thickness shown in Table \@ref(tab:turbTbl) illustrates the high sediment flux that occurred during these events compared to the non-event, annually occurring couplets. Increased grain size and varve thickness is observed for event-based layers and reduced LOI. Layer thickness is consistently higher for event-based layers compared to non-event couplets. Grain size and LOI do not show as strong of a response on average across all event-based layers apart from a single event observed at V2 with remarkably high grain size and low LOI around 400 CE (Figure \@ref(fig:turbScatter)). Since the primary delivery mechanism of sediment delivery to the core locations is through suspended sediment transport, the size of particle able to be transported even in large sediment flux events is limited. Very few sand grains were observed in any section of either core, however event-based layers were comprised of almost exclusively silt grains compared to the non-event couplets which also had a larger amount of clay. The composition of sediment grains within the event-based layers were all characterized by a single mode with less than 0.01% clay, over 98% silt and less than 1% sand. The grain size distribution for the non-event couplet sediments is characterized by a bi-modal distribution with an average composition of 16% clay, 83% silt, and 1%. The average D50 grain size of the event layers is 9.7 µm and 16.2 µm for V1 and V2 respectively and for couplet sediment is 7.6 µm and 6.4 µm for V1 and V2 respectively. 
 
-The timing of the even-based layers between V1 and V2 coincide for four of the seven layers. This could be due to some events occuring from strong precipitation or rain-on-snow events deliverying high sediment-yield to the lake wide leading to some coincident event layers at both cores. While some event layers may be more locally derived turbidite plumes from more local hillslope failures. The layers hypothesized to be from lake-wide events occur around 1250, 1600, and 1950 CE.
+Figure \@ref(fig:turbScatter), shows the timing of the event-based layers between V1 and V2. Four of the event layers at V1 and V2 coincide according to their layer thickness. Coincident measurements of grain size are provided for three of the seven event layers and no coincident measurements of LOI are provided between V1 and V2 due to the lack of sample material. The coincident layers observed around 750, 1250, 1600, and 1950 CE at both V1 and V2 are inferred to be from very large lake-wide events such as large slope failures upstream of both cores, unusually high flows during the spring freshet, or rain on snow events in the early fall delivering high sediment-yield across the lake leading to some coincident event layers at both cores. The temporally separated layers observed at ~250 CE at V1 and ~400 and ~1245 CE at V2 may be from isolated events such as from local hillslope failures, subaqueous side-wall slumps and/or very local tributary stream floods. Event-based layers, shown in Figure \@ref(fig:turbScatter) were removed in subsequent trend analyses of varve thickness, grain size, and percent organics. 
 
-The composition of sediment grains within the event-based layers were all characterized by a single mode with less than 0.01% clay, over 98% silt and less than 1% sand. The average D50 particle size of the event layers is 9.7 µm and 16.2 µm for V1 and V2 respectively and for couplet sediment is 7.6 µm and 6.4 µm for V1 and V2 respectively. The particle size distribution for the couplet sediments is characterized by a bi-modal distribution with an average composition of 13% clay, 86% silt, and 0.8% sand sized particles at V1 and 81% silt, 18% clay, and 0.5% sand sized at V2. 
+```{r include=FALSE}
+# construct df for turb tbl
+non_event <- readRDS('data/long_cores/core_stats.rds') |> 
+  # mutate(metric = case_when(
+  #   metric == 'grain_size' ~ 'Grain Size',
+  #   metric == 'varve_thickness' ~ 'Varve Thickness',
+  #   metric == 'loi' ~ 'LOI',
+  # ))
+  filter(stat %in% c('mean_no_flood')) |> 
+  group_by(core, metric) |> 
+  summarise(non_event_mean = mean(value)) 
+  
+  
+tb <- readRDS('data/long_cores/turbidite_metrics.rds') |> 
+  dplyr::select(value, stdep, core, metric) |> 
+  group_by(core, metric) |> 
+  summarise(event_mean = mean(value),
+            event_sd = sd(value),
+            event_n = n()) 
+```
+
+```{r turbTbl, echo=F, fig.cap='Sediment characteristics of turbidite beds for V1 and V2. The "event_mean" is the mean sediment characteristic for the group, "event_sd" is the standard deviation for the group, and "event_n" is the number of layers analyzed in each group.'}
+left_join(non_event, tb) |> 
+  arrange(metric) %>%
+  mutate(metric = case_when(
+    metric == 'Grain Size' ~ 'D50 (µm)',
+    metric == 'Varve Thickness' ~ 'Thickness (mm)',
+    metric == 'LOI' ~ 'LOI (%)',
+  )) |> 
+  knitr::kable(digits = 2,
+               # booktabs = T,
+               # format = 'latex',
+               caption = 'Sediment characteristics of turbidite beds for V1 and V2. The "event_mean" is the mean sediment characteristic for the group, "event_sd" is the standard deviation for the group, and "event_n" is the number of layers analyzed in each group.')
+```
+
 
 ```{r turbScatter, echo = F, fig.cap = "Timing and Standardized Departures of turbidite thickness, grain size, and LOI for V1 and V2. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates."}
 knitr::include_graphics("figs/turbidite_plot.rds")
@@ -83,13 +105,13 @@ readRDS('figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.rds')
 
 *Grain Size*
 
-The temporal pattern in standardized departures of the D50 particle size shows a consistent pattern between the two cores (Figure \@ref(fig:particle)). Both V1 and V2 have above average grain size between 0 to 700 CE and below average from 700 to 1500 CE. After 1500 CE, grain size follows an increasing trend with average to above average grain size. V1 shows the more dramatic increase in grain size compared to V2.Overall, grain size fluctuations at the coarse resolution of about 100-years shows good correspondence between the two cores over the last 2000 years. 
+The temporal pattern in standardized departures of the D50 grain size shows a consistent pattern between the two cores (Figure \@ref(fig:particle)). Both V1 and V2 have above average grain size between 0 to 700 CE and below average from 700 to 1500 CE. After 1500 CE, grain size follows an increasing trend with average to above average grain size. V1 shows the more dramatic increase in grain size compared to V2.Overall, grain size fluctuations at the coarse resolution of about 100-years shows good correspondence between the two cores over the last 2000 years. 
 
-```{r particle, echo=FALSE, fig.width = 8, fig.height = 6, fig.cap = " OPTION A - Standardized departure from the mean D50 grain size for cores V1 and V2. The black points represent D50 particle size at 5 - 10 cm intervals and the gray line is the 3 sample (~125 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
+```{r particle, echo=FALSE, fig.width = 8, fig.height = 6, fig.cap = " OPTION A - Standardized departure from the mean D50 grain size for cores V1 and V2. The black points represent D50 grain size at 5 - 10 cm intervals and the gray line is the 3 sample (~125 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
 readRDS("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.rds")
 ```
 
-```{r particle-b, echo=FALSE, fig.width = 8, fig.height = 4, fig.cap = " OPTION B - Standardized departure from the mean D50 grain size for cores V1 and V2. The black points represent D50 particle size at 5 - 10 cm intervals and the gray line is the 3 sample (~125 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
+```{r particle-b, echo=FALSE, fig.width = 8, fig.height = 4, fig.cap = " OPTION B - Standardized departure from the mean D50 grain size for cores V1 and V2. The black points represent D50 grain size at 5 - 10 cm intervals and the gray line is the 3 sample (~125 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
 readRDS("figs/grain-size/grain_size_v1_v2_together.RDS")
 ```
 
