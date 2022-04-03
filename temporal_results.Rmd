@@ -1,38 +1,32 @@
----
-title: "Cariboo Lake Results Draft: Section 3 Temporal Sedimentary Record"
-author: "Alex Cebulski"
-date: "Feb 13, 2022"
-output:
-  # bookdown::pdf_document2:
-  bookdown::word_document2:
-      keep_tex: false
-header-includes:
-   - \usepackage{caption}
-   - \captionsetup[figure]{font=footnotesize}
----
+<!-- --- -->
+<!-- title: "The Glaciolacustrine Sediment Record of Cariboo Lake, BC: Implications for Holocene Fluvial and Glacial Watershed Dynamics" -->
+<!-- author: "A.C. Cebulski, J.R. Desloges" -->
+<!-- date: "Feb 2, 2017" -->
+<!-- output: -->
+<!--   bookdown::pdf_document2: -->
+<!--       keep_tex: false -->
+<!-- header-includes: -->
+<!--    - \usepackage{caption} -->
+<!--    - \captionsetup[figure]{font=footnotesize} -->
+<!-- --- -->
 
-```{r setup, include=FALSE}
-library(dplyr)
-knitr::opts_chunk$set(echo = TRUE, warning = F)
-knitr::opts_chunk$set(out.width = "100%", Figurealign = 'center')
-```
+<!-- ```{r setup, include=FALSE} -->
+<!-- library(dplyr) -->
+<!-- knitr::opts_chunk$set(echo = TRUE, warning = F, message = F) -->
+<!-- knitr::opts_chunk$set(out.width = "100%", Figurealign = 'center') -->
+<!-- ``` -->
 
-Four glaciolacustrine sediment cores, which range from 2 – 4 m in length, were retrieved from the deepest basins of Cariboo Lake (Figure 1). Cores V1 and V2 were selected for detailed analysis as these two cores had sufficient organic material for AMS radiocarbon dating, and their sedimentary record was well preserved. The chronology of the two cores is provided by AMS radiocarbon dating and varve counting. No evidence of volcanic tephra was found within either of the two cores. @Westgate1977 reports the most recent major volcanic ash event to reach central BC occurred 2100 yr BP. This combined with the dark colour of the clastic core sediments prevented finding smaller volcanic ash events within the cores.   Records of grain size, varve thickness, and organic content from these two cores demonstrate patterns in sediment delivery to Cariboo Lake over the past 2000 years.
+
+## Temporal Sediment Record
+
+Four glaciolacustrine sediment cores, which range from 2 – 4 m in length, were retrieved from the deepest basins of Cariboo Lake (Fig. \@ref(fig:map-lake)). Cores V1 and V2 were selected for detailed analysis as these two cores had sufficient organic material for AMS radiocarbon dating, and their sedimentary record was well preserved. The chronology of the two cores is provided by AMS radiocarbon dating and varve counting. No evidence of volcanic tephra was found within either of the two cores. @Westgate1977 reports the most recent major volcanic ash event to reach central BC occurred 2100 yr BP. This combined with the dark colour of the clastic core sediments prevented finding smaller volcanic ash events within the cores.   Records of grain size, varve thickness, and organic content from these two cores demonstrate patterns in sediment delivery to Cariboo Lake over the past 2000 years.
 
 *Chronology*
 
-AMS radiocarbon dates obtained for cores V1 and V2 provide temporal control and evidence of sediment accumulation rates. A small twig from V1 at 347 cm yielded a date of 1899-1819 cal BP. Two separate samples were analyzed from V2, one comprised of a large twig at 222 cm yielding a date of 490-316 cal BP (V2a), and a combination of two separate organic pieces which were combined into one sample, a twig at 286 cm and a pine needle at 294 cm and provided a date of 2045-1895 cal BP (V2b). Figure 2, shows the dating calibration curves derived for the three AMS radiocarbon dates. The dates from samples V1 and V2b yield consistent accumulation rates of of 1.87 +/- 0.04 mm/yr and 1.47 +/- 0.11 mm/yr respectively. Sample V2a, yields a sedimentation rate of 5.51 mm/yr, inconsistent with the rates provided for V1 and V2b. Accumulation  rates derived from Ekman surficial cores 13-15 are shown in Figure 3. These short cores are proximal to the V2 long core (see Figure 1), and exhibit accumulation rates of 2.24, 2.52, and 2.31 mm/yr respectively. Higher accumulation rates are expected for the Ekman samples are they are not subjected to the same level of compaction as the long cores. Still, the consistency of the E13-15 accumulation rates compared with the V1 and V2b cores (Figure 4) suggests that the V2a is suspect. In viewing sample orientation and position along the outer core it is speculated that the sample may have been pulled down during the coring process due the large twig size at about 4 cm. This probably results in an erroneously high accumulation rate for V2a. Accumulation rates in areas proximal to river inputs in nearby Quesnel Lake were measured to be as high as 0.72 mm/a (see Figure 9 in Gilbert and Desloges, 2012). While this is lower than Cariboo Lake, inputs are expected to be lower from this more arid and less glaciated portion of the Quesnel Lake watershed. Accumulation rates of 1.47 to 1.87 are consistent for a smaller and more glaciated Cariboo Lake watershed. Since the laminae thickness in Ekmans and vibra cores do not support the V2a accumulation rate of 5.51 mm/yr, it was not included in subsequent analysis. The AMS radiocarbon dates from samples V1 and V2b provide an important control when interpreting the inferred temporal pattern of sediment inputs to Cariboo Lake.  The top section of cores V1 and V2 were disturbed - 110 mm for V1 and 70 mm at V2. While the Ekman cores were too short to overlap with the undisturbed sections of the vibra cores, laminae thickness similarities allow anchoring the top of core dates and 0/0 (depth/date) (Fig. 3 and Fig. 4).
-
-```{r map, echo=FALSE, fig.cap = "Location of long cores and Ekman surficial cores."}
-knitr::include_graphics("figs/map.png")
-```
+AMS radiocarbon dates obtained for cores V1 and V2 provide temporal control and evidence of sediment accumulation rates. A small twig from V1 at 347 cm yielded a date of 1899-1819 cal BP. Two separate samples were analyzed from V2, one comprised of a large twig at 222 cm yielding a date of 490-316 cal BP (V2a), and a combination of two separate organic pieces which were combined into one sample, a twig at 286 cm and a pine needle at 294 cm and provided a date of 2045-1895 cal BP (V2b). Figure \@ref(fig:amsRates), shows the dating calibration curves derived for the three AMS radiocarbon dates. The dates from samples V1 and V2b yield consistent accumulation rates of of 1.87 +/- 0.04 mm/yr and 1.47 +/- 0.11 mm/yr respectively. Sample V2a, yields a sedimentation rate of 5.51 mm/yr, inconsistent with the rates provided for V1 and V2b. Accumulation rates derived from Ekman surficial cores 13-15 are shown in Figure \@ref(fig:amsEkRates). These short cores are proximal to the V2 long core (see Figure \@ref(fig:map-lake)), and exhibit accumulation rates of 2.24, 2.52, and 2.31 mm/yr respectively. Higher accumulation rates are expected for the Ekman samples are they are not subjected to the same level of compaction as the long cores. Still, the consistency of the E13-15 accumulation rates compared with the V1 and V2b cores (Figure \@ref(fig:amsEkRates)) suggests that the V2a is suspect. In viewing sample orientation and position along the outer core it is speculated that the sample may have been pulled down during the coring process due the large twig size at about 4 cm. This probably results in an erroneously high accumulation rate for V2a. Accumulation rates in areas proximal to river inputs in nearby Quesnel Lake were measured to be as high as 0.72 mm/a (see Figure 9 in Gilbert and Desloges, 2012). While this is lower than Cariboo Lake, inputs are expected to be lower from this more arid and less glaciated portion of the Quesnel Lake watershed. Accumulation rates of 1.47 to 1.87 are consistent for a smaller and more glaciated Cariboo Lake watershed. Since the laminae thickness in Ekmans and vibra cores do not support the V2a accumulation rate of 5.51 mm/yr, it was not included in subsequent analysis. The AMS radiocarbon dates from samples V1 and V2b provide an important control when interpreting the inferred temporal pattern of sediment inputs to Cariboo Lake. The top section of cores V1 and V2 were disturbed - 110 mm for V1 and 70 mm at V2. While the Ekman cores were too short to overlap with the undisturbed sections of the vibra cores, laminae thickness similarities allow anchoring the top of core dates and 0/0 (depth/date) (Fig. \@ref(fig:amsEkRates)).
 
 ```{r amsRates, echo=FALSE, fig.cap = "Sediment accumulation rates derived from the three C14 dates for Cores V1 (Red), and V2 (Green and Blue. The black line is the line of best fit through all three ams radio carbon dates."}
 knitr::include_graphics("figs/ams_sed_rates.png")
-```
-
-```{r ekRates, echo=FALSE, fig.cap = "Sedimentation rates for Ekman surficial cores proximal to core V2."}
-knitr::include_graphics("figs/ekman_sed_rate_near_V2.png")
 ```
 
 ```{r amsEkRates, echo=FALSE, fig.cap = "Cumulative sedimentation rates for cores V1 and V2 and Ekman surficial cores EK13, 14, and 15 proximal to V2."}
@@ -61,23 +55,23 @@ non_event <- readRDS('data/long_cores/core_stats.rds') |>
   #   metric == 'varve_thickness' ~ 'Varve Thickness',
   #   metric == 'loi' ~ 'LOI',
   # ))
-  filter(stat %in% c('mean_no_flood')) |> 
-  group_by(core, metric) |> 
-  summarise(non_event_mean = mean(value)) 
+  dplyr::filter(stat %in% c('mean_no_flood')) |> 
+  dplyr::group_by(core, metric) |> 
+  dplyr::summarise(non_event_mean = mean(value)) 
   
   
 tb <- readRDS('data/long_cores/turbidite_metrics.rds') |> 
   dplyr::select(value, stdep, core, metric) |> 
-  group_by(core, metric) |> 
-  summarise(event_mean = mean(value),
+  dplyr::group_by(core, metric) |> 
+  dplyr::summarise(event_mean = mean(value),
             event_sd = sd(value),
-            event_n = n()) 
+            event_n = dplyr::n()) 
 ```
 
-```{r turbTbl, echo=F, fig.cap='Sediment characteristics of turbidite beds for V1 and V2. The "event_mean" is the mean sediment characteristic for the group, "event_sd" is the standard deviation for the group, and "event_n" is the number of layers analyzed in each group.'}
-left_join(non_event, tb) |> 
-  arrange(metric) %>%
-  mutate(metric = case_when(
+```{r turbTbl, echo=F}
+dplyr::left_join(non_event, tb) |> 
+  dplyr::arrange(metric)  |> 
+  dplyr::mutate(metric = dplyr::case_when(
     metric == 'Grain Size' ~ 'D50 (µm)',
     metric == 'Varve Thickness' ~ 'Thickness (mm)',
     metric == 'LOI' ~ 'LOI (%)',
@@ -85,12 +79,12 @@ left_join(non_event, tb) |>
   knitr::kable(digits = 2,
                # booktabs = T,
                # format = 'latex',
-               caption = 'Sediment characteristics of turbidite beds for V1 and V2. The "event_mean" is the mean sediment characteristic for the group, "event_sd" is the standard deviation for the group, and "event_n" is the number of layers analyzed in each group.')
+               caption = 'Sediment characteristics of turbidite beds for V1 and V2. The "event\\_mean" is the mean sediment characteristic for the group, "event\\_sd" is the standard deviation for the group, and "event\\_n" is the number of layers analyzed in each group.')
 ```
 
 
 ```{r turbScatter, echo = F, fig.cap = "Timing and Standardized Departures of turbidite thickness, grain size, and LOI for V1 and V2. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates."}
-knitr::include_graphics("figs/turbidite_plot.rds")
+readRDS("figs/turbidite_plot.rds")
 ```
 
 *Sediment Yield Statistics* 
@@ -111,18 +105,10 @@ The mean D50 grain size at V1 is 7.6 µm compared to 6.3 µm at V2. The higher g
 readRDS("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.rds")
 ```
 
-```{r particle-b, echo=FALSE, fig.width = 8, fig.height = 4, fig.cap = " OPTION B - Standardized departure from the mean D50 grain size for cores V1 and V2. The black points represent D50 grain size at 5 - 10 cm intervals and the gray line is the 3 sample (~125 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
-readRDS("figs/grain-size/grain_size_v1_v2_together.RDS")
-```
-
 *Loss on Ignition*
 
 The average LOI at V1 and V2 is similar at 4.76% and 4.80% respectively suggesting that the flux of allochthonous organic material to the core locations is not dependent on distance from the main Cariboo River as it is easily transported through the lake due to the low density. Figure \@ref(fig:loi) shows the percent mass lost on ignition (LOI) for both V1 and V2. Higher levels of organic content are shown in V1 and V2 from from 0-1000 CE and mostly below average from 1000-2000 CE. Specific periods of above average LOI for V1 occur around CE 0-500, 650-1100, 1150, 1300, 1750-1850 and below average between 50 BCE - 50 CE, CE 550-650, 1150-1300, 1350-1750, 1850-2000. LOI is above between at V2 around CE 0-100, 250-500, 650-900, 1800-1950, and below average between 1000-1050, 1300-1600, 1950-2000. 
 
 ```{r loi, echo=FALSE, fig.width = 8, fig.height = 6, fig.cap = "Standardized departure from the mean percent LOI for cores V1 and V2. The black points represent percent LOI at 2.5 - 5 cm intervals and the gray line is the 3 sample (~75 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
 readRDS("figs/V1_V2_LOI_vs_depth_and_C14_est_yr.rds")
-```
-
-```{r loi-b, echo=FALSE, fig.width = 8, fig.height = 4, fig.cap = "Standardized departure from the mean percent LOI for cores V1 and V2. The black points represent percent LOI at 2.5 - 5 cm intervals and the gray line is the 3 sample (~75 year) moving average. The top axes, labelelled Year (CE), are calculated as per Figure X. The black X's on the bottom graph of V1 and V2 denote the AMS radiocarbon age (± dating error) and depth of the respective sample."}
-readRDS("figs/V1_V2_LOI_togeter_vs_depth_and_C14_est_yr.rds")
 ```

@@ -22,6 +22,7 @@
 > v1.mean
 [1] 2.427643
 
-- calculate average grain size and varve thickness over cores
 - maybe include 1952 varve layer 
+- add fan delta locations to acoustics map
+
 
