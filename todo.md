@@ -5,8 +5,6 @@
   - get rid of black line in fig 2
   - fig captions from joe edits
   - EK -> E
-  - LOI for turbidites?
-  - what is the D50 of turbidites? ** this is where i got to with editing, sec para of grain size sect
   - add this fig ggsave('figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png', width = 6, height = 4.5)
   - should floods be removed from the stdep calc. currently they are
   - weighted mean??== rolling mean 
@@ -24,5 +22,6 @@
 
 - maybe include 1952 varve layer 
 - add fan delta locations to acoustics map
+- full read through then discussion update
 
 
