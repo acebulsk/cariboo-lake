@@ -12,6 +12,10 @@ library(tidyverse)
 library(sf)
 library(tmap)
 library(gridExtra)
+library(zoo)
+library(RColorBrewer)
+
+source("2k-network/2k-recon/R-functions_gmst.R")
 
 tmap_mode("view")
 
@@ -109,7 +113,7 @@ tr <- ggplot(trouet, aes(x = age_AD, y = annom)) +
 nms <- c('year', 'inst_data', 'median', 'perc_2.5', 'perc_97.5', 'avg_31_yr_raw', 'avg_31_yr_median', 'avg_31_yr_2.5', 'avg_31_yr_97.5')
 
 # ensemble_means from their R script this is what they use to make Fig. 1 in pub
-# fullens.bp.30.200 is what we want (not relative to instrument data)
+# fullens.bp.30.200 istemperature anomalies (fig. 1 b)
 
 load('2k-network/2k-recon/recons_filtered.RData')
 
@@ -126,7 +130,49 @@ for(i in rev(seq_along(experiment.names))){
   ensemble_long <- rbind(ensemble_long, df)
 }
 
-# ensemble_long %>% ggplot(aes(x = year_ce, y = ts, group = model, colour = model)) + geom_line()
+ensemble_long %>% ggplot(aes(x = year_ce, y = ts, group = model, colour = model)) + geom_line()
+
+# fullens.30 is temperature anomalies from observation data (fig. 1 a)
+
+#load the newest instrumental data ---------------------
+## To use the offline file provided with the recon data:
+#instr.new<-as.matrix(read.table("had4_krig_ama_v2_0_0.txt"))
+#instr.new.ama<-ts(instr.new[,2],start=instr.new[1,1])
+## To use the newest updated version online from the producers:
+
+ftype<-"bw"
+
+instr.new<-as.matrix(read.table("http://www-users.york.ac.uk/~kdc3/papers/coverage2013/had4_krig_v2_0_0.txt"))
+instr.new.ama<-anomalies.period(ts(rollapply(instr.new[-c(1:3),2],12,mean,by=12),start=1850),1961,1990)
+
+instr.new.ama.6190<-anomalies.period(instr.new.ama,1961,1990)
+instr.new.ama.6190.30<-tsfilt(instr.new.ama.6190,width = 31,ftype)
+
+# for ggplot
+inst <- zoo::fortify.zoo(instr.new.ama.6190.30, names = 'year_ce') |> 
+  rename(temp_anom = instr.new.ama.6190.30) |> 
+  mutate(model = 'Instrument Data')
+
+fort <- zoo::fortify.zoo(fullens.30)
+
+ensemble_long <- data.frame()
+for(i in rev(seq_along(experiment.names))){
+  ts <- fullens.30[,i]
+  df <- zoo::fortify.zoo(ts, names = 'year_ce')
+  df$model <- experiment.names[i]
+  
+  ensemble_long <- rbind(ensemble_long, df) 
+}
+
+ensemble_long_obs <- ensemble_long |> 
+  rename(`temp_anom` = `ts`) |> 
+  rbind(inst)
+
+ensemble_long_obs %>% 
+  ggplot(aes(x = year_ce, y = temp_anom, group = model, colour = model)) + 
+  geom_line()
+
+plotly::ggplotly()
 
 # checked and is same as '2k-network/2k-recon/Fig_1.pdf'
 
