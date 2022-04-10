@@ -85,7 +85,7 @@ dplyr::left_join(non_event, tb) |>
 ```
 
 
-```{r turbScatter, echo = F, fig.cap = "Timing and Standardized Departures of turbidite thickness, grain size, and LOI for V1 and V2. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates."}
+```{r turbScatter, fig.width=8, fig.height=4, echo = F, fig.cap = "Timing and Standardized Departures of turbidite thickness, grain size, and LOI for V1 and V2. Year (CE) is the estimated year using linear interpolation from the AMS radiocarbon dates."}
 readRDS("figs/turbidite_plot.rds")
 ```
 
