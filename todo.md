@@ -24,4 +24,8 @@
 - add fan delta locations to acoustics map
 - full read through then discussion update
 
+- fin joes may revisions
+- glacier extent withing CB lake watershed boundary (specifically roberts peak glacier)
+- update maps
+
 
