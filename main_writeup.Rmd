@@ -3,10 +3,10 @@ title: "The Glaciolacustrine Sediment Record of Cariboo Lake, BC: Implications f
 author: "A.C. Cebulski, J.R. Desloges"
 date: "Apr 10, 2022"
 output:
-  # bookdown::pdf_document2:
-  bookdown::word_document2:
-      keep_tex: false
-      reference_docx: 'writeup/word_template.docx'
+  bookdown::pdf_document2:
+  # bookdown::word_document2:
+  #     keep_tex: false
+  #     reference_docx: 'writeup/word_template.docx'
 header-includes:
    - \usepackage{caption}
    - \captionsetup[figure]{font=footnotesize}
@@ -31,8 +31,8 @@ Cariboo Lake is located in the northern foothills of the Columbia Mountains, 85 
 The Cariboo River, located on the east end of the lake provides the main source of sediment into the lake. The bathymetry of Cariboo Lake shows evidence of past glacial scouring, indicated by deep scour channels Fig. \@ref(fig:map-lake). The lake is separated into two main basins, by the Keithley Creek fan delta. The upstream basin is called the main Cariboo Lake basin, and the downstream basin is called the Keithley Creek basin. The bathymetry of the lake reaches a maximum depth of over 50 m in two scour channels within the central part of the main Cariboo Lake basin. 
 
 
-```{r map-basin, echo=FALSE, fig.cap = "Map showing the Cariboo Lake basin."}
-knitr::include_graphics("figs/intro/map-sc.png")
+```{r map-basin, echo=FALSE,out.width = "100%", out.height="100%", fig.cap = "Map showing the Cariboo Lake basin."}
+knitr::include_graphics("figs/maps/cl_small_scale_inset_labels_gimp.png")
 ```
 
 ```{r map-lake, echo=FALSE, fig.cap = "Map showing the Cariboo Lake bathymetry and coring locations."}

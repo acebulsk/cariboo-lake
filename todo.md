@@ -26,6 +26,5 @@
 
 - fin joes may revisions
 - glacier extent withing CB lake watershed boundary (specifically roberts peak glacier)
-- update maps
-
+- add delta labels or rm from text
 
