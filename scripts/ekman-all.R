@@ -5,7 +5,7 @@ gs <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_GrainSize_Ekmans.xlsx', s
          dist = `Distance Frm Delta (km)`,
          depth = Depth,
          basin = `sub-basin`,
-         `D50 (µm)` = `Dx (50)`)
+         D50 = `Dx (50)`)
   
 varve <- read_csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') |> 
   select(
@@ -13,7 +13,7 @@ varve <- read_csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') |>
     thickness = layer_thickness_mm
   ) |> 
   group_by(ID) |> 
-  summarise(`Lam. Thickness (mm)` = mean(thickness, na.rm = T),
+  summarise(Lam_Thickness = mean(thickness, na.rm = T),
             n_samples = n()) |> 
   mutate(ID = as.numeric(gsub(".*?([0-9]+).*" , "\\1", ID)))
          
@@ -23,7 +23,7 @@ loi <- readxl::read_xlsx('data/Sediment/LOI/LOI_Cariboo_EkmanBulkSamples.xlsx', 
     # dist = `Distance Frm Delta (km)`,
     # depth = Depth,
     # loi_initial = `Initial Results`,
-    `LOI (%)` = `LOI (%) Second Round`,
+    LOI = `LOI (%) Second Round`,
     loi_notes = Notes
   ) |> 
   mutate(ID = as.numeric(gsub(".*?([0-9]+).*" , "\\1", ID)))
@@ -32,15 +32,24 @@ loi <- readxl::read_xlsx('data/Sediment/LOI/LOI_Cariboo_EkmanBulkSamples.xlsx', 
 
 all <- left_join(gs, varve) |> 
   left_join(loi, by = 'ID') |> 
-  pivot_longer(c(`D50 (µm)`, `Lam. Thickness (mm)`, `LOI (%)`))
+  pivot_longer(c(D50, Lam_Thickness, LOI))
 
 p <- ggplot(all, aes(x = dist, y = value, colour = basin)) +
   geom_line() +
   geom_point() +
-  facet_grid(rows = vars(name), scales = "free_y") +
+  facet_wrap(~name, 
+             nrow = 3,
+             scales = "free_y", 
+             labeller = as_labeller(
+               c(D50 = "D50 (µm)", Lam_Thickness = "Lam. Thickness (mm)", LOI = "LOI (%)")), 
+             strip.position = "left") +
   theme_bw() +
   theme(axis.title.y = element_blank()) +
-  xlab('Distance (km)')
+  xlab('Distance (km)') +
+  labs(y = NULL) +
+  theme(strip.background = element_blank(), strip.placement = "outside")
+
+p
 
 saveRDS(p, file = 'figs/ekman/ekman_seds.rds')
   
