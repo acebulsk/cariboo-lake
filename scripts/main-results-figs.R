@@ -8,6 +8,10 @@ library(ggplot2)
 
 gaus <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
 
+# add in ekmans to cover disturbed sections
+
+ek <- read.csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') |> 
+
 # gaus$ma_30[gaus$core_depth == 1029.454] = NA
 # gaus$ma_30[gaus$core_depth == 1031.924] = NA
 # gaus$ma_30[gaus$core_depth == 479.264 & gaus$core == "V2"] = NA
