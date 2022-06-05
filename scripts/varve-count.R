@@ -402,6 +402,11 @@ varve_stats <- rbind(v1_stats, v2_stats) %>%
   mutate(metric = 'varve_thickness') %>% 
   saveRDS('data/long_cores/core_stats.rds')
 
+varve_stats <- rbind(v1_stats, v2_stats) %>% 
+  mutate(metric = 'varve_thickness') |> 
+  write.csv('data/long_cores/core_stats.csv')
+
+
 v2$lyr_mm_stdep <- (v2$lyr_mm - v2.mean.fltr)/v2.sd.fltr
 
 # create df of the floods 
