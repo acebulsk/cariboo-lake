@@ -26,7 +26,10 @@
 
 - fin joes may revisions
 - glacier extent withing CB lake watershed boundary (specifically roberts peak glacier)
-- add delta labels or rm from text
 - no sub section fig numbering
-- add ekman 13 and 11 to v2 v1 varve thickness, maybe just take sd and mean from the long core and copy over to ekman script .... 
+- send joe vibro + ekman layer thickness plot
+- add long core example of laminae (good) and graded turbidite, joe wants turbidite plot below these
+- what is the watershed to lake ratio watershed/lake area for CL and QL
+- I see D50 of Ekmans are 30 microns and less for most. What was the D90? Can you plot D90 and D10 above and below D50 in Figure 5? You have all that Malvern data but only give average.
+- ask Joe confirm error calculation on grain size reporting (took average sdev for individual 3 * measurements)
 
