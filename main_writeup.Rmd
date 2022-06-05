@@ -31,12 +31,12 @@ Cariboo Lake is located in the northern foothills of the Columbia Mountains, 85 
 The Cariboo River, located on the east end of the lake provides the main source of sediment into the lake. The bathymetry of Cariboo Lake shows evidence of past glacial scouring, indicated by deep scour channels Fig. \@ref(fig:map-lake). The lake is separated into two main basins, by the Keithley Creek fan delta. The upstream basin is called the main Cariboo Lake basin, and the downstream basin is called the Keithley Creek basin. The bathymetry of the lake reaches a maximum depth of over 50 m in two scour channels within the central part of the main Cariboo Lake basin. 
 
 
-```{r map-basin, echo=FALSE,out.width = "100%", out.height="100%", fig.cap = "Map showing the Cariboo Lake basin."}
+```{r map-basin, echo=FALSE,out.width = "100%", out.height="100%", fig.cap = "Map of the Cariboo Lake basin."}
 knitr::include_graphics("figs/maps/cl_small_scale_inset_labels_gimp.png")
 ```
 
-```{r map-lake, echo=FALSE, fig.cap = "Map showing the Cariboo Lake bathymetry and coring locations."}
-knitr::include_graphics("figs/map.png")
+```{r map-lake, echo=FALSE, fig.cap = "Map of the Cariboo Lake bathymetry and coring locations. Acoustic transects selected for analysis are shown with a black solid line and labeled A, B, C, D, E and F. River deletas mentioned in the text are represented by black triangles and are referenced to by the upstream creek (i.e. Frank Creek Delta is the triangle below Frank Creek)."}
+knitr::include_graphics("figs/maps/cl_bathymetry_acoustics_coring_locations.bmp")
 ```
 
 Sediment connectivity to headwater glaciers along the Cariboo River is limited due to lake filtering by Lanezi and Sandy lake. Lanezi Lake is a deep fjord lake with a bathymetry reaching a maximum depth of 170 m. Sandy Lake is much shallower reaching a maximum depth of 6 m. The Matthews River, which meets the Cariboo River just below Lanezi Lake provides less filtered connection to meltwater from several alpine glaciers including the largest chunk of ice in the Cariboo Lake watershed, the Roberts Peak Galcier.
@@ -49,7 +49,7 @@ A field campaign was conducted during the summer of 2017 to collect sub-bottom a
 
 *Laboratory Methods*
 
-Cores V1 and V2 were subsampled with 2 cm^3^ of sediment extracted at a 5 cm interval, with additional samples taken within stratigraphic breaks. The Ekman bulk samples and vibracores were analyzed for laminae thickness, organic content, and particle size. Laminae couplets were digitally counted and measured for thickness using the ImageJ @imageJcite software. Organic content was determined by loss-on-ignition analysis (550 °C) following methods in @Smith2003. Samples were first weighed to provide an initial wet weight, then dried at 60 °C and weighed again after oven drying. The samples were then placed in a furnace at 550 °C for 2.5 hours and weighed a third time. Grain size analysis was conducted using a Mastersizer Particle Size Analyzer 3000. Samples were prepared following methods by @Gray2010 to remove the fine fraction of particles from organic material. This involved a removal of organic material using three sequential alloquots of 20% H202 until the sample stopped reacting. To prevent flocculation of sediment grains the samples were dispersed in 0.05% solution of Calgon for 24 hours. The chronology of both cores was provided by AMS ^14^C dating of wood fragments at the André E. Lalonde AMS Laboratory at the University of Ottawa and varve chronology from laninae counting.
+Cores V1 and V2 were subsampled with 2 cm^3^ of sediment extracted at a 5 cm interval, with additional samples taken within stratigraphic breaks. The Ekman bulk samples and vibracores were analyzed for laminae thickness, organic content, and particle size. Laminae couplets were digitally counted and measured for thickness using the ImageJ @imageJcite software. Organic content was determined by loss-on-ignition analysis (550 °C) following methods in @Smith2003. Samples were first weighed to provide an initial wet weight, then dried at 60 °C and weighed again after oven drying. The samples were then placed in a furnace at 550 °C for 2.5 hours and weighed a third time. Grain size analysis was conducted using a Mastersizer Particle Size Analyzer 3000. Samples were prepared following methods by @Gray2010 to remove the fine fraction of particles from organic material. This involved a removal of organic material using three sequential alloquots of 20% H202 until the sample stopped reacting. To prevent flocculation of sediment grains the samples were dispersed in 0.05% solution of Calgon for 24 hours. Grain size was measured three times for each sample, resulting in an average instrument error of +/- 0.01 µm. The chronology of both cores was provided by AMS ^14^C dating of wood fragments at the André E. Lalonde AMS Laboratory at the University of Ottawa and varve chronology from laninae counting.
 
 # Results
 
