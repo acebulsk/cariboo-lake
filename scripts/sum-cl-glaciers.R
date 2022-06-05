@@ -4,6 +4,8 @@ library(sf)
 library(tidyverse)
 library(tmap)
 
+ws_area <- 3242 # km2
+
 bsn <- read_sf('data/gis/boundaries/cariboo_lake_basin.gpkg')
 
 ## glacier data from
@@ -21,6 +23,7 @@ gl <- read_sf('data/gis/glims_download_82381/glims_polygons_cl_clip.shp') |>
 area <- sum(st_area(gl)) / 1e6
 
 paste('The total glaciated area of the Cariboo Lake basin is', area, 'km^2^')
+paste('The percent glaciated area of the Cariboo Lake basin is', (area / ws_area)*100, '%')
 
 tm_shape(gl)+
   tm_polygons() +
@@ -43,7 +46,7 @@ rpg <- gl |> filter(glac_id %in% rogers_pk_gl_ids)
 area <- sum(st_area(rpg)) / 1e6
 
 paste('The total glaciated area of the Matthew River basin is', area, 'km^2^')
-
+paste('The percent glaciated area of the Matthew River basin is', (area / ws_area)*100, '%')
 
 # find analysis id for proper citation
 
