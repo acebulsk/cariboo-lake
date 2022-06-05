@@ -28,10 +28,56 @@ ams_df <- tibble(
   ams_sample = c('V1', 'V1', 'V2a', 'V2a', 'V2b', 'V2b')
 )
 
+# turbidites IDs to filter, could also be more strict and just say mode == 2, 
+# but some measurements are OK that have 1 mode although 90% of mode ==1 is a flood
+
+v1_tb <- c(44, 124, 120, 196, 251, 257) # these are all just ids that have the word flood in the xl sheet can also do a stringr condition as below
+v2_tb <- c(88, # flood
+           92, # flood
+           120, # skewed by floods either side
+           168, # skewed by floods
+           172, # flood
+           224, # flood
+           228 # flood
+           )
+
+# what is the average error of the malvern data
+
+v1_xl <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_Jan_GranSize_mar23.xlsx',sheet = '226_Raw') %>%
+  filter(!stringr::str_starts(`Sample Name`, 'Average'),
+         !stringr::str_detect(`Sample Name`, 'flood'),
+         !stringr::str_detect(`Sample Name`, 'Flood'),
+         !stringr::str_detect(`Sample Name`, 'CB17_V1_209') # this 
+         ) %>%
+  mutate(core = 'V1')
+
+v2_xl <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_Jan_GranSize_mar23.xlsx',sheet = '224_Raw') %>%
+  filter(!stringr::str_starts(`Sample Name`, 'Average'),
+         !stringr::str_detect(`Sample Name`, 'Sonic'),
+         !stringr::str_detect(`Sample Name`, 'flood'),
+         !stringr::str_detect(`Sample Name`, 'Flood')) %>%
+  mutate(core = 'V2')
+
+gs <- rbind(v1_xl, v2_xl) |> 
+  filter(!`Record Number` %in% c(v1_tb, v2_tb),
+         `Mode Count` == 2) |> 
+  mutate(round_time = round.POSIXt(`Measurement Date Time`, 'hours'))
+
+sd_out <- gs |> 
+  group_by(`Sample Name`, core, round_time) |> 
+  summarise(
+    sd_D50 = sd(`Dx (50)`)
+  ) 
+
+core_error <- sd_out |> 
+  group_by(core) |> 
+  summarise(error = mean(sd_D50, na.rm = T))
+  
+core_error
+
 # pull grain size from excel sheet 
 
-v1_tb <- c(44, 124, 120, 196, 251, 257)
-v2_tb <- c(88, 92, 168, 172, 224, 228)
+
 
 # v2_discard <- c(120)
 # 
