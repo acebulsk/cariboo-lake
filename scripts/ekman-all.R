@@ -5,7 +5,14 @@ gs <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_GrainSize_Ekmans.xlsx', s
          dist = `Distance Frm Delta (km)`,
          depth = Depth,
          basin = `sub-basin`,
-         D50 = `Dx (50)`)
+         D10 = `Dx (10)`,
+         D50 = `Dx (50)`,
+         D90 = `Dx (90)`
+         ) |> 
+  pivot_longer(D10:D90, names_to = 'grain_size_stat', values_to = 'gs_value')
+
+ggplot(gs, aes(x = dist, y = gs_value, color = grain_size_stat)) +
+  geom_point() 
   
 varve <- read_csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') |> 
   select(
@@ -32,16 +39,16 @@ loi <- readxl::read_xlsx('data/Sediment/LOI/LOI_Cariboo_EkmanBulkSamples.xlsx', 
 
 all <- left_join(gs, varve) |> 
   left_join(loi, by = 'ID') |> 
-  pivot_longer(c(D50, Lam_Thickness, LOI))
+  pivot_longer(c(gs_value, Lam_Thickness, LOI))
 
-p <- ggplot(all, aes(x = dist, y = value, colour = basin)) +
+p <- ggplot(all, aes(x = dist, y = value, colour = grain_size_stat, shape = basin)) +
   geom_line() +
   geom_point() +
   facet_wrap(~name, 
              nrow = 3,
              scales = "free_y", 
              labeller = as_labeller(
-               c(D50 = "D50 (µm)", Lam_Thickness = "Lam. Thickness (mm)", LOI = "LOI (%)")), 
+               c(gs_value = "Grain Size (µm)", Lam_Thickness = "Avg. Lam. (mm)", LOI = "OM (%)")), 
              strip.position = "left") +
   theme_bw() +
   theme(axis.title.y = element_blank()) +

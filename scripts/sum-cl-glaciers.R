@@ -4,7 +4,7 @@ library(sf)
 library(tidyverse)
 library(tmap)
 
-ws_area <- 3242 # km2
+ws_area <- 3244 # km2
 
 bsn <- read_sf('data/gis/boundaries/cariboo_lake_basin.gpkg')
 
@@ -17,8 +17,9 @@ bsn <- read_sf('data/gis/boundaries/cariboo_lake_basin.gpkg')
 # still has some castle creek glacier which is outside of the catchmetn so need to filter 
 gl <- read_sf('data/gis/glims_download_82381/glims_polygons_cl_clip.shp') |> 
   st_intersection(bsn) |> 
-  filter(glac_id != 'G239539E53028N') |> 
-  mutate(area_new = st_area(.))
+  filter(glac_id != 'G239539E53028N') 
+
+gl$area_new <- st_area(gl)
 
 area <- sum(st_area(gl)) / 1e6
 
