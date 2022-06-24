@@ -10,7 +10,7 @@ gaus <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
 
 # add in ekmans to cover disturbed sections
 
-ek <- read.csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') |> 
+ek <- read.csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') 
 
 # gaus$ma_30[gaus$core_depth == 1029.454] = NA
 # gaus$ma_30[gaus$core_depth == 1031.924] = NA
@@ -189,7 +189,7 @@ v1_plot <-
   geom_line(aes(y = mvavg), colour = "gray") +
   # geom_point(aes(x = 2017 - v1_C14$year, y = -2.5), shape = 4) +
   # geom_text(aes(x = 2017 - v1_C14$year, y = -2.70), label = "47 ± 75 yr. CE", vjust = 1) +
-  ylab("LOI Std. Dept.") +
+  ylab("OM Std. Dept.") +
   xlab("Year (CE)") +  
   ggtitle("V1") +
   scale_x_continuous(
@@ -219,7 +219,7 @@ v2_plot <-
   geom_line(aes(y = mvavg), colour = "gray") +
   # geom_point(aes(x = 2017 - v2_C14$year, y = -2.5), shape = 4) +
   # geom_text(aes(x = 2017 - v2_C14$year, y = -2.70), label = "158 ± 40 yr. CE", vjust = 1) +
-  ylab("LOI Std. Dept.") +
+  ylab("OM Std. Dept.") +
   xlab("Year (CE)") +  
   ggtitle("V2") +
   scale_x_continuous(
