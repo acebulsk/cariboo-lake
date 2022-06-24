@@ -76,8 +76,22 @@ ggplot(aes(x=Year, y = Label, fill = value)) +
   ggtheme_sel +
   xlim(glob_lims)
  glc_adv_plot
+ 
+#### king et al #####
+# this one might be overboard... 
+# https://www.ncei.noaa.gov/access/paleo-search/study/33632
+ 
+#### moberg et al 2005 nature suppliment from word file ####
+col_names <- c('year_ce', 'temp_anom', )
+ 
+mob <- read.delim('2k-network/Moberg_et_al/moberg_et_al_2k_t_anom.txt', comment.char = '#', col.names = )
+ 
+#### mckay et al 2014 ####
+# Arctic PAGES2k 2000 Year Temperature Reconstruction v.1.1
+arc_2k <- read.delim('https://www.ncei.noaa.gov/pub/data/paleo/pages2k/arctic2014temperature-v1.1.txt', comment.char = '#', skip = 1)
 
-#### trouet et al ####
+
+ #### trouet et al ####
 # Trouet, et al temperature reconstruction for North America aka A 1500-year reconstruction of annual mean temperature for temperate North America on decadal-to-multidecadal time scales
 # North America Last 2ka Decadal Temperature Reconstructions 
 # A 1500-year reconstruction of annual mean temperature for temperate North America on decadal-to-multidecadal time scales
@@ -104,12 +118,15 @@ tr <- ggplot(trouet, aes(x = age_AD, y = annom)) +
   ylab('Regional T Anomaly (°C)') +
   theme_bw() +
   ggtheme_all
+
+trouet_smpl <- trouet |> select(year_ce = age_AD, temp_anom = annom) |> mutate(model = 'TR')
+
 # tr
 
 #### global ####
 # GLOBAL TEMPERATURE RECONSTRUCTIONS full 2k
 # https://www.ncei.noaa.gov/access/paleo-search/study/26872
-# manually calculated anomalies to match hard coded anomalies in the below procies 
+
 nms <- c('year', 'inst_data', 'median', 'perc_2.5', 'perc_97.5', 'avg_31_yr_raw', 'avg_31_yr_median', 'avg_31_yr_2.5', 'avg_31_yr_97.5')
 
 # ensemble_means from their R script this is what they use to make Fig. 1 in pub
@@ -123,14 +140,23 @@ fort <- zoo::fortify.zoo(fullens.bp.30.200)
 
 ensemble_long <- data.frame()
 for(i in rev(seq_along(experiment.names))){
-  ts <- fullens.bp.30.200[,i]
-  df <- zoo::fortify.zoo(ts, names = 'year_ce')
+  temp_anom <- fullens.bp.30.200[,i]
+  df <- zoo::fortify.zoo(temp_anom, names = 'year_ce')
   df$model <- experiment.names[i]
   
   ensemble_long <- rbind(ensemble_long, df)
 }
 
-ensemble_long %>% ggplot(aes(x = year_ce, y = ts, group = model, colour = model)) + geom_line()
+pages_plot <- ensemble_long %>% ggplot(aes(x = year_ce, y = temp_anom, group = model, colour = model)) + 
+  geom_line(method = "lm", 
+              formula = y ~ 0, colour = "black", se=F, 
+              linetype="dotted", size = .5, stat = 'smooth', alpha = 0.2) +
+  geom_line() +
+  ylab("Temp. Anomaly °C") +
+  theme_bw() +
+  xlim(glob_lims) +
+  ggtheme_all
+pages_plot
 
 # fullens.30 is temperature anomalies from observation data (fig. 1 a)
 
@@ -170,20 +196,30 @@ ensemble_long_obs <- ensemble_long |>
 
 ensemble_long_obs %>% 
   ggplot(aes(x = year_ce, y = temp_anom, group = model, colour = model)) + 
-  geom_line()
+  geom_line() +
+  ylab("Temp. Anomaly") +
+  theme_bw() +
+  xlim(glob_lims) +
+  ggtheme_all
 
-plotly::ggplotly()
+# plotly::ggplotly()
 
 # checked and is same as '2k-network/2k-recon/Fig_1.pdf'
 
 ensemble_med <- ensemble_long %>% 
   group_by(year_ce) %>% 
-  summarise(ts = median(ts),
+  summarise(temp_anom = median(ts),
             model = 'ensemble')
 
-# ggplot(ensemble_long, aes(x = year_ce, y = ts, group = model, colour = model)) + 
-#   geom_line() +
-#   geom_line(data = ensemble_med, color = "black")
+# now add the trouet data to pages to see if compariable to show all on one plot
+# doesnt plot well together, ignore trouet. 
+pages_tr_obs <- rbind(ensemble_long_obs, ensemble_med) |> 
+  rbind(trouet_smpl)
+
+ggplot(pages_tr_obs, aes(x = year_ce, y = temp_anom, group = model, colour = model)) + 
+  geom_line()
+
+# now make climate stripes
 
 glob_temp <- ensemble_med
 glob_temp$grp <- c(rep(seq(0,1950, 50), each = 50)) + 25
@@ -277,6 +313,21 @@ cariboo_hydro_median <- median(cariboo_hydro$value, na.rm = T)
 cariboo_hydro <- cariboo_hydro %>% 
     mutate(value = value - cariboo_hydro_median)
 
+cariboo_hydro %>% 
+  ggplot(aes(x=Year, y = Label, fill = value)) +
+  geom_tile() +
+  scale_fill_distiller(palette = "BrBG", direction = 1, rescaler = mid_rescaler(), na.value = 'transparent') +
+  #scale_fill_distiller(palette = "BrBG", direction = 1, rescaler = mid_rescaler(), na.value = 'transparent') +
+  # scale_x_reverse() +
+  xlab('Year (CE)') +
+  theme_bw() +
+  ggtheme_all +
+  theme(
+    axis.text.y = element_blank(),
+    legend.key.size = unit(0.3, 'cm')) +
+  xlim(glob_lims) +
+  ylab('Regional Precip. Anomaly (mm)')
+
 hydro_anom_plot <- cariboo_hydro %>% 
   ggplot(aes(x=Year, y = Label, fill = value)) +
   geom_tile() +
@@ -298,44 +349,51 @@ hydro_anom_plot <- cariboo_hydro %>%
   
 # #### temp plot ####
 # this one was redundent with the better resolution trouet record
-# needle_lt <- 53
-# needle_ln <- -121
-# 
-# match <- data.frame(Longitude = c(-117.15 , -116.45),
-#                     Label = c("Sask. Glacier", "Sask. River"))
-# 
-# blanks <- data.frame(name = rep(NA, 9),
-#                      value = rep(NA, 9),
-#                      Year = seq(50, 850, 100),
-#                      Label = rep('Temperature Anomaly (°C)',9))
-# 
-# cariboo_temp <- temp_df %>% 
-#   mutate(across(everything(), as.numeric),
-#          Longitude = as.numeric(Longitude),
-#          Latitude = as.numeric(Latitude),
-#          long_diff = abs(Longitude - needle_ln),
-#          lat_diff = abs(Latitude - needle_lt),
-#          diff_sum = long_diff + lat_diff) %>% 
-#   filter(diff_sum < 5) %>% 
-#   select(-contains('diff')) %>% 
-#   summarise(across(`800s`:`1900s`, mean)) %>% 
-#   pivot_longer(`800s`:`1900s`) %>% 
-#   mutate(Year = as.numeric(gsub("s", "", name)) + 50, # make it mid point 
-#          value = as.numeric(value),
-#          Label = 'Temperature Anomaly (°C)') %>% 
-#   filter(value != -999.000) %>% 
-#   rbind(blanks)
+needle_lt <- 53
+needle_ln <- -121
 
+match <- data.frame(Longitude = c(-117.15 , -116.45),
+                    Label = c("Sask. Glacier", "Sask. River"))
 
+blanks <- data.frame(name = rep(NA, 9),
+                     value = rep(NA, 9),
+                     Year = seq(50, 850, 100),
+                     Label = rep('Temperature Anomaly (°C)',9))
 
-# cariboo_temp %>% 
-#   ggplot(aes(x=Year, y = Label, fill = value)) +
-#   geom_tile() +
-#   scale_fill_distiller(palette = "RdBu", direction = 1, rescaler = mid_rescaler()) +
-#   scale_x_reverse() +
-#   xlab('Year (CE)') +
-#   theme(legend.position = 'right',
-#         axis.title.y = element_blank())
+cariboo_temp <- temp_df %>%
+  mutate(across(everything(), as.numeric),
+         Longitude = as.numeric(Longitude),
+         Latitude = as.numeric(Latitude),
+         long_diff = abs(Longitude - needle_ln),
+         lat_diff = abs(Latitude - needle_lt),
+         diff_sum = long_diff + lat_diff) %>%
+  filter(diff_sum < 5) %>%
+  select(-contains('diff')) %>%
+  summarise(across(`800s`:`1900s`, mean)) %>%
+  pivot_longer(`800s`:`1900s`) %>%
+  mutate(Year = as.numeric(gsub("s", "", name)) + 50, # make it mid point
+         value = as.numeric(value),
+         Label = 'Temperature Anomaly (°C)') %>%
+  filter(value != -999.000) %>%
+  rbind(blanks)
+
+cariboo_temp %>%
+  ggplot(aes(x=Year, y = value)) +
+  geom_point() +
+  scale_fill_distiller(palette = "RdBu", direction = 1, rescaler = mid_rescaler()) +
+  scale_x_reverse() +
+  xlab('Year (CE)') +
+  theme(legend.position = 'right',
+        axis.title.y = element_blank())
+
+cariboo_temp %>%
+  ggplot(aes(x=Year, y = Label, fill = value)) +
+  geom_tile() +
+  scale_fill_distiller(palette = "RdBu", direction = 1, rescaler = mid_rescaler()) +
+  scale_x_reverse() +
+  xlab('Year (CE)') +
+  theme(legend.position = 'right',
+        axis.title.y = element_blank())
 # 
 # 
 # ggsave('figs/2k-network/temp_anomalies_4grids_12centuries.jpg', width = 8, height = 1.5)
@@ -357,10 +415,12 @@ gs_plot <-
     mvavg = zoo::rollapply(stdep, 3, mean, align = 'center', fill = NA)
   ) %>% 
   ggplot(aes(x = year_ce_avg, color = core)) +
-  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
+  geom_line(aes(y = stdep), method = "lm", 
+            formula = y ~ 0, colour = "black", se=F, 
+            linetype="dotted", size = .5, stat = 'smooth', alpha = 0.4) +
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
-  geom_line(aes(y = mvavg), colour = "gray") +
+  geom_line(aes(y = mvavg)) +
   ylab("D50 Sd. Dept.") +
   # xlab("Year (CE)") +  
   theme_bw()+
@@ -377,12 +437,13 @@ vt_plot <-
     mvavg = zoo::rollapply(lyr_mm_stdep_fltr, width = 100, by = 1, FUN = mean, na.rm = T, align = "center", partial = T), # partial defines minimum number of objects to continue 25yr window. set 3 to get data point at end of dataset 
   ) %>% 
   ggplot(aes(x = year_ce_lin_interp, colour = core)) +
-  geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5)+
-  geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
+  geom_line(aes(y = lyr_mm_stdep_fltr), method = "lm", 
+            formula = y ~ 0, colour = "black", se=F, 
+            linetype="dotted", size = .5, stat = 'smooth', alpha = 0.4) +  geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = ma_30)) +
   ylab("Varve Sd. Dept.") +
-  ylim(c(-2.5, 5))+
+  ylim(c(-2.1, 5))+
   theme_bw()+
   xlim(-50, 2025) +
   ggtheme_all
@@ -393,7 +454,8 @@ vt_plot <-
 
 # LOI
 
-loi <- readRDS('data/Sediment/LOI/loi_v1_v2_working.RDS')
+loi <- readRDS('data/Sediment/LOI/loi_v1_v2_working.RDS') |> 
+  filter(stdep < 3 & stdep > -3)
 
 loi_plot <- 
   loi %>% 
@@ -402,108 +464,118 @@ loi_plot <-
     mvavg = zoo::rollapply(stdep, 3, mean, align = 'center', fill = NA)
   ) %>% 
   ggplot(aes(x = year_ce_new, colour = core)) +
-  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
+  geom_line(aes(y = stdep), method = "lm", 
+            formula = y ~ 0, colour = "black", se=F, 
+            linetype="dotted", size = .5, stat = 'smooth', alpha = 0.4) + 
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
-  geom_line(aes(y = mvavg), colour = "gray") +
-  ylab("LOI Sd. Dept.") +
+  geom_line(aes(y = mvavg)) +
+  ylab("OM Sd. Dept.") +
   theme_bw() +
   xlim(glob_lims) +
+  ylim(-3, 3)+
   ggtheme_all
-
+loi_plot
 
 #### plot glac adv. temp anom, hydroclimate, cariboo sediment #### 
 
-p <- list(vt_plot, gs_plot, loi_plot, glc_adv_plot, tr, hydro_anom_plot, glob_temp_50_p)
+# p <- list(vt_plot, gs_plot, loi_plot, glc_adv_plot, tr, hydro_anom_plot, glob_temp_50_p)
 
-cp <- cowplot::plot_grid(plotlist = p, nrow=7, labels = c("A", "B", "C", "D", "E", "F", "G"), align = 'v', rel_heights = c(2,2,2,0.75,1.5, 1, 1))
+p <- list(vt_plot, gs_plot, loi_plot, pages_plot, glc_adv_plot, hydro_anom_plot)
+
+
+cp <- cowplot::plot_grid(plotlist = p, nrow=length(p), 
+                         labels = LETTERS[seq( from = 1, to = length(p) )], 
+                         align = 'v', 
+                         rel_heights = c(3,2,2,2, .75, 1))
 
 cp
 
 saveRDS(cp, 'figs/2k-network/all_core_stats_2k_anomalies.rds')
-cowplot::save_plot('figs/2k-network/all_core_stats_2k_anomalies.jpg', cp, base_width = 8, base_height = 8)
+cowplot::save_plot('figs/2k-network/all_core_stats_2k_anomalies.jpg', 
+                   cp, base_width = 8, base_height = 8)
 
 # THE STUFF BELOW IS RAW PROXY
 
-#nam <- readLipd() 
+#nam <- readLipd()
 #saveRDS(nam, 'nam.rds')
 
-# nam <- readRDS('2k-network/NAm/nam.rds') 
-# 
-# 
+# nam <- readRDS('2k-network/NAm/nam.rds')
+#
+#
 # ##### plot good tree data ####
-# select_tree_sites <- c('NAm-UpperWrightLakes.Graumlich.2005', 
-#                        'NAm-YellowMountainRidge.King.2002', 
-#                        'NAm-FrenchGlacier.Colenutt.1995', 
-#                        'NAm-Bennington.Luckman.2013', 
-#                        'NAm-SmallRiver.Luckman.2001', 
-#                        'NAm-Athabasca.Schweingruber.1996', 
+# select_tree_sites <- c('NAm-UpperWrightLakes.Graumlich.2005',
+#                        'NAm-YellowMountainRidge.King.2002',
+#                        'NAm-FrenchGlacier.Colenutt.1995',
+#                        'NAm-Bennington.Luckman.2013',
+#                        'NAm-SmallRiver.Luckman.2001',
+#                        'NAm-Athabasca.Schweingruber.1996',
 #                        'NAm-BellMountain.Schweingruber.1996')
-# 
+#
 # select_lake_site <- c('NAm-HellsKitchenLake.Gajewski.1988', 'NAm-GreenLake.Menounos.2006')
-# 
-# tbl <- tibble(name = nam) %>% 
-#   unnest_wider(name) %>% 
-#   filter(dataSetName %in% select_tree_sites) 
-# 
+#
+# tbl <- tibble(name = nam) %>%
+#   unnest_wider(name) %>%
+#   filter(dataSetName %in% select_tree_sites)
+#
 # init <- data.frame(
 #   name =  tbl$dataSetName[1],
 #   year = tbl$paleoData[[1]][[1]]$measurementTable[[1]]$year$values,
 #   #rw = dat[[1]]$measurementTable[[1]]$ringWidth$values,
 #   value = tbl$paleoData[[1]][[1]]$measurementTable[[1]]$trsgi$values)
-# 
+#
 # for (i in 1:length(select_tree_sites)-1) {
-#   
+#
 #     bind <- data.frame(
 #       name =  tbl$dataSetName[i+1],
 #       year = tbl$paleoData[[i+1]][[1]]$measurementTable[[1]]$year$values,
 #       #rw = dat[[1]]$measurementTable[[1]]$ringWidth$values,
-#       value = tbl$paleoData[[i+1]][[1]]$measurementTable[[1]]$trsgi$values) 
-#     
+#       value = tbl$paleoData[[i+1]][[1]]$measurementTable[[1]]$trsgi$values)
+#
 #     init <- rbind(init, bind)
 # }
-# 
+#
 # init <- init %>% mutate(
 #   proxy = "tree-ring"
 # )
-# 
-# init %>% 
-#   ggplot(aes(x = year, y = value, colour = name, group = name)) + 
+#
+# init %>%
+#   ggplot(aes(x = year, y = value, colour = name, group = name)) +
 #   geom_line()
-# 
+#
 # plotly::ggplotly()
-# 
+#
 # #### plot lake data ####
-# 
+#
 # select_lake_site <- c('NAm-HellsKitchenLake.Gajewski.1988', 'NAm-GreenLake.Menounos.2006')
-# 
-# tbl <- tibble(name = nam) %>% 
-#   unnest_wider(name) %>% 
-#   filter(dataSetName %in% select_lake_site) 
-# 
+#
+# tbl <- tibble(name = nam) %>%
+#   unnest_wider(name) %>%
+#   filter(dataSetName %in% select_lake_site)
+#
 # greenLake <- data.frame(
 #   name =  tbl$dataSetName[1],
 #   year = tbl$paleoData[[1]][[1]]$measurementTable[[1]]$year$values,
 #   #rw = dat[[1]]$measurementTable[[1]]$ringWidth$values,
 #   value = tbl$paleoData[[1]][[1]]$measurementTable[[1]]$thickness$values,
 #   proxy = 'varve-thickness')
-# 
+#
 # hellsLake <- data.frame(
 #   name =  tbl$dataSetName[2],
 #   year = tbl$paleoData[[2]][[1]]$measurementTable[[1]]$year$values,
 #   #rw = dat[[1]]$measurementTable[[1]]$ringWidth$values,
 #   value = tbl$paleoData[[2]][[1]]$measurementTable[[1]]$temperature$values,
 #   proxy = 'pollen')
-# 
+#
 # lakes <- rbind(greenLake, hellsLake)
-# 
+#
 # all <- rbind(init, lakes)
-# 
-# all %>% 
-#   ggplot(aes(x = year, y = value, colour = name, group = name)) + 
+#
+# all %>%
+#   ggplot(aes(x = year, y = value, colour = name, group = name)) +
 #   # geom_hline(yintercept = 0) +
 #  # geom_smooth(method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed") +
 #   facet_wrap(~proxy, nrow = 3, scale = 'free_y')+
 #   geom_line()
-# 
+#
 # plotly::ggplotly()
