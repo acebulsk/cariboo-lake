@@ -32,7 +32,11 @@ temporal_results.pdf
 2k-network/
 papers
 
-figs/
-writeup/
+figs/*
+writeup/*
 
-data/
+data/*
+
+*.pdf
+*.docx
+*.html
