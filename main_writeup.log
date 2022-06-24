@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.23)  23 JUN 2022 10:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.23)  23 JUN 2022 15:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -369,7 +369,11 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
 )
 \Gin@req@height=\dimen179
 \Gin@req@width=\dimen180
-) (/home/alex/.TinyTeX/texmf-dist/tex/latex/caption/caption.sty
+)
+\cslhangindent=\skip62
+\csllabelwidth=\skip63
+\cslentryspacingunit=\skip64
+(/home/alex/.TinyTeX/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2022/03/01 v3.6b Customizing captions (AR)
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2022/03/17 v2.3b caption3 kernel (AR)
@@ -389,38 +393,118 @@ Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/caption/ltcaption.sty
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
-)) (/home/alex/.TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+)) (/home/alex/.TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
+\multirow@colwidth=\skip65
+\multirow@cntb=\count301
+\multirow@dima=\skip66
+\bigstrutjot=\dimen189
+) (/home/alex/.TinyTeX/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2021/11/30 v1.9d multicolumn formatting (FMi)
+\c@tracingmulticols=\count302
+\mult@box=\box61
+\multicol@leftmargin=\dimen190
+\c@unbalance=\count303
+\c@collectmore=\count304
+\doublecol@number=\count305
+\multicoltolerance=\count306
+\multicolpretolerance=\count307
+\full@width=\dimen191
+\page@free=\dimen192
+\premulticols=\dimen193
+\postmulticols=\dimen194
+\multicolsep=\skip67
+\multicolbaselineskip=\skip68
+\partial@page=\box62
+\last@line=\box63
+\maxbalancingoverflow=\dimen195
+\mult@rightbox=\box64
+\mult@grightbox=\box65
+\mult@firstbox=\box66
+\mult@gfirstbox=\box67
+\@tempa=\box68
+\@tempa=\box69
+\@tempa=\box70
+\@tempa=\box71
+\@tempa=\box72
+\@tempa=\box73
+\@tempa=\box74
+\@tempa=\box75
+\@tempa=\box76
+\@tempa=\box77
+\@tempa=\box78
+\@tempa=\box79
+\@tempa=\box80
+\@tempa=\box81
+\@tempa=\box82
+\@tempa=\box83
+\@tempa=\box84
+\@tempa=\box85
+\@tempa=\box86
+\@tempa=\box87
+\@tempa=\box88
+\@tempa=\box89
+\@tempa=\box90
+\@tempa=\box91
+\@tempa=\box92
+\@tempa=\box93
+\@tempa=\box94
+\@tempa=\box95
+\@tempa=\box96
+\@tempa=\box97
+\@tempa=\box98
+\@tempa=\box99
+\@tempa=\box100
+\@tempa=\box101
+\@tempa=\box102
+\@tempa=\box103
+\c@minrows=\count308
+\c@columnbadness=\count309
+\c@finalcolumnbadness=\count310
+\last@try=\dimen196
+\multicolovershoot=\dimen197
+\multicolundershoot=\dimen198
+\mult@nat@firstbox=\box104
+\colbreak@box=\box105
+\mc@col@check@num=\count311
+) (/home/alex/.TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
+\everycr=\toks27
+\minrowclearance=\skip69
+) (/home/alex/.TinyTeX/texmf-dist/tex/latex/tools/hhline.sty
+Package: hhline 2020/01/04 v2.04 Table rule package (DPC)
+) (/home/alex/.TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-04-20 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count301
-\l__pdf_internal_box=\box61
+\l__color_backend_stack_int=\count312
+\l__pdf_internal_box=\box106
 ) (./main_writeup.aux)
 \openout1 = `main_writeup.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 82.
+Package hyperref Info: Link coloring OFF on input line 111.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -457,142 +541,135 @@ Package hyperref Info: Link coloring OFF on input line 82.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 84.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 113.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 84.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 113.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 84.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 113.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 84.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 113.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 84.
+(Font)              <12> on input line 113.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 84.
+(Font)              <8> on input line 113.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 84.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 84.
+(Font)              <6> on input line 113.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 113.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 84.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 113.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (./main_writeup.toc
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 5.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 5.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 5.
 )
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 123.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 123.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 123.
+[1
+
+{/home/alex/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./main_writeup.toc)
 \tf@toc=\write3
 \openout3 = `main_writeup.toc'.
 
-[1
-
-{/home/alex/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<figs/maps/cl_small_scale_inset_labels_gimp.png, id=36, 505.89pt x 505.89pt>
+[2]
+<figs/maps/cl_small_scale_inset_labels_gimp.png, id=42, 505.89pt x 505.89pt>
 File: figs/maps/cl_small_scale_inset_labels_gimp.png Graphic file (type png)
 <use figs/maps/cl_small_scale_inset_labels_gimp.png>
-Package pdftex.def Info: figs/maps/cl_small_scale_inset_labels_gimp.png  used on input line 106.
+Package pdftex.def Info: figs/maps/cl_small_scale_inset_labels_gimp.png  used on input line 153.
 (pdftex.def)             Requested size: 469.76265pt x 469.76265pt.
-<figs/maps/cl_bathymetry_acoustics_coring_locations.png, id=38, 844.8363pt x 597.432pt>
+<figs/maps/cl_bathymetry_acoustics_coring_locations.png, id=44, 844.8363pt x 597.432pt>
 File: figs/maps/cl_bathymetry_acoustics_coring_locations.png Graphic file (type png)
 <use figs/maps/cl_bathymetry_acoustics_coring_locations.png>
-Package pdftex.def Info: figs/maps/cl_bathymetry_acoustics_coring_locations.png  used on input line 115.
+Package pdftex.def Info: figs/maps/cl_bathymetry_acoustics_coring_locations.png  used on input line 162.
 (pdftex.def)             Requested size: 469.7663pt x 332.19858pt.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 133.
+[3] [4 <./figs/maps/cl_small_scale_inset_labels_gimp.png>] [5 <./figs/maps/cl_bathymetry_acoustics_coring_locations.png>]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 180.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [2] [3 <./figs/maps/cl_small_scale_inset_labels_gimp.png>] [4 <./figs/maps/cl_bathymetry_acoustics_coring_locations.png>]
-<figs/CaribooLake_AcousticsLine_Bathymetry_20200907.png, id=61, 844.8363pt x 597.432pt>
-File: figs/CaribooLake_AcousticsLine_Bathymetry_20200907.png Graphic file (type png)
-<use figs/CaribooLake_AcousticsLine_Bathymetry_20200907.png>
-Package pdftex.def Info: figs/CaribooLake_AcousticsLine_Bathymetry_20200907.png  used on input line 145.
-(pdftex.def)             Requested size: 469.7663pt x 332.19858pt.
-<figs/acoustics/acoustics_6_panel.png, id=67, 571.13374pt x 767.86874pt>
+) [6]
+<figs/acoustics/acoustics_6_panel.png, id=81, 571.13374pt x 767.86874pt>
 File: figs/acoustics/acoustics_6_panel.png Graphic file (type png)
 <use figs/acoustics/acoustics_6_panel.png>
-Package pdftex.def Info: figs/acoustics/acoustics_6_panel.png  used on input line 158.
+Package pdftex.def Info: figs/acoustics/acoustics_6_panel.png  used on input line 196.
 (pdftex.def)             Requested size: 469.75322pt x 631.56627pt.
 
-LaTeX Warning: Float too large for page by 29.13625pt on input line 163.
+LaTeX Warning: Float too large for page by 29.13625pt on input line 201.
 
-[5] [6 <./figs/CaribooLake_AcousticsLine_Bathymetry_20200907.png>] [7 <./figs/acoustics/acoustics_6_panel.png>] [8]
-<main_writeup_files/figure-latex/ekmanSeds-1.pdf, id=108, 578.16pt x 361.35pt>
+[7] [8 <./figs/acoustics/acoustics_6_panel.png>]
+<main_writeup_files/figure-latex/ekmanSeds-1.pdf, id=109, 578.16pt x 361.35pt>
 File: main_writeup_files/figure-latex/ekmanSeds-1.pdf Graphic file (type pdf)
 <use main_writeup_files/figure-latex/ekmanSeds-1.pdf>
-Package pdftex.def Info: main_writeup_files/figure-latex/ekmanSeds-1.pdf  used on input line 184.
+Package pdftex.def Info: main_writeup_files/figure-latex/ekmanSeds-1.pdf  used on input line 222.
 (pdftex.def)             Requested size: 469.75385pt x 293.59616pt.
-<figs/ekman/ekman_example.jpg, id=109, 647.41875pt x 636.12656pt>
+<figs/ekman/ekman_example.jpg, id=110, 647.41875pt x 636.12656pt>
 File: figs/ekman/ekman_example.jpg Graphic file (type jpg)
 <use figs/ekman/ekman_example.jpg>
-Package pdftex.def Info: figs/ekman/ekman_example.jpg  used on input line 193.
+Package pdftex.def Info: figs/ekman/ekman_example.jpg  used on input line 231.
 (pdftex.def)             Requested size: 469.75677pt x 461.56335pt.
-[9 <./main_writeup_files/figure-latex/ekmanSeds-1.pdf>] [10 <./figs/ekman/ekman_example.jpg>]
-<figs/ams_sed_rates.png, id=135, 433.62pt x 325.215pt>
+[9] [10 <./main_writeup_files/figure-latex/ekmanSeds-1.pdf>] [11 <./figs/ekman/ekman_example.jpg>]
+<figs/ams_sed_rates.png, id=146, 433.62pt x 325.215pt>
 File: figs/ams_sed_rates.png Graphic file (type png)
 <use figs/ams_sed_rates.png>
-Package pdftex.def Info: figs/ams_sed_rates.png  used on input line 219.
+Package pdftex.def Info: figs/ams_sed_rates.png  used on input line 257.
 (pdftex.def)             Requested size: 433.65202pt x 325.23901pt.
-<figs/sed_rates_V1_V2_ekmans.png, id=136, 433.62pt x 325.215pt>
+<figs/sed_rates_V1_V2_ekmans.png, id=147, 433.62pt x 325.215pt>
 File: figs/sed_rates_V1_V2_ekmans.png Graphic file (type png)
 <use figs/sed_rates_V1_V2_ekmans.png>
-Package pdftex.def Info: figs/sed_rates_V1_V2_ekmans.png  used on input line 228.
+Package pdftex.def Info: figs/sed_rates_V1_V2_ekmans.png  used on input line 266.
 (pdftex.def)             Requested size: 433.65202pt x 325.23901pt.
-[11] [12 <./figs/ams_sed_rates.png (PNG copy)>] [13 <./figs/sed_rates_V1_V2_ekmans.png (PNG copy)>] [14]
-<main_writeup_files/figure-latex/turbScatter-1.pdf, id=164, 578.16pt x 289.08pt>
+<figs/long_core/good_vs_bad_varves.png, id=152, 354.123pt x 233.673pt>
+File: figs/long_core/good_vs_bad_varves.png Graphic file (type png)
+<use figs/long_core/good_vs_bad_varves.png>
+Package pdftex.def Info: figs/long_core/good_vs_bad_varves.png  used on input line 279.
+(pdftex.def)             Requested size: 354.12212pt x 233.67242pt.
+[12] [13 <./figs/ams_sed_rates.png (PNG copy)>] [14 <./figs/sed_rates_V1_V2_ekmans.png (PNG copy)> <./figs/long_core/good_vs_bad_varves.png>]
+<main_writeup_files/figure-latex/turbScatter-1.pdf, id=171, 578.16pt x 289.08pt>
 File: main_writeup_files/figure-latex/turbScatter-1.pdf Graphic file (type pdf)
 <use main_writeup_files/figure-latex/turbScatter-1.pdf>
-Package pdftex.def Info: main_writeup_files/figure-latex/turbScatter-1.pdf  used on input line 274.
+Package pdftex.def Info: main_writeup_files/figure-latex/turbScatter-1.pdf  used on input line 353.
 (pdftex.def)             Requested size: 469.75385pt x 234.8769pt.
 [15 <./main_writeup_files/figure-latex/turbScatter-1.pdf>]
-<main_writeup_files/figure-latex/varves-a-1.pdf, id=177, 578.16pt x 433.62pt>
+<main_writeup_files/figure-latex/varves-a-1.pdf, id=183, 578.16pt x 433.62pt>
 File: main_writeup_files/figure-latex/varves-a-1.pdf Graphic file (type pdf)
 <use main_writeup_files/figure-latex/varves-a-1.pdf>
-Package pdftex.def Info: main_writeup_files/figure-latex/varves-a-1.pdf  used on input line 289.
+Package pdftex.def Info: main_writeup_files/figure-latex/varves-a-1.pdf  used on input line 372.
 (pdftex.def)             Requested size: 469.75385pt x 352.31538pt.
-
-LaTeX Warning: Reference `spatial' on page 16 undefined on input line 298.
-
-<main_writeup_files/figure-latex/particle-1.pdf, id=179, 578.16pt x 433.62pt>
+<main_writeup_files/figure-latex/particle-1.pdf, id=185, 578.16pt x 433.62pt>
 File: main_writeup_files/figure-latex/particle-1.pdf Graphic file (type pdf)
 <use main_writeup_files/figure-latex/particle-1.pdf>
-Package pdftex.def Info: main_writeup_files/figure-latex/particle-1.pdf  used on input line 302.
+Package pdftex.def Info: main_writeup_files/figure-latex/particle-1.pdf  used on input line 385.
 (pdftex.def)             Requested size: 469.75385pt x 352.31538pt.
-[16 <./main_writeup_files/figure-latex/varves-a-1.pdf>] [17 <./main_writeup_files/figure-latex/particle-1.pdf>]
-<main_writeup_files/figure-latex/loi-1.pdf, id=204, 578.16pt x 433.62pt>
+<main_writeup_files/figure-latex/loi-1.pdf, id=187, 578.16pt x 433.62pt>
 File: main_writeup_files/figure-latex/loi-1.pdf Graphic file (type pdf)
 <use main_writeup_files/figure-latex/loi-1.pdf>
-Package pdftex.def Info: main_writeup_files/figure-latex/loi-1.pdf  used on input line 315.
+Package pdftex.def Info: main_writeup_files/figure-latex/loi-1.pdf  used on input line 398.
 (pdftex.def)             Requested size: 469.75385pt x 352.31538pt.
-[18 <./main_writeup_files/figure-latex/loi-1.pdf>] [19] [20] (./main_writeup.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+[16] [17 <./main_writeup_files/figure-latex/varves-a-1.pdf>] [18 <./main_writeup_files/figure-latex/particle-1.pdf>] [19 <./main_writeup_files/figure-latex/loi-1.pdf>] [20] [21] [22] [23] (./main_writeup.aux) ) 
 Here is how much of TeX's memory you used:
- 13007 strings out of 479997
- 209954 string characters out of 5888336
- 506932 words of memory out of 5000000
- 30919 multiletter control sequences out of 15000+600000
+ 13345 strings out of 479997
+ 215750 string characters out of 5888336
+ 521629 words of memory out of 5000000
+ 31215 multiletter control sequences out of 15000+600000
  525528 words of font info for 71 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 86i,8n,91p,1914b,505s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,10n,91p,2353b,573s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/home/alex/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/home/alex/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</home/alex/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb>
-Output written on main_writeup.pdf (20 pages, 12536428 bytes).
+Output written on main_writeup.pdf (23 pages, 9811503 bytes).
 PDF statistics:
- 309 PDF objects out of 1000 (max. 8388607)
- 246 compressed objects within 3 object streams
- 53 named destinations out of 1000 (max. 500000)
- 133 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 383 PDF objects out of 1000 (max. 8388607)
+ 316 compressed objects within 4 object streams
+ 81 named destinations out of 1000 (max. 500000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
 
