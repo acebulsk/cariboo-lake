@@ -41,9 +41,16 @@ all <- left_join(gs, varve) |>
   left_join(loi, by = 'ID') |> 
   pivot_longer(c(gs_value, Lam_Thickness, LOI))
 
-p <- ggplot(all, aes(x = dist, y = value, colour = grain_size_stat, shape = basin)) +
-  geom_line() +
-  geom_point() +
+dat_text <- data.frame(
+  label = c("A", "B", "C"),
+  name   = c('gs_value', 'Lam_Thickness', 'LOI'),
+  x     = c(20, 27.5, 25),
+  y     = c(4, 4, 4.5)
+)
+
+p <- ggplot(all) +
+  geom_line(aes(x = dist, y = value, colour = grain_size_stat)) +
+  geom_point(aes(x = dist, y = value, colour = grain_size_stat, shape = basin)) +
   facet_wrap(~name, 
              nrow = 3,
              scales = "free_y", 
@@ -52,9 +59,16 @@ p <- ggplot(all, aes(x = dist, y = value, colour = grain_size_stat, shape = basi
              strip.position = "left") +
   theme_bw() +
   theme(axis.title.y = element_blank()) +
-  xlab('Distance (km)') +
+  xlab('Distance Down Lake (km)') +
   labs(y = NULL) +
-  theme(strip.background = element_blank(), strip.placement = "outside")
+  theme(strip.background = element_blank(), strip.placement = "outside") +
+  geom_text(
+    data    = dat_text,
+    mapping = aes(x = Inf, y = Inf, label = label),
+    hjust   = 1.5,
+    vjust   = 1.5
+  )
+  
 
 p
 
