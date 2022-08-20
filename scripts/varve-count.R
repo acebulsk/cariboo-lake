@@ -163,8 +163,7 @@ ek_v1_cln <- ek_v1 %>%
 all_df <- rbind(ams_df %>% 
                   rename(core_num = ams_sample) %>% 
                   select(year_bp, depth, core_num), 
-                  ek_v2_cln) %>% 
-  filter(core_num != 'V2a')
+                  ek_v2_cln)
 
 ggplot(all_df, aes(year_bp, depth, colour = core_num)) +
   geom_point() +
