@@ -3,6 +3,32 @@
 library(dplyr)
 library(ggplot2)
 
+#### carbon dates ####
+# A small twig from V1 at 347 cm results in a date of 1899-1819 cal BP. 
+# A 4 cm long twig from V2 at 222 cm results in a date of 490-316 cal BP. 
+# Since the first date from V2 was much younger than than expected, 
+# a second sample from V2 was analyzed by combining a small twig at 286 cm and pine needle at 294 cm. 
+# A date of 2045-1895 cal BP was determined.
+
+# plot on depth 
+v1_date <- (1899 + 1819) / 2 # mid point yr for v1 @ 347 cm
+
+v1_C14 <- data.frame(depth_cm = 347, year = v1_date) # n = 1
+
+v2b_depth <- (286 + 294) / 2 # avg depth for combined V2 sample
+
+v2_date_b <- (2045 + 1895) / 2 # mid point yr for v2 @ 286 + 294 cm
+v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
+
+v2_C14 <- data.frame(depth_cm = 286, year = 1970) # n = 2
+
+ams_df <- tibble(
+  year_bp = c(0, v1_date, 0, v2_date_a, 0, v2_date_b),
+  depth = c(0, 347, 0, 222, 0, v2b_depth),
+  ams_sample = c('V1', 'V1', 'V2a', 'V2a', 'V2b', 'V2b')
+) %>% 
+  mutate(year_ce = 2017 - year_bp)
+
 #### Fig 6 - Temporal Trends in Varve Thickness ####
 # See varve-count.R for construction of gaus.RDS file
 
@@ -27,8 +53,8 @@ v1_plot <-
   ggplot(aes(x = year_ce_lin_interp)) +
   geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "black", size = 0.5, se=F, linetype="dashed")+
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
-  # geom_point(aes(x = 2017 - v1_C14$year, y = -1.5)) +
-  # geom_text(aes(x = 2017 - v1_C14$year, y = -1.70), label = "158 ± 40 yr. CE", vjust = 1) +
+  geom_point(aes(x = 2017 - v1_C14$year, y = -1.5), shape = 4) +
+  geom_text(aes(x = 2017 - v1_C14$year, y = -1.70), label = "158 ± 40 yr. CE", vjust = 1) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = ma_30)) +
   ylab("VT Std. Dept.") +
@@ -58,8 +84,8 @@ v2_plot <-
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
   geom_line(aes(y = ma_30)) +
   # geom_line(aes(y = smooth)) +
-  # geom_point(aes(x = 2017 - v2_C14$year, y = -1.5)) +
-  # geom_text(aes(x = 2017 - v2_C14$year + 75, y = -1.75), label = "47 ± 75 yr. CE", vjust = 1) +
+  geom_point(aes(x = 2017 - v2_C14$year, y = -1.5), shape = 4) +
+  geom_text(aes(x = 2017 - v2_C14$year, y = -1.75), label = "47 ± 75 yr. CE", vjust = 1) +
   xlab("Year (CE)") +
   ylab("VT Std. Dept.") +
   ylim(c(-2, 5)) +
@@ -108,8 +134,8 @@ v1_plot <-
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  # geom_point(aes(x = 2017 - v1_C14$year, y = -1.5), shape = 4) +
-  # geom_text(aes(x = 2017 - v1_C14$year, y = -1.70), label = "47 ± 75 yr. CE", vjust = 1) +
+  geom_point(aes(x = 2017 - v1_C14$year, y = -1.5)) +
+  geom_text(aes(x = 2017 - v1_C14$year, y = -1.70), label = "158 ± 40 yr. CE", vjust = 1) +
   ylab("D50 Std. Dept.") +
   xlab("Year (CE)") +  
   ggtitle("V1") +
@@ -138,8 +164,8 @@ v2_plot <-
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  # geom_point(aes(x = 2017 - v2_C14$year, y = -1.5), shape = 4) +
-  # geom_text(aes(x = 2017 - v2_C14$year, y = -1.75), label = "158 ± 40 yr. CE", vjust = 1) +
+  geom_point(aes(x = 2017 - v2_C14$year, y = -1.5), shape = 4) +
+  geom_text(aes(x = 2017 - v2_C14$year, y = -1.75), label = "47 ± 75 yr. CE", vjust = 1) +
   ylab("D50 Std. Dept.") +
   xlab("Year (CE)") +  
   ggtitle("V2") +
@@ -187,8 +213,8 @@ v1_plot <-
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  # geom_point(aes(x = 2017 - v1_C14$year, y = -2.5), shape = 4) +
-  # geom_text(aes(x = 2017 - v1_C14$year, y = -2.70), label = "47 ± 75 yr. CE", vjust = 1) +
+  geom_point(aes(x = 2017 - v1_C14$year, y = -2.5), shape = 4) +
+  geom_text(aes(x = 2017 - v1_C14$year, y = -2.70), label = "158 ± 40 yr. CE", vjust = 1) +
   ylab("OM Std. Dept.") +
   xlab("Year (CE)") +  
   ggtitle("V1") +
@@ -217,8 +243,8 @@ v2_plot <-
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  # geom_point(aes(x = 2017 - v2_C14$year, y = -2.5), shape = 4) +
-  # geom_text(aes(x = 2017 - v2_C14$year, y = -2.70), label = "158 ± 40 yr. CE", vjust = 1) +
+  geom_point(aes(x = 2017 - v2_C14$year, y = -2), shape = 4) +
+  geom_text(aes(x = 2017 - v2_C14$year, y = -2.55), label = "47 ± 75 yr. CE") +
   ylab("OM Std. Dept.") +
   xlab("Year (CE)") +  
   ggtitle("V2") +
