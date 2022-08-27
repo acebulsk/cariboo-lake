@@ -8,7 +8,7 @@ output:
   bookdown::word_document2:
       global_numbering: true
       keep_tex: false
-      reference_docx: 'writeup/word_template.docx'
+      reference_docx: 'deliverables/word_template.docx'
 bibliography: ['../../local-usask/papers/bibtex/library.bib']
 csl: '../../local-usask/papers/bibtex/apa.csl'
 header-includes:
@@ -29,13 +29,13 @@ set_flextable_defaults(font.size = 8)
 
 ---
 
-Alexander Cebulski^1^, Joseph Desloges^2^ (ORCID ID - 0000-0001-8446-3034)
+Alexander Cebulski^1^ (ORCID ID - 0000-0001-7910-5056), Joseph Desloges^2^ (ORCID ID - 0000-0001-8446-3034)
 
 ^1^Department of Geography, University of Saskatchewan, Canada
 
 ^1^Department of Geography and Department of Earth Sciences, University of Toronto, Canada
 
-**Abstract:** Cariboo Lake is situated in a mountains region of British Columbia Canada and is representative of environments transitioning from arid interior climates to glaciated high mountain regions to the east. Sub-bottom acoustic transects and short and long core sediment are analyzed to present a record of sediment accumulation over the Holocene. Acoustically penetrable sediment is observed in deep parts of the lake reach a maximum thickness of 35 m representing deglacial and Holocene accumulation. A transition from massive to well-layered sediments is observed in the sub-bottom acoustic record during final phases of valley deglaciation in the region (ca. 10.5-9 ka BP). Fine clastic sediments produced from the glaciated headwaters are delivered by Cariboo River as overcurrents into the lake which produce bimodal rhythmic layering of silt and clay sediments. Laminae couplets are inferred to be deposited annually according to two AMS radiocarbon dates and a varve counting chronology. Two long cores, 2.9 and 3.8 m in length, were selected for analysis with estimated basal dates of ~2 ka BP. The accumulation of sediment into Cariboo Lake shows above average sediment accumulation rates between 0-700CE and 1500-2017CE which are coincident with cool temperatures and peak glacier extents. The sediment chronology presented in this study contributes to the existing body of knowledge of lake sediment accumulation and Holocene watershed activity in this transitional climate region of western Canada. 
+**Abstract:** Cariboo Lake is situated in a mountainous region of British Columbia Canada and is representative of environments transitioning from arid interior climates to glaciated high mountain regions to the east. Sub-bottom acoustic transects and short and long core sediment are analyzed to present a record of sediment accumulation over the Holocene. Acoustically penetrable sediment is observed in deep parts of the lake reach a maximum thickness of 35 m representing deglacial and Holocene accumulation. A transition from massive to well-layered sediments is observed in the sub-bottom acoustic record during final phases of valley deglaciation in the region (ca. 10.5-9 ka BP). Fine clastic sediments produced from the glaciated headwaters are delivered by Cariboo River as overcurrents into the lake which produce bimodal rhythmic layering of silt and clay sediments. Laminae couplets are inferred to be deposited annually according to two AMS radiocarbon dates and a varve counting chronology. Two long cores, 2.9 and 3.8 m in length, were selected for analysis with estimated basal dates of ~2 ka BP. The accumulation of sediment into Cariboo Lake shows above average sediment accumulation rates between 0-700CE and 1500-2017CE which are coincident with cool temperatures and peak glacier extents. The sediment chronology presented in this study contributes to the existing body of knowledge of lake sediment accumulation and Holocene watershed activity in this transitional climate region of western Canada. 
 
 **Keywords:** Lake, Sediment, Holocene, Acoustic records, Varve, Climate proxy, British Columbia
 

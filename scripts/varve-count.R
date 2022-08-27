@@ -340,7 +340,7 @@ v2.mean <- v2 %>%
 # 
 # v2.mean <- mean(v2.ct$lyr_mm)
 
-# v2.fvl <- v2.mean + (3*v2.sd) # rm couplets with thicknesses greater than 3 std above the mean 
+v2.fvl <- v2.mean + (2*v2.sd) # rm couplets with thicknesses greater than 3 std above the mean
 
 v2.fvl <- 3.9 # based off visual inspection
 
