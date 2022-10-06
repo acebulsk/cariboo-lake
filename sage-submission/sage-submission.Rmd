@@ -19,7 +19,7 @@ classoption:
   - Royal
   - times
   - doublespace
-bibliography: library
+bibliography: library.bib
 bibliographystyle: sageh
 output:
   rticles::sage_article:

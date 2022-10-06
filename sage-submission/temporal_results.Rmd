@@ -51,18 +51,24 @@ tb <- readRDS('../data/long_cores/turbidite_metrics.rds') |>
 ```
 
 ```{r turbTbl, echo=F}
-dplyr::left_join(non_event, tb) |> 
+tb_out <- dplyr::left_join(non_event, tb) |> 
   dplyr::arrange(metric)  |> 
   dplyr::mutate(metric = dplyr::case_when(
     metric == 'grain_size' ~ 'D~50~ (µm)',
     metric == 'varve_thickness' ~ 'Avg. Thickness (mm)',
     metric == 'loi' ~ 'OM (%)',
   )) |> 
-  dplyr::rename(`Couplet (varve) mean` = non_event_mean, `Event mean` = event_mean, `Event sd` = event_sd, `Event n` = event_n) |> 
+  dplyr::rename(`Couplet (varve) mean` = non_event_mean, `Event mean` = event_mean, `Event sd` = event_sd, `Event n` = event_n) 
+
+# write.csv(tb_out, 'figs/table1.csv')
+  
+tb_out |> 
   knitr::kable(
     caption = "Sediment characteristics of regular laminae 'Couplet (varve)' compared to couplets classified as turbidite beds 'Events' for V1 and V2. The 'Couplet (varve)' is the mean sediment characteristic for all regular laminae couplets. The 'Event mean' is the mean sediment characteristic value for couplets classified as events, 'Event sd' is the standard deviation, and 'Event n' is the number of turbidite beds.\\label{turbTbl}",
     digits = 2
-  ) 
+  )
+
+
 
 ```
 
