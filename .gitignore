@@ -31,8 +31,10 @@ temporal_results.docx
 temporal_results.pdf
 2k-network/
 papers
+depreciated_word_docs
 
-figs/*
+other
+figs
 writeup/*
 
 data/*
