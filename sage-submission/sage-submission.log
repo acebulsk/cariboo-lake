@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.6)  6 OCT 2022 13:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.6)  6 OCT 2022 14:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -30,7 +30,9 @@ Package: helvet 2020/03/25 PSNFSS-v9.3 (WaS)
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
-)) (/home/alex/.TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+)) (/home/alex/.TinyTeX/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+) (/home/alex/.TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
@@ -387,35 +389,73 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip66
+) (/home/alex/.TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
+\LTleft=\skip67
+\LTright=\skip68
+\LTpre=\skip69
+\LTpost=\skip70
+\LTchunksize=\count303
+\LTcapwidth=\dimen197
+\LT@head=\box57
+\LT@firsthead=\box58
+\LT@foot=\box59
+\LT@lastfoot=\box60
+\LT@gbox=\box61
+\LT@cols=\count304
+\LT@rows=\count305
+\c@LT@tables=\count306
+\c@LT@chunks=\count307
+\LT@p@ftn=\toks35
+) (/home/alex/.TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count308
+) (/home/alex/.TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.sty
+Package: footnote 1997/01/28 1.13 Save footnotes around boxes
+\fn@notes=\box62
+\fn@width=\dimen198
 )
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 16.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 27.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 ) (/home/alex/.TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-09-28 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count303
-\l__pdf_internal_box=\box57
-) (./sage-submission.aux)
+\l__color_backend_stack_int=\count309
+\l__pdf_internal_box=\box63
+) (./sage-submission.aux
+
+LaTeX Warning: Label `fig:map-basin' multiply defined.
+
+
+LaTeX Warning: Label `fig:map-lake' multiply defined.
+
+
+LaTeX Warning: Label `fig:amsRates' multiply defined.
+
+
+LaTeX Warning: Label `fig:proxy-comparison' multiply defined.
+
+)
 \openout1 = `sage-submission.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -460,170 +500,231 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
+Package caption Info: longtable package is loaded.
+(/home/alex/.TinyTeX/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
+)
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 16.
+Package hyperref Info: Link coloring ON on input line 27.
 (./sage-submission.out) (./sage-submission.out)
 \@outlinefile=\write4
 \openout4 = `sage-submission.out'.
 
-LaTeX Font Info:    Trying to load font information for OT1+phv on input line 39.
+LaTeX Font Info:    Trying to load font information for OT1+phv on input line 49.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 9.49997pt on input line 39.
+(Font)              scaled to size 9.49997pt on input line 49.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 39.
+(Font)              scaled to size 11.39996pt on input line 49.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 11.39996pt on input line 39.
+(Font)              scaled to size 11.39996pt on input line 49.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 9.49997pt on input line 39.
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 59.
+(Font)              scaled to size 9.49997pt on input line 49.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 72.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 59.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 72.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 59.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 72.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 17.09995pt on input line 64.
+(Font)              scaled to size 17.09995pt on input line 78.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 17.09995pt on input line 64.
-LaTeX Font Info:    Calculating math sizes for size <18> on input line 64.
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <18> not available
-(Font)              size <17.28> substituted on input line 64.
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <12.59995> not available
-(Font)              size <12> substituted on input line 64.
-LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <18> not available
-(Font)              size <17.28> substituted on input line 64.
-LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <12.59995> not available
-(Font)              size <12> substituted on input line 64.
-LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <18> not available
-(Font)              size <17.28> substituted on input line 64.
-LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <12.59995> not available
-(Font)              size <12> substituted on input line 64.
-LaTeX Font Warning: Font shape `U/lasy/m/n' in size <18> not available
-(Font)              size <17.28> substituted on input line 64.
-LaTeX Font Warning: Font shape `U/lasy/m/n' in size <12.59995> not available
-(Font)              size <12> substituted on input line 64.
-LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 11.9699pt on input line 64.
+(Font)              scaled to size 17.09995pt on input line 78.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 6.64998pt on input line 64.
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 64.
+(Font)              scaled to size 6.64998pt on input line 78.
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 78.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 )
 LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
-(Font)              scaled to size 6.64998pt on input line 64.
+(Font)              scaled to size 6.64998pt on input line 78.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 7.59998pt on input line 64.
+(Font)              scaled to size 7.59998pt on input line 78.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 5.69998pt on input line 64.
+(Font)              scaled to size 5.69998pt on input line 78.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 78.
+LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
+(Font)              scaled to size 9.49997pt on input line 78.
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <7> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 78.
+LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
+(Font)              scaled to size 6.64998pt on input line 78.
+[1{/home/alex/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+]
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 7.59998pt on input line 64.
+(Font)              scaled to size 7.59998pt on input line 78.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 5.69998pt on input line 64.
+(Font)              scaled to size 5.69998pt on input line 78.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 4.74998pt on input line 64.
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 64.
+(Font)              scaled to size 4.74998pt on input line 78.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 78.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-Overfull \vbox (1.26578pt too high) has occurred while \output is active []
+) [2]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <7> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 71.
+[3]
+<../figs/maps/cl_small_scale_inset_labels_gimp.png, id=145, 505.89pt x 505.89pt>
+File: ../figs/maps/cl_small_scale_inset_labels_gimp.png Graphic file (type png)
+<use ../figs/maps/cl_small_scale_inset_labels_gimp.png>
+Package pdftex.def Info: ../figs/maps/cl_small_scale_inset_labels_gimp.png  used on input line 174.
+(pdftex.def)             Requested size: 352.81416pt x 352.82375pt.
+LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
+(Font)              scaled to size 8.54997pt on input line 178.
+LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
+(Font)              scaled to size 8.54997pt on input line 178.
+<../figs/maps/cl_bathymetry_acoustics_coring_locations_labels.png, id=147, 844.8363pt x 597.432pt>
+File: ../figs/maps/cl_bathymetry_acoustics_coring_locations_labels.png Graphic file (type png)
+<use ../figs/maps/cl_bathymetry_acoustics_coring_locations_labels.png>
+Package pdftex.def Info: ../figs/maps/cl_bathymetry_acoustics_coring_locations_labels.png  used on input line 183.
+(pdftex.def)             Requested size: 352.81416pt x 249.49762pt.
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <12> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 205.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 6.64998pt on input line 71.
-[1
-
-{/home/alex/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 81.
+(Font)              scaled to size 11.39996pt on input line 205.
+[4] [5 <../figs/maps/cl_small_scale_inset_labels_gimp.png>]
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 236.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <12> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 105.
-LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 11.39996pt on input line 105.
-<sage-submission_files/figure-latex/plot-ref-1.pdf, id=56, 469.755pt x 325.215pt>
-File: sage-submission_files/figure-latex/plot-ref-1.pdf Graphic file (type pdf)
-<use sage-submission_files/figure-latex/plot-ref-1.pdf>
-Package pdftex.def Info: sage-submission_files/figure-latex/plot-ref-1.pdf  used on input line 138.
-(pdftex.def)             Requested size: 352.81416pt x 244.25305pt.
-LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 8.54997pt on input line 138.
-LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 8.54997pt on input line 138.
-LaTeX Font Info:    Trying to load font information for OMS+pcr on input line 142.
-(/home/alex/.TinyTeX/texmf-dist/tex/latex/psnfss/omspcr.fd
-File: omspcr.fd 
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[6 <../figs/maps/cl_bathymetry_acoustics_coring_locations_labels.png>] [7]
+<../figs/acoustics/acoustics_6_panel.png, id=198, 571.13374pt x 767.86874pt>
+File: ../figs/acoustics/acoustics_6_panel.png Graphic file (type png)
+<use ../figs/acoustics/acoustics_6_panel.png>
+Package pdftex.def Info: ../figs/acoustics/acoustics_6_panel.png  used on input line 302.
+(pdftex.def)             Requested size: 352.81416pt x 474.35135pt.
+
+LaTeX Warning: Float too large for page by 10.47536pt on input line 307.
+
+[8] [9 <../figs/acoustics/acoustics_6_panel.png>]
+LaTeX Font Info:    Trying to load font information for OML+ptm on input line 366.
+(/home/alex/.TinyTeX/texmf-dist/tex/latex/psnfss/omlptm.fd
+File: omlptm.fd 
 )
-LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 142.
+LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 366.
+[10] [11]
+<../figs/ekman/ekman_seds.jpg, id=236, 2107.875pt x 1204.5pt>
+File: ../figs/ekman/ekman_seds.jpg Graphic file (type jpg)
+<use ../figs/ekman/ekman_seds.jpg>
+Package pdftex.def Info: ../figs/ekman/ekman_seds.jpg  used on input line 442.
+(pdftex.def)             Requested size: 352.81416pt x 201.60107pt.
+LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
+(Font)              scaled to size 8.54997pt on input line 446.
+<../figs/ekman/ekman_example.jpg, id=237, 647.41875pt x 636.12656pt>
+File: ../figs/ekman/ekman_example.jpg Graphic file (type jpg)
+<use ../figs/ekman/ekman_example.jpg>
+Package pdftex.def Info: ../figs/ekman/ekman_example.jpg  used on input line 451.
+(pdftex.def)             Requested size: 352.81416pt x 346.65784pt.
+[12 <../figs/ekman/ekman_seds.jpg>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Overfull \hbox (43.18584pt too wide) in paragraph at lines 159--159
-[]\OT1/pcr/m/n/10 xt <- xtable(head(cars), caption = "A table", label = "tab:table") 
- []
+[13 <../figs/ekman/ekman_example.jpg>] [14]
+<../figs/sed_rates_V1_V2_ekmans.png, id=271, 433.62pt x 325.215pt>
+File: ../figs/sed_rates_V1_V2_ekmans.png Graphic file (type png)
+<use ../figs/sed_rates_V1_V2_ekmans.png>
+Package pdftex.def Info: ../figs/sed_rates_V1_V2_ekmans.png  used on input line 576.
+(pdftex.def)             Requested size: 352.81416pt x 264.6236pt.
+[15] [16 <../figs/sed_rates_V1_V2_ekmans.png>]
+<../figs/long_core/good_vs_flood_vs_disturbed_varves_.png, id=288, 505.89pt x 233.673pt>
+File: ../figs/long_core/good_vs_flood_vs_disturbed_varves_.png Graphic file (type png)
+<use ../figs/long_core/good_vs_flood_vs_disturbed_varves_.png>
+Package pdftex.def Info: ../figs/long_core/good_vs_flood_vs_disturbed_varves_.png  used on input line 631.
+(pdftex.def)             Requested size: 352.81416pt x 162.97096pt.
+[17 <../figs/long_core/good_vs_flood_vs_disturbed_varves_.png>]
+<../figs/turbidite_plot.jpg, id=296, 2107.875pt x 1204.5pt>
+File: ../figs/turbidite_plot.jpg Graphic file (type jpg)
+<use ../figs/turbidite_plot.jpg>
+Package pdftex.def Info: ../figs/turbidite_plot.jpg  used on input line 695.
+(pdftex.def)             Requested size: 352.81416pt x 201.60107pt.
 
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 160.
-LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 160.
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 192--194
-[]\OT1/ptm/m/n/10 Then, just write straight-up L[]T[]Xcode and ref-er-ence is as usual
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[3 <./sage-submission_files/figure-latex/plot-ref-1.pdf>]
-LaTeX Font Info:    Trying to load font information for OML+pcr on input line 225.
-(/home/alex/.TinyTeX/texmf-dist/tex/latex/psnfss/omlpcr.fd
-File: omlpcr.fd 
-)
-LaTeX Font Info:    Font shape `OML/pcr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 225.
+[18 <../figs/turbidite_plot.jpg>] [19]
+<sage-submission_files/figure-latex/varves-a-1.pdf, id=311, 578.16pt x 433.62pt>
+File: sage-submission_files/figure-latex/varves-a-1.pdf Graphic file (type pdf)
+<use sage-submission_files/figure-latex/varves-a-1.pdf>
+Package pdftex.def Info: sage-submission_files/figure-latex/varves-a-1.pdf  used on input line 772.
+(pdftex.def)             Requested size: 352.81416pt x 264.60706pt.
+<sage-submission_files/figure-latex/particle-1.pdf, id=313, 578.16pt x 433.62pt>
+File: sage-submission_files/figure-latex/particle-1.pdf Graphic file (type pdf)
+<use sage-submission_files/figure-latex/particle-1.pdf>
+Package pdftex.def Info: sage-submission_files/figure-latex/particle-1.pdf  used on input line 800.
+(pdftex.def)             Requested size: 352.81416pt x 264.60706pt.
+[20]
+<sage-submission_files/figure-latex/loi-1.pdf, id=326, 578.16pt x 433.62pt>
+File: sage-submission_files/figure-latex/loi-1.pdf Graphic file (type pdf)
+<use sage-submission_files/figure-latex/loi-1.pdf>
+Package pdftex.def Info: sage-submission_files/figure-latex/loi-1.pdf  used on input line 831.
+(pdftex.def)             Requested size: 352.81416pt x 264.60706pt.
 
-Package natbib Warning: Citation `Taylor1937' on page 4 undefined on input line 248.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
+[21 <./sage-submission_files/figure-latex/varves-a-1.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package natbib Warning: Citation `Knupp1999' on page 4 undefined on input line 248.
+[22 <./sage-submission_files/figure-latex/particle-1.pdf>] [23 <./sage-submission_files/figure-latex/loi-1.pdf>] [24] [25]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
+[26]
+<../figs/2k-network/all_core_stats_2k_anomalies.jpg, id=463, 2409.0pt x 2409.0pt>
+File: ../figs/2k-network/all_core_stats_2k_anomalies.jpg Graphic file (type jpg)
+<use ../figs/2k-network/all_core_stats_2k_anomalies.jpg>
+Package pdftex.def Info: ../figs/2k-network/all_core_stats_2k_anomalies.jpg  used on input line 1043.
+(pdftex.def)             Requested size: 352.81416pt x 352.80647pt.
 
-Package natbib Warning: Citation `Kamm2000' on page 4 undefined on input line 248.
+LaTeX Warning: Float too large for page by 4.43048pt on input line 1048.
 
-[4] (./sage-submission.bbl
+[27] [28 <../figs/2k-network/all_core_stats_2k_anomalies.jpg>] [29]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package natbib Warning: Empty `thebibliography' environment on input line 10.
+[30]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-)
+[31] (./sage-submission.bbl
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package natbib Warning: There were undefined citations.
+[32]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[5] (./sage-submission.aux)
-LaTeX Font Warning: Size substitutions with differences
-(Font)              up to 0.72pt have occurred.
+[33]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[34]) [35] (./sage-submission.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `sage-submission.out' has not changed.
-(rerunfilecheck)             Checksum: E86AB65594DFE977CAC8FC4B04C0DBE8;1228.
+(rerunfilecheck)             Checksum: 71A927D149F44B717B7769713D556805;1974.
  ) 
 Here is how much of TeX's memory you used:
- 12598 strings out of 477031
- 203267 string characters out of 5828191
- 540030 words of memory out of 5000000
- 33464 multiletter control sequences out of 15000+600000
- 517619 words of font info for 127 fonts, out of 8000000 for 9000
+ 13487 strings out of 477031
+ 220692 string characters out of 5828191
+ 566960 words of memory out of 5000000
+ 34233 multiletter control sequences out of 15000+600000
+ 513467 words of font info for 115 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,8n,77p,286b,579s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/home/alex/.TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}</home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sage-submission.pdf (5 pages, 115579 bytes).
+ 72i,9n,77p,1647b,632s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/home/alex/.TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}</home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on sage-submission.pdf (35 pages, 12387803 bytes).
 PDF statistics:
- 148 PDF objects out of 1000 (max. 8388607)
- 119 compressed objects within 2 object streams
- 31 named destinations out of 1000 (max. 500000)
- 78 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 590 PDF objects out of 1000 (max. 8388607)
+ 514 compressed objects within 6 object streams
+ 121 named destinations out of 1000 (max. 500000)
+ 173 words of extra memory for PDF output out of 10000 (max. 10000000)
 
