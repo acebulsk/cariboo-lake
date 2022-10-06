@@ -13,6 +13,7 @@ library(tmap)
 library(gridExtra)
 library(zoo)
 library(RColorBrewer)
+library(viridis)
 
 source("2k-network/2k-recon/R-functions_gmst.R")
 
@@ -50,7 +51,7 @@ glob_lims <- c(-50, 2025)
 west_can_adv <- data.frame(
   name = "Solomina_et_al",
   Year = seq(0, 2000, 50),
-  value = rep(NA, 2000/50+1)) %>% 
+  value = rep(NA, 2000/50+1)) |> 
   mutate(
     value = 
       case_when(
@@ -61,12 +62,10 @@ west_can_adv <- data.frame(
     Label = 'Glacier Advance'
   )
 
-
-
-glc_adv_plot <- west_can_adv %>% 
+glc_adv_plot <- west_can_adv |> 
 ggplot(aes(x=Year, y = Label, fill = value)) +
   geom_tile() +
-  scale_fill_distiller(na.value = 'transparent') +
+  scale_fill_distiller(palette = 'Greys', na.value = 'transparent') +
   # scale_x_reverse() +
   xlab('Year (CE)') +
   ylab('Peak Glacier Extent') +
@@ -113,10 +112,10 @@ mob_sel <- mob |>
 nh_ann_mean_t <- 14.586 # from https://crudata.uea.ac.uk/cru/data/temperature/abs_glnhsh.txt
 
 NH_temp_anom <- ggplot(mob_long, aes(year_ce, value, colour = name)) +
-  geom_line() +
-  geom_ribbon(aes(ymin = low_se_1, 
-                  ymax = upper_se_1), 
-              alpha = 0.1, linetype = 2)+
+  geom_line(aes()) +
+  geom_ribbon(aes(ymin = low_se_1,
+                  ymax = upper_se_1),
+              alpha = 0, linetype = 2)+
   # geom_ribbon(aes(ymin = temp2m.ann.2SE.1 - median(temp2m.ann, na.rm = T), 
   #                 ymax = temp2m.ann.2SE - median(temp2m.ann, na.rm = T), 
   #                 fill = '2SE'), 
@@ -129,7 +128,9 @@ NH_temp_anom <- ggplot(mob_long, aes(year_ce, value, colour = name)) +
   theme(legend.text = element_blank(),
           legend.key.size = unit(0, 'cm')) +
   annotate('text', x = 1650, y = .25, label = 'Little Ice Age') +
-  annotate('text', x = 1100, y = -1, label = 'Medieval \n Warm Period')
+  annotate('text', x = 1100, y = -1, label = 'Medieval \n Warm Period') +
+  scale_color_manual(values = c("#fc8961", '#000004', '#000004'))
+  # scale_color_manual(values = viridis(3))
 
 NH_temp_anom
  
@@ -152,7 +153,7 @@ NH_temp_anom
 # A 1500-year reconstruction of annual mean temperature for temperate North America on decadal-to-multidecadal time scales
 
 # trouet <- read.delim('https://www.ncei.noaa.gov/pub/data/paleo/pages2k/trouet2013nam480pollen.txt', 
-#                      comment.char = '#', skip = 1) %>% 
+#                      comment.char = '#', skip = 1) |> 
 #   mutate(annom = temp2m.ann - median(temp2m.ann, na.rm = T))
 # # save locally in case link goes offline
 # # saveRDS(trouet, '2k-network/Trouet_et_al/NAM480.rds')
@@ -206,7 +207,7 @@ NH_temp_anom
 #   ensemble_long <- rbind(ensemble_long, df)
 # }
 # 
-# pages_plot <- ensemble_long %>% ggplot(aes(x = year_ce, y = temp_anom, group = model, colour = model)) + 
+# pages_plot <- ensemble_long |> ggplot(aes(x = year_ce, y = temp_anom, group = model, colour = model)) + 
 #   geom_line(method = "lm", 
 #               formula = y ~ 0, colour = "black", se=F, 
 #               linetype="dotted", size = .5, stat = 'smooth', alpha = 0.2) +
@@ -253,7 +254,7 @@ NH_temp_anom
 #   rename(`temp_anom` = `ts`) |> 
 #   rbind(inst)
 # 
-# ensemble_long_obs %>% 
+# ensemble_long_obs |> 
 #   ggplot(aes(x = year_ce, y = temp_anom, group = model, colour = model)) + 
 #   geom_line() +
 #   ylab("Temp. Anomaly") +
@@ -265,8 +266,8 @@ NH_temp_anom
 # 
 # # checked and is same as '2k-network/2k-recon/Fig_1.pdf'
 # 
-# ensemble_med <- ensemble_long %>% 
-#   group_by(year_ce) %>% 
+# ensemble_med <- ensemble_long |> 
+#   group_by(year_ce) |> 
 #   summarise(temp_anom = median(ts),
 #             model = 'ensemble')
 # 
@@ -286,14 +287,14 @@ NH_temp_anom
 # glob_median_abs <- abs(glob_median)
 # glob_std <- sd(glob_temp$ts, na.rm = T)
 # 
-# glob_temp_50 <- glob_temp %>% 
-#   group_by(grp) %>% 
-#   summarise(med = median(ts)) %>% 
+# glob_temp_50 <- glob_temp |> 
+#   group_by(grp) |> 
+#   summarise(med = median(ts)) |> 
 #   mutate(anomaly = med - glob_median,
-#          stdep = (med - glob_median)/ glob_std) %>% 
+#          stdep = (med - glob_median)/ glob_std) |> 
 #   filter(grp < 2000)
 # 
-# glob_temp_50_p <- glob_temp_50 %>% 
+# glob_temp_50_p <- glob_temp_50 |> 
 #   ggplot(aes(x=grp, y = 'Temperature Anomaly (°C)', fill = anomaly)) +
 #   geom_tile() +
 #   #scale_fill_distiller(palette = "BrBG", direction = 1, rescaler = mid_rescaler()) +
@@ -325,12 +326,12 @@ map_df <- readxl::read_xls('2k-network/hydro-recons/Source_Data_Extended_Data_Fi
 hydro_df <- readxl::read_xls('2k-network/hydro-recons/Source_Data_Extended_Data_Figure_5.xls',na = '-999.000')
 temp_df <- readxl::read_xls('2k-network/hydro-recons/Source_Data_Extended_Data_Figure_6.xls')
 
-# hydro_sf <- hydro_df %>% 
+# hydro_sf <- hydro_df |> 
 #   st_as_sf(coords = c('Longitude', 'Latitude'), crs = 4326)
 # tm_shape(hydro_sf) +
 #   tm_dots()
 # 
-# temp_sf <- temp_df %>% 
+# temp_sf <- temp_df |> 
 #   st_as_sf(coords = c('Longitude', 'Latitude'), crs = 4326)
 # tm_shape(temp_sf) +
 #   tm_dots()
@@ -355,24 +356,24 @@ cariboo_hydro <- hydro_df |>
          Latitude = as.numeric(Latitude),
          long_diff = abs(Longitude - needle_ln),
          lat_diff = abs(Latitude - needle_lt),
-         diff_sum = long_diff + lat_diff) %>%
-  # filter(diff_sum < 5.7) %>% 
-  # select(-contains('diff')) %>% 
-  summarise(across(`800s`:`1900s`, mean, na.rm = T)) %>% 
-  pivot_longer(`800s`:`1900s`) %>% 
+         diff_sum = long_diff + lat_diff) |>
+  # filter(diff_sum < 5.7) |> 
+  # select(-contains('diff')) |> 
+  summarise(across(`800s`:`1900s`, mean, na.rm = T)) |> 
+  pivot_longer(`800s`:`1900s`) |> 
   mutate(Year = as.numeric(gsub("s", "", name)) + 50, # make it mid point 
          value = as.numeric(value),
-         Label = 'Hydroclimate Anomaly') %>% 
-  filter(value != -999.00) %>% 
+         Label = 'Hydroclimate Anomaly') |> 
+  filter(value != -999.00) |> 
   rbind(blanks)
 
 
 # cariboo_hydro_median <- median(cariboo_hydro$value, na.rm = T)
 # 
-# cariboo_hydro <- cariboo_hydro %>% 
+# cariboo_hydro <- cariboo_hydro |> 
 #     mutate(value = value - cariboo_hydro_median)
 
-hydro_anom_plot <- cariboo_hydro %>% 
+hydro_anom_plot <- cariboo_hydro |> 
   ggplot(aes(x=Year, y = Label, fill = value)) +
   geom_tile() +
   scale_fill_distiller(palette = "BrBG", direction = 1, rescaler = mid_rescaler(), na.value = 'transparent') +
@@ -404,24 +405,24 @@ hydro_anom_plot
 #                      Year = seq(50, 850, 100),
 #                      Label = rep('Temperature Anomaly (°C)',9))
 # 
-# cariboo_temp <- temp_df %>%
+# cariboo_temp <- temp_df |>
 #   mutate(across(everything(), as.numeric),
 #          Longitude = as.numeric(Longitude),
 #          Latitude = as.numeric(Latitude),
 #          long_diff = abs(Longitude - needle_ln),
 #          lat_diff = abs(Latitude - needle_lt),
-#          diff_sum = long_diff + lat_diff) %>%
-#   filter(diff_sum < 5) %>%
-#   select(-contains('diff')) %>%
-#   summarise(across(`800s`:`1900s`, mean)) %>%
-#   pivot_longer(`800s`:`1900s`) %>%
+#          diff_sum = long_diff + lat_diff) |>
+#   filter(diff_sum < 5) |>
+#   select(-contains('diff')) |>
+#   summarise(across(`800s`:`1900s`, mean)) |>
+#   pivot_longer(`800s`:`1900s`) |>
 #   mutate(Year = as.numeric(gsub("s", "", name)) + 50, # make it mid point
 #          value = as.numeric(value),
-#          Label = 'Temperature Anomaly (°C)') %>%
-#   filter(value != -999.000) %>%
+#          Label = 'Temperature Anomaly (°C)') |>
+#   filter(value != -999.000) |>
 #   rbind(blanks)
 # 
-# cariboo_temp %>%
+# cariboo_temp |>
 #   ggplot(aes(x=Year, y = value)) +
 #   geom_point() +
 #   scale_fill_distiller(palette = "RdBu", direction = 1, rescaler = mid_rescaler()) +
@@ -430,7 +431,7 @@ hydro_anom_plot
 #   theme(legend.position = 'right',
 #         axis.title.y = element_blank())
 # 
-# cariboo_temp %>%
+# cariboo_temp |>
 #   ggplot(aes(x=Year, y = Label, fill = value)) +
 #   geom_tile() +
 #   scale_fill_distiller(palette = "RdBu", direction = 1, rescaler = mid_rescaler()) +
@@ -449,15 +450,15 @@ hydro_anom_plot
 gs_v1 <- readRDS('figs/grain_size_v1.rds')
 gs_v2 <- readRDS('figs/grain_size_v2.rds')
 
-gs <- readRDS('data/Sediment/Grain Size/grain_size_v1_v2_combined.RDS') %>% 
+gs <- readRDS('data/Sediment/Grain Size/grain_size_v1_v2_combined.RDS') |> 
   mutate(year_ce_avg = round(year_ce_new))
 
 gs_plot <- 
-  gs %>% 
+  gs |> 
   mutate(
     smooth = smoother::smth(x = stdep, method = 'gaussian', window = 6),
     mvavg = zoo::rollapply(stdep, 3, mean, align = 'center', fill = NA)
-  ) %>% 
+  ) |> 
   ggplot(aes(x = year_ce_avg, color = core)) +
   geom_line(aes(y = stdep), method = "lm", 
             formula = y ~ 0, colour = "black", se=F, 
@@ -469,17 +470,19 @@ gs_plot <-
   # xlab("Year (CE)") +  
   theme_bw()+
   xlim(glob_lims) +
-  ggtheme_all
+  ggtheme_all +
+  scale_color_manual(values = viridis(3))
+
 
 # varve thickness 
 
 vt <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
 
 vt_plot <- 
-  vt %>% 
+  vt |> 
   mutate(
     mvavg = zoo::rollapply(lyr_mm_stdep_fltr, width = 100, by = 1, FUN = mean, na.rm = T, align = "center", partial = T), # partial defines minimum number of objects to continue 25yr window. set 3 to get data point at end of dataset 
-  ) %>% 
+  ) |> 
   ggplot(aes(x = year_ce_lin_interp, colour = core)) +
   geom_line(aes(y = lyr_mm_stdep_fltr), method = "lm", 
             formula = y ~ 0, colour = "black", se=F, 
@@ -490,7 +493,8 @@ vt_plot <-
   ylim(c(-2.1, 5))+
   theme_bw()+
   xlim(-50, 2025) +
-  ggtheme_all
+  ggtheme_all +
+  scale_color_manual(values = viridis(3))
 
 # vt_plot
 
@@ -502,11 +506,11 @@ loi <- readRDS('data/Sediment/LOI/loi_v1_v2_working.RDS') |>
   filter(stdep < 3 & stdep > -3)
 
 loi_plot <- 
-  loi %>% 
+  loi |> 
   mutate(
     #  smooth = smoother::smth(x = stdep, method = 'gaussian', window = 3),
     mvavg = zoo::rollapply(stdep, 3, mean, align = 'center', fill = NA)
-  ) %>% 
+  ) |> 
   ggplot(aes(x = year_ce_new, colour = core)) +
   geom_line(aes(y = stdep), method = "lm", 
             formula = y ~ 0, colour = "black", se=F, 
@@ -518,7 +522,9 @@ loi_plot <-
   theme_bw() +
   xlim(glob_lims) +
   ylim(-3, 3)+
-  ggtheme_all
+  ggtheme_all+
+  scale_color_manual(values = viridis(3))
+
 loi_plot
 
 #### plot glac adv. temp anom, hydroclimate, cariboo sediment #### 

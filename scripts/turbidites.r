@@ -162,7 +162,9 @@ p <- ggplot(tb, aes(x = year, y = stdep, colour = core)) +
   facet_grid(rows = vars(metric), scales="free_y") +
   xlab('Year (CE)') +
   ylab('Standardized Departure')+
-  theme_bw() 
+  theme_bw() +
+  scale_color_brewer(palette = 'Set2')
 
+ggsave('figs/turbidite_plot.jpg', width = 7, height = 4)
 saveRDS(p, 'figs/turbidite_plot.rds')
 

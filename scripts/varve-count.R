@@ -152,26 +152,29 @@ vibro_sed_rates <- ams_df %>%
 
 # make our ek_v2 df compatible so we can plot all together 
 ek_v2_cln <- ek_v2 %>% 
-  select(year_bp = yr_bp, depth = cumul_depth_mm, core_num) %>% 
+  select(year_bp = yr_bp, depth = cumul_depth_mm, `Core ID` = core_num) %>% 
   mutate(depth = depth / 10)
 
 # make our ek_v1 df compatible so we can plot all together 
 ek_v1_cln <- ek_v1 %>% 
-  select(year_bp = yr_bp, depth = cumul_depth_mm, core_num) %>% 
+  select(year_bp = yr_bp, depth = cumul_depth_mm, `Core ID` = core_num) %>% 
   mutate(depth = depth / 10)
 
 all_df <- rbind(ams_df %>% 
-                  rename(core_num = ams_sample) %>% 
-                  select(year_bp, depth, core_num), 
+                  rename(`Core ID` = ams_sample) %>% 
+                  select(year_bp, depth, `Core ID`), 
                   ek_v2_cln)
 
-ggplot(all_df, aes(year_bp, depth, colour = core_num)) +
+ggplot(all_df, aes(year_bp, depth, colour = `Core ID`)) +
   geom_point() +
   geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=T, linetype = "dashed", size= 0.5) +
   # geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
   scale_y_continuous(trans = 'reverse') +
   xlab("Estimated Year (BP)") +
-  ylab("Core Depth (cm)")
+  ylab("Core Depth (cm)") +
+  theme_bw() +
+  scale_color_brewer(palette = 'Set2')
+  
 
 ggsave('figs/sed_rates_V1_V2_ekmans.png', width = 6, height = 4.5)
 
