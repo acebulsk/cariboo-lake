@@ -48,11 +48,11 @@ The Cariboo River, draining into the east margin of the lake, is the main source
 
 
 ```{r map-basin, echo=FALSE,out.width = "100%", fig.cap = "Map of the Cariboo Lake basin. Inset map shows the location of the Cariboo Lake basin within British Columbia relative to the Mud Lake basin from the Hodder et. al, (2006) study. See Figure 2 for detailed map of Cariboo Lake.\\label{fig:map-basin}"}
-knitr::include_graphics("../figs/maps/cl_small_scale_inset_labels_gimp.png")
+knitr::include_graphics("figs/cl_small_scale_inset_labels_gimp.png")
 ```
 
 ```{r map-lake, echo=FALSE, fig.cap = "Map of the Cariboo Lake bathymetry and coring locations. Bathymetric interval is 10 m. Acoustic transects selected for analysis are shown with a black solid line and labeled A, B, C, D, E and F. Fan deltas mentioned in the text are represented by black triangles and are referenced to by the upstream creek (i.e. Frank Creek Delta is the triangle below Frank Creek). The Frank Creek fan delta separates the main Cariboo Lake and Frank Creek sub-basins. The Keithley Creek fan delta separates the Frank Creek and Keithley Creek sub-basins.\\label{fig:map-lake}"}
-knitr::include_graphics("../figs/maps/cl_bathymetry_acoustics_coring_locations_labels.png")
+knitr::include_graphics("figs/cl_bathymetry_acoustics_coring_locations_labels.png")
 ```
 
 Sediment connectivity to headwater glaciers along the Cariboo River is limited due to lake filtering by Lanezi and Sandy lake (Figure \ref{fig:map-basin}). Lanezi Lake is a deep fjord-like lake with a bathymetry reaching a maximum depth of 170 m. Sandy Lake is much shallower reaching a maximum depth of 6 m. The Matthews River, which meets the Cariboo River just below Lanezi Lake provides a less filtered connection to meltwater sources draining several alpine glaciers including the largest area of ice (10 km^2^) in the Cariboo Lake watershed, proximal to Roberts Peak (Figure \ref{fig:map-basin}).
@@ -104,7 +104,7 @@ For Cariboo Lake, above average varve thickness, grain size, and organic matter 
 
 ```{r proxy-comparison, fig.width = 8, fig.height = 11, fig.cap='Cariboo Lake sediment characteristics for cores V1 (purple) and V2 (green) and Northern Hemisphere (NH) climate proxies. A, is the standardized departure (Sd. Dept.) from the mean varve thickness (VT) for annual couplets (light colour) and 30-year moving average (dark lines). B, is the standardized departure from the mean D~50~ grain size, the coloured dots represent D~50~ grain size at 5 - 10 cm intervals and the coloured lines are the 3 sample (~125 year) moving average. C, is the standardized departure from the mean percent organic matter (OM) for cores V1 and V2. The coloured dots represent percent OM at 2.5 - 5 cm intervals and the coloured lines are the 3 sample (~75 year) moving average. D, Moberg, Sonechkin and Holmgren (2005) Nothern Hemisphere annual temperature anomaly from the 1961-1990 mean, the orange line is the full reconstruction from high and low frequency proxies, and the black line is the low frequency proxy component with upper and lower uncertainty marked by dashed blue lines. E, Solomina et al., (2016) periods of peak glacier extent in western Canada. F, Ljungqvist et al., (2016) Nothern Hemisphere hydroclimate variability, expressed as standardized unitless anomalies ranging from -2 to 2, relative to the centennial mean and standard deviation over the eleventh-nineteenth centuries (see methods for Fig. 5 in (Ljungqvist et al., 2016).\\label{fig:proxy-comparison}'}
 #readRDS('figs/2k-network/all_core_stats_2k_anomalies.rds')
-knitr::include_graphics("../figs/2k-network/all_core_stats_2k_anomalies.jpg")
+knitr::include_graphics("figs/all_core_stats_2k_anomalies.jpg")
 
 ```
 

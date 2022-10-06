@@ -112,7 +112,7 @@ p <- list(v1_plot, v2_plot)
 cp <- cowplot::plot_grid(plotlist = p, nrow=2, align = 'v')
 cp
 
-ggsave("figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png", cp,  width = 11, height = 6)
+ggsave("sage-submission/figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png", cp,  width = 8.5, height = 6)
 saveRDS(cp, "figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.rds")
 
 #### Fig 7 - Grain Size ####
@@ -186,8 +186,8 @@ p <- list(v1_plot, v2_plot)
 
 cp <- cowplot::plot_grid(plotlist = p, nrow = 2, align = 'v')
 cp
-saveRDS(cp, "figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.rds")
-ggsave("figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.png", cp,  width = 8.5, height = 6)
+# saveRDS(cp, "sage-submission/figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.rds")
+ggsave("sage-submission/figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png", cp,  width = 8.5, height = 6)
 
 saveRDS(v1_plot, 'figs/grain_size_v1.rds')
 saveRDS(v2_plot, 'figs/grain_size_v2.rds')
@@ -266,5 +266,5 @@ cp <- cowplot::plot_grid(plotlist = p, nrow = 2, align = 'v')
 cp
 
 saveRDS(cp, "figs/V1_V2_LOI_vs_depth_and_C14_est_yr.rds")
-ggsave("figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png", cp,  width = 8.5, height = 6)
+ggsave("sage-submission/figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png", cp,  width = 8.5, height = 6)
 

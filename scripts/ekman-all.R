@@ -77,7 +77,7 @@ cp <- cowplot::plot_grid(plotlist = p, nrow=length(p),
 
 cp
 
-cowplot::save_plot('figs/ekman/ekman_seds.jpg', plot = cp, base_width = 7, base_height = 4)
+cowplot::save_plot('sage-submission/figs/ekman_seds.jpg', plot = cp, base_width = 7, base_height = 4)
 
 saveRDS(cp, file = 'figs/ekman/ekman_seds.rds')
   

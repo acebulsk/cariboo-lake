@@ -176,7 +176,7 @@ ggplot(all_df, aes(year_bp, depth, colour = `Core ID`)) +
   scale_color_brewer(palette = 'Set2')
   
 
-ggsave('figs/sed_rates_V1_V2_ekmans.png', width = 6, height = 4.5)
+ggsave('sage-submission/figs/sed_rates_V1_V2_ekmans.png', width = 6, height = 4.5)
 
 
 # Look at Long Core Varve Thickness Now 

@@ -109,15 +109,15 @@ gs %>%
             sd_d50 = sd(value),
             count = n())
 
-gs_tb_new %>% 
-  group_by(core) %>% 
-  summarise(mean_d50 = mean(d50),
-            sd_d50 = sd(d50),
-            count = n())
+# gs_tb_new %>% 
+#   group_by(core) %>% 
+#   summarise(mean_d50 = mean(d50),
+#             sd_d50 = sd(d50),
+#             count = n())
 
-tb_insp <- gs %>% 
+tb_insp <- gs %>%
   filter(core == 'V1' & record_number %in% v1_tb |
-         core == 'V2' & record_number %in% v2_tb) %>% 
+         core == 'V2' & record_number %in% v2_tb) %>%
   distinct()
 
 ggplot(tb_insp, aes(x = year_ce_new, y = d50, colour = core)) +geom_point()
@@ -165,6 +165,6 @@ p <- ggplot(tb, aes(x = year, y = stdep, colour = core)) +
   theme_bw() +
   scale_color_brewer(palette = 'Set2')
 
-ggsave('figs/turbidite_plot.jpg', width = 7, height = 4)
+ggsave('sage-submission/figs/turbidite_plot.jpg', width = 7, height = 4)
 saveRDS(p, 'figs/turbidite_plot.rds')
 

@@ -542,6 +542,6 @@ cp <- cowplot::plot_grid(plotlist = p, nrow=length(p),
 cp
 
 saveRDS(cp, 'figs/2k-network/all_core_stats_2k_anomalies.rds')
-cowplot::save_plot('figs/2k-network/all_core_stats_2k_anomalies.jpg', 
+cowplot::save_plot('sage-submission/figs/all_core_stats_2k_anomalies.jpg', 
                    cp, base_width = 8, base_height = 8)
 
