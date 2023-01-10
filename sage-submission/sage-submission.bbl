@@ -1,0 +1,252 @@
+\begin{thebibliography}{33}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{DOI:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{DOI:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+
+\bibitem[{Ballantyne(2002)}]{Ballantyne2002}
+Ballantyne CK (2002) {Paraglacial geomorphology}.
+\newblock \emph{Quaternary science reviews} 21(18): 1935--2017.
+
+\bibitem[{Bolch and Bolch(2008)}]{Bolch2008}
+Bolch Ts and Bolch Ta (2008) {GLIMS Glacier Database}.
+\newblock \doi{10.7265/N5V98602}.
+
+\bibitem[{Church and Ryder(1972)}]{Church1972}
+Church M and Ryder JM (1972) {Paraglacial Sedimentation: A Consideration of
+  Fluvial Processes Conditioned by Glaciation}.
+\newblock \emph{GSA Bulletin} 83(10): 3059--3072.
+\newblock \doi{10.1130/0016-7606(1972)83[3059:PSACOF]2.0.CO;2}.
+\newblock
+  \urlprefix\url{https://doi.org/10.1130/0016-7606(1972)83[3059:PSACOF]2.0.CO
+  http://0.0.0.2}.
+
+\bibitem[{Clague(1989)}]{Clague1989}
+Clague JJ (1989) {Quaternary geology of the Canadian Cordillera}.
+\newblock \doi{10.1130/dnag-gna-k1.15}.
+
+\bibitem[{Crookshanks and Gilbert(2008)}]{Crookshanks2008}
+Crookshanks S and Gilbert R (2008) {Continuous, diurnally fluctuating turbidity
+  currents in Kluane Lake, Yukon Territory}.
+\newblock \emph{Canadian journal of earth sciences} 45(10): 1123--1138.
+
+\bibitem[{Desloges(1999)}]{Desloges1999}
+Desloges JR (1999) {Geomorphic and climatic interpretations of abrupt changes
+  in glaciolacustrine deposition at Moose Lake, British Columbia, Canada}.
+\newblock \emph{Gff} 121(3): 202--207.
+\newblock \doi{10.1080/11035899901213202}.
+
+\bibitem[{Desloges and Gilbert(1994)}]{Desloges1994d}
+Desloges JR and Gilbert R (1994) {Sediment source and hydroclimatic inferences
+  from glacial lake sediments: the postglacial sedimentary record of Lillooet
+  Lake, British Columbia}.
+\newblock \emph{Journal of Hydrology} 159(1-4): 375--393.
+\newblock \doi{10.1016/0022-1694(94)90268-2}.
+\newblock
+  \urlprefix\url{https://www.sciencedirect.com/science/article/pii/0022169494902682}.
+
+\bibitem[{Dirszowsky and Desloges(1997)}]{Dirszowsky1997a}
+Dirszowsky RW and Desloges JR (1997) {Glaciolacustrine sediments and neoglacial
+  history of the Chephren lake basin, Banff National Park, Alberta}.
+\newblock \emph{Geographie Physique Et Quaternaire} 51(1): 41--53.
+\newblock \doi{10.7202/004804ar}.
+
+\bibitem[{Gilbert and Desloges(2012)}]{Gilbert2012}
+Gilbert R and Desloges JR (2012) {Late glacial and Holocene sedimentary
+  environments of Quesnel Lake, British Columbia}.
+\newblock \emph{Geomorphology} 179: 186--196.
+\newblock \doi{10.1016/j.geomorph.2012.08.010}.
+\newblock \urlprefix\url{http://dx.doi.org/10.1016/j.geomorph.2012.08.010}.
+
+\bibitem[{Gilbert et~al.(1997)Gilbert, Desloges and Clague}]{Gilbert1997}
+Gilbert R, Desloges JR and Clague J (1997) {The glacilacustrine sedimentary
+  environment of Bowser Lake in the northern Coast Mountains of British
+  Columbia, Canada}.
+\newblock \emph{Journal of Paleolimnology} 17(3): 333--348.
+\newblock \doi{10.1023/A:1007900411724}.
+\newblock \urlprefix\url{http://link.springer.com/10.1023/A:1007900411724}.
+
+\bibitem[{Gray et~al.(2010)Gray, Pasternack and Watson}]{Gray2010}
+Gray AB, Pasternack GB and Watson EB (2010) {Hydrogen peroxide treatment
+  effects on the particle size distribution of alluvial and marsh sediments}.
+\newblock \emph{Holocene (Sevenoaks)} 20(2): 293--301.
+
+\bibitem[{Hodder et~al.(2006)Hodder, Desloges and Gilbert}]{Hodder2006}
+Hodder KR, Desloges JR and Gilbert R (2006) {Pattern and timing of sediment
+  infill at glacier-fed Mud Lake: Implications for lateglacial and Holocene
+  environments in the Monashee Mountain region of British Columbia, Canada}.
+\newblock \emph{Holocene} 16(5): 705--716.
+\newblock \doi{10.1191/0959683606hl965rp}.
+
+\bibitem[{Hodder et~al.(2007)Hodder, Gilbert and Desloges}]{Hodder2007}
+Hodder KR, Gilbert R and Desloges JR (2007) {Glaciolacustrine varved sediment
+  as an alpine hydroclimatic proxy}.
+\newblock \emph{Journal of Paleolimnology} 38(3): 365--394.
+\newblock \doi{10.1007/s10933-006-9083-9}.
+
+\bibitem[{Huber and Knutti(2012)}]{Huber2012}
+Huber M and Knutti R (2012) {Anthropogenic and natural warming inferred from
+  changes in Earth's energy balance}.
+\newblock \emph{Nature geoscience} 5(1): 31--36.
+
+\bibitem[{Jerolmack and Paola(2010)}]{Jerolmack2010}
+Jerolmack DJ and Paola C (2010) {Shredding of environmental signals by sediment
+  transport}.
+\newblock \emph{Geophysical research letters} 37(19): n/a.
+
+\bibitem[{Leonard(1986)}]{Leonard1986}
+Leonard EM (1986) {Use of lacustrine sedimentary sequences as indicators of
+  Holocene glacial history, Banff National Park, Alberta, Canada}.
+\newblock \emph{Quaternary Research} 26(2): 218--231.
+\newblock \doi{10.1016/0033-5894(86)90106-7}.
+
+\bibitem[{Leonard and Reasoner(1999)}]{Leonard1999}
+Leonard EM and Reasoner MA (1999) {A continuous holocene glacial record
+  inferred from proglacial lake sediments in Banff National Park, Alberta,
+  Canada}.
+\newblock \emph{Quaternary Research} 51(1): 1--13.
+\newblock \doi{10.1006/qres.1998.2009}.
+\newblock
+  \urlprefix\url{https://www.sciencedirect.com/science/article/pii/S0033589498920099}.
+
+\bibitem[{Ljungqvist et~al.(2016)Ljungqvist, Krusic, Sundqvist, Zorita,
+  Brattstrom and Frank}]{Ljungqvist2016}
+Ljungqvist FC, Krusic PJ, Sundqvist HS, Zorita E, Brattstrom G and Frank D
+  (2016) {Northern hemisphere hydroclimate variability over the past twelve
+  centuries}.
+\newblock \emph{Nature} 532: 94+.
+\newblock
+  \urlprefix\url{https://link.gale.com/apps/doc/A449108229/EAIM?u=usaskmain&sid=bookmark-EAIM&xid=1dfbd232}.
+
+\bibitem[{Luckman(1986)}]{Luckman1986}
+Luckman BH (1986) {Reconstruction of Little Ice Age Events in the Canadian
+  Rocky Mountains}.
+\newblock \emph{G{\'{e}}ographie physique et quaternaire} 40(1): 17--28.
+
+\bibitem[{Masson-Delmotte et~al.(2013)Masson-Delmotte, Schulz, Abe-Ouchi, Beer,
+  Ganopolski, {Gonz{\'{a}}lez Rouco}, Jansen, Lambeck, Luterbacher, Naish,
+  Osborn, Otto-Bliesner, Quinn, Ramesh, Rojas, Shao and
+  Timmermann}]{Masson2013}
+Masson-Delmotte V, Schulz M, Abe-Ouchi A, Beer J, Ganopolski J, {Gonz{\'{a}}lez
+  Rouco} JF, Jansen E, Lambeck K, Luterbacher J, Naish T, Osborn T,
+  Otto-Bliesner B, Quinn T, Ramesh R, Rojas M, Shao X and Timmermann A (2013)
+  \emph{{Information from paleoclimate archives}}.
+\newblock Cambridge, UK: Cambridge University Press, pp. 383--464.
+\newblock \doi{10.1017/CBO9781107415324.013}.
+
+\bibitem[{Menounos and Clague(2008)}]{Menounos2008}
+Menounos BP and Clague J (2008) {Reconstructing hydro-climatic events and
+  glacier fluctuations over the past millennium from annually laminated
+  sediments of Cheakamus Lake, southern Coast Mountains, British Columbia,
+  Canada}.
+\newblock \emph{Quaternary Science Reviews} 27(7-8): 701--713.
+\newblock \doi{10.1016/j.quascirev.2008.01.007}.
+
+\bibitem[{Menounos et~al.(2009)Menounos, Osborn, Clague and
+  Luckman}]{Menounos2009b}
+Menounos BP, Osborn GD, Clague J and Luckman BH (2009) {Latest Pleistocene and
+  Holocene glacier fluctuations in western Canada}.
+\newblock \emph{Quaternary Science Reviews} 28(21-22): 2049--2074.
+\newblock \doi{10.1016/j.quascirev.2008.10.018}.
+
+\bibitem[{Menounos et~al.(2006)Menounos, Schiefer and
+  Slaymaker}]{Menounos2006b}
+Menounos BP, Schiefer E and Slaymaker O (2006) {Nested temporal suspended
+  sediment yields, Green Lake Basin, British Columbia, Canada}.
+\newblock \emph{Geomorphology} 79(1-2): 114--129.
+\newblock \doi{10.1016/j.geomorph.2005.09.020}.
+
+\bibitem[{Moberg et~al.(2005)Moberg, Sonechkin, Holmgren, Datsenko and
+  Karl{\'{e}}n}]{Moberg2005}
+Moberg A, Sonechkin DM, Holmgren K, Datsenko MH and Karl{\'{e}}n W (2005)
+  {Highly variable Northern Hemisphere temperatures reconstructed from low- and
+  high-resolution proxy data}.
+\newblock \emph{Nature} 433(7026): 613--617.
+\newblock \doi{10.1038/nature03265}.
+
+\bibitem[{Nelson et~al.(2016)Nelson, Ingram, Dugmore, Streeter, Peeples,
+  McGovern, Hegmon, Arneborg, Kintigh, Brewington, Spielmann, Simpson,
+  Strawhacker, Comeau, Torvinen, Madsen, Hambrecht and Smiarowski}]{Nelson2016}
+Nelson MC, Ingram SE, Dugmore AJ, Streeter R, Peeples MA, McGovern TH, Hegmon
+  M, Arneborg J, Kintigh KW, Brewington S, Spielmann KA, Simpson IA,
+  Strawhacker C, Comeau LEL, Torvinen A, Madsen CK, Hambrecht G and Smiarowski
+  K (2016) {Climate challenges, vulnerabilities, and food security}.
+\newblock \emph{Proceedings of the National Academy of Sciences} 113(2):
+  298--303.
+\newblock \doi{10.1073/pnas.1506494113}.
+\newblock \urlprefix\url{https://www.pnas.org/doi/abs/10.1073/pnas.1506494113}.
+
+\bibitem[{Neukom et~al.(2019)Neukom, Barboza, Erb, Shi, Emile-Geay, Evans,
+  Franke, Kaufman, Lucke, Rehfeld, Schurer, Zhu, Bronnimann, Hakim, Henley,
+  Ljungqvist, McKay, Valler and von Gunten}]{Neukom2019}
+Neukom R, Barboza LA, Erb MP, Shi F, Emile-Geay J, Evans MN, Franke J, Kaufman
+  DS, Lucke L, Rehfeld K, Schurer A, Zhu F, Bronnimann S, Hakim GJ, Henley BJ,
+  Ljungqvist FC, McKay N, Valler V and von Gunten L (2019) {Consistent
+  multidecadal variability in global temperature reconstructions and
+  simulations over the Common Era}.
+\newblock \emph{Nature geoscience} 12(8): 643--649.
+
+\bibitem[{Sabatier et~al.(2022)Sabatier, Moernaut, Bertrand, Daele, Kremer,
+  Chaumillon, Arnaud, {Van Daele}, Kremer, Chaumillon and
+  Arnaud}]{sabatier2022}
+Sabatier P, Moernaut J, Bertrand S, Daele MV, Kremer K, Chaumillon E, Arnaud F,
+  {Van Daele} M, Kremer K, Chaumillon E and Arnaud F (2022) {A Review of Event
+  Deposits in Lake Sediments}.
+\newblock \emph{Quaternary} 5(3): 34.
+\newblock \doi{10.3390/quat5030034}.
+
+\bibitem[{Schneider et~al.(2012)Schneider, Rasband and
+  Eliceiri}]{Schneider2012}
+Schneider CA, Rasband WS and Eliceiri KW (2012) {NIH Image to ImageJ: 25 years
+  of image analysis}.
+\newblock \emph{Nature Methods} 9(7): 671--675.
+\newblock \doi{10.1038/nmeth.2089}.
+\newblock \urlprefix\url{https://doi.org/10.1038/nmeth.2089}.
+
+\bibitem[{Smith(2003)}]{Smith2003}
+Smith JG (2003) {Aspects of the loss‐on‐ignition (loi) technique in the
+  context of clay‐rich, glaciolacustrine sediments}.
+\newblock \emph{Geografiska Annaler: Series A, Physical Geography} 85(1):
+  91--97.
+\newblock \doi{10.1111/1468-0459.00191}.
+\newblock
+  \urlprefix\url{https://www.tandfonline.com/doi/full/10.1111/1468-0459.00191}.
+
+\bibitem[{Solomina et~al.(2016)Solomina, Bradley, Jomelli, Geirsdottir,
+  Kaufman, Koch, McKay, Masiokas, Miller, Nesje, Nicolussi, Owen, Putnam,
+  Wanner, Wiles and Yang}]{Solomina2016}
+Solomina ON, Bradley RS, Jomelli V, Geirsdottir A, Kaufman DS, Koch J, McKay
+  NP, Masiokas M, Miller G, Nesje A, Nicolussi K, Owen LA, Putnam AE, Wanner H,
+  Wiles G and Yang B (2016) {Glacier fluctuations during the past 2000 years}.
+\newblock \emph{Quaternary Science Reviews} 149: 61--90.
+\newblock \doi{10.1016/j.quascirev.2016.04.008}.
+
+\bibitem[{Turney et~al.(2019)Turney, McGregor, Francus, Abram, Evans, Goosse,
+  {Von Gunten}, Kaufman, Linderholm, Loutre and Neukom}]{Turney2019}
+Turney CSM, McGregor HV, Francus P, Abram N, Evans MN, Goosse H, {Von Gunten}
+  L, Kaufman D, Linderholm H, Loutre MF and Neukom R (2019) {Introduction to
+  the special issue "climate of the past 2000 years: Regional and
+  trans-regional syntheses"}.
+\newblock \emph{Climate of the past} 15(2): 611--615.
+
+\bibitem[{Westgate(1977)}]{Westgate1977}
+Westgate JA (1977) {Identification and Significance of Late Holocene Tephra
+  From Otter Creek, Southern British Columbia, and Localities in West-Central
+  Alberta.}
+\newblock \emph{Can J Earth Sci} 14(11): 2593--2600.
+\newblock \doi{10.1139/e77-224}.
+
+\bibitem[{Wohl et~al.(2019)Wohl, Brierley, Cadol, Coulthard, Covino, Fryirs,
+  Grant, Hilton, Lane, Magilligan, Meitzen, Passalacqua, Poeppl, Rathburn and
+  Sklar}]{Wohl2019}
+Wohl E, Brierley G, Cadol D, Coulthard TJ, Covino T, Fryirs KA, Grant G, Hilton
+  RG, Lane SN, Magilligan FJ, Meitzen KM, Passalacqua P, Poeppl RE, Rathburn SL
+  and Sklar LS (2019) {Connectivity as an emergent property of geomorphic
+  systems}.
+\newblock \emph{Earth Surface Processes and Landforms} 44(1): 4--26.
+\newblock \doi{10.1002/esp.4434}.
+
+\end{thebibliography}
