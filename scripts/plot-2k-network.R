@@ -126,10 +126,11 @@ NH_temp_anom <- ggplot(mob_long, aes(year_ce, value, colour = name)) +
   theme_bw() +
   ggtheme_all +
   theme(legend.text = element_blank(),
-          legend.key.size = unit(0, 'cm')) +
+        legend.key = element_rect(fill = "white")) +
   annotate('text', x = 1650, y = .25, label = 'Little Ice Age') +
   annotate('text', x = 1100, y = -1, label = 'Medieval \n Warm Period') +
-  scale_color_manual(values = c("#fc8961", '#000004', '#000004'))
+  scale_color_manual(values = c("#fc8961", '#000004', '#000004')) +
+  guides(color = guide_legend(override.aes = list(color = NA)))
   # scale_color_manual(values = viridis(3))
 
 NH_temp_anom
@@ -379,13 +380,16 @@ hydro_anom_plot <- cariboo_hydro |>
   scale_fill_distiller(palette = "BrBG", direction = 1, rescaler = mid_rescaler(), na.value = 'transparent') +
   #scale_fill_distiller(palette = "BrBG", direction = 1, rescaler = mid_rescaler(), na.value = 'transparent') +
   # scale_x_reverse() +
-  xlab('Year (CE)') +
   theme_bw() +
-  ggtheme_all +
+  # ggtheme_all +
   theme(
+    legend.position = 'right',
+    legend.title = element_blank(),
     axis.text.y = element_blank(),
+    axis.title.y = element_text(angle=0,vjust = 0.5),
     legend.key.size = unit(0.3, 'cm')) +
   xlim(glob_lims) +
+  xlab('Year (CE)') +
   ylab('NH Precip. Anomaly')
 
 hydro_anom_plot
