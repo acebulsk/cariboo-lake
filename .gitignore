@@ -41,3 +41,7 @@ data/*
 *.html
 *.log
 sage-submission.zip
+*.aux
+*.bbl
+*.tex
+*.log

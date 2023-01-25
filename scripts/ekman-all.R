@@ -1,4 +1,5 @@
 library(tidyverse)
+library(viridis)
 
 # Data ####
 gs <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_GrainSize_Ekmans.xlsx', sheet = 2) |> 
@@ -8,9 +9,11 @@ gs <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_GrainSize_Ekmans.xlsx', s
          basin = `sub-basin`,
          D10 = `Dx (10)`,
          D50 = `Dx (50)`,
-         D90 = `Dx (90)`
-         ) |> 
-  pivot_longer(D10:D90, names_to = 'grain_size_stat', values_to = 'gs_value')
+         D90 = `Dx (90)`,
+         `Clay  (0.01 - 2) μm`,
+         `Silt  (2 - 63) μm`,
+         `Sand  (63 - 2000) μm`
+         ) 
 
 ek_meta <- gs |> select(ID:basin) |> distinct()
   
@@ -39,13 +42,40 @@ loi <- readxl::read_xlsx('data/Sediment/LOI/LOI_Cariboo_EkmanBulkSamples.xlsx', 
   left_join(ek_meta, by = 'ID') 
 
 # Plot ####
-gs_plot <- ggplot(gs, aes(x = dist, y = gs_value, color = grain_size_stat, shape = basin)) +
+gs_plot_grains <- 
+  gs |> 
+  pivot_longer(`Clay  (0.01 - 2) μm`:`Sand  (63 - 2000) μm`, 
+               names_to = 'grain_size_stat', 
+               values_to = 'gs_value') |> 
+  ggplot(aes(x = dist, 
+             y = gs_value, 
+             color = factor(grain_size_stat, levels = c("Clay  (0.01 - 2) μm", 
+                                                                "Silt  (2 - 63) μm", 
+                                                                "Sand  (63 - 2000) μm")),
+             shape = basin)) +
   geom_point(size = 2) +
-  ylab('Grain Size (µm)') +
-  scale_color_brewer(palette = 'Set2') +
+  ylab('Percent (%)') +
   scale_shape_discrete(guide = 'none') +
   theme_bw() +
-  theme(axis.title.x = element_blank(), legend.title = element_blank()) 
+  theme(axis.title.x = element_blank(), legend.title = element_blank()) +
+  scale_color_manual(values = viridis(3, option = 'C'))
+
+gs_plot_grains
+  
+gs_plot_dist <- 
+    gs |> 
+    pivot_longer(D10:D90, 
+                 names_to = 'grain_size_stat', 
+                 values_to = 'gs_value') |> 
+  ggplot(aes(x = dist, y = gs_value, color = grain_size_stat, shape = basin)) +
+    geom_point(size = 2) +
+    ylab('Grain Size (μm)') +
+    scale_shape_discrete(guide = 'none') +
+    theme_bw() +
+    theme(axis.title.x = element_blank(), legend.title = element_blank()) +
+  scale_color_manual(values = viridis(3, option = 'C'))
+
+gs_plot_dist
 
 varve_plot <- ggplot(varve, aes(x = dist, y = Lam_Thickness, shape = basin)) +
   geom_point(size = 2) +
@@ -64,7 +94,7 @@ loi_plot <- ggplot(loi, aes(x = dist, y = LOI, shape = basin)) +
   scale_shape_discrete(guide = 'none') +
   theme_bw()
 
-p <- list(gs_plot, varve_plot, loi_plot)
+p <- list(gs_plot_grains, gs_plot_dist, varve_plot, loi_plot)
 
 
 cp <- cowplot::plot_grid(plotlist = p, nrow=length(p), 
