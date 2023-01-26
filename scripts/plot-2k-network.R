@@ -47,6 +47,10 @@ glob_lims <- c(-50, 2025)
 # Advances listed below are for western Canada, and correspond well to thick varves outlined
 # in Menounos et al 2009. 
 # Years of glacier advance are given in Table 2 of solomina et al
+# relative glacier extent from fig. 3 in solomina et al 2016 was digitized using https://apps.automeris.io/wpd/
+
+glacier_extent_dat <- read.csv('2k-network/Solomina_et_al/email_from_olga/alex_manual_trace/alex_manual_trace.csv') |> 
+  mutate(relative_glacier_extent = 1 - relative_glacier_extent)
 
 west_can_adv <- data.frame(
   name = "Solomina_et_al",
@@ -62,10 +66,12 @@ west_can_adv <- data.frame(
     Label = 'Glacier Advance'
   )
 
-glc_adv_plot <- west_can_adv |> 
-ggplot(aes(x=Year, y = Label, fill = value)) +
-  geom_tile() +
-  scale_fill_distiller(palette = 'Greys', na.value = 'transparent') +
+glc_adv_plot <- glacier_extent_dat |> ggplot(aes(year_ce, relative_glacier_extent)) +
+  annotate("rect", xmin = 400, xmax = 600, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
+  annotate("rect", xmin = 1200, xmax = 1500, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
+  annotate("rect", xmin = 1690, xmax = 1730, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
+  annotate("rect", xmin = 1830, xmax = 1890, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
+  geom_line() +
   # scale_x_reverse() +
   xlab('Year (CE)') +
   ylab('Peak Glacier Extent') +
@@ -73,7 +79,9 @@ ggplot(aes(x=Year, y = Label, fill = value)) +
   ggtheme_all +
   ggtheme_sel +
   xlim(glob_lims)
- glc_adv_plot
+glc_adv_plot
+
+
  
 #### king et al #####
 # this one might be overboard... 
@@ -134,185 +142,6 @@ NH_temp_anom <- ggplot(mob_long, aes(year_ce, value, colour = name)) +
   # scale_color_manual(values = viridis(3))
 
 NH_temp_anom
- 
-#### mckay et al 2014 ####
-
-# Arctic PAGES2k 2000 Year Temperature Reconstruction v.1.1
-# tempanom-ann	surface temperature anomaly, , , degrees C, annual, , relative to 1961-1990, ,N 
-# arc_2k <- read.delim('https://www.ncei.noaa.gov/pub/data/paleo/pages2k/arctic2014temperature-v1.1.txt', comment.char = '#', skip = 1) |> 
-#   select(year_ce = age_AD, temp_anom = tempanom.ann) |> 
-#   mutate(group = 'ARC')
-# 
-# rbind(mob_sel, arc_2k) |> 
-#   ggplot(aes(year_ce, temp_anom, colour = group)) +
-#   geom_line()
-
-
- #### trouet et al ####
-# Trouet, et al temperature reconstruction for North America aka A 1500-year reconstruction of annual mean temperature for temperate North America on decadal-to-multidecadal time scales
-# North America Last 2ka Decadal Temperature Reconstructions 
-# A 1500-year reconstruction of annual mean temperature for temperate North America on decadal-to-multidecadal time scales
-
-# trouet <- read.delim('https://www.ncei.noaa.gov/pub/data/paleo/pages2k/trouet2013nam480pollen.txt', 
-#                      comment.char = '#', skip = 1) |> 
-#   mutate(annom = temp2m.ann - median(temp2m.ann, na.rm = T))
-# # save locally in case link goes offline
-# # saveRDS(trouet, '2k-network/Trouet_et_al/NAM480.rds')
-# 
-# tr <- ggplot(trouet, aes(x = age_AD, y = annom)) +
-#   geom_smooth(aes(y = 0), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5)+
-#   geom_line() +
-#   geom_ribbon(aes(ymin = temp2m.ann.1SE.1 - median(temp2m.ann, na.rm = T), 
-#                   ymax = temp2m.ann.1SE - median(temp2m.ann, na.rm = T), 
-#                   fill = '1SE',), 
-#               alpha = 0.2)+
-#   geom_ribbon(aes(ymin = temp2m.ann.2SE.1 - median(temp2m.ann, na.rm = T), 
-#                   ymax = temp2m.ann.2SE - median(temp2m.ann, na.rm = T), 
-#                   fill = '2SE'), 
-#               alpha = 0.2) +
-#   scale_fill_manual(values = c("#08519C", "#9ECAE1"))+
-#   xlim(glob_lims) +
-#   ylab('Regional T Anomaly (°C)') +
-#   theme_bw() +
-#   ggtheme_all
-# 
-# trouet_smpl <- trouet |> select(year_ce = age_AD, temp_anom = annom) |> mutate(group = 'TR')
-# 
-# rbind(mob_sel, rbind(trouet_smpl, arc_2k)) |> 
-#   ggplot(aes(year_ce, temp_anom, colour = group)) +
-#   geom_line()
-
-# tr
-
-#### global ####
-# GLOBAL TEMPERATURE RECONSTRUCTIONS full 2k
-# https://www.ncei.noaa.gov/access/paleo-search/study/26872
-
-# nms <- c('year', 'inst_data', 'median', 'perc_2.5', 'perc_97.5', 'avg_31_yr_raw', 'avg_31_yr_median', 'avg_31_yr_2.5', 'avg_31_yr_97.5')
-# 
-# # ensemble_means from their R script this is what they use to make Fig. 1 in pub
-# # fullens.bp.30.200 istemperature anomalies (fig. 1 b)
-# 
-# load('2k-network/2k-recon/recons_filtered.RData')
-# 
-# experiment.names<-c("CPS","PCR","M08","PAI","OIE","BHM","DA")
-# 
-# fort <- zoo::fortify.zoo(fullens.bp.30.200)
-# 
-# ensemble_long <- data.frame()
-# for(i in rev(seq_along(experiment.names))){
-#   temp_anom <- fullens.bp.30.200[,i]
-#   df <- zoo::fortify.zoo(temp_anom, names = 'year_ce')
-#   df$model <- experiment.names[i]
-#   
-#   ensemble_long <- rbind(ensemble_long, df)
-# }
-# 
-# pages_plot <- ensemble_long |> ggplot(aes(x = year_ce, y = temp_anom, group = model, colour = model)) + 
-#   geom_line(method = "lm", 
-#               formula = y ~ 0, colour = "black", se=F, 
-#               linetype="dotted", size = .5, stat = 'smooth', alpha = 0.2) +
-#   geom_line() +
-#   ylab("Temp. Anomaly °C") +
-#   theme_bw() +
-#   xlim(glob_lims) +
-#   ggtheme_all
-# pages_plot
-# 
-# # fullens.30 is temperature anomalies from observation data (fig. 1 a)
-# 
-# #load the newest instrumental data ---------------------
-# ## To use the offline file provided with the recon data:
-# #instr.new<-as.matrix(read.table("had4_krig_ama_v2_0_0.txt"))
-# #instr.new.ama<-ts(instr.new[,2],start=instr.new[1,1])
-# ## To use the newest updated version online from the producers:
-# 
-# ftype<-"bw"
-# 
-# instr.new<-as.matrix(read.table("http://www-users.york.ac.uk/~kdc3/papers/coverage2013/had4_krig_v2_0_0.txt"))
-# instr.new.ama<-anomalies.period(ts(rollapply(instr.new[-c(1:3),2],12,mean,by=12),start=1850),1961,1990)
-# 
-# instr.new.ama.6190<-anomalies.period(instr.new.ama,1961,1990)
-# instr.new.ama.6190.30<-tsfilt(instr.new.ama.6190,width = 31,ftype)
-# 
-# # for ggplot
-# inst <- zoo::fortify.zoo(instr.new.ama.6190.30, names = 'year_ce') |> 
-#   rename(temp_anom = instr.new.ama.6190.30) |> 
-#   mutate(model = 'Instrument Data')
-# 
-# fort <- zoo::fortify.zoo(fullens.30)
-# 
-# ensemble_long <- data.frame()
-# for(i in rev(seq_along(experiment.names))){
-#   ts <- fullens.30[,i]
-#   df <- zoo::fortify.zoo(ts, names = 'year_ce')
-#   df$model <- experiment.names[i]
-#   
-#   ensemble_long <- rbind(ensemble_long, df) 
-# }
-# 
-# ensemble_long_obs <- ensemble_long |> 
-#   rename(`temp_anom` = `ts`) |> 
-#   rbind(inst)
-# 
-# ensemble_long_obs |> 
-#   ggplot(aes(x = year_ce, y = temp_anom, group = model, colour = model)) + 
-#   geom_line() +
-#   ylab("Temp. Anomaly") +
-#   theme_bw() +
-#   xlim(glob_lims) +
-#   ggtheme_all
-# 
-# # plotly::ggplotly()
-# 
-# # checked and is same as '2k-network/2k-recon/Fig_1.pdf'
-# 
-# ensemble_med <- ensemble_long |> 
-#   group_by(year_ce) |> 
-#   summarise(temp_anom = median(ts),
-#             model = 'ensemble')
-# 
-# # now add the trouet data to pages to see if compariable to show all on one plot
-# # doesnt plot well together, ignore trouet. 
-# pages_tr_obs <- rbind(ensemble_long_obs, ensemble_med) |> 
-#   rbind(trouet_smpl)
-# 
-# ggplot(pages_tr_obs, aes(x = year_ce, y = temp_anom, group = model, colour = model)) + 
-#   geom_line()
-# 
-# # now make climate stripes
-# 
-# glob_temp <- ensemble_med
-# glob_temp$grp <- c(rep(seq(0,1950, 50), each = 50)) + 25
-# glob_median <- median(glob_temp$ts, na.rm = T)
-# glob_median_abs <- abs(glob_median)
-# glob_std <- sd(glob_temp$ts, na.rm = T)
-# 
-# glob_temp_50 <- glob_temp |> 
-#   group_by(grp) |> 
-#   summarise(med = median(ts)) |> 
-#   mutate(anomaly = med - glob_median,
-#          stdep = (med - glob_median)/ glob_std) |> 
-#   filter(grp < 2000)
-# 
-# glob_temp_50_p <- glob_temp_50 |> 
-#   ggplot(aes(x=grp, y = 'Temperature Anomaly (°C)', fill = anomaly)) +
-#   geom_tile() +
-#   #scale_fill_distiller(palette = "BrBG", direction = 1, rescaler = mid_rescaler()) +
-#   scale_fill_distiller(palette = "RdBu", direction = -1, rescaler = mid_rescaler()) +
-#   # scale_x_reverse() +
-#   ylab('Global T Anomaly (°C)') +
-#   theme_bw() +
-#   ggtheme_all +
-#   xlab('Year (CE)') +
-#   theme(legend.key.size = unit(0.3, 'cm'),
-#         axis.text.y = element_blank()) +
-#   xlim(glob_lims)
-
-# glob_temp_50_p
-
-# ggsave('figs/2k-network/global_anomalies_2k.jpg', width = 8, height = 1.5)
-
 
 ##### 12 century hydro climate ####
 # BRING IN HYDRO AND TEMP RECONSTRUCTIONS for last 12 centuries
