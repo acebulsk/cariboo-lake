@@ -52,21 +52,7 @@ glob_lims <- c(-50, 2025)
 glacier_extent_dat <- read.csv('2k-network/Solomina_et_al/email_from_olga/alex_manual_trace/alex_manual_trace.csv') |> 
   mutate(relative_glacier_extent = 1 - relative_glacier_extent)
 
-west_can_adv <- data.frame(
-  name = "Solomina_et_al",
-  Year = seq(0, 2000, 50),
-  value = rep(NA, 2000/50+1)) |> 
-  mutate(
-    value = 
-      case_when(
-        Year >= 400 & Year <= 600 ~ 1,
-        Year >= 1200 & Year <= 1500 ~ 1,
-        Year >= 1700 & Year <= 1850 ~ 1
-      ),
-    Label = 'Glacier Advance'
-  )
-
-glc_adv_plot <- glacier_extent_dat |> ggplot(aes(year_ce, relative_glacier_extent)) +
+glc_adv_plot <- glacier_extent_dat |> ggplot(aes(year_ce, relative_glacier_extent, colour = 'none')) +
   annotate("rect", xmin = 400, xmax = 600, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
   annotate("rect", xmin = 1200, xmax = 1500, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
   annotate("rect", xmin = 1690, xmax = 1730, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
@@ -74,11 +60,16 @@ glc_adv_plot <- glacier_extent_dat |> ggplot(aes(year_ce, relative_glacier_exten
   geom_line() +
   # scale_x_reverse() +
   xlab('Year (CE)') +
-  ylab('Peak Glacier Extent') +
+  ylab('Relative Glacier\nExtent') +
   theme_bw() +
   ggtheme_all +
-  ggtheme_sel +
-  xlim(glob_lims)
+  xlim(glob_lims) +
+  scale_y_continuous(breaks = seq(0, 1, by = 0.5)) +
+  scale_colour_manual("", 
+                      breaks = c("none", "TempMedia", "TempMin"),
+                      values = c("black")) +
+  theme(legend.key = element_rect(fill = "white"), legend.text = element_text(color = "white"), legend.title = element_text(color = "white")) +
+  guides(color = guide_legend(override.aes = list(color = NA)))
 glc_adv_plot
 
 
@@ -130,7 +121,7 @@ NH_temp_anom <- ggplot(mob_long, aes(year_ce, value, colour = name)) +
   #             alpha = 0.2) +
   # scale_fill_manual(values = c("#08519C", "#9ECAE1"))+
   xlim(glob_lims) +
-  ylab('NH Temp. Anomaly (°C)') +
+  ylab('NH Temp.\nAnomaly (°C)') +
   theme_bw() +
   ggtheme_all +
   theme(legend.text = element_blank(),
@@ -219,62 +210,11 @@ hydro_anom_plot <- cariboo_hydro |>
     legend.key.size = unit(0.3, 'cm')) +
   xlim(glob_lims) +
   xlab('Year (CE)') +
-  ylab('NH Precip. Anomaly')
+  ylab('NH Precip.\nAnomaly')
 
 hydro_anom_plot
   
 # ggsave('figs/2k-network/hydro_anomalies_2grids_12centuries.jpg', width = 8, height = 1.5)
-  
-# #### temp plot ####
-# this one was redundent with the better resolution trouet record
-# needle_lt <- 53
-# needle_ln <- -121
-# 
-# match <- data.frame(Longitude = c(-117.15 , -116.45),
-#                     Label = c("Sask. Glacier", "Sask. River"))
-# 
-# blanks <- data.frame(name = rep(NA, 9),
-#                      value = rep(NA, 9),
-#                      Year = seq(50, 850, 100),
-#                      Label = rep('Temperature Anomaly (°C)',9))
-# 
-# cariboo_temp <- temp_df |>
-#   mutate(across(everything(), as.numeric),
-#          Longitude = as.numeric(Longitude),
-#          Latitude = as.numeric(Latitude),
-#          long_diff = abs(Longitude - needle_ln),
-#          lat_diff = abs(Latitude - needle_lt),
-#          diff_sum = long_diff + lat_diff) |>
-#   filter(diff_sum < 5) |>
-#   select(-contains('diff')) |>
-#   summarise(across(`800s`:`1900s`, mean)) |>
-#   pivot_longer(`800s`:`1900s`) |>
-#   mutate(Year = as.numeric(gsub("s", "", name)) + 50, # make it mid point
-#          value = as.numeric(value),
-#          Label = 'Temperature Anomaly (°C)') |>
-#   filter(value != -999.000) |>
-#   rbind(blanks)
-# 
-# cariboo_temp |>
-#   ggplot(aes(x=Year, y = value)) +
-#   geom_point() +
-#   scale_fill_distiller(palette = "RdBu", direction = 1, rescaler = mid_rescaler()) +
-#   scale_x_reverse() +
-#   xlab('Year (CE)') +
-#   theme(legend.position = 'right',
-#         axis.title.y = element_blank())
-# 
-# cariboo_temp |>
-#   ggplot(aes(x=Year, y = Label, fill = value)) +
-#   geom_tile() +
-#   scale_fill_distiller(palette = "RdBu", direction = 1, rescaler = mid_rescaler()) +
-#   scale_x_reverse() +
-#   xlab('Year (CE)') +
-#   theme(legend.position = 'right',
-#         axis.title.y = element_blank())
-# 
-# 
-# ggsave('figs/2k-network/temp_anomalies_4grids_12centuries.jpg', width = 8, height = 1.5)
 
 #### plot cariboo long core on climate proxy ####
 
@@ -370,7 +310,7 @@ p <- list(vt_plot, gs_plot, loi_plot, NH_temp_anom, glc_adv_plot, hydro_anom_plo
 cp <- cowplot::plot_grid(plotlist = p, nrow=length(p), 
                          labels = LETTERS[seq( from = 1, to = length(p) )], 
                          align = 'v', 
-                         rel_heights = c(3,2,2,2, .75, 1))
+                         rel_heights = c(2,2,2,2, 2, 1))
 
 cp
 
