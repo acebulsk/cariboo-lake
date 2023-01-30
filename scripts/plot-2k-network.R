@@ -64,7 +64,7 @@ glc_adv_plot <- glacier_extent_dat |> ggplot(aes(year_ce, relative_glacier_exten
   theme_bw() +
   ggtheme_all +
   xlim(glob_lims) +
-  scale_y_continuous(breaks = seq(0, 1, by = 0.5)) +
+  scale_y_continuous(breaks = seq(0, 1, by = 1), labels = c('min', 'max')) +
   scale_colour_manual("", 
                       breaks = c("none", "TempMedia", "TempMin"),
                       values = c("black")) +
