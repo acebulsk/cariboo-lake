@@ -7,14 +7,22 @@ library(zoo)
 library(tsibble)
 library(pracma)
 
+standard_yr_bp <- 1950 # the year used in the literature as BP datum
+yr_core_ce <- 2017
+yr_core_bp <- standard_yr_bp-yr_core_ce
+
 #### Ekmans ####
+
 df.ek <- read.csv('data/ekman/EK_varveCounting_orig_long_analysis.csv')
 
 # Bring In Raw Ekman Data 9 original counting by alex MSc times 
 ek <- df.ek %>%  
   select(1:6) %>% 
   group_by(core_num) %>% 
-  mutate(sd = sd(layer_thickness_mm, na.rm = T),
+  mutate(
+    year_CE = Year + 1, # error in initial sheet, cores were collected in july 2017 so surface is 2017
+    year_BP = standard_yr_bp - year_CE, # standard is BP equals before 1950
+    sd = sd(layer_thickness_mm, na.rm = T),
             mean = mean(layer_thickness_mm, na.rm = T)) %>% 
   dplyr::ungroup() %>% 
   mutate(sd_flag = case_when(
@@ -29,10 +37,9 @@ ek13 <- ek %>%
   filter(core_num == "EK13", 
          sd_flag == F)
 
-ggplot(ek13, aes(yr_bp, cumul_depth_mm)) +
+ggplot(ek13, aes(year_CE, cumul_depth_mm)) +
   geom_point() +
-  scale_y_continuous(trans = 'reverse') +
-  geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x)
+  scale_y_continuous(trans = 'reverse') 
 
 ek13_lm <- lm(cumul_depth_mm ~ 0 + yr_bp, data = ek13)
 
@@ -46,56 +53,28 @@ prox_v1 <- c('EK11', 'EK12') # ekmans close to V2 in order of proximity
 prox_v2 <- c('EK13', 'EK14', 'EK15') # ekmans close to V2 in order of proximity
 
 # ekman cores close to v1 
-ek_v1 <- df.ek %>%  
-  select(1:6) %>% 
-  group_by(core_num) %>% 
-  mutate(sd = sd(layer_thickness_mm, na.rm = T),
-         mean = mean(layer_thickness_mm, na.rm = T)) %>% 
-  dplyr::ungroup() %>% 
-  mutate(sd_flag = case_when(
-    layer_thickness_mm > 3*sd ~ T,
-    TRUE ~ F
-  )) %>% 
+ek_v1 <- ek %>%  
   filter(core_num %in% prox_v1,
          sd_flag == F)
 
-ek_v1_sed_rates <- ek_v1 %>% 
-  group_by(core_num) %>% 
-  do(model = lm(cumul_depth_mm ~ 0 + yr_bp, data = .)) %>% 
-  mutate(sed_rates = summary(model)$coeff[1]) %>% # cm to mm
-  select(-model)
+saveRDS(ek_v1, 'data/ekman/ekman_11_12_v1_proximal_select.rds')
 
-ggplot(ek_v1, aes(yr_bp, cumul_depth_mm, colour = core_num)) +
+ggplot(ek_v1, aes(year_BP, cumul_depth_mm, colour = core_num)) +
   geom_point() +
   scale_y_continuous(trans = 'reverse') +
-  geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x)
+  scale_x_continuous(trans = 'reverse') 
   
 # ekman cores close to v2
 
-ek_v2 <- df.ek %>%  
-  select(1:6) %>% 
-  group_by(core_num) %>% 
-  mutate(sd = sd(layer_thickness_mm, na.rm = T),
-         mean = mean(layer_thickness_mm, na.rm = T)) %>% 
-  dplyr::ungroup() %>% 
-  mutate(sd_flag = case_when(
-    layer_thickness_mm > 3*sd ~ T,
-    TRUE ~ F
-  )) %>% 
+ek_v2 <- ek %>%  
   filter(core_num %in% prox_v2,
          sd_flag == F)
 
-ek_v2_sed_rates <- ek_v2 %>% 
-  group_by(core_num) %>% 
-  do(model = lm(cumul_depth_mm ~ 0 + yr_bp, data = .)) %>% 
-  mutate(sed_rates = summary(model)$coeff[1]) %>% # cm to mm
-  select(-model)
-
-ggplot(ek_v2, aes(yr_bp, cumul_depth_mm/10, colour = core_num)) +
+ggplot(ek_v2, aes(year_BP, cumul_depth_mm/10, colour = core_num)) +
   geom_point() +
   scale_y_continuous(trans = 'reverse') +
-  geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=TRUE, linetype = "dashed", size= 0.5) +
-  xlab("Couplet Number") +
+  # geom_smooth(method = 'lm', se = F, formula = -year_BP ~ cumul_depth_mm, fullrange=TRUE, linetype = "dashed", size= 0.5) +
+  # xlab("Couplet Number") +
   ylab("Core Depth (cm)")
 
 #ggsave('figs/ekman_sed_rate_near_V2.png', width = 6, height = 4.5)
@@ -120,11 +99,11 @@ v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
 v2_C14 <- data.frame(depth_cm = 286, year = 1970) # n = 2
 
 ams_df <- tibble(
-  year_bp = c(0, v1_date, 0, v2_date_a, 0, v2_date_b),
-  depth = c(0, 347, 0, 222, 0, v2b_depth),
-  ams_sample = c('V1', 'V1', 'V2a', 'V2a', 'V2b', 'V2b')
+  year_bp = c(yr_core_bp, v1_date, yr_core_bp, v2_date_b),
+  depth = c(0, 347, 0, v2b_depth),
+  ams_sample = c('V1', 'V1', 'V2b', 'V2b')
 ) %>% 
-  mutate(year_ce = 2017 - year_bp)
+  mutate(year_ce = standard_yr_bp - year_bp)
 
 # Look at regression not through origin 
 
@@ -152,12 +131,12 @@ vibro_sed_rates <- ams_df %>%
 
 # make our ek_v2 df compatible so we can plot all together 
 ek_v2_cln <- ek_v2 %>% 
-  select(year_bp = yr_bp, depth = cumul_depth_mm, `Core ID` = core_num) %>% 
+  select(year_bp = year_BP, depth = cumul_depth_mm, `Core ID` = core_num) %>% 
   mutate(depth = depth / 10)
 
 # make our ek_v1 df compatible so we can plot all together 
 ek_v1_cln <- ek_v1 %>% 
-  select(year_bp = yr_bp, depth = cumul_depth_mm, `Core ID` = core_num) %>% 
+  select(year_bp = year_BP, depth = cumul_depth_mm, `Core ID` = core_num) %>% 
   mutate(depth = depth / 10)
 
 all_df <- rbind(ams_df %>% 
@@ -167,7 +146,7 @@ all_df <- rbind(ams_df %>%
 
 ggplot(all_df, aes(year_bp, depth, colour = `Core ID`)) +
   geom_point() +
-  geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=T, linetype = "dashed", size= 0.5) +
+  geom_smooth(method = 'lm', se = F, formula = y ~ 5 + x, fullrange=T, linetype = "dashed", size= 0.5) +
   # geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
   scale_y_continuous(trans = 'reverse') +
   xlab("Estimated Year (BP)") +
@@ -239,7 +218,7 @@ v1 <- v1 %>%
       TRUE ~ 1
     ),
     year_BP = cumsum(year_for_add),
-    year_CE = 2017 - year_BP,
+    year_CE = standard_yr_bp - year_BP,
     year_bp_lin_interp = core_depth * ((v1_C14$year)/(v1_C14$depth_cm*10)),
     year_ce_lin_interp = 2017 - year_bp_lin_interp
   )
@@ -276,6 +255,8 @@ v1_mod <- data.frame(
   year_BP = seq(1:1643)
 ) %>% 
   left_join(v1) 
+
+saveRDS(v1_mod, 'data/long_cores/v1_226_processed.rds')
 
 # see how the new interpolated years compares
 v1_mod %>% 
@@ -428,6 +409,8 @@ v2_mod <- data.frame(
   year_BP = seq(1:1913)
 ) %>% 
   left_join(v2) 
+
+saveRDS(v2_mod, 'data/long_cores/v2_224_processed.rds')
 
 # see how the new interpolated years compares
 v2_mod %>% 
