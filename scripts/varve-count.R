@@ -8,7 +8,7 @@ library(tsibble)
 library(pracma)
 
 standard_yr_bp <- 1950 # the year used in the literature as BP datum
-yr_core_ce <- 2017
+yr_core_ce <- 2017 # this is the year we took the core
 yr_core_bp <- standard_yr_bp-yr_core_ce
 
 #### Ekmans ####
@@ -18,6 +18,7 @@ df.ek <- read.csv('data/ekman/EK_varveCounting_orig_long_analysis.csv')
 # Bring In Raw Ekman Data 9 original counting by alex MSc times 
 ek <- df.ek %>%  
   select(1:6) %>% 
+  mutate(core_num = gsub('K', '', core_num)) |> 
   group_by(core_num) %>% 
   mutate(
     year_CE = Year + 1, # error in initial sheet, cores were collected in july 2017 so surface is 2017
@@ -28,20 +29,23 @@ ek <- df.ek %>%
   mutate(sd_flag = case_when(
     layer_thickness_mm > 3*sd ~ T,
     TRUE ~ F
-  )) 
+  )) |> 
+  select(-c(img_J_numb:Year))
 
 # Lets look at just EK13 first, closest core to V2, need to discount the 222 cm date
 #filter out sd_flags  doesnt really make a difference to overall model fit 
 
 ek13 <- ek %>%
-  filter(core_num == "EK13", 
+  filter(core_num == "E13", 
          sd_flag == F)
 
-ggplot(ek13, aes(year_CE, cumul_depth_mm)) +
+ggplot(ek13, aes(year_BP, cumul_depth_mm)) +
   geom_point() +
-  scale_y_continuous(trans = 'reverse') 
+  scale_y_continuous(trans = 'reverse') +
+  geom_smooth(method = 'lm', se = F, fullrange=TRUE, linetype = "dashed", size= 0.5) 
+  
 
-ek13_lm <- lm(cumul_depth_mm ~ 0 + yr_bp, data = ek13)
+ek13_lm <- lm(cumul_depth_mm ~ 0 + year_BP, data = ek13)
 
 ek13_sed_rate <- summary(ek13_lm)$coeff[1] # filtered to less than 3 sd's and forced through origin 
 
@@ -49,8 +53,8 @@ ek13_sed_rate
 
 # Look at multiple Ekman sed rates close by 
 
-prox_v1 <- c('EK11', 'EK12') # ekmans close to V2 in order of proximity 
-prox_v2 <- c('EK13', 'EK14', 'EK15') # ekmans close to V2 in order of proximity
+prox_v1 <- c('E11', 'E12') # ekmans close to V2 in order of proximity 
+prox_v2 <- c('E13') # ekmans close to V2 in order of proximity
 
 # ekman cores close to v1 
 ek_v1 <- ek %>%  
@@ -61,8 +65,7 @@ saveRDS(ek_v1, 'data/ekman/ekman_11_12_v1_proximal_select.rds')
 
 ggplot(ek_v1, aes(year_BP, cumul_depth_mm, colour = core_num)) +
   geom_point() +
-  scale_y_continuous(trans = 'reverse') +
-  scale_x_continuous(trans = 'reverse') 
+  scale_y_continuous(trans = 'reverse') 
   
 # ekman cores close to v2
 
@@ -73,7 +76,7 @@ ek_v2 <- ek %>%
 ggplot(ek_v2, aes(year_BP, cumul_depth_mm/10, colour = core_num)) +
   geom_point() +
   scale_y_continuous(trans = 'reverse') +
-  # geom_smooth(method = 'lm', se = F, formula = -year_BP ~ cumul_depth_mm, fullrange=TRUE, linetype = "dashed", size= 0.5) +
+  geom_smooth(method = 'lm', se = F, fullrange=TRUE, linetype = "dashed", size= 0.5) +
   # xlab("Couplet Number") +
   ylab("Core Depth (cm)")
 
@@ -87,19 +90,27 @@ ggplot(ek_v2, aes(year_BP, cumul_depth_mm/10, colour = core_num)) +
 # A date of 2045-1895 cal BP was determined.
 
 # plot on depth 
-v1_date <- (1899 + 1819) / 2 # mid point yr for v1 @ 347 cm
+v1_low <- 1899
+v1_high <- 1819
+v1_ams_depth <- 347
+v1_date <- (v1_low + v1_high) / 2 # mid point yr for v1 @ 347 cm
 
-v1_C14 <- data.frame(depth_cm = 347, year = v1_date) # n = 1
+v1_C14 <- data.frame(depth_cm = v1_ams_depth, year = v1_date) # n = 1
+
+v2_low <- 2045
+v2_high <- 1895
 
 v2b_depth <- (286 + 294) / 2 # avg depth for combined V2 sample
 
-v2_date_b <- (2045 + 1895) / 2 # mid point yr for v2 @ 286 + 294 cm
-v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
+v2_date_b <- (v2_low + v2_high) / 2 # mid point yr for v2 @ 286 + 294 cm
 
-v2_C14 <- data.frame(depth_cm = 286, year = 1970) # n = 2
+# v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
+
+v2_C14 <- data.frame(depth_cm = v2b_depth, year = v2_date_b) # n = 2
 
 ams_df <- tibble(
   year_bp = c(yr_core_bp, v1_date, yr_core_bp, v2_date_b),
+  ams_se = c(0, (v1_low-v1_high)/2, 0, (v2_low-v2_high)/2),
   depth = c(0, 347, 0, v2b_depth),
   ams_sample = c('V1', 'V1', 'V2b', 'V2b')
 ) %>% 
@@ -114,8 +125,9 @@ scatter <- lm(depth ~ year_bp, data = ams_scatter) # vibro ams point not through
 
 ggplot(ams_df, aes(year_bp, depth, colour = ams_sample)) +
   geom_point() +
+  geom_errorbarh(data = subset(ams_df, ams_se != 0), aes(xmin=year_bp-ams_se, xmax=year_bp+ams_se), width=.1) +
   scale_y_continuous(trans = 'reverse') +
-  geom_smooth(method = 'lm', se = F, linetype = "dashed", size= 0.5) +
+  geom_smooth(method = 'lm', linetype = "dashed", size= 0.5) +
   # geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
   xlab("Mid-Point Cal Year (BP)") +
   ylab("Core Depth (cm)")
@@ -146,7 +158,7 @@ all_df <- rbind(ams_df %>%
 
 ggplot(all_df, aes(year_bp, depth, colour = `Core ID`)) +
   geom_point() +
-  geom_smooth(method = 'lm', se = F, formula = y ~ 5 + x, fullrange=T, linetype = "dashed", size= 0.5) +
+  geom_smooth(method = 'lm', se = F, fullrange=T, linetype = "dashed", size= 0.5) +
   # geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
   scale_y_continuous(trans = 'reverse') +
   xlab("Estimated Year (BP)") +
@@ -217,8 +229,9 @@ v1 <- v1 %>%
       lyr_flag == T ~ interp_yr,
       TRUE ~ 1
     ),
-    year_BP = cumsum(year_for_add),
-    year_CE = standard_yr_bp - year_BP,
+    year_b4_2017 = cumsum(year_for_add),
+    year_CE = yr_core_ce - year_b4_2017,
+    year_BP = standard_yr_bp-year_CE,
     year_bp_lin_interp = core_depth * ((v1_C14$year)/(v1_C14$depth_cm*10)),
     year_ce_lin_interp = 2017 - year_bp_lin_interp
   )
@@ -252,7 +265,7 @@ v1_turbidite <- v1 %>%
   rbind(v1_751)
 
 v1_mod <- data.frame(
-  year_BP = seq(1:1643)
+  year_BP = seq(from = min(v1$year_BP), to = max(v1$year_BP), by = 1)
 ) %>% 
   left_join(v1) 
 
@@ -266,7 +279,7 @@ v1_mod %>%
   ggplot(aes(value, core_depth, colour = name)) +
   geom_point() +
   scale_y_continuous(trans = 'reverse') +
-  geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=F, linetype = "dashed", size= 0.5) +
+  geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=T, linetype = "dashed", size= 0.5) +
   xlab("Estimated Year (BP)") +
   ylab("Core Depth (cm)")
 
@@ -356,9 +369,10 @@ v2 <- v2 %>%
       lyr_flag == T ~ interp_yr,
       TRUE ~ 1
     ),
-    year_BP = cumsum(year_for_add),
-    year_CE = 2017 - year_BP,
-    year_bp_lin_interp = core_depth * ((v2_C14$year)/(v2_C14$depth_cm*10)),
+    year_b4_2017 = cumsum(year_for_add),
+    year_CE = yr_core_ce - year_b4_2017,
+    year_BP = standard_yr_bp-year_CE,
+    year_bp_lin_interp = core_depth * ((v1_C14$year)/(v1_C14$depth_cm*10)),
     year_ce_lin_interp = 2017 - year_bp_lin_interp
   )
 
@@ -406,7 +420,7 @@ turbidites <- rbind(
   saveRDS('data/long_cores/V1_V2_turbidite_deposits.rds')
 
 v2_mod <- data.frame(
-  year_BP = seq(1:1913)
+  year_BP = seq(from = min(v2$year_BP), to = max(v2$year_BP), by = 1)
 ) %>% 
   left_join(v2) 
 
@@ -460,13 +474,26 @@ comb %>%
   geom_point()+
   #geom_line(size = ) +
   scale_y_continuous(trans = 'reverse') +
-  geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=F, linetype = "dashed", size= 0.5) +
+  geom_smooth(method = 'lm', 
+              orientation = "y", 
+              formula = y ~ x + 0, 
+              se = FALSE, 
+              n = nrow(comb),
+              method.args=list(offset=rep(100, nrow(comb))),
+              fullrange = TRUE,
+              linetype = "dashed", 
+              size= 0.5) +
   xlab("Estimated Year (BP)") +
   ylab("Core Depth (cm)")
 
 
 #ggsave('figs/longcore_cumulative_depth_vs_estimated_year.png', width = 6, height = 4.5)
 
+# clean up ekman to compare
+
+ek_v2_cln <- ek_v2 %>% 
+  select(year = year_BP, depth = cumul_depth_mm, core = core_num) %>% 
+  mutate(depth = depth / 10)
 
 # compare to AMS
 ams_df_cln <- ams_df %>% 
@@ -480,16 +507,24 @@ long_core_cln <- comb %>%
   select(year = year_BP, depth = core_depth, core) %>% 
   mutate(depth = depth / 10)
 
-all_df <- rbind(ams_df_cln %>%  select(year = year_bp, depth, core), long_core_cln) %>%
-  mutate(year_CE = 2017 - year)
+all_df <- rbind(ams_df_cln %>%  select(year = year_bp, depth, core, ams_se), 
+                long_core_cln |> mutate(ams_se = NA)) %>%
+  rbind(ek_v2_cln|> mutate(ams_se = NA))
+
+plot_reg_line <- c('E13', 'V1_ams', 'V2b_ams')
 
 ggplot(all_df, aes(year, depth, colour = core)) +
   geom_point() +
-  geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, linetype = "dashed", size= 0.5) +
+  geom_errorbarh(data = subset(all_df, ams_se != 0), aes(xmin=year-ams_se, xmax=year+ams_se)) +
+  geom_smooth(data=subset(all_df,core %in% plot_reg_line),
+              aes(year,depth,color=core),
+              method = 'lm', se = F, fullrange = T, formula = y ~ x, linetype = "dashed", size= 0.5) +
   #geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
   scale_y_continuous(trans = 'reverse') +
-  xlab("Estimated Year (BP)") +
-  ylab("Core Depth (cm)")
+  xlab("Estimated Age (cal yr BP)") +
+  ylab("Core Depth (cm)") +
+  theme_bw() +
+  scale_color_manual(values = viridis::viridis(5, option = "H"))
 
 ggsave('figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png', width = 6, height = 4.5)
 
@@ -497,7 +532,7 @@ ggsave('figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png', w
 comb$core[comb$core == 'V1_varve'] = "V1"
 comb$core[comb$core == 'V2_varve'] = "V2"
 
-gaus <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
+# gaus <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
 
 gaus <- comb %>% 
   # filter(core == "V1") %>% 
