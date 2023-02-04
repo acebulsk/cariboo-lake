@@ -45,3 +45,4 @@ sage-submission.zip
 *.bbl
 *.tex
 *.log
+ec.cache
