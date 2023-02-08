@@ -10,29 +10,20 @@ Organic material for dating in the clastic dominated cores was extremely limited
 
 ```{r turbTbl, echo=F}
 ams_meta <- readRDS('../data/long_cores/chronology/long_core_ams_meta.rds')
-
-material <- c(NA, 'Wood', NA, 'Wood & Spruce Needle')
-type <- c('Surface', '14C', 'Surface', '14C')
-one_sig <- c(NA, 21, NA, 28)
-age_range <- c(NA, '1899‐1819', NA, '2045‐1895')
-median_age <- c(NA, 21)
   
-
-tb_out <- dplyr::left_join(non_event, tb) |> 
-  dplyr::arrange(metric)  |> 
-  dplyr::mutate(metric = dplyr::case_when(
-    metric == 'grain_size' ~ 'D~50~ (µm)',
-    metric == 'varve_thickness' ~ 'Avg. Thickness (mm)',
-    metric == 'loi' ~ 'OM (%)',
-  )) |> 
-  dplyr::rename(`Couplet (varve) mean` = non_event_mean, `Event mean` = event_mean, `Event sd` = event_sd, `Event n` = event_n) 
-
-# write.csv(tb_out, 'figs/table1.csv')
-  
-tb_out |> 
+ams_meta |> 
   knitr::kable(
-    caption = "Sediment characteristics of regular laminae 'Couplet (varve)' compared to couplets classified as turbidite beds 'Events' for V1 and V2. The 'Couplet (varve)' is the mean sediment characteristic for all regular laminae couplets. The 'Event mean' is the mean sediment characteristic value for couplets classified as events, 'Event sd' is the standard deviation, and 'Event n' is the number of turbidite beds.\\label{turbTbl}",
-    digits = 2
+    caption = "Cariboo Lake chronologic control points.\\label{turbTbl}",
+    col.names = c('Core Name', 
+                  'Material', 
+                  'Type', 
+                  'Depth (cm)', 
+                  '^14^C yr BP', 
+                  '1$\\sigma$ uncertainty (yr)', 
+                  '2$\\sigma$ calibrated age range (yr BP)',
+                  'Median age (yr BP)'),
+    align = 'l'
+  
   )
 
 
