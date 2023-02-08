@@ -12,15 +12,23 @@ library(tidyverse)
 
 library(Bchron)
 
+u_ottawa_cal <- 'intcal13' # cal reference used on the u ottawa ams analysis sheet they also combined OxCal v4.2.4 too but not sure how to use both with this r package. 
+
 standard_yr_bp <- 1950 # the year used in the literature as BP datum
 yr_core_ce <- 2017 # this is the year we took the core
 yr_core_bp <- standard_yr_bp-yr_core_ce
 
+v1_c14_depth <- 347 # depth of woody material after adjustment (cm)
+v1_c14 <- 1913 # C14 bp (1950)
+v1_c14_sd <- 21 # +/- yr error 
+
+v1_c14_depth <- (286 + 294) / 2 # avg depth for combined V2 sample after adjustment
+v2_c14 <- 2020 # C14 bp (1950)
+v2_c14_sd <- 28 # +/- yr error 
+
 # counting error was not possible to attribute since there were no clear marker 
 # varves or tephras so we use the average of reported varve counting uncertainties 
 # in the literature 0.7 - 6 % from @Menenous2008 and @Birlo2022 respectively
-
-u_ottawa_cal <- 'intcal13' # cal reference used on the u ottawa ams analysis sheet they also combined OxCal v4.2.4 too but not sure how to use both with this r package. 
 
 counting_error <- 0.03 # fraction of a year
 
@@ -45,7 +53,7 @@ v1_long <- long_cores |>
 ams_chron_v1 <- tribble(
   ~sample_id, ~depth, ~age_14C, ~age_error, ~thickness, ~calCurves,
   "top", 0, yr_core_bp, 0, 0, 'normal',
-  "V1‐C-347", 347, 1913, 21, 1, u_ottawa_cal
+  "V1‐C-347", 347, v1_c14, v1_c14_sd, 1, u_ottawa_cal
 ) 
 
 core_chron <- tribble(
@@ -62,15 +70,17 @@ ams_chron_out <- Bchronology(
   positionThickness = ams_chron_v1$thickness,
 )
 
-core_chron_out <- Bchronology(
-  ages = core_chron$age_14C,
-  ageSds = core_chron$age_error,
-  positions = core_chron$depth,
-  calCurves = core_chron$calCurves,
-  positionThickness = core_chron$thickness,
-)
+# core_chron_out <- Bchronology(
+#   ages = core_chron$age_14C,
+#   ageSds = core_chron$age_error,
+#   positions = core_chron$depth,
+#   calCurves = core_chron$calCurves,
+#   positionThickness = core_chron$thickness,
+# )
+# 
+# saveRDS(core_chron_out, 'data/long_cores/chronology/v1_bcrhon_chronology.RDS')
 
-saveRDS(core_chron_out, 'data/long_cores/chronology/v1_bcrhon_chronology.RDS')
+core_chron_out <- readRDS('data/long_cores/chronology/v1_bcrhon_chronology.RDS')
 
 # saveRDS(core_chron_out, 'data/long_cores/chronology/v1_bcrhon_chronology_sample100.RDS')
 
@@ -129,12 +139,10 @@ ggsave('figs/chronology/v1_bchron_varve_ams_compare_allvarvesamples_error.png', 
 
 # v2 ----------------------
 
-v2b_depth <- (286 + 294) / 2 # avg depth for combined V2 sample
-
 ams_chron_v2 <- tribble(
   ~sample_id, ~depth, ~age_14C, ~age_error, ~thickness, ~calCurves,
   "top", 0, yr_core_bp, 0, 0, 'normal',
-  "V2‐C-286", v2b_depth, 2020, 28, 1, u_ottawa_cal
+  "V2‐C-286", v1_c14_depth, v2_c14, v2_c14_sd, 1, u_ottawa_cal
 )
 
 v2_long <- long_cores |> 
@@ -233,13 +241,4 @@ ams_df_out <- rbind(
   ams_chron_v2 |> mutate(core = 'V2')
 )
 
-material <- c(NA, 'Wood', NA, 'Wood & Spruce Needle')
-type <- c('Surface', '14C', 'Surface', '14C')
-one_sig <- c(NA, 21, NA, 28)
-age_range <- c(NA, '1899‐1819', NA, '2045‐1895')
 
-# will need to figure out how to get the median age from the bchron output 
-median_age <- c(NA, )
-
-
-saveRDS(ams_df_out, 'data/long_cores/chronology/long_core_ams_meta.rds')
