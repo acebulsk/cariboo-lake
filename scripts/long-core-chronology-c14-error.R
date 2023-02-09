@@ -4,7 +4,13 @@ library(tidyverse)
 
 library(Bchron)
 
-u_ottawa_cal <- u_ottawa_cal
+u_ottawa_cal <- 'intcal13'
+
+# counting error was not possible to attribute since there were no clear marker 
+# varves or tephras so we use the average of reported varve counting uncertainties 
+# in the literature 0.7 - 6 % from @Menenous2008 and @Birlo2022 respectively
+
+counting_error <- 0.03 # fraction of a year
 
 standard_yr_bp <- 1950 # the year used in the literature as BP datum
 yr_core_ce <- 2017 # this is the year we took the core
@@ -116,3 +122,51 @@ tbl <- data.frame(
 )
 
 saveRDS(tbl, 'data/long_cores/chronology/long_core_ams_meta.rds')
+
+#### what are the sedimentation rates from the C14 data ####
+
+# v1
+v1_rate_hi <- v1_c14_depth / (1820 + abs(yr_core_bp)) * 10
+v1_rate_low <- v1_c14_depth / (1918 + abs(yr_core_bp)) * 10
+v1_rate_med <- v1_c14_depth / (1879 + abs(yr_core_bp)) * 10
+
+v1_rate_med
+sd(c(v1_rate_hi, v1_rate_low, v1_rate_med))
+(v1_rate_hi- v1_rate_low)/2
+
+# v2
+
+v2_rate_hi <- v2_c14_depth / (1895 + abs(yr_core_bp)) * 10
+v2_rate_low <- v2_c14_depth / (2043 + abs(yr_core_bp)) * 10
+v2_rate_med <- v2_c14_depth / (1992 + abs(yr_core_bp)) * 10
+
+v2_rate_med
+sd(c(v2_rate_hi, v2_rate_low, v2_rate_med))
+(v2_rate_hi- v2_rate_low)/2
+
+#### what is the corresponding varve counting age of the AMS sample ####
+
+v1_varve <- readRDS('data/long_cores/v1_226_processed.rds') |> 
+  select(year_BP, core_depth) |> 
+  mutate(core_depth = core_depth / 10)
+
+good_v1_yr_id <- which.min(abs(v1_varve$core_depth - v1_c14_depth))
+
+v1_varve_yr <- v1_varve$year_BP[good_v1_yr_id]
+
+v1_varve_yr_se <- v1_varve_yr * counting_error
+
+v2_varve <- readRDS('data/long_cores/v2_224_processed.rds') |> 
+  select(year_BP, core_depth) |> 
+  mutate(core_depth = core_depth / 10)
+
+good_v2_yr_id <- which.min(abs(v2_varve$core_depth - v2_c14_depth))
+
+v2_varve_yr <- v2_varve$year_BP[good_v2_yr_id]
+
+v2_varve_yr_se <- v2_varve_yr * counting_error
+
+paste('The corresponding varve estimate year is', 
+      v1_varve_yr, 'and', v2_varve_yr, 
+      'for v1 and v2 respectively. And we also infer a 3% error on these dates so our SE is', 
+      v1_varve_yr_se, 'and', v2_varve_yr_se, 'respectively.')
