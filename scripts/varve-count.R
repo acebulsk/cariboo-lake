@@ -397,12 +397,11 @@ v2_stats <- data.frame(
 )
 
 varve_stats <- rbind(v1_stats, v2_stats) %>% 
-  mutate(metric = 'varve_thickness') %>% 
-  saveRDS('data/long_cores/core_stats.rds')
+  mutate(metric = 'varve_thickness') 
 
-varve_stats <- rbind(v1_stats, v2_stats) %>% 
-  mutate(metric = 'varve_thickness') |> 
-  write.csv('data/long_cores/core_stats.csv')
+saveRDS(varve_stats, 'data/long_cores/core_stats.rds')
+
+write.csv(varve_stats, 'data/long_cores/core_stats.csv')
 
 
 v2$lyr_mm_stdep <- (v2$lyr_mm - v2.mean.fltr)/v2.sd.fltr
@@ -417,8 +416,50 @@ v2_turbidite <- v2 %>%
 turbidites <- rbind(
   v1_turbidite %>% mutate(core = "V1"),
   v2_turbidite %>% mutate(core = "V2")
-) %>% 
-  saveRDS('data/long_cores/V1_V2_turbidite_deposits.rds')
+) |> 
+  select(core_depth, 
+         year_BP, 
+         lyr_mm_stdep,
+         lyr_mm,
+         sd_flag,
+         core)
+
+# add in turbidite not origionally measured because I thought it was distrubed
+# the grain size for v1 measured at 12 cm is 7.5 mm thick, manually measured using 226 A+ .png
+v1_12 <- data.frame(
+  core_depth = 120,
+  year_BP = NA,
+  lyr_mm_stdep = NA,
+  lyr_mm = 7.5, 
+  sd_flag = TRUE,
+  core = 'V1'
+)
+
+# next we need an average sed rate for the top of V1 to calculate the time elapsed over 12 cm
+
+v1_top_sed_rate <- mean(v1$avg_sed_rate[4]) # this is pretty close to the varve we are after it was just lumped into a large disturbed measurement
+
+v1_12_year_BP_2017 <- v1_12$core_depth / v1_top_sed_rate
+
+v1_12_year_BP <- standard_yr_bp - (yr_core_ce - v1_12_year_BP_2017)
+
+v1_12$year_BP <- v1_12_year_BP
+
+v1_vt_mean <- varve_stats$value[varve_stats$stat == 'mean_no_flood' & varve_stats$core == 'V1' & varve_stats$metric == 'varve_thickness']
+v1_vt_sd <- varve_stats$value[varve_stats$stat == 'sd_no_flood' & varve_stats$core == 'V1' & varve_stats$metric == 'varve_thickness']
+
+v1_12$lyr_mm_stdep = (v1_12$lyr_mm - v1_vt_mean)/v1_vt_sd
+
+turb_join <- rbind(turbidites, v1_12) %>% 
+  select(depth = core_depth,
+         year_BP,
+         stdep = lyr_mm_stdep,
+         value = lyr_mm,
+         core) %>% 
+  mutate(metric = 'Varve Thickness',
+         depth = depth / 10)
+
+saveRDS(turb_join, 'data/long_cores/V1_V2_turbidite_deposits.rds')
 
 v2_mod <- data.frame(
   year_BP = seq(from = min(v2$year_BP), to = max(v2$year_BP), by = 1)
@@ -524,8 +565,15 @@ all_df <- rbind(ams_df_cln |> mutate(varve_se = NA) |> select(year = year_bp, de
 
 plot_reg_line <- c('E13', 'V1', 'V2')
 
+# need this to hack the triangle onto the ggplot
+turb_join$size_test <- 5
+
 ggplot(all_df, aes(year, depth, colour = core, shape = date_type)) +
   geom_point(size = 1) +
+  geom_point(data = turb_join,
+             aes(year_BP, depth, size = 5 ),  shape = 6) +
+  # geom_point(data = turbidites,
+  #            aes(year_BP, core_depth/10, size = 5 ), shape = 6) +
   geom_ribbon(data = subset(all_df, varve_se != 0), 
               aes(xmin = year-varve_se,
                   xmax = year+varve_se),
@@ -540,7 +588,9 @@ ggplot(all_df, aes(year, depth, colour = core, shape = date_type)) +
   ylab("Core Depth (cm)") +
   theme_bw() +
   scale_color_manual(values = viridis::viridis(4)) +
-  scale_shape_manual(values = c(4, 20)) 
+  scale_shape_manual(values = c(4, 20))  +
+  labs(shape = 'chronology', size = 'turbidite') +
+  scale_size(labels = "")
 
 ggsave('figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png', width = 6, height = 4.5)
 

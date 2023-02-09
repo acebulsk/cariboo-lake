@@ -55,31 +55,6 @@ vt <- readRDS('data/long_cores/V1_V2_turbidite_deposits.rds') %>%
          sd_flag,
          core) 
 
-# add in turbidite not origionally measured because I thought it was distrubed
-# the grain size for v1 measured at 12 cm is 7.5 mm thick, manually measured using 226 A+ .png
-v1_12 <- data.frame(
-  core_depth = 12,
-  year_ce_lin_interp = NA,
-  lyr_mm_stdep = NA,
-  lyr_mm = 7.5, 
-  sd_flag = TRUE,
-  core = 'V1'
-)
-
-v1_12$year_ce_lin_interp = 2017 - (v1_12$core_depth * (ams_select$ams_year[1] / ams_select$ams_depth_cm[1]))
-v1_12$core_depth <- v1_12$core_depth * 10
-v1_vt_mean <- core_stats$value[core_stats$stat == 'mean_no_flood' & core_stats$core == 'V1' & core_stats$metric == 'varve_thickness']
-v1_vt_sd <- core_stats$value[core_stats$stat == 'sd_no_flood' & core_stats$core == 'V1' & core_stats$metric == 'varve_thickness']
-v1_12$lyr_mm_stdep = (v1_12$lyr_mm - v1_vt_mean)/v1_vt_sd
-
-vt <- rbind(vt, v1_12) %>% 
-  select(depth = core_depth,
-         year = year_ce_lin_interp,
-         stdep = lyr_mm_stdep,
-         value = lyr_mm,
-         core) %>% 
-  mutate(metric = 'Varve Thickness')
-
 # average varve thickness for turbidites
 
 v1_tb_vt_avg <- mean(vt$value[vt$core == 'V1'])
@@ -150,11 +125,11 @@ tb_loi <- loi %>%
 
 # plot gs and vt
 
-# tb <- rbind(vt, gs, tb_loi)
-# 
-# saveRDS(tb, 'data/long_cores/turbidite_metrics.rds')
+tb <- rbind(vt, gs, tb_loi)
 
-tb <- readRDS('data/long_cores/turbidite_metrics.rds')
+saveRDS(tb, 'data/long_cores/turbidite_metrics.rds')
+
+# tb <- readRDS('data/long_cores/turbidite_metrics.rds')
 
 p <- ggplot(tb, aes(x = year, y = stdep, colour = core)) +
   geom_point() +
