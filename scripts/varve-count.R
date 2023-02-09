@@ -90,29 +90,30 @@ ggplot(ek_v2, aes(year_BP, cumul_depth_mm/10, colour = core_num)) +
 # A date of 2045-1895 cal BP was determined.
 
 # plot on depth 
-v1_low <- 1899
-v1_high <- 1819
+
+v1_low <- 1918
+v1_high <- 1820
 v1_ams_depth <- 347
-v1_date <- (v1_low + v1_high) / 2 # mid point yr for v1 @ 347 cm
+v1_median <- 1879 # median from bchron
 
-v1_C14 <- data.frame(depth_cm = v1_ams_depth, year = v1_date) # n = 1
+v1_C14 <- data.frame(depth_cm = v1_ams_depth, year = v1_median) # n = 1
 
-v2_low <- 2045
+v2_low <- 2043
 v2_high <- 1895
 
 v2b_depth <- (286 + 294) / 2 # avg depth for combined V2 sample
 
-v2_date_b <- (v2_low + v2_high) / 2 # mid point yr for v2 @ 286 + 294 cm
+v2_median <- 1992 # median from bchron
 
 # v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
 
-v2_C14 <- data.frame(depth_cm = v2b_depth, year = v2_date_b) # n = 2
+v2_C14 <- data.frame(depth_cm = v2b_depth, year = v2_median) # n = 2
 
 ams_df <- tibble(
-  year_bp = c(yr_core_bp, v1_date, yr_core_bp, v2_date_b),
+  year_bp = c(yr_core_bp, v1_median, yr_core_bp, v2_median),
   ams_se = c(0, (v1_low-v1_high)/2, 0, (v2_low-v2_high)/2),
   depth = c(0, 347, 0, v2b_depth),
-  ams_sample = c('V1', 'V1', 'V2b', 'V2b')
+  ams_sample = c('V1', 'V1', 'V2', 'V2')
 ) %>% 
   mutate(year_ce = standard_yr_bp - year_bp)
 
@@ -129,7 +130,7 @@ ggplot(ams_df, aes(year_bp, depth, colour = ams_sample)) +
   scale_y_continuous(trans = 'reverse') +
   geom_smooth(method = 'lm', linetype = "dashed", size= 0.5) +
   # geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
-  xlab("Mid-Point Cal Year (BP)") +
+  xlab("Age (cal yr BP)") +
   ylab("Core Depth (cm)")
 
 ggsave('figs/ams_sed_rates.png', width = 6, height = 4.5)
@@ -464,8 +465,10 @@ v2_sed_rate
 
 
 #### V1 + V2 Combined ####
-v1_mod$core <- "V1_varve"
-v2_mod$core <- "V2_varve"
+v1_mod$core <- "V1"
+v2_mod$core <- "V2"
+v1_mod$date_type <- "varve"
+v2_mod$date_type <- "varve"
 
 comb <- rbind(v1_mod, v2_mod)
 
@@ -489,34 +492,46 @@ comb %>%
 
 #ggsave('figs/longcore_cumulative_depth_vs_estimated_year.png', width = 6, height = 4.5)
 
+# counting error was not possible to attribute since there were no clear marker 
+# varves or tephras so we use the average of reported varve counting uncertainties 
+# in the literature 0.7 - 6 % from @Menenous2008 and @Birlo2022 respectively
+counting_error <- 0.03 # fraction of a year
+
 # clean up ekman to compare
 
 ek_v2_cln <- ek_v2 %>% 
   select(year = year_BP, depth = cumul_depth_mm, core = core_num) %>% 
-  mutate(depth = depth / 10)
+  mutate(depth = depth / 10,
+         varve_se = abs(year * counting_error))
 
 # compare to AMS
 ams_df_cln <- ams_df %>% 
   rename(core = ams_sample)
 
-ams_df_cln$core[ams_df_cln$core == "V1"] <- "V1_ams"
-ams_df_cln$core[ams_df_cln$core == "V2a"] <- "V2a_ams"
-ams_df_cln$core[ams_df_cln$core == "V2b"] <- "V2b_ams"
+ams_df_cln$core[ams_df_cln$core == "V1"] <- "V1"
+ams_df_cln$core[ams_df_cln$core == "V2a"] <- "V2a"
+ams_df_cln$core[ams_df_cln$core == "V2"] <- "V2"
+ams_df_cln$date_type <- 'C14'
 
 long_core_cln <- comb %>% 
-  select(year = year_BP, depth = core_depth, core) %>% 
-  mutate(depth = depth / 10)
+  select(year = year_BP, depth = core_depth, core, date_type) %>% 
+  mutate(depth = depth / 10,
+         varve_se = abs(year * counting_error))
 
-all_df <- rbind(ams_df_cln %>%  select(year = year_bp, depth, core, ams_se), 
+all_df <- rbind(ams_df_cln |> mutate(varve_se = NA) |> select(year = year_bp, depth, core, date_type,varve_se, ams_se) , 
                 long_core_cln |> mutate(ams_se = NA)) %>%
-  rbind(ek_v2_cln|> mutate(ams_se = NA))
+  rbind(ek_v2_cln|> mutate(date_type = 'varve', ams_se = NA))
 
-plot_reg_line <- c('E13', 'V1_ams', 'V2b_ams')
+plot_reg_line <- c('E13', 'V1', 'V2')
 
-ggplot(all_df, aes(year, depth, colour = core)) +
-  geom_point() +
-  geom_errorbarh(data = subset(all_df, ams_se != 0), aes(xmin=year-ams_se, xmax=year+ams_se)) +
-  geom_smooth(data=subset(all_df,core %in% plot_reg_line),
+ggplot(all_df, aes(year, depth, colour = core, shape = date_type)) +
+  geom_point(size = 1) +
+  geom_ribbon(data = subset(all_df, varve_se != 0), 
+              aes(xmin = year-varve_se,
+                  xmax = year+varve_se),
+              alpha = 0.25, linetype = 'blank') +
+  geom_errorbarh(data = subset(all_df, ams_se != 0), aes(xmin=year-ams_se, xmax=year+ams_se, height = 25)) +
+  geom_smooth(data=subset(all_df,date_type == 'C14' | core == 'E13'),
               aes(year,depth,color=core),
               method = 'lm', se = F, fullrange = T, formula = y ~ x, linetype = "dashed", size= 0.5) +
   #geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
@@ -524,7 +539,8 @@ ggplot(all_df, aes(year, depth, colour = core)) +
   xlab("Estimated Age (cal yr BP)") +
   ylab("Core Depth (cm)") +
   theme_bw() +
-  scale_color_manual(values = viridis::viridis(5, option = "H"))
+  scale_color_manual(values = viridis::viridis(4)) +
+  scale_shape_manual(values = c(4, 20)) 
 
 ggsave('figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png', width = 6, height = 4.5)
 
