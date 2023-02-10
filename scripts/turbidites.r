@@ -47,13 +47,22 @@ ams_df <- tibble(
 
 # turbidites from varve thickness 
 
-vt <- readRDS('data/long_cores/V1_V2_turbidite_deposits.rds') %>% 
+vt <- readRDS('data/long_cores/V1_V2_turbidite_deposits.rds') 
+
+vt_check <- vt |> 
+  select(depth, year_BP, core, value) |> 
+  pivot_wider(names_from = core, names_prefix = 'year_bp_', values_from = year_BP) |> 
+  arrange(depth)
+
+vt <- vt %>% 
   select(core_depth,
          year_ce_lin_interp,
          lyr_mm_stdep,
          lyr_mm,
          sd_flag,
          core) 
+
+
 
 # average varve thickness for turbidites
 

@@ -7,6 +7,8 @@ library(zoo)
 library(tsibble)
 library(pracma)
 
+ams_meta <- readRDS('data/long_cores/chronology/long_core_ams_meta.rds')
+
 standard_yr_bp <- 1950 # the year used in the literature as BP datum
 yr_core_ce <- 2017 # this is the year we took the core
 yr_core_bp <- standard_yr_bp-yr_core_ce
@@ -93,7 +95,7 @@ ggplot(ek_v2, aes(year_BP, cumul_depth_mm/10, colour = core_num)) +
 
 v1_low <- 1918
 v1_high <- 1820
-v1_ams_depth <- 347
+v1_ams_depth <- max(ams_meta$depth[ams_meta$core == 'V1'])
 v1_median <- 1879 # median from bchron
 
 v1_C14 <- data.frame(depth_cm = v1_ams_depth, year = v1_median) # n = 1
@@ -101,18 +103,18 @@ v1_C14 <- data.frame(depth_cm = v1_ams_depth, year = v1_median) # n = 1
 v2_low <- 2043
 v2_high <- 1895
 
-v2b_depth <- (286 + 294) / 2 # avg depth for combined V2 sample
+v2_ams_depth <- max(ams_meta$depth[ams_meta$core == 'V2'])
 
 v2_median <- 1992 # median from bchron
 
 # v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
 
-v2_C14 <- data.frame(depth_cm = v2b_depth, year = v2_median) # n = 2
+v2_C14 <- data.frame(depth_cm = v2_ams_depth, year = v2_median) # n = 2
 
 ams_df <- tibble(
   year_bp = c(yr_core_bp, v1_median, yr_core_bp, v2_median),
   ams_se = c(0, (v1_low-v1_high)/2, 0, (v2_low-v2_high)/2),
-  depth = c(0, 347, 0, v2b_depth),
+  depth = c(0, v1_ams_depth, 0, v2_ams_depth),
   ams_sample = c('V1', 'V1', 'V2', 'V2')
 ) %>% 
   mutate(year_ce = standard_yr_bp - year_bp)
@@ -204,16 +206,24 @@ v1.fvl <- v1.mean + (6*v1.sd) # rm couplets with thicknesses greater than 3 std 
 
 sd_flag <- v1$lyr_mm > v1.fvl
 
-manual_flags <- v1$notes %in% c('disturbed', 'Disturbed')
-
-# manual_flags <- nchar(v1$notes) > 3 # any cell that has more than 3 chars is disturbed or flood or tephra (1)
-
-v1$lyr_flag <- sd_flag | manual_flags
-
 v1$sd_flag <- sd_flag
 
-sum(v1$lyr_flag, na.rm = TRUE) # how many flags ? 
+manual_flags <- v1$notes %in% c('disturbed', 'Disturbed')
 
+# we need to define the layers considered to be turbidites 
+
+v1$turbidite_flag <- !manual_flags & sd_flag
+
+v1$turbidite_flag[751] <- T
+
+# this is used to only add years for the disturbed layers and not the turbs
+
+v1$disturbed_flag <- manual_flags | sd_flag & !v1$turbidite_flag
+
+v1$lyr_flag <- v1$disturbed_flag | v1$turbidite_flag
+
+sum(v1$turbidite_flag, na.rm = TRUE) # how many flags ? 
+sum(v1$disturbed_flag, na.rm = TRUE) # how many flags ? 
 
 # apply above stats to v1, essentially treats every varve as 1 yr, unless flaged, 
 # then take the moving average (100 yr) to calculate the time elapsed for the flagged layer.
@@ -224,18 +234,25 @@ v1 <- v1 %>%
     lyr_mm_cln = case_when(
       lyr_flag == F ~ lyr_mm
     ),
+    lyr_mm_no_turbs = case_when(
+      turbidite_flag == F ~ lyr_mm,
+      TRUE ~ 0 # need this so cumsum doesnt break
+    ),
+    core_depth_no_turb = cumsum(lyr_mm_no_turbs), # need this for age depth model
     avg_sed_rate = rollapply(lyr_mm_cln, width = 30, by = 1, FUN = mean, na.rm = T, align = "center", partial = T), # partial defines minimum number of objects to continue 25yr window. set 3 to get data point at end of dataset 
     interp_yr = round(lyr_mm / avg_sed_rate),
     year_for_add = case_when(
-      lyr_flag == T ~ interp_yr,
+      disturbed_flag == T ~ interp_yr,
+      turbidite_flag == T ~ 0,
       TRUE ~ 1
     ),
     year_b4_2017 = cumsum(year_for_add),
     year_CE = yr_core_ce - year_b4_2017,
     year_BP = standard_yr_bp-year_CE,
-    year_bp_lin_interp = core_depth * ((v1_C14$year)/(v1_C14$depth_cm*10)),
+    year_bp_lin_interp = core_depth_no_turb * ((v1_C14$year)/(v1_C14$depth_cm*10)),
     year_ce_lin_interp = 2017 - year_bp_lin_interp
-  )
+  ) |> 
+  select(core_depth, core_depth_no_turb, year_BP, year_CE, year_bp_lin_interp, year_ce_lin_interp, ends_with('flag'), lyr_mm, lyr_mm_cln, avg_sed_rate)
 
 v1.sd.fltr <- sd(v1$lyr_mm_cln, na.rm = T)
 v1.mean.fltr <- mean(v1$lyr_mm_cln, na.rm = T)
@@ -258,12 +275,8 @@ v1_stats <- data.frame(
 
 v1$lyr_mm_stdep <- (v1$lyr_mm - v1.mean.fltr)/v1.sd.fltr
 
-# create df of the floods 
-v1_751 <- v1[751,] # find flood at 229.0 cm which is in the grain size analysis
 v1_turbidite <- v1 %>% 
-  filter(!notes %in% c('disturbed', 'Disturbed'), 
-         sd_flag == T) %>% 
-  rbind(v1_751)
+  filter(turbidite_flag == T) 
 
 v1_mod <- data.frame(
   year_BP = seq(from = min(v1$year_BP), to = max(v1$year_BP), by = 1)
@@ -273,32 +286,32 @@ v1_mod <- data.frame(
 saveRDS(v1_mod, 'data/long_cores/v1_226_processed.rds')
 
 # see how the new interpolated years compares
-v1_mod %>% 
-  rename(new_yr = year_BP,
-         old_yr = year_bp_excel) %>%
-  pivot_longer(c(new_yr, old_yr)) %>% 
-  ggplot(aes(value, core_depth, colour = name)) +
-  geom_point() +
-  scale_y_continuous(trans = 'reverse') +
-  geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=T, linetype = "dashed", size= 0.5) +
-  xlab("Estimated Year (BP)") +
-  ylab("Core Depth (cm)")
+# v1_mod %>% 
+#   rename(new_yr = year_BP,
+#          old_yr = year_bp_excel) %>%
+#   pivot_longer(c(new_yr, old_yr)) %>% 
+#   ggplot(aes(value, core_depth, colour = name)) +
+#   geom_point() +
+#   scale_y_continuous(trans = 'reverse') +
+#   geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=T, linetype = "dashed", size= 0.5) +
+#   xlab("Estimated Year (BP)") +
+#   ylab("Core Depth (cm)")
 
 v1_mod %>% 
-  filter(!notes %in% c('disturbed', 'Disturbed')) %>% 
+  filter(lyr_flag == F) %>% 
 ggplot(aes(year_ce_lin_interp, lyr_mm)) +geom_point()
 
-ggplotly()
+# ggplotly()
 
 # see old sed rate
-v1_lm_old <- lm(core_depth_excel ~ 0 + year_bp_excel, data = v1)
+# v1_lm_old <- lm(core_depth_excel ~ 0 + year_bp_excel, data = v1)
 
-v1_sed_rate_old <- summary(v1_lm_old)$coeff[1] # filtered to less than 3 sd's and forced through origin 
-
-v1_sed_rate_old
+# v1_sed_rate_old <- summary(v1_lm_old)$coeff[1] # filtered to less than 3 sd's and forced through origin 
+# 
+# v1_sed_rate_old
 
 # see new sed rate 
-v1_lm <- lm(core_depth ~ 0 + year_BP, data = v1_mod)
+v1_lm <- lm(core_depth_no_turb ~ 0 + year_BP, data = v1_mod)
 
 v1_sed_rate <- summary(v1_lm)$coeff[1] # filtered to less than 3 sd's and forced through origin 
 
@@ -344,16 +357,25 @@ v2.fvl <- 3.9 # based off visual inspection
 
 sd_flag <- v2$lyr_mm > v2.fvl
 
-manual_flags <- v2$notes %in% fltr_notes
+disturbed_flag <- v2$notes %in% fltr_notes
 
-# manual_flags <- nchar(v2$notes) > 0 # any cell that has text is disturbed or flood or tephra (1)
+# we need to define the layers considered to be turbidites 
 
-v2$lyr_flag <- sd_flag | manual_flags
+turbidite_flag <- v2$notes %in% c('flood', 'Flood', '')
+
+v2$turbidite_flag <- turbidite_flag & sd_flag
+
+# this is used to only add years for the disturbed layers and not the turbs
+
+v2$disturbed_flag <- disturbed_flag | sd_flag & !v2$turbidite_flag
+
+v2$lyr_flag <- v2$disturbed_flag | v2$turbidite_flag
 
 v2$sd_flag <- sd_flag
 
 sum(v2$lyr_flag, na.rm = TRUE) # how many flags ? 
-
+sum(v2$turbidite_flag, na.rm = TRUE) # how many flags ? 
+sum(v2$disturbed_flag, na.rm = TRUE) # how many flags ? 
 
 # apply above stats to V2, essentially treats every varve as 1 yr, unless flaged, 
 # then take the moving average (100 yr) to calculate the time elapsed for the flagged layer.
@@ -364,18 +386,24 @@ v2 <- v2 %>%
     lyr_mm_cln = case_when(
       lyr_flag == F ~ lyr_mm
     ),
+    lyr_mm_no_turbs = case_when(
+      turbidite_flag == F ~ lyr_mm,
+      TRUE ~ 0 # need this so cumsum doesnt break
+    ),
+    core_depth_no_turb = cumsum(lyr_mm_no_turbs), # need this for age depth model
     avg_sed_rate = rollapply(lyr_mm_cln, width = 30, by = 1, FUN = mean, na.rm = T, align = "center", partial = T), # partial defines minimum number of objects to continue 25yr window. set 3 to get data point at end of dataset 
     interp_yr = round(lyr_mm / avg_sed_rate),
     year_for_add = case_when(
-      lyr_flag == T ~ interp_yr,
+      disturbed_flag == T ~ interp_yr,
+      turbidite_flag == T ~ 0,
       TRUE ~ 1
     ),
     year_b4_2017 = cumsum(year_for_add),
     year_CE = yr_core_ce - year_b4_2017,
     year_BP = standard_yr_bp-year_CE,
-    year_bp_lin_interp = core_depth * ((v1_C14$year)/(v1_C14$depth_cm*10)),
+    year_bp_lin_interp = core_depth_no_turb * ((v2_C14$year)/(v2_C14$depth_cm*10)),
     year_ce_lin_interp = 2017 - year_bp_lin_interp
-  )
+  ) 
 
 v2.sd.fltr <- sd(v2$lyr_mm_cln, na.rm = T)
 v2.mean.fltr <- mean(v2$lyr_mm_cln, na.rm = T)
@@ -406,11 +434,12 @@ write.csv(varve_stats, 'data/long_cores/core_stats.csv')
 
 v2$lyr_mm_stdep <- (v2$lyr_mm - v2.mean.fltr)/v2.sd.fltr
 
+v2 <- v2 |> 
+  select(names(v1))
+
 # create df of the floods 
 v2_turbidite <- v2 %>% 
-  filter(sd_flag == T,
-         notes %in% c('flood', 'Flood', ''),
-         year_ce_lin_interp > 300 # only keep the ones we have grain size for and were visually inspected as floods 
+  filter(turbidite_flag == T
          )
 
 turbidites <- rbind(
@@ -418,6 +447,7 @@ turbidites <- rbind(
   v2_turbidite %>% mutate(core = "V2")
 ) |> 
   select(core_depth, 
+         core_depth_no_turb,
          year_BP, 
          lyr_mm_stdep,
          lyr_mm,
@@ -426,8 +456,10 @@ turbidites <- rbind(
 
 # add in turbidite not origionally measured because I thought it was distrubed
 # the grain size for v1 measured at 12 cm is 7.5 mm thick, manually measured using 226 A+ .png
+
 v1_12 <- data.frame(
   core_depth = 120,
+  core_depth_no_turb = 120,
   year_BP = NA,
   lyr_mm_stdep = NA,
   lyr_mm = 7.5, 
@@ -452,12 +484,14 @@ v1_12$lyr_mm_stdep = (v1_12$lyr_mm - v1_vt_mean)/v1_vt_sd
 
 turb_join <- rbind(turbidites, v1_12) %>% 
   select(depth = core_depth,
+         core_depth_no_turb,
          year_BP,
          stdep = lyr_mm_stdep,
          value = lyr_mm,
          core) %>% 
   mutate(metric = 'Varve Thickness',
-         depth = depth / 10)
+         depth = depth / 10,
+         core_depth_no_turb = core_depth_no_turb/10)
 
 saveRDS(turb_join, 'data/long_cores/V1_V2_turbidite_deposits.rds')
 
@@ -469,32 +503,32 @@ v2_mod <- data.frame(
 saveRDS(v2_mod, 'data/long_cores/v2_224_processed.rds')
 
 # see how the new interpolated years compares
-v2_mod %>% 
-  rename(new_yr = year_BP,
-         old_yr = year_bp_excel) %>%
-  pivot_longer(c(new_yr, old_yr)) %>% 
-ggplot(aes(value, core_depth, colour = name)) +
-  geom_point() +
-  scale_y_continuous(trans = 'reverse') +
-  geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=F, linetype = "dashed", size= 0.5) +
-  xlab("Estimated Year (BP)") +
-  ylab("Core Depth (cm)")
+# v2_mod %>% 
+#   rename(new_yr = year_BP,
+#          old_yr = year_bp_excel) %>%
+#   pivot_longer(c(new_yr, old_yr)) %>% 
+# ggplot(aes(value, core_depth, colour = name)) +
+#   geom_point() +
+#   scale_y_continuous(trans = 'reverse') +
+#   geom_smooth(method = 'lm', se = F, formula = y ~ 0 + x, fullrange=F, linetype = "dashed", size= 0.5) +
+#   xlab("Estimated Year (BP)") +
+#   ylab("Core Depth (cm)")
 
-v2_mod %>% 
-  filter(notes %in% c('', 'flood', 'Flood', 'TEPHRA')) %>% 
-  ggplot(aes(year_ce_lin_interp, lyr_mm)) +geom_point()
+# v2_mod %>% 
+#   filter(notes %in% c('', 'flood', 'Flood', 'TEPHRA')) %>% 
+#   ggplot(aes(year_ce_lin_interp, lyr_mm)) +geom_point()
 
-ggplotly()
+# ggplotly()
 
 # see old sed rate
-v2_lm_old <- lm(core_depth_excel ~ 0 + year_bp_excel, data = v2)
-
-v2_sed_rate_old <- summary(v2_lm_old)$coeff[1] # filtered to less than 3 sd's and forced through origin 
-
-v2_sed_rate_old
+# v2_lm_old <- lm(core_depth_excel ~ 0 + year_bp_excel, data = v2)
+# 
+# v2_sed_rate_old <- summary(v2_lm_old)$coeff[1] # filtered to less than 3 sd's and forced through origin 
+# 
+# v2_sed_rate_old
 
 # see new sed rate 
-v2_lm <- lm(core_depth ~ 0 + year_BP, data = v2_mod)
+v2_lm <- lm(core_depth_no_turb ~ 0 + year_BP, data = v2_mod)
 
 v2_sed_rate <- summary(v2_lm)$coeff[1] # filtered to less than 3 sd's and forced through origin 
 
@@ -514,7 +548,7 @@ v2_mod$date_type <- "varve"
 comb <- rbind(v1_mod, v2_mod)
 
 comb %>% 
-  ggplot(aes(year_BP, core_depth, colour = core, group = core)) +
+  ggplot(aes(year_BP, core_depth_no_turb, colour = core, group = core)) +
   geom_point()+
   #geom_line(size = ) +
   scale_y_continuous(trans = 'reverse') +
@@ -530,6 +564,7 @@ comb %>%
   xlab("Estimated Year (BP)") +
   ylab("Core Depth (cm)")
 
+# ggplotly()
 
 #ggsave('figs/longcore_cumulative_depth_vs_estimated_year.png', width = 6, height = 4.5)
 
@@ -555,7 +590,7 @@ ams_df_cln$core[ams_df_cln$core == "V2"] <- "V2"
 ams_df_cln$date_type <- 'C14'
 
 long_core_cln <- comb %>% 
-  select(year = year_BP, depth = core_depth, core, date_type) %>% 
+  select(year = year_BP, depth = core_depth_no_turb, core, date_type) %>% 
   mutate(depth = depth / 10,
          varve_se = abs(year * counting_error))
 
@@ -568,31 +603,32 @@ plot_reg_line <- c('E13', 'V1', 'V2')
 # need this to hack the triangle onto the ggplot
 turb_join$size_test <- 5
 
+turbidite_shape <- 3
+
 ggplot(all_df, aes(year, depth, colour = core, shape = date_type)) +
   geom_point(size = 1) +
-  geom_point(data = turb_join,
-             aes(year_BP, depth, size = 5 ),  shape = 6) +
-  # geom_point(data = turbidites,
-  #            aes(year_BP, core_depth/10, size = 5 ), shape = 6) +
   geom_ribbon(data = subset(all_df, varve_se != 0), 
               aes(xmin = year-varve_se,
                   xmax = year+varve_se),
               alpha = 0.25, linetype = 'blank') +
+  geom_point(data = subset(ams_df_cln, depth != 0),
+             aes(year_bp, depth),  shape = 17, size = 2) +
   geom_errorbarh(data = subset(all_df, ams_se != 0), aes(xmin=year-ams_se, xmax=year+ams_se, height = 25)) +
   geom_smooth(data=subset(all_df,date_type == 'C14' | core == 'E13'),
               aes(year,depth,color=core),
               method = 'lm', se = F, fullrange = T, formula = y ~ x, linetype = "dashed", size= 0.5) +
-  #geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
+  geom_point(data = turb_join,
+             aes(year_BP, core_depth_no_turb, size = 5),  shape = turbidite_shape) +
   scale_y_continuous(trans = 'reverse') +
   xlab("Estimated Age (cal yr BP)") +
   ylab("Core Depth (cm)") +
   theme_bw() +
   scale_color_manual(values = viridis::viridis(4)) +
-  scale_shape_manual(values = c(4, 20))  +
+  scale_shape_manual(values = c(17, 20))  +
   labs(shape = 'chronology', size = 'turbidite') +
   scale_size(labels = "")
 
-ggsave('figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png', width = 6, height = 4.5)
+ggsave('sage-submission/figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png', width = 6, height = 4.5)
 
 #### Smoothing Functions ####
 comb$core[comb$core == 'V1_varve'] = "V1"

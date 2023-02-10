@@ -6,6 +6,25 @@ library(Bchron)
 
 u_ottawa_cal <- 'intcal13'
 
+# we need the varve chronology data so we can attribute a depth to the AMS
+# samples that has been adjusted to remove turbidites
+
+v1_varve_depth_model <- readRDS('data/long_cores/v1_226_processed.rds') |> 
+  select(core_depth, core_depth_no_turb) |> 
+  mutate(
+    core_depth = core_depth/10,
+    core_depth_no_turb =core_depth_no_turb/10)
+
+v2_varve_depth_model <- readRDS('data/long_cores/v2_224_processed.rds') |> 
+  select(core_depth, core_depth_no_turb) |> 
+  mutate(
+    core_depth = core_depth/10,
+    core_depth_no_turb = core_depth_no_turb/10)
+
+
+# median is 50th percentile 
+prob <- 0.5
+
 # counting error was not possible to attribute since there were no clear marker 
 # varves or tephras so we use the average of reported varve counting uncertainties 
 # in the literature 0.7 - 6 % from @Menenous2008 and @Birlo2022 respectively
@@ -16,11 +35,17 @@ standard_yr_bp <- 1950 # the year used in the literature as BP datum
 yr_core_ce <- 2017 # this is the year we took the core
 yr_core_bp <- standard_yr_bp-yr_core_ce
 
-v1_c14_depth <- 347 # depth of woody material after adjustment (cm)
+v1_c14_depth_raw <- 347 # depth of woody material before adjustment (cm)
+v1_c14_depth_adj_id <- which.min(abs(v1_varve_depth_model$core_depth - v1_c14_depth_raw))
+v1_c14_depth <- v1_varve_depth_model$core_depth_no_turb[v1_c14_depth_adj_id] # adjusted depth with no turbidites
+
 v1_c14 <- 1913 # C14 bp (1950)
 v1_c14_sd <- 21 # +/- yr error 
 
-v2_c14_depth <- (286 + 294) / 2 # avg depth for combined V2 sample after adjustment (cm)
+v2_c14_depth_raw <- (286 + 294) / 2 # avg depth for combined V2 sample after adjustment (cm)
+v2_c14_depth_adj_id <- which.min(abs(v2_varve_depth_model$core_depth - v2_c14_depth_raw))
+v2_c14_depth <- v2_varve_depth_model$core_depth_no_turb[v2_c14_depth_adj_id] # adjusted depth with no turbidites
+
 v2_c14 <- 2020 # C14 bp (1950)
 v2_c14_sd <- 28 # +/- yr error 
 
@@ -52,8 +77,6 @@ v1_df <- data.frame(
   arrange(den) |> 
   mutate(den_cumsum = cumsum(den),
          diff = abs(den_cumsum - prob))
-
-prob <- 0.5
 
 # method to calculate the 50th percentile aka median of the PDF
 # adapted from https://github.com/andrewcparnell/Bchron/blob/master/R/hdr.R
@@ -96,8 +119,6 @@ paste('We are 95% sure the v2 c14 date is within 1895 and 2043')
 
 paste('At V1 the mean of the 2.5th and 97.5th percentile is', mean(c(1895, 2043)))
 
-
-
 # construct age table for manuscript
 
 core <- c('V1', 'V1', 'V2', 'V2')
@@ -125,7 +146,10 @@ saveRDS(tbl, 'data/long_cores/chronology/long_core_ams_meta.rds')
 
 #### what are the sedimentation rates from the C14 data ####
 
+# NOTE we need to add yr_core_bp since we want to be using the age Before coring
+# i.e. the number of years that have elapsed since depth 0
 # v1
+
 v1_rate_hi <- v1_c14_depth / (1820 + abs(yr_core_bp)) * 10
 v1_rate_low <- v1_c14_depth / (1918 + abs(yr_core_bp)) * 10
 v1_rate_med <- v1_c14_depth / (1879 + abs(yr_core_bp)) * 10
@@ -135,6 +159,8 @@ sd(c(v1_rate_hi, v1_rate_low, v1_rate_med))
 (v1_rate_hi- v1_rate_low)/2
 
 # v2
+
+# NOTE we need to add yr_core_bp since we want to be using the age Before coring
 
 v2_rate_hi <- v2_c14_depth / (1895 + abs(yr_core_bp)) * 10
 v2_rate_low <- v2_c14_depth / (2043 + abs(yr_core_bp)) * 10
@@ -146,21 +172,23 @@ sd(c(v2_rate_hi, v2_rate_low, v2_rate_med))
 
 #### what is the corresponding varve counting age of the AMS sample ####
 
-v1_varve <- readRDS('data/long_cores/v1_226_processed.rds') |> 
-  select(year_BP, core_depth) |> 
-  mutate(core_depth = core_depth / 10)
+# note here the varve chronology is already in BP == 1950 
 
-good_v1_yr_id <- which.min(abs(v1_varve$core_depth - v1_c14_depth))
+v1_varve <- readRDS('data/long_cores/v1_226_processed.rds') |> 
+  select(year_BP, core_depth_no_turb) |> 
+  mutate(core_depth_no_turb = core_depth_no_turb / 10)
+
+good_v1_yr_id <- which.min(abs(v1_varve$core_depth_no_turb - v1_c14_depth))
 
 v1_varve_yr <- v1_varve$year_BP[good_v1_yr_id]
 
 v1_varve_yr_se <- v1_varve_yr * counting_error
 
 v2_varve <- readRDS('data/long_cores/v2_224_processed.rds') |> 
-  select(year_BP, core_depth) |> 
-  mutate(core_depth = core_depth / 10)
+  select(year_BP, core_depth_no_turb) |> 
+  mutate(core_depth_no_turb = core_depth_no_turb / 10)
 
-good_v2_yr_id <- which.min(abs(v2_varve$core_depth - v2_c14_depth))
+good_v2_yr_id <- which.min(abs(v2_varve$core_depth_no_turb - v2_c14_depth))
 
 v2_varve_yr <- v2_varve$year_BP[good_v2_yr_id]
 
@@ -170,3 +198,29 @@ paste('The corresponding varve estimate year is',
       v1_varve_yr, 'and', v2_varve_yr, 
       'for v1 and v2 respectively. And we also infer a 3% error on these dates so our SE is', 
       v1_varve_yr_se, 'and', v2_varve_yr_se, 'respectively.')
+
+#### what is the basal age of the core using the varve chronology ####
+
+v1_varve_basal_yr <- max(v1_varve$year_BP) 
+v2_varve_basal_yr <- max(v2_varve$year_BP) 
+
+v1_varve_basal_yr_se <- v1_varve_basal_yr * counting_error
+v2_varve_basal_yr_se <- v2_varve_basal_yr * counting_error
+
+paste('The basal age of the cores using the varve chronologyis', 
+      v1_varve_basal_yr, 'and', v2_varve_basal_yr, 
+      'for v1 and v2 respectively. And we also infer a 3% error on these dates so our SE is', 
+      v1_varve_basal_yr_se, 'and', v2_varve_basal_yr_se, 'respectively.')
+
+#### what is the basal age of the core using the 14C chronology ####
+
+# NOTE: here we need to subtract 67 to get back to yr before 1950
+
+v1_c14_basal_yr_low <- ((max(v1_varve$core_depth_no_turb, na.rm =T)*10) / v1_rate_low) + yr_core_bp
+v1_c14_basal_yr_hi <- ((max(v1_varve$core_depth_no_turb, na.rm =T)*10) / v1_rate_hi) + yr_core_bp
+v1_c14_basal_yr_med <- ((max(v1_varve$core_depth_no_turb, na.rm =T)*10) / v1_rate_med) + yr_core_bp
+
+v2_c14_basal_yr_low <- ((max(v2_varve$core_depth_no_turb, na.rm =T)*10) / v2_rate_low) + yr_core_bp
+v2_c14_basal_yr_hi <- ((max(v2_varve$core_depth_no_turb, na.rm =T)*10) / v2_rate_hi) + yr_core_bp
+v2_c14_basal_yr_med <- ((max(v2_varve$core_depth_no_turb, na.rm =T)*10) / v2_rate_med) + yr_core_bp
+
