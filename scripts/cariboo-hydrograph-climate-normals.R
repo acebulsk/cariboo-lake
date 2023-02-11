@@ -214,4 +214,5 @@ cp <- cowplot::plot_grid(hg, right_side, labels = c('A', ''), label_size = 12, n
 cp
 
 ggsave('figs/climate/cariboo_combine_climate_hydro.png', width = 9, height = 4)
+ggsave('sage-submission/figs/cariboo_combine_climate_hydro.png', width = 9, height = 4)
 

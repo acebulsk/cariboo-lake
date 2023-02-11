@@ -114,7 +114,7 @@ NH_temp_anom <- ggplot(mob_long, aes(year_ce, value, colour = name)) +
   geom_line(aes()) +
   geom_ribbon(aes(ymin = low_se_1,
                   ymax = upper_se_1),
-              alpha = 0, linetype = 2)+
+              alpha = 0, linetype = 2) +
   # geom_ribbon(aes(ymin = temp2m.ann.2SE.1 - median(temp2m.ann, na.rm = T), 
   #                 ymax = temp2m.ann.2SE - median(temp2m.ann, na.rm = T), 
   #                 fill = '2SE'), 

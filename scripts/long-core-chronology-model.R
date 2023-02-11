@@ -8,6 +8,10 @@
 # I think this would strengthen the paper tremendously and make this statement conclusive.
 # also good write up in https://dewey.dunnington.ca/post/2018/comparing-approaches-to-age-depth-modelling-in-r/
 
+# Some notes after trying below script: bchron seems to error out when we use
+# the entire varve record... better results with just 100 ish varve samples.
+# probably just stick to the error bars on the original graph and not use the below
+
 library(tidyverse)
 
 library(Bchron)
