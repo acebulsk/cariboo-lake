@@ -1,10 +1,12 @@
-# script to find the median calibrated C14 date
+# script to find the median calibrated C14 date, run some other comparisons to the varve chronology
+# and finally output a age depth model for each core as a lm
 
 library(tidyverse)
 
 library(Bchron)
 
-u_ottawa_cal <- 'intcal13'
+surface_cal <- 'normal'
+u_ottawa_cal <- 'intcal13' # cal reference used on the u ottawa ams analysis sheet they also combined OxCal v4.2.4 too but not sure how to use both with this r package. 
 
 # we need the varve chronology data so we can attribute a depth to the AMS
 # samples that has been adjusted to remove turbidites
@@ -60,64 +62,34 @@ plot(both_cals)
 
 v1_prob <- hdr(both_cals$`V1‐C-347`, 0.95)
 
-v1_prob
+v1_cal_range <- c(min(do.call(cbind, v1_prob)), max(do.call(cbind, v1_prob)))
 
-paste('We are 95% sure the V1 c14 date is within 1820 and 1918')
+paste('We are 95% sure the V1 c14 date is within', v1_cal_range[1], 'and', v1_cal_range[2])
 
 v2_prob <- hdr(both_cals$`V2‐C-286`, 0.95)
 
-v2_prob
+v2_cal_range <- c(min(do.call(cbind, v2_prob)), max(do.call(cbind, v2_prob)))
 
-paste('We are 95% sure the v2 c14 date is within 1895 and 2043')
-
-v1_df <- data.frame(
-  age = both_cals$`V1‐C-347`$ageGrid,
-  den = both_cals$`V1‐C-347`$densities
-) |> 
-  arrange(den) |> 
-  mutate(den_cumsum = cumsum(den),
-         diff = abs(den_cumsum - prob))
+paste('We are 95% sure the v2 c14 date is within', v2_cal_range[1], 'and', v2_cal_range[2])
 
 # method to calculate the 50th percentile aka median of the PDF
-# adapted from https://github.com/andrewcparnell/Bchron/blob/master/R/hdr.R
 
-# do V1
+# First create age samples for each date
+# From: http://andrewcparnell.github.io/Bchron/articles/Bchron.html#credible-intervals
 
-ag <- both_cals$`V1‐C-347`$ageGrid
-de <- both_cals$`V1‐C-347`$densities
+age_samples <- sampleAges(both_cals)
 
-# Put the probabilities in order of density
-o <- order(de)
-cu <- cumsum(de[o])
+median_ages <- apply(age_samples, 2, quantile, prob = c(0.5))
 
-# Find which ones are above the threshold
-good_cu <- which.min(abs(cu - prob))
-good_ag <- sort(ag[o][good_cu])
+paste('The closest age we have to the median (50th) percentile is', median_ages[1], 'and', median_ages[2], 'respectively')
 
-paste('At V1 the closest age we have to the median (50th) percentile is', good_ag)
-
-paste('We are 95% sure the V1 c14 date is within 1820 and 1918')
+paste('We are 95% sure the V1 c14 date is within', v1_cal_range[1], 'and', v1_cal_range[2])
 
 paste('At V1 the mean of the 2.5th and 97.5th percentile is', mean(c(1820, 1918)))
 
-# do V2
+paste('We are 95% sure the v2 c14 date is within', v2_cal_range[1], 'and', v2_cal_range[2])
 
-ag <- both_cals$`V2‐C-286`$ageGrid
-de <- both_cals$`V2‐C-286`$densities
-
-# Put the probabilities in order of density
-o <- order(de)
-cu <- cumsum(de[o])
-
-# Find which ones are above the threshold
-good_cu <- which.min(abs(cu - prob))
-good_ag <- sort(ag[o][good_cu])
-
-paste('At V1 the closest age we have to the median (50th) percentile is', good_ag)
-
-paste('We are 95% sure the v2 c14 date is within 1895 and 2043')
-
-paste('At V1 the mean of the 2.5th and 97.5th percentile is', mean(c(1895, 2043)))
+paste('At V2 the mean of the 2.5th and 97.5th percentile is', mean(c(1895, 2043)))
 
 # construct age table for manuscript
 
@@ -127,11 +99,12 @@ type <- c('Surface', '14C', 'Surface', '14C')
 depth <- c(0, v1_c14_depth, 0, v2_c14_depth)
 c_14_age <- c(NA, v1_c14, NA, v2_c14)
 one_sig <- c(NA, v1_c14_sd, NA, v2_c14_sd)
-# computed from the long-core-chronolgy-c14-error.R script
-age_range <- c(NA, '1918‐1820', NA, '2043‐1895') 
-median_age <- c(yr_core_bp, 1879, yr_core_bp, 1992)
+age_range <- c(NA, paste0(v1_cal_range[1], '-', v1_cal_range[2]), NA, paste0(v2_cal_range[1], '-', v2_cal_range[2])) 
+median_age <- c(yr_core_bp, median_ages[[1]], yr_core_bp,  median_ages[[2]])
+cal_age_low <- c(NA, v1_cal_range[1], NA, v2_cal_range[1])
+cal_age_hi <- c(NA, v1_cal_range[2], NA, v2_cal_range[2])
 
-tbl <- data.frame(
+ams_meta <- data.frame(
   core,
   material,
   type,
@@ -139,20 +112,56 @@ tbl <- data.frame(
   c_14_age,
   one_sig,
   age_range,
-  median_age
+  median_age,
+  cal_age_low,
+  cal_age_hi
 )
 
-saveRDS(tbl, 'data/long_cores/chronology/long_core_ams_meta.rds')
+saveRDS(ams_meta, 'data/long_cores/chronology/long_core_ams_meta.rds')
+
+# mod here for slight diff from manuscript table whrere steinman shows NA for c14 surface date but we need to have -67 to run the model properly.. 
+ams_meta$c_14_age <-  c(yr_core_bp, v1_c14, yr_core_bp, v2_c14)
+ams_meta$thickness <- c(0, 1, 0, 1)
 
 #### what are the sedimentation rates from the C14 data ####
+
+ams_chron_v1 <- ams_meta |> 
+  filter(core == 'V1') |> 
+  mutate(cal_curve = c(surface_cal, u_ottawa_cal))
+
+ams_chron_v2 <- ams_meta |> 
+  filter(core == 'V2') |> 
+  mutate(cal_curve = c(surface_cal, u_ottawa_cal))
+
+v1_ams_chron_out <- Bchronology(
+  ages = ams_chron_v1$c_14_age,
+  ageSds = replace_na(ams_chron_v1$one_sig, 0),
+  positions = ams_chron_v1$depth,
+  calCurves = ams_chron_v1$cal_curve,
+  positionThickness = ams_chron_v1$thickness,
+)
+
+v2_ams_chron_out <- Bchronology(
+  ages = ams_chron_v2$c_14_age,
+  ageSds = replace_na(ams_chron_v2$one_sig, 0),
+  positions = ams_chron_v2$depth,
+  calCurves = ams_chron_v2$cal_curve,
+  positionThickness = ams_chron_v2$thickness,
+)
+
+# median looks ok but upper and lower bounds are wonky 
+v1_acc_rate <- summary(v1_ams_chron_out,
+                    type = "acc_rate", useExisting = FALSE,
+                    probs = c(0.250, 0.5, 0.975)
+)
 
 # NOTE we need to add yr_core_bp since we want to be using the age Before coring
 # i.e. the number of years that have elapsed since depth 0
 # v1
 
-v1_rate_hi <- v1_c14_depth / (1820 + abs(yr_core_bp)) * 10
-v1_rate_low <- v1_c14_depth / (1918 + abs(yr_core_bp)) * 10
-v1_rate_med <- v1_c14_depth / (1879 + abs(yr_core_bp)) * 10
+v1_rate_hi <- v1_c14_depth / (v1_cal_range[1] + abs(yr_core_bp)) * 10
+v1_rate_low <- v1_c14_depth / (v1_cal_range[2] + abs(yr_core_bp)) * 10
+v1_rate_med <- v1_c14_depth / (median_ages[1] + abs(yr_core_bp)) * 10
 
 v1_rate_med
 sd(c(v1_rate_hi, v1_rate_low, v1_rate_med))
@@ -216,11 +225,47 @@ paste('The basal age of the cores using the varve chronologyis',
 
 # NOTE: here we need to subtract 67 to get back to yr before 1950
 
-v1_c14_basal_yr_low <- ((max(v1_varve$core_depth_no_turb, na.rm =T)*10) / v1_rate_low) + yr_core_bp
-v1_c14_basal_yr_hi <- ((max(v1_varve$core_depth_no_turb, na.rm =T)*10) / v1_rate_hi) + yr_core_bp
-v1_c14_basal_yr_med <- ((max(v1_varve$core_depth_no_turb, na.rm =T)*10) / v1_rate_med) + yr_core_bp
+v1_basal_depth <- max(v1_varve$core_depth_no_turb, na.rm =T)*10
 
-v2_c14_basal_yr_low <- ((max(v2_varve$core_depth_no_turb, na.rm =T)*10) / v2_rate_low) + yr_core_bp
-v2_c14_basal_yr_hi <- ((max(v2_varve$core_depth_no_turb, na.rm =T)*10) / v2_rate_hi) + yr_core_bp
-v2_c14_basal_yr_med <- ((max(v2_varve$core_depth_no_turb, na.rm =T)*10) / v2_rate_med) + yr_core_bp
+v1_c14_basal_yr_low <- (v1_basal_depth / v1_rate_low) + yr_core_bp
+v1_c14_basal_yr_hi <- (v1_basal_depth / v1_rate_hi) + yr_core_bp
+v1_c14_basal_yr_med <- (v1_basal_depth / v1_rate_med) + yr_core_bp
 
+v2_basal_depth <- max(v2_varve$core_depth_no_turb, na.rm =T)*10
+v2_c14_basal_yr_low <- (v2_basal_depth / v2_rate_low) + yr_core_bp
+v2_c14_basal_yr_hi <- (v2_basal_depth / v2_rate_hi) + yr_core_bp
+v2_c14_basal_yr_med <- (v2_basal_depth / v2_rate_med) + yr_core_bp
+
+#### age depth model from the C14 dates #### 
+
+v1_lm <- lm(median_age ~ depth, data = ams_chron_v1)
+
+summary(v1_lm)$coeff[1]
+
+v1_predict <- data.frame(depth = round(v1_basal_depth/10))
+
+v1_predict$cal_yr <- predict.lm(v1_lm, v1_predict)
+
+# our test looks good
+ggplot(ams_chron_v1, aes(depth, median_age)) + 
+  geom_point() +
+  geom_smooth(method = 'lm', se = F) + # same as lm(median_age ~ depth, data = ams_chron_v1) 
+  geom_point(data = v1_predict, aes(x = depth, y = cal_yr))
+
+v2_lm <- lm(median_age ~ depth, data = ams_chron_v2)
+
+summary(v2_lm)
+
+v2_predict <- data.frame(depth = round(v2_basal_depth/10))
+
+v2_predict$cal_yr <- predict.lm(v2_lm, v2_predict)
+
+ggplot(ams_chron_v2, aes(depth, median_age)) + 
+  geom_point() +
+  geom_smooth(method = 'lm', se = F)  + # same as lm(median_age ~ depth, data = ams_chron_v1) 
+  geom_point(data = v2_predict, aes(x = depth, y = cal_yr))
+
+# both tests look good now output our age models as lm objects 
+
+saveRDS(v1_lm, 'data/long_cores/chronology/v1_c14_age_depth_model.rds')
+saveRDS(v2_lm, 'data/long_cores/chronology/v2_c14_age_depth_model.rds')
