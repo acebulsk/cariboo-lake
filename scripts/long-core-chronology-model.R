@@ -1,34 +1,26 @@
-# to address reviewer 2 (Byron Steinman) comment to strengthen chronology claims 
-# we will try some R packages for age - depth models
-# Byrons comment:
-# The extrapolated 14C ages should include uncertainty based on use of the 2sigma 
-# high and low ages (i.e. 3 age models - one based on the median 14C age, and 1 for 
-# each 2sig hi and lo). Another option is to use age model software like bacon or 
-# bchron and show the output of this along with the varve chronologies. 
-# I think this would strengthen the paper tremendously and make this statement conclusive.
-# also good write up in https://dewey.dunnington.ca/post/2018/comparing-approaches-to-age-depth-modelling-in-r/
+# we will try the Bchron R package for age - depth models
+
+# good write up in https://dewey.dunnington.ca/post/2018/comparing-approaches-to-age-depth-modelling-in-r/
 
 # Some notes after trying below script: bchron seems to error out when we use
 # the entire varve record... better results with just 100 ish varve samples.
 # probably just stick to the error bars on the original graph and not use the below
+# bchron is still useful for creating a linear model... 
 
 library(tidyverse)
 
 library(Bchron)
 
+surface_cal <- 'normal'
 u_ottawa_cal <- 'intcal13' # cal reference used on the u ottawa ams analysis sheet they also combined OxCal v4.2.4 too but not sure how to use both with this r package. 
+
+ams_meta <- readRDS('data/long_cores/chronology/long_core_ams_meta.rds')
+
+ams_meta$
 
 standard_yr_bp <- 1950 # the year used in the literature as BP datum
 yr_core_ce <- 2017 # this is the year we took the core
 yr_core_bp <- standard_yr_bp-yr_core_ce
-
-v1_c14_depth <- 347 # depth of woody material after adjustment (cm)
-v1_c14 <- 1913 # C14 bp (1950)
-v1_c14_sd <- 21 # +/- yr error 
-
-v1_c14_depth <- (286 + 294) / 2 # avg depth for combined V2 sample after adjustment
-v2_c14 <- 2020 # C14 bp (1950)
-v2_c14_sd <- 28 # +/- yr error 
 
 # counting error was not possible to attribute since there were no clear marker 
 # varves or tephras so we use the average of reported varve counting uncertainties 
@@ -53,12 +45,9 @@ v1_long <- long_cores |>
 
 # ams data ------------------------
 
-
-ams_chron_v1 <- tribble(
-  ~sample_id, ~depth, ~age_14C, ~age_error, ~thickness, ~calCurves,
-  "top", 0, yr_core_bp, 0, 0, 'normal',
-  "V1‐C-347", 347, v1_c14, v1_c14_sd, 1, u_ottawa_cal
-) 
+ams_chron_v1 <- ams_meta |> 
+  filter(core == 'V1') |> 
+  mutate(cal_curve = c(surface_cal, u_ottawa_cal))
 
 core_chron <- tribble(
   ~sample_id, ~depth, ~age_14C, ~age_error, ~thickness, ~calCurves,
