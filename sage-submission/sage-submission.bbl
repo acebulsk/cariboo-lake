@@ -1,4 +1,4 @@
-\begin{thebibliography}{56}
+\begin{thebibliography}{66}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
@@ -7,9 +7,30 @@
   \providecommand{\doi}{DOI:\discretionary{}{}{}\begingroup
   \urlstyle{rm}\Url}\fi
 
+\bibitem[{Allen and Smith(2007)}]{Allen2007}
+Allen SM and Smith DJ (2007) {Late Holocene glacial activity of Bridge Glacier,
+  British Columbia Coast Mountains}.
+\newblock \emph{Canadian Journal of Earth Sciences} 44(12): 1753--1773.
+\newblock \doi{10.1139/E07-059}.
+
 \bibitem[{Ballantyne(2002)}]{Ballantyne2002}
 Ballantyne CK (2002) {Paraglacial geomorphology}.
 \newblock \emph{Quaternary science reviews} 21(18): 1935--2017.
+
+\bibitem[{Beedle et~al.(2015)Beedle, Menounos and Wheate}]{Beedle2015}
+Beedle MJ, Menounos BP and Wheate R (2015) {Glacier change in the Cariboo
+  Mountains, British Columbia, Canada (1952-2005)}.
+\newblock \emph{Cryosphere} 9(1): 65--80.
+\newblock \doi{10.5194/tc-9-65-2015}.
+
+\bibitem[{Birlo et~al.(2022)Birlo, Tylmann and Zolitschka}]{Birlo2022}
+Birlo S, Tylmann W and Zolitschka B (2022) {Bayesian age-depth modelling
+  applied to varve and radiometric dating to optimize the transfer of an
+  existing high-resolution chronology to a new composite sediment profile from
+  Holzmaar (West-Eifel Volcanic Field, Germany)}.
+\newblock \emph{Geochronology Discussions} 2022: 1--43.
+\newblock
+  \urlprefix\url{https://gchron.copernicus.org/preprints/gchron-2022-22/}.
 
 \bibitem[{Bolch and Bolch(2008)}]{Bolch2008}
 Bolch Ts and Bolch Ta (2008) {GLIMS Glacier Database}.
@@ -41,6 +62,13 @@ Clague JJ, Mathews W, Ryder J, Hughes O, Rutter NW, Jackson L, Matthews J and
 \newblock \doi{10.1130/dnag-gna-k1.15}.
 \newblock
   \urlprefix\url{https://pubs.geoscienceworld.org/books/book/853/chapter/4856715/}.
+
+\bibitem[{Cockburn and Lamoureux(2008)}]{Cockburn2008}
+Cockburn JM and Lamoureux SF (2008) {Inflow and lake controls on short-term
+  mass accumulation and sedimentary particle size in a High Arctic lake:
+  Implications for interpreting varved lacustrine sedimentary records}.
+\newblock \emph{Journal of Paleolimnology} 40(3): 923--942.
+\newblock \doi{10.1007/s10933-008-9207-5}.
 
 \bibitem[{Crookshanks and Gilbert(2008)}]{Crookshanks2008}
 Crookshanks S and Gilbert R (2008) {Continuous, diurnally fluctuating turbidity
@@ -111,6 +139,11 @@ Hallett DU, Hills LV and Clague JJ (1997) {New accelerator mass spectrometry
   British Columbia, Canada}.
 \newblock \emph{Canadian Journal of Earth Sciences} 34(9): 1202--1209.
 \newblock \doi{10.1139/e17-096}.
+
+\bibitem[{Haslett and Parnell(2008)}]{Haslett2008}
+Haslett J and Parnell A (2008) simple monotone process with application to
+  radiocarbon-dated depth chronologies.
+\newblock \emph{Applied statistics} 57(4): 399--418.
 
 \bibitem[{Heideman et~al.(2015)Heideman, Menounos and Clague}]{Heideman2015}
 Heideman M, Menounos BP and Clague J (2015) {An 825-year long varve record from
@@ -325,6 +358,32 @@ Osborn GD, Robinson BJ and Luckman BH (2001) {Holocene and latest Pleistocene
 \newblock \emph{Canadian Journal of Earth Sciences} 38(8): 1141--1155.
 \newblock \doi{10.1139/e01-012}.
 
+\bibitem[{Parnell et~al.(2011)Parnell, Buck and Doan}]{Parnell2011}
+Parnell AC, Buck CE and Doan TK (2011) {A review of statistical chronology
+  models for high-resolution, proxy-based Holocene palaeoenvironmental
+  reconstruction}.
+\newblock \emph{Quaternary science reviews} 30(21): 2948--2960.
+
+\bibitem[{Parnell et~al.(2008)Parnell, Haslett, Allen, Buck and
+  Huntley}]{Parnell2008}
+Parnell AC, Haslett J, Allen JRM, Buck CE and Huntley B (2008) {A flexible
+  approach to assessing synchroneity of past events using Bayesian
+  reconstructions of sedimentation history}.
+\newblock \emph{Quaternary science reviews} 27(19): 1872--1885.
+
+\bibitem[{Reimer et~al.(2013)Reimer, Bard, Bayliss, Beck, Blackwell, {Bronk
+  Ramsey}, Buck, Cheng, Edwards, Frieich, Grootes, Guilderson, Haflidason,
+  Hajdas, Hatt{\'{e}}, Heaton, Hoffmann, Hogg, Hughen, Kaiser, Kromer, Manning,
+  Niu, Reimer, Richards, Scott, Southon, Staff, Turney and van~der
+  Plicht}]{Reimer2013}
+Reimer PJ, Bard E, Bayliss A, Beck JW, Blackwell PG, {Bronk Ramsey} C, Buck CE,
+  Cheng H, Edwards RL, Frieich M, Grootes PM, Guilderson TP, Haflidason H,
+  Hajdas I, Hatt{\'{e}} C, Heaton TJ, Hoffmann DL, Hogg AG, Hughen KA, Kaiser
+  KF, Kromer B, Manning SW, Niu M, Reimer RW, Richards DA, Scott EM, Southon
+  JR, Staff RA, Turney CSM and van~der Plicht J (2013) {IntCal13 and Marine13
+  Radiocarbon Age Calibration Curves 0–50,000 Years cal BP}.
+\newblock \emph{Radiocarbon} 55(4): 1869--1887.
+
 \bibitem[{Ryder and Thomson(1986)}]{Ryder1986}
 Ryder JM and Thomson B (1986) {Neoglaciation in the southern Coast Mountains of
   British Columbia: chronology prior to the late Neoglacial maximum}.
@@ -366,6 +425,15 @@ Solomina ON, Bradley RS, Jomelli V, Geirsdottir A, Kaufman DS, Koch J, McKay
   Wiles G and Yang B (2016) {Glacier fluctuations during the past 2000 years}.
 \newblock \emph{Quaternary Science Reviews} 149: 61--90.
 \newblock \doi{10.1016/j.quascirev.2016.04.008}.
+
+\bibitem[{Steinman et~al.(2012)Steinman, Abbott, Mann, Stansell and
+  Finney}]{Steinman2012}
+Steinman BA, Abbott MB, Mann ME, Stansell ND and Finney BP (2012) \emph{{1,500
+  year quantitative reconstruction of winter precipitation in the Pacific
+  Northwest}}, volume 109.
+\newblock ISBN 1201083109.
+\newblock \doi{10.1073/pnas.1201083109}.
+\newblock \urlprefix\url{http://www.pnas.org/cgi/doi/10.1073/pnas.1201083109}.
 
 \bibitem[{Steinman et~al.(2019)Steinman, Nelson, Abbott, Stansell, Finkenbinder
   and Finney}]{Steinman2019}
@@ -424,5 +492,13 @@ Zdanowicz CM, Zielinski GA and Germani MS (1999) {Mount Mazama eruption:
   Calendrical age verified and atmospheric impact assessed}.
 \newblock \emph{Geology} 27(7): 621--624.
 \newblock \doi{10.1130/0091-7613(1999)027<0621:MMECAV>2.3.CO;2}.
+
+\bibitem[{Zolitschka et~al.(2015)Zolitschka, Francus, Ojala and
+  Schimmelmann}]{Zolitschka2015a}
+Zolitschka B, Francus P, Ojala AE and Schimmelmann A (2015) {Varves in lake
+  sediments - a review}.
+\newblock \emph{Quaternary Science Reviews} 117: 1--41.
+\newblock \doi{10.1016/j.quascirev.2015.03.019}.
+\newblock \urlprefix\url{http://dx.doi.org/10.1016/j.quascirev.2015.03.019}.
 
 \end{thebibliography}

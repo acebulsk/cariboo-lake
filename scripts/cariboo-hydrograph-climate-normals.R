@@ -173,7 +173,7 @@ t <- ggplot(likely_normals_avg_tmps, aes(x = period, y= value, group = name, col
   # xlab("Month") +
   xlab(NULL) +
   theme_bw() +
-  scale_color_viridis_d(option = 'magma') +
+  scale_color_viridis_d() +
   theme(legend.title = element_blank())
 
 t

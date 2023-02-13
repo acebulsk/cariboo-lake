@@ -10,9 +10,9 @@ gs <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_GrainSize_Ekmans.xlsx', s
          D10 = `Dx (10)`,
          D50 = `Dx (50)`,
          D90 = `Dx (90)`,
-         `Clay  (0.01 - 2) μm`,
-         `Silt  (2 - 63) μm`,
-         `Sand  (63 - 2000) μm`
+         Clay = `Clay  (0.01 - 2) μm`,
+         Silt = `Silt  (2 - 63) μm`,
+         Sand = `Sand  (63 - 2000) μm`
          ) 
 
 ek_meta <- gs |> select(ID:basin) |> distinct()
@@ -23,8 +23,7 @@ varve <- read_csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') |>
     thickness = layer_thickness_mm
   ) |> 
   group_by(ID) |> 
-  summarise(Lam_Thickness = mean(thickness, na.rm = T),
-            n_samples = n()) |> 
+  summarise(Lam_Thickness = mean(thickness, na.rm = T)) |> 
   mutate(ID = as.numeric(gsub(".*?([0-9]+).*" , "\\1", ID))) |> 
   left_join(ek_meta, by = 'ID') 
 
@@ -42,20 +41,22 @@ loi <- readxl::read_xlsx('data/Sediment/LOI/LOI_Cariboo_EkmanBulkSamples.xlsx', 
   left_join(ek_meta, by = 'ID') 
 
 # Plot ####
+delta_shapes <- c(20, 15, 17)
+
 gs_plot_grains <- 
   gs |> 
-  pivot_longer(`Clay  (0.01 - 2) μm`:`Sand  (63 - 2000) μm`, 
+  pivot_longer(Clay:Sand, 
                names_to = 'grain_size_stat', 
                values_to = 'gs_value') |> 
   ggplot(aes(x = dist, 
              y = gs_value, 
-             color = factor(grain_size_stat, levels = c("Clay  (0.01 - 2) μm", 
-                                                                "Silt  (2 - 63) μm", 
-                                                                "Sand  (63 - 2000) μm")),
+             color = factor(grain_size_stat, levels = c("Clay", 
+                                                                "Silt", 
+                                                                "Sand")),
              shape = basin)) +
   geom_point(size = 2) +
   ylab('Percent (%)') +
-  scale_shape_discrete(guide = 'none') +
+  scale_shape_manual(guide = 'none', values = delta_shapes) +
   theme_bw() +
   theme(axis.title.x = element_blank(), legend.title = element_blank()) +
   scale_color_manual(values = viridis(3, option = 'C'))
@@ -70,7 +71,7 @@ gs_plot_dist <-
   ggplot(aes(x = dist, y = gs_value, color = grain_size_stat, shape = basin)) +
     geom_point(size = 2) +
     ylab('Grain Size (μm)') +
-    scale_shape_discrete(guide = 'none') +
+    scale_shape_manual(guide = 'none', values = delta_shapes) +
     theme_bw() +
     theme(axis.title.x = element_blank(), legend.title = element_blank()) +
   scale_color_manual(values = viridis(3, option = 'C'))
@@ -84,14 +85,14 @@ varve_plot <- ggplot(varve, aes(x = dist, y = Lam_Thickness, shape = basin)) +
   theme_bw() +
   theme(axis.title.x = element_blank()) +
   scale_color_brewer(palette = 'Set2', name = '') +
-  scale_shape_discrete()
+  scale_shape_discrete(guide = 'none')
 
 loi_plot <- ggplot(loi, aes(x = dist, y = LOI, shape = basin)) +
   geom_point(size = 2) +
   ylab('OM (%)') +
   xlab('Distance Down Lake (km)')+
   scale_color_brewer(palette = 'Set2', name = '') +
-  scale_shape_discrete(guide = 'none') +
+  scale_shape_manual(values = delta_shapes) +
   theme_bw()
 
 p <- list(gs_plot_grains, gs_plot_dist, varve_plot, loi_plot)
@@ -101,13 +102,13 @@ cp <- cowplot::plot_grid(plotlist = p, nrow=length(p),
                          # labels = LETTERS[seq( from = 1, to = length(p) )], 
                          labels = "AUTO",
                          label_y = 0.95,
-                         label_x = .75,
+                         label_x = .74,
                          align = 'v',
                          axis = 'tblr')
 
 cp
 
-cowplot::save_plot('sage-submission/figs/ekman_seds.jpg', plot = cp, base_width = 7, base_height = 4)
+cowplot::save_plot('sage-submission/figs/ekman_seds.jpg', plot = cp, base_width = 8.5, base_height = 6)
 
 saveRDS(cp, file = 'figs/ekman/ekman_seds.rds')
   
