@@ -3,31 +3,23 @@
 library(dplyr)
 library(ggplot2)
 
-#### carbon dates ####
-# A small twig from V1 at 347 cm results in a date of 1899-1819 cal BP. 
-# A 4 cm long twig from V2 at 222 cm results in a date of 490-316 cal BP. 
-# Since the first date from V2 was much younger than than expected, 
-# a second sample from V2 was analyzed by combining a small twig at 286 cm and pine needle at 294 cm. 
-# A date of 2045-1895 cal BP was determined.
+label_at <- function(n) function(x) ifelse(x %% n == 0, x, "")
 
-# plot on depth 
-v1_date <- (1899 + 1819) / 2 # mid point yr for v1 @ 347 cm
+#### age depth model and c14 meta ####
 
-v1_C14 <- data.frame(depth_cm = 347, year = v1_date) # n = 1
+v1_lm <- readRDS('data/long_cores/chronology/v1_c14_age_depth_model.rds')
+v2_lm <- readRDS('data/long_cores/chronology/v2_c14_age_depth_model.rds')
 
-v2b_depth <- (286 + 294) / 2 # avg depth for combined V2 sample
+ams_meta <- readRDS('data/long_cores/chronology/long_core_ams_meta.rds') 
 
-v2_date_b <- (2045 + 1895) / 2 # mid point yr for v2 @ 286 + 294 cm
-v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
+v1_plt_ams <- ams_meta |> filter(depth != 0, 
+                                 core == 'V1')
+v2_plt_ams <- ams_meta |> filter(depth != 0, 
+                                 core == 'V2')
 
-v2_C14 <- data.frame(depth_cm = 286, year = 1970) # n = 2
-
-ams_df <- tibble(
-  year_bp = c(0, v1_date, 0, v2_date_a, 0, v2_date_b),
-  depth = c(0, 347, 0, 222, 0, v2b_depth),
-  ams_sample = c('V1', 'V1', 'V2a', 'V2a', 'V2b', 'V2b')
-) %>% 
-  mutate(year_ce = 2017 - year_bp)
+standard_yr_bp <- 1950 # the year used in the literature as BP datum
+yr_core_ce <- 2017 # this is the year we took the core
+yr_core_bp <- standard_yr_bp-yr_core_ce
 
 #### Fig 6 - Temporal Trends in Varve Thickness ####
 # See varve-count.R for construction of gaus.RDS file
@@ -38,48 +30,37 @@ gaus <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
 
 ek <- read.csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') 
 
-# gaus$ma_30[gaus$core_depth == 1029.454] = NA
-# gaus$ma_30[gaus$core_depth == 1031.924] = NA
-# gaus$ma_30[gaus$core_depth == 479.264 & gaus$core == "V2"] = NA
-
-v1_ax_trans <- lm(core_depth ~ year_ce_lin_interp, data = gaus %>% filter(core == "V1"))
-v2_ax_trans <- lm(core_depth ~ year_ce_lin_interp, data = gaus %>% filter(core == "V2"))
-
-label_at <- function(n) function(x) ifelse(x %% n == 0, x, "")
-
 v1_plot <- 
-  gaus %>% 
-  filter(core == "V1") %>% 
-  ggplot(aes(x = year_ce_lin_interp)) +
-  geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "black", size = 0.5, se=F, linetype="dashed")+
+  ggplot(gaus %>% 
+           filter(core == "V1"), aes(x = year_bp_ams)) +
+  geom_smooth(aes(y = lyr_mm_stdep_fltr), 
+              method = "lm", formula = y ~ 1, colour = "black", size = 0.5, se=F, linetype="dashed")+
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
-  geom_point(aes(x = 2017 - v1_C14$year, y = -1.5), shape = 4) +
-  geom_text(aes(x = 2017 - v1_C14$year, y = -1.70), label = "158 ± 40 yr. CE", vjust = 1) +
-  #geom_line(aes(y = smooth)) +
   geom_line(aes(y = ma_30)) +
+  # geom_point(data = v1_plt_ams,
+  #            aes(x = year_ce, y = -1.5),  shape = 4, size = 2) +
+  geom_errorbarh(data = v1_plt_ams, 
+                 aes(y = 1, xmin=year_ce-ams_cal_se, xmax=year_ce+ams_cal_se, height = 25)) +
   ylab("VT Std. Dept.") +
   xlab("Year (CE)") +
   ylim(c(-2, 5)) +
-  ggtitle("V1") +
-  scale_x_continuous(
-    breaks = seq(0,2000, 250),
-    limits = c(-50, 2000),
-    labels = label_at(500),
-    sec.axis=sec_axis(
-      trans=~ . * summary(v1_ax_trans)$coeff[2] + summary(v1_ax_trans)$coeff[1] ,
-      name="Core Depth (mm)",
-      breaks = seq(4000,0, -500),
-      labels = label_at(1000)
-    )) + # scale sec y axis based on c14
+  ggtitle("V1")  + # scale sec y axis based on c14
   theme_bw()
 v1_plot
+
+ggplot() +
+  geom_point(data = v1_plt_ams,
+             aes(x = year_ce, y = -1.5),  shape = 4, size = 2) +
+  geom_errorbarh(data = v1_plt_ams, 
+                 aes(y = -1.5, xmin=year_ce-ams_cal_se, xmax=year_ce+ams_cal_se, height = 25))
+
 
 #ggplotly((v1_plot))
 
 v2_plot <- 
   gaus %>% 
   filter(core == "V2") %>% 
-  ggplot(aes(x = year_ce_lin_interp)) +
+  ggplot(aes(x = year_bp_ams)) +
   geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "black", size = 0.5, se=F, linetype="dashed")+
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
   geom_line(aes(y = ma_30)) +
@@ -98,8 +79,8 @@ v2_plot <-
       sec_axis(
         breaks = seq(4000,0, -500),  
         labels = label_at(1000),
-        trans=~ . * summary(v2_ax_trans)$coeff[2] 
-        + summary(v2_ax_trans)$coeff[1],
+        trans=~ . * summary(v2_lm)$coeff[2] 
+        + summary(v2_lm)$coeff[1],
         name="Core Depth (mm)")) + # scale sec y axis based on c14
   theme_bw() 
 
@@ -146,7 +127,7 @@ v1_plot <-
     sec.axis=sec_axis( 
       breaks = seq(4000,0, -500),  
       labels = label_at(1000),
-      trans=~ . * summary(v1_ax_trans)$coeff[2] + summary(v1_ax_trans)$coeff[1] , 
+      trans=~ . * summary(v1_lm)$coeff[2] + summary(v1_lm)$coeff[1] , 
       name="Core Depth (mm)")) + # scale sec y axis based on c14  theme_bw()
   theme_bw()
 
@@ -176,7 +157,7 @@ v2_plot <-
     sec.axis=sec_axis( 
       breaks = seq(4000,0, -500),  
       labels = label_at(1000),
-      trans=~ . * summary(v2_ax_trans)$coeff[2] + summary(v2_ax_trans)$coeff[1] , 
+      trans=~ . * summary(v2_lm)$coeff[2] + summary(v2_lm)$coeff[1] , 
       name="Core Depth (mm)")) + # scale sec y axis based on c14  theme_bw()
   theme_bw()
 
@@ -225,7 +206,7 @@ v1_plot <-
     sec.axis=sec_axis( 
       breaks = seq(4000,0, -500),  
       labels = label_at(1000),
-      trans=~ . * summary(v1_ax_trans)$coeff[2] + summary(v1_ax_trans)$coeff[1] , 
+      trans=~ . * summary(v1_lm)$coeff[2] + summary(v1_lm)$coeff[1] , 
       name="Core Depth (mm)")) + # scale sec y axis based on c14  theme_bw()
   theme_bw()
 v1_plot
@@ -255,7 +236,7 @@ v2_plot <-
     sec.axis=sec_axis( 
       breaks = seq(4000,0, -500),  
       labels = label_at(1000),
-      trans=~ . * summary(v2_ax_trans)$coeff[2] + summary(v2_ax_trans)$coeff[1] , 
+      trans=~ . * summary(v2_lm)$coeff[2] + summary(v2_lm)$coeff[1] , 
       name="Core Depth (mm)")) + # scale sec y axis based on c14  theme_bw()
   theme_bw()
 v2_plot
