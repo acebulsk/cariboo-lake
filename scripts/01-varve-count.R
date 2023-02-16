@@ -24,7 +24,7 @@ ek <- df.ek %>%
   group_by(core_num) %>% 
   mutate(
     year_CE = Year + 1, # error in initial sheet, cores were collected in july 2017 so surface is 2017
-    year_BP = standard_yr_bp - year_CE, # standard is BP equals before 1950
+    year_bp = standard_yr_bp - year_CE, # standard is BP equals before 1950
     sd = sd(layer_thickness_mm, na.rm = T),
             mean = mean(layer_thickness_mm, na.rm = T)) %>% 
   dplyr::ungroup() %>% 
@@ -41,13 +41,13 @@ ek13 <- ek %>%
   filter(core_num == "E13", 
          sd_flag == F)
 
-ggplot(ek13, aes(year_BP, cumul_depth_mm)) +
+ggplot(ek13, aes(year_bp, cumul_depth_mm)) +
   geom_point() +
   scale_y_continuous(trans = 'reverse') +
   geom_smooth(method = 'lm', se = F, fullrange=TRUE, linetype = "dashed", size= 0.5) 
   
 
-ek13_lm <- lm(cumul_depth_mm ~ 0 + year_BP, data = ek13)
+ek13_lm <- lm(cumul_depth_mm ~ 0 + year_bp, data = ek13)
 
 ek13_sed_rate <- summary(ek13_lm)$coeff[1] # filtered to less than 3 sd's and forced through origin 
 
@@ -65,7 +65,7 @@ ek_v1 <- ek %>%
 
 saveRDS(ek_v1, 'data/ekman/ekman_11_12_v1_proximal_select.rds')
 
-ggplot(ek_v1, aes(year_BP, cumul_depth_mm, colour = core_num)) +
+ggplot(ek_v1, aes(year_bp, cumul_depth_mm, colour = core_num)) +
   geom_point() +
   scale_y_continuous(trans = 'reverse') 
   
@@ -75,7 +75,7 @@ ek_v2 <- ek %>%
   filter(core_num %in% prox_v2,
          sd_flag == F)
 
-ggplot(ek_v2, aes(year_BP, cumul_depth_mm/10, colour = core_num)) +
+ggplot(ek_v2, aes(year_bp, cumul_depth_mm/10, colour = core_num)) +
   geom_point() +
   scale_y_continuous(trans = 'reverse') +
   geom_smooth(method = 'lm', se = F, fullrange=TRUE, linetype = "dashed", size= 0.5) +
@@ -84,79 +84,48 @@ ggplot(ek_v2, aes(year_BP, cumul_depth_mm/10, colour = core_num)) +
 
 #ggsave('figs/ekman_sed_rate_near_V2.png', width = 6, height = 4.5)
 
-#### carbon dates ####
-# A small twig from V1 at 347 cm results in a date of 1899-1819 cal BP. 
-# A 4 cm long twig from V2 at 222 cm results in a date of 490-316 cal BP. 
-# Since the first date from V2 was much younger than than expected, 
-# a second sample from V2 was analyzed by combining a small twig at 286 cm and pine needle at 294 cm. 
-# A date of 2045-1895 cal BP was determined.
+#### age depth model and c14 meta ####
 
-# plot on depth 
+v1_lm <- readRDS('data/long_cores/chronology/v1_c14_age_depth_model.rds')
+v2_lm <- readRDS('data/long_cores/chronology/v2_c14_age_depth_model.rds')
 
-v1_low <- 1918
-v1_high <- 1820
-v1_ams_depth <- max(ams_meta$depth[ams_meta$core == 'V1'])
-v1_median <- 1879 # median from bchron
+ams_meta <- readRDS('data/long_cores/chronology/long_core_ams_meta.rds')
 
-v1_C14 <- data.frame(depth_cm = v1_ams_depth, year = v1_median) # n = 1
+standard_yr_bp <- 1950 # the year used in the literature as BP datum
+yr_core_ce <- 2017 # this is the year we took the core
+yr_core_bp <- standard_yr_bp-yr_core_ce
 
-v2_low <- 2043
-v2_high <- 1895
-
-v2_ams_depth <- max(ams_meta$depth[ams_meta$core == 'V2'])
-
-v2_median <- 1992 # median from bchron
-
-# v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
-
-v2_C14 <- data.frame(depth_cm = v2_ams_depth, year = v2_median) # n = 2
-
-ams_df <- tibble(
-  year_bp = c(yr_core_bp, v1_median, yr_core_bp, v2_median),
-  ams_se = c(0, (v1_low-v1_high)/2, 0, (v2_low-v2_high)/2),
-  depth = c(0, v1_ams_depth, 0, v2_ams_depth),
-  ams_sample = c('V1', 'V1', 'V2', 'V2')
-) %>% 
-  mutate(year_ce = standard_yr_bp - year_bp)
-
-# Look at regression not through origin 
-
-ams_scatter <- ams_df %>% 
-  filter(depth != 0)
-
-scatter <- lm(depth ~ year_bp, data = ams_scatter) # vibro ams point not through the origin 
-
-ggplot(ams_df, aes(year_bp, depth, colour = ams_sample)) +
+ggplot(ams_meta, aes(median_age, depth, colour = core)) +
   geom_point() +
-  geom_errorbarh(data = subset(ams_df, ams_se != 0), aes(xmin=year_bp-ams_se, xmax=year_bp+ams_se), width=.1) +
+  geom_errorbarh(data = subset(ams_meta, ams_cal_se != 0), aes(xmin=median_age-ams_cal_se, xmax=median_age+ams_cal_se), width=.1) +
   scale_y_continuous(trans = 'reverse') +
   geom_smooth(method = 'lm', linetype = "dashed", size= 0.5) +
   # geom_abline(slope = -summary(scatter)$coeff[2], intercept = -summary(scatter)$coeff[1]) +
   xlab("Age (cal yr BP)") +
   ylab("Core Depth (cm)")
 
-ggsave('figs/ams_sed_rates.png', width = 6, height = 4.5)
+ggsave('figs/ams_cal_sed_rates.png', width = 6, height = 4.5)
 
 
-vibro_sed_rates <- ams_df %>% 
-  group_by(ams_sample) %>% 
-  do(model = lm(depth ~ year_bp, data = .)) %>% 
+vibro_sed_rates <- ams_meta %>% 
+  group_by(core) %>% 
+  do(model = lm(depth ~ median_age, data = .)) %>% 
   mutate(sed_rates = summary(model)$coeff[2] * 10) %>% # cm to mm
   select(-model)
 
 # make our ek_v2 df compatible so we can plot all together 
 ek_v2_cln <- ek_v2 %>% 
-  select(year_bp = year_BP, depth = cumul_depth_mm, `Core ID` = core_num) %>% 
+  select(year_bp, depth = cumul_depth_mm, `Core ID` = core_num) %>% 
   mutate(depth = depth / 10)
 
 # make our ek_v1 df compatible so we can plot all together 
 ek_v1_cln <- ek_v1 %>% 
-  select(year_bp = year_BP, depth = cumul_depth_mm, `Core ID` = core_num) %>% 
+  select(year_bp, depth = cumul_depth_mm, `Core ID` = core_num) %>% 
   mutate(depth = depth / 10)
 
-all_df <- rbind(ams_df %>% 
-                  rename(`Core ID` = ams_sample) %>% 
-                  select(year_bp, depth, `Core ID`), 
+all_df <- rbind(ams_meta %>% 
+                  rename(`Core ID` = core) %>% 
+                  select(year_bp = median_age, depth, `Core ID`), 
                   ek_v2_cln)
 
 ggplot(all_df, aes(year_bp, depth, colour = `Core ID`)) +
@@ -239,6 +208,7 @@ v1 <- v1 %>%
       TRUE ~ 0 # need this so cumsum doesnt break
     ),
     core_depth_no_turb = cumsum(lyr_mm_no_turbs), # need this for age depth model
+    depth = core_depth_no_turb/10, # this is to pass on to our predict function which takes col names depth
     avg_sed_rate = rollapply(lyr_mm_cln, width = 30, by = 1, FUN = mean, na.rm = T, align = "center", partial = T), # partial defines minimum number of objects to continue 25yr window. set 3 to get data point at end of dataset 
     interp_yr = round(lyr_mm / avg_sed_rate),
     year_for_add = case_when(
@@ -248,11 +218,11 @@ v1 <- v1 %>%
     ),
     year_b4_2017 = cumsum(year_for_add),
     year_CE = yr_core_ce - year_b4_2017,
-    year_BP = standard_yr_bp-year_CE,
-    year_bp_lin_interp = core_depth_no_turb * ((v1_C14$year)/(v1_C14$depth_cm*10)),
-    year_ce_lin_interp = 2017 - year_bp_lin_interp
+    year_bp = standard_yr_bp-year_CE,
+    year_bp_ams = predict(v1_lm,cur_data()),
+    year_ce_ams = standard_yr_bp - year_bp_ams
   ) |> 
-  select(core_depth, core_depth_no_turb, year_BP, year_CE, year_bp_lin_interp, year_ce_lin_interp, ends_with('flag'), lyr_mm, lyr_mm_cln, avg_sed_rate)
+  select(core_depth, core_depth_no_turb, year_bp, year_CE, year_bp_ams, year_ce_ams, ends_with('flag'), lyr_mm, lyr_mm_cln, avg_sed_rate)
 
 v1.sd.fltr <- sd(v1$lyr_mm_cln, na.rm = T)
 v1.mean.fltr <- mean(v1$lyr_mm_cln, na.rm = T)
@@ -279,7 +249,7 @@ v1_turbidite <- v1 %>%
   filter(turbidite_flag == T) 
 
 v1_mod <- data.frame(
-  year_BP = seq(from = min(v1$year_BP), to = max(v1$year_BP), by = 1)
+  year_bp = seq(from = min(v1$year_bp), to = max(v1$year_bp), by = 1)
 ) %>% 
   left_join(v1) 
 
@@ -287,8 +257,8 @@ saveRDS(v1_mod, 'data/long_cores/v1_226_processed.rds')
 
 # see how the new interpolated years compares
 # v1_mod %>% 
-#   rename(new_yr = year_BP,
-#          old_yr = year_bp_excel) %>%
+#   rename(new_yr = median_age,
+#          old_yr = median_age_excel) %>%
 #   pivot_longer(c(new_yr, old_yr)) %>% 
 #   ggplot(aes(value, core_depth, colour = name)) +
 #   geom_point() +
@@ -299,21 +269,21 @@ saveRDS(v1_mod, 'data/long_cores/v1_226_processed.rds')
 
 v1_mod %>% 
   filter(lyr_flag == F) %>% 
-ggplot(aes(year_ce_lin_interp, lyr_mm)) +geom_point()
+ggplot(aes(year_ce_ams, lyr_mm)) +geom_point()
 
 # ggplotly()
 
 # see old sed rate
-# v1_lm_old <- lm(core_depth_excel ~ 0 + year_bp_excel, data = v1)
+# v1_lm_old <- lm(core_depth_excel ~ 0 + median_age_excel, data = v1)
 
 # v1_sed_rate_old <- summary(v1_lm_old)$coeff[1] # filtered to less than 3 sd's and forced through origin 
 # 
 # v1_sed_rate_old
 
 # see new sed rate 
-v1_lm <- lm(core_depth_no_turb ~ 0 + year_BP, data = v1_mod)
+v1_varve_lm <- lm(core_depth_no_turb ~ 0 + year_bp, data = v1_mod)
 
-v1_sed_rate <- summary(v1_lm)$coeff[1] # filtered to less than 3 sd's and forced through origin 
+v1_sed_rate <- summary(v1_varve_lm)$coeff[1] # filtered to less than 3 sd's and forced through origin 
 
 v1_sed_rate 
 
@@ -391,6 +361,7 @@ v2 <- v2 %>%
       TRUE ~ 0 # need this so cumsum doesnt break
     ),
     core_depth_no_turb = cumsum(lyr_mm_no_turbs), # need this for age depth model
+    depth = core_depth_no_turb/10, # this is to pass on to our predict function which takes col names depth
     avg_sed_rate = rollapply(lyr_mm_cln, width = 30, by = 1, FUN = mean, na.rm = T, align = "center", partial = T), # partial defines minimum number of objects to continue 25yr window. set 3 to get data point at end of dataset 
     interp_yr = round(lyr_mm / avg_sed_rate),
     year_for_add = case_when(
@@ -400,9 +371,9 @@ v2 <- v2 %>%
     ),
     year_b4_2017 = cumsum(year_for_add),
     year_CE = yr_core_ce - year_b4_2017,
-    year_BP = standard_yr_bp-year_CE,
-    year_bp_lin_interp = core_depth_no_turb * ((v2_C14$year)/(v2_C14$depth_cm*10)),
-    year_ce_lin_interp = 2017 - year_bp_lin_interp
+   year_bp = standard_yr_bp-year_CE,
+    year_bp_ams = predict(v2_lm,cur_data()),
+    year_ce_ams = standard_yr_bp - year_bp_ams
   ) 
 
 v2.sd.fltr <- sd(v2$lyr_mm_cln, na.rm = T)
@@ -448,7 +419,7 @@ turbidites <- rbind(
 ) |> 
   select(core_depth, 
          core_depth_no_turb,
-         year_BP, 
+         year_bp, 
          lyr_mm_stdep,
          lyr_mm,
          sd_flag,
@@ -460,7 +431,7 @@ turbidites <- rbind(
 v1_12 <- data.frame(
   core_depth = 120,
   core_depth_no_turb = 120,
-  year_BP = NA,
+  year_bp = NA,
   lyr_mm_stdep = NA,
   lyr_mm = 7.5, 
   sd_flag = TRUE,
@@ -471,11 +442,11 @@ v1_12 <- data.frame(
 
 v1_top_sed_rate <- mean(v1$avg_sed_rate[4]) # this is pretty close to the varve we are after it was just lumped into a large disturbed measurement
 
-v1_12_year_BP_2017 <- v1_12$core_depth / v1_top_sed_rate
+v1_12_year_bp_2017 <- v1_12$core_depth / v1_top_sed_rate
 
-v1_12_year_BP <- standard_yr_bp - (yr_core_ce - v1_12_year_BP_2017)
+v1_12_year_bp <- standard_yr_bp - (yr_core_ce - v1_12_year_bp_2017)
 
-v1_12$year_BP <- v1_12_year_BP
+v1_12$year_bp <- v1_12_year_bp
 
 v1_vt_mean <- varve_stats$value[varve_stats$stat == 'mean_no_flood' & varve_stats$core == 'V1' & varve_stats$metric == 'varve_thickness']
 v1_vt_sd <- varve_stats$value[varve_stats$stat == 'sd_no_flood' & varve_stats$core == 'V1' & varve_stats$metric == 'varve_thickness']
@@ -485,7 +456,7 @@ v1_12$lyr_mm_stdep = (v1_12$lyr_mm - v1_vt_mean)/v1_vt_sd
 turb_join <- rbind(turbidites, v1_12) %>% 
   select(depth = core_depth,
          core_depth_no_turb,
-         year_BP,
+         year_bp,
          stdep = lyr_mm_stdep,
          value = lyr_mm,
          core) %>% 
@@ -496,7 +467,7 @@ turb_join <- rbind(turbidites, v1_12) %>%
 saveRDS(turb_join, 'data/long_cores/V1_V2_turbidite_deposits.rds')
 
 v2_mod <- data.frame(
-  year_BP = seq(from = min(v2$year_BP), to = max(v2$year_BP), by = 1)
+  year_bp = seq(from = min(v2$year_bp), to = max(v2$year_bp), by = 1)
 ) %>% 
   left_join(v2) 
 
@@ -504,7 +475,7 @@ saveRDS(v2_mod, 'data/long_cores/v2_224_processed.rds')
 
 # see how the new interpolated years compares
 # v2_mod %>% 
-#   rename(new_yr = year_BP,
+#   rename(new_yr = year_bp,
 #          old_yr = year_bp_excel) %>%
 #   pivot_longer(c(new_yr, old_yr)) %>% 
 # ggplot(aes(value, core_depth, colour = name)) +
@@ -516,7 +487,7 @@ saveRDS(v2_mod, 'data/long_cores/v2_224_processed.rds')
 
 # v2_mod %>% 
 #   filter(notes %in% c('', 'flood', 'Flood', 'TEPHRA')) %>% 
-#   ggplot(aes(year_ce_lin_interp, lyr_mm)) +geom_point()
+#   ggplot(aes(year_ce_ams, lyr_mm)) +geom_point()
 
 # ggplotly()
 
@@ -528,9 +499,9 @@ saveRDS(v2_mod, 'data/long_cores/v2_224_processed.rds')
 # v2_sed_rate_old
 
 # see new sed rate 
-v2_lm <- lm(core_depth_no_turb ~ 0 + year_BP, data = v2_mod)
+v2_varve_lm <- lm(core_depth_no_turb ~ 0 + year_bp, data = v2_mod)
 
-v2_sed_rate <- summary(v2_lm)$coeff[1] # filtered to less than 3 sd's and forced through origin 
+v2_sed_rate <- summary(v2_varve_lm)$coeff[1] # filtered to less than 3 sd's and forced through origin 
 
 v2_sed_rate 
 
@@ -548,7 +519,7 @@ v2_mod$date_type <- "varve"
 comb <- rbind(v1_mod, v2_mod)
 
 comb %>% 
-  ggplot(aes(year_BP, core_depth_no_turb, colour = core, group = core)) +
+  ggplot(aes(year_bp, core_depth_no_turb, colour = core, group = core)) +
   geom_point()+
   #geom_line(size = ) +
   scale_y_continuous(trans = 'reverse') +
@@ -571,32 +542,27 @@ comb %>%
 # counting error was not possible to attribute since there were no clear marker 
 # varves or tephras so we use the average of reported varve counting uncertainties 
 # in the literature 0.7 - 6 % from @Menenous2008 and @Birlo2022 respectively
-counting_error <- 0.03 # fraction of a year
+counting_error <- 0.1 # fraction of a year
 
 # clean up ekman to compare
 
 ek_v2_cln <- ek_v2 %>% 
-  select(year = year_BP, depth = cumul_depth_mm, core = core_num) %>% 
+  select(year = year_bp, depth = cumul_depth_mm, core = core_num) %>% 
   mutate(depth = depth / 10,
          varve_se = abs(year * counting_error))
 
 # compare to AMS
-ams_df_cln <- ams_df %>% 
-  rename(core = ams_sample)
 
-ams_df_cln$core[ams_df_cln$core == "V1"] <- "V1"
-ams_df_cln$core[ams_df_cln$core == "V2a"] <- "V2a"
-ams_df_cln$core[ams_df_cln$core == "V2"] <- "V2"
-ams_df_cln$date_type <- 'C14'
+ams_meta$date_type <- 'C14'
 
 long_core_cln <- comb %>% 
-  select(year = year_BP, depth = core_depth_no_turb, core, date_type) %>% 
+  select(year = year_bp, depth = core_depth_no_turb, core, date_type) %>% 
   mutate(depth = depth / 10,
          varve_se = abs(year * counting_error))
 
-all_df <- rbind(ams_df_cln |> mutate(varve_se = NA) |> select(year = year_bp, depth, core, date_type,varve_se, ams_se) , 
-                long_core_cln |> mutate(ams_se = NA)) %>%
-  rbind(ek_v2_cln|> mutate(date_type = 'varve', ams_se = NA))
+all_df <- rbind(ams_meta |> mutate(varve_se = NA) |> select(year = median_age, depth, core, date_type,varve_se, ams_cal_se) , 
+                long_core_cln |> mutate(ams_cal_se = NA)) %>%
+  rbind(ek_v2_cln|> mutate(date_type = 'varve', ams_cal_se = NA))
 
 plot_reg_line <- c('E13', 'V1', 'V2')
 
@@ -611,14 +577,14 @@ ggplot(all_df, aes(year, depth, colour = core, shape = date_type)) +
               aes(xmin = year-varve_se,
                   xmax = year+varve_se),
               alpha = 0.25, linetype = 'blank') +
-  geom_point(data = subset(ams_df_cln, depth != 0),
-             aes(year_bp, depth),  shape = 17, size = 2) +
-  geom_errorbarh(data = subset(all_df, ams_se != 0), aes(xmin=year-ams_se, xmax=year+ams_se, height = 25)) +
+  geom_point(data = subset(ams_meta, depth != 0),
+             aes(median_age, depth),  shape = 17, size = 2) +
+  geom_errorbarh(data = subset(all_df, ams_cal_se != 0), aes(xmin=year-ams_cal_se, xmax=year+ams_cal_se, height = 25)) +
   geom_smooth(data=subset(all_df,date_type == 'C14' | core == 'E13'),
               aes(year,depth,color=core),
               method = 'lm', se = F, fullrange = T, formula = y ~ x, linetype = "dashed", size= 0.5) +
   geom_point(data = turb_join,
-             aes(year_BP, core_depth_no_turb, size = 5),  shape = turbidite_shape) +
+             aes(year_bp, core_depth_no_turb, size = 5),  shape = turbidite_shape) +
   scale_y_continuous(trans = 'reverse') +
   xlab("Estimated Age (cal yr BP)") +
   ylab("Core Depth (cm)") +

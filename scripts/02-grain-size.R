@@ -4,29 +4,18 @@ library(plotly)
 library(gridExtra)
 library(tidyr)
 
-## carbon dates ##
-# A small twig from V1 at 347 cm results in a date of 1899-1819 cal BP. 
-# A 4 cm long twig from V2 at 222 cm results in a date of 490-316 cal BP. 
-# Since the first date from V2 was much younger than than expected, 
-# a second sample from V2 was analyzed by combining a small twig at 286 cm and pine needle at 294 cm. 
-# A date of 2045-1895 cal BP was determined.
+#### age depth model and c14 meta ####
 
-v1_date <- (1899 + 1819) / 2 # mid point yr for v1 @ 347 cm
+v1_lm <- readRDS('data/long_cores/chronology/v1_c14_age_depth_model.rds')
+v2_lm <- readRDS('data/long_cores/chronology/v2_c14_age_depth_model.rds')
 
-v1_C14 <- data.frame(depth_cm = 347, year = v1_date) # n = 1
+ams_meta <- readRDS('data/long_cores/chronology/long_core_ams_meta.rds')
 
-v2b_depth <- (286 + 294) / 2 # avg depth for combined V2 sample
+standard_yr_bp <- 1950 # the year used in the literature as BP datum
+yr_core_ce <- 2017 # this is the year we took the core
+yr_core_bp <- standard_yr_bp-yr_core_ce
 
-v2_date_b <- (2045 + 1895) / 2 # mid point yr for v2 @ 286 + 294 cm
-v2_date_a <- (490 + 316) / 2 # mid point yr for v2 @ 222 cm
-
-v2_C14 <- data.frame(depth_cm = 286, year = 1970) # n = 2
-
-ams_df <- tibble(
-  year = c(0, v1_date, 0, v2_date_a, 0, v2_date_b),
-  depth = c(0, 347, 0, 222, 0, v2b_depth),
-  ams_sample = c('V1', 'V1', 'V2a', 'V2a', 'V2b', 'V2b')
-)
+#### sed data ####
 
 # turbidites IDs to filter, could also be more strict and just say mode == 2, 
 # but some measurements are OK that have 1 mode although 90% of mode ==1 is a flood
@@ -75,52 +64,50 @@ core_error <- sd_out |>
   
 core_error
 
+#### we need another df that includes the turbidites ####
+
 # pull grain size from excel sheet 
 
+v2_discard <- c(120)
+
+v1_xl_no_turb <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_Jan_GranSize_mar23.xlsx',sheet = '226_Raw') %>%
+  filter(stringr::str_starts(`Sample Name`, 'Average')) %>%
+  mutate(core = 'V1')
+
+v2_xl_turb <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_Jan_GranSize_mar23.xlsx',sheet = '224_Raw') %>%
+  filter(stringr::str_starts(`Sample Name`, 'Average'),
+         !stringr::str_detect(`Sample Name`, 'Sonic')) %>%
+  mutate(core = 'V2')
+
+gs <- rbind(v1_xl_no_turb, v2_xl_turb)
+
+strs <-
+  'Average of \'CB17_V2_|Average of \'CB17_V1_|Average of \'CB17_V2B_|Average of \'CB17_V2C_|cm|\''
+
+gs$core_depth <- gsub(strs, "", gs$`Sample Name`)
+
+tb <- gs %>%
+  filter(stringr::str_detect(core_depth, 'Flood') | stringr::str_detect(core_depth, 'flood'))
+
+tb$core_depth <- gsub('_.*', "", tb$core_depth)
+
+tb$core_depth[1] <- 12
+
+gs_no_tb <- gs %>%
+  filter(!stringr::str_detect(core_depth, '[F]'),
+         !stringr::str_detect(core_depth, '[f]')
+         )
+
+gs_no_tb$core_depth <- gsub('.*_', "", gs_no_tb$core_depth)
 
 
-# v2_discard <- c(120)
-# 
-# v1_xl <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_Jan_GranSize_mar23.xlsx',sheet = '226_Raw') %>%
-#   filter(stringr::str_starts(`Sample Name`, 'Average')) %>%
-#   mutate(core = 'V1')
-# 
-# v2_xl <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_Jan_GranSize_mar23.xlsx',sheet = '224_Raw') %>%
-#   filter(stringr::str_starts(`Sample Name`, 'Average'),
-#          !stringr::str_detect(`Sample Name`, 'Sonic')) %>%
-#   mutate(core = 'V2')
-# 
-# gs <- rbind(v1_xl, v2_xl)
-# 
-# strs <-
-#   'Average of \'CB17_V2_|Average of \'CB17_V1_|Average of \'CB17_V2B_|Average of \'CB17_V2C_|cm|\''
-# 
-# gs$core_depth <- gsub(strs, "", gs$`Sample Name`)
-# 
-# tb <- gs %>%
-#   filter(stringr::str_detect(core_depth, 'Flood') | stringr::str_detect(core_depth, 'flood'))
-# 
-# tb$core_depth <- gsub('_.*', "", tb$core_depth)
-# 
-# tb$core_depth[1] <- 12
-# 
-# gs_no_tb <- gs %>%
-#   filter(!stringr::str_detect(core_depth, '[F]'),
-#          !stringr::str_detect(core_depth, '[f]')
-#          )
-# 
-# gs_no_tb$core_depth <- gsub('.*_', "", gs_no_tb$core_depth)
-# 
-# 
-# gs_new <- rbind(gs_no_tb, tb) %>%
-#   mutate(core_depth = as.numeric(core_depth),
-#          year_bp_new = case_when(
-#            core == "V1" ~ core_depth * (v1_C14$year/(v1_C14$depth_cm)),
-#            core == "V2" ~ core_depth * (v2_C14$year/(v2_C14$depth_cm))
-#          ),
-#          year_ce_new = 2017-year_bp_new)
-# 
-
+gs_new <- rbind(gs_no_tb, tb) %>%
+  mutate(depth = as.numeric(core_depth),
+         year_bp_new = case_when(
+           core == "V1" ~ predict(v1_lm, cur_data()),
+           core == "V2" ~ predict(v2_lm, cur_data())
+         ),
+         year_ce_new = standard_yr_bp-year_bp_new)
 
 # V1
 
@@ -140,9 +127,9 @@ v1_D50 <- v1 %>%
   group_by(depth) %>% 
   summarize(D50 = mean(D50)) %>% # averge double samples that were done to confirm smaller grain size at 259 cm
   ungroup() %>% 
-  pivot_longer(D50, names_to = "group", values_to = "D50") %>% 
-  mutate(year_bp_new = depth * (v1_C14$year/(v1_C14$depth_cm)),
-         year_ce_new = 2017 - year_bp_new,
+  pivot_longer(D50, names_to = "group", values_to = "D50")  |>  
+  mutate(year_bp_new = predict(v1_lm,cur_data()),
+         year_ce_new = standard_yr_bp - year_bp_new,
          diff_time = lag(year_ce_new) - year_ce_new)  # linear interpolation on AMS date
 
 v1_percentages <- v1 %>% 
@@ -151,9 +138,9 @@ v1_percentages <- v1 %>%
   group_by(depth) %>% 
   summarize(across(perc_clay:perc_sand, mean)) %>%  # averge double samples that were done to confirm smaller grain size at 259 cm
   ungroup() %>% 
-  pivot_longer(perc_clay:perc_sand, names_to = "group", values_to = "perc") %>% 
-  mutate(year_bp_new = depth * (v1_C14$year/(v1_C14$depth_cm)),
-         year_ce_new = 2017 - year_bp_new)  # linear interpolation on AMS date
+  pivot_longer(perc_clay:perc_sand, names_to = "group", values_to = "perc") |>  
+  mutate(year_bp_new = predict(v1_lm,cur_data()),
+         year_ce_new = standard_yr_bp - year_bp_new)  # linear interpolation on AMS date
 
 v1_percentages$group <- factor(v1_percentages$group, c("perc_sand", "perc_silt", "perc_clay"))
 
@@ -213,9 +200,9 @@ v2_D50 <- v2 %>%
   group_by(depth) %>% 
   summarize(D50 = mean(D50)) %>% # averge double samples that were done to confirm smaller grain size at 259 cm
   ungroup() %>% 
-  pivot_longer(D50, names_to = "group", values_to = "D50") %>% 
-  mutate(year_bp_new = depth * (v2_C14$year/(v2_C14$depth_cm)),
-         year_ce_new = 2017 - year_bp_new,
+  pivot_longer(D50, names_to = "group", values_to = "D50")  |>  
+  mutate(year_bp_new = predict(v2_lm,cur_data()),
+         year_ce_new = standard_yr_bp - year_bp_new,
          diff_time = lag(year_ce_new) - year_ce_new)  # linear interpolation on AMS date
 
 v2_percentages <- v2 %>% 
@@ -224,9 +211,9 @@ v2_percentages <- v2 %>%
   group_by(depth) %>% 
   summarize(across(perc_clay:perc_sand, mean)) %>%  # averge double samples that were done to confirm smaller grain size at 259 cm
   ungroup() %>% 
-  pivot_longer(perc_clay:perc_sand, names_to = "group", values_to = "perc")  %>% 
-  mutate(year_bp_new = depth * (v2_C14$year/(v2_C14$depth_cm)),
-         year_ce_new = 2017 - year_bp_new) # linear interpolation on AMS date
+  pivot_longer(perc_clay:perc_sand, names_to = "group", values_to = "perc") |>  
+  mutate(year_bp_new = predict(v2_lm,cur_data()),
+         year_ce_new = standard_yr_bp - year_bp_new)  # linear interpolation on AMS date
 
 v2_percentages$group <- factor(v2_percentages$group, c("perc_sand", "perc_silt", "perc_clay"))
 
@@ -290,9 +277,9 @@ v2.mean.fltr <- mean(v2_D50$D50, na.rm = T)
 
 v2_D50$stdep <- (v2_D50$D50 - v2.mean.fltr)/v2.sd.fltr
 
-gs_new$stdep <- (gs_new$`Dx (50)` - v2.mean.fltr)/v2.sd.fltr
+# gs_new$stdep <- (gs_new$`Dx (50)` - v2.mean.fltr)/v2.sd.fltr
 
-saveRDS(gs_new, 'data/long_cores/gain_size_w_floods.rds')
+# saveRDS(gs_new, 'data/long_cores/gain_size_w_floods.rds')
 
 core_stats <- readRDS('data/long_cores/core_stats.rds')
 
@@ -311,6 +298,8 @@ saveRDS(core_stats_out, 'data/long_cores/core_stats.rds')
 # plot on depth 
 v1_D50$depth <- v1_D50$depth * 10 
 v2_D50$depth <- v2_D50$depth * 10 
+
+#### create processed grain size df ####
 
 grain_df <- rbind(v1_D50 %>% select(depth, year_ce_new, D50, stdep) %>% mutate(core = "V1"), 
                   v2_D50 %>% select(depth, year_ce_new, D50, stdep) %>% mutate(core = "V2"))

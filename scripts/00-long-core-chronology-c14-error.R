@@ -115,7 +115,9 @@ ams_meta <- data.frame(
   median_age,
   cal_age_low,
   cal_age_hi
-)
+) |> 
+  mutate(ams_cal_se = replace_na((cal_age_hi-cal_age_low)/2, 0),
+         year_ce = standard_yr_bp - median_age)
 
 saveRDS(ams_meta, 'data/long_cores/chronology/long_core_ams_meta.rds')
 
