@@ -1,42 +1,37 @@
-# what is the varve thickness error
-# since we dont have triplicate cores in one location the best we can do is use 
-# the difference between 4 ekman cores which have a 2 km spread down lake much of the error here is
-# likely attributed more to spatial variability than counting error. However there still was some subjectivity
-# in this sample when counting 
+# what is the varve counting error - since we dont have triplicate cores in one
+# location to get a counting error Joe suggested counting down to a fixed depth
+# of 5 cm using cores between 4-8 km down lake which have similar sed rates
 
 library(tidyverse)
 
-ek <- read_csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') |> 
-  group_by(core_num) |> 
-  mutate(
-    year_CE = Year + 1, # miscalculated year originally top layer should be 2017 as that when we cored.. 
-    # mean_thickness_mm = mean(layer_thickness_mm, na.rm = T),
-    # sd_thickness_mm = sd(layer_thickness_mm, na.rm = T), 
-    # stdep_mm_e = (layer_thickness_mm - mean_thickness_mm)/sd_thickness_mm,
-    # stdep_mm = (layer_thickness_mm - v2_mean)/v2_sd,
-    # ma_30 = zoo::rollapply(stdep_mm, width = 10, by = 1, FUN = mean, na.rm = T, align = "center", partial = T, fill = NA), # partial defines minimum number of objects to continue 25yr window. set 3 to get data point at end of dataset 
-  ) |> 
-  filter(core_num %in% c('EK13', 'EK14', 'EK12', 'EK11')) |> 
-  ungroup() |> 
-  select(year_CE, lyr_mm = layer_thickness_mm, core_num)
+ek_meta <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_GrainSize_Ekmans.xlsx', sheet = 2) |> 
+  select(core_num = `Core Number`,
+         dist = `Distance Frm Delta (km)`) |> 
+  distinct() |> 
+  filter(dist > 4, 
+         dist < 7) 
 
-ek
+# lets look at just these subset since have similar sed rates core 15 did not
+# have discernible coulets near the top so was skipped
 
-ggplot(ek, aes(year_CE, lyr_mm, colour = core_num)) +
-  geom_line() 
-plotly::ggplotly()
+ek_meta
 
-ek |> 
-  filter(!year_CE %in% c(2001, 2006, 2017)) |> 
-  group_by(year_CE) |> 
-  summarise(mean = mean(lyr_mm, na.rm = T),
-            sd = sd(lyr_mm, na.rm = T),
-            n = n()) |> 
-  filter(n > 2)
+# count is the number of couplets down from the surface to a consistent depth of 5 cm
 
-mean(smry$sd, na.rm = T)
+ek_fix_depth <- data.frame(
+  core = c(12, 13, 14),
+  depth = c(5, 5, 5),
+  count = c(10, 12, 12)
+) 
 
-ek |> 
-  group_by(core_num) |> 
-  filter(!year_CE %in% c(2001, 2006, 2017)) |> 
-  summarise(sd = sd(lyr_mm, na.rm = T))
+# now show the counting error stats 
+
+mean_count <- mean(ek_fix_depth$count)
+sd_count <- sd(ek_fix_depth$count)
+percent_err <- sd_count/mean_count
+
+# the percent error of our triplicate ekman count is ... 
+
+percent_err * 100
+
+# 10 Percent
