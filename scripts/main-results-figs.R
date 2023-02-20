@@ -25,11 +25,12 @@ yr_core_bp <- standard_yr_bp-yr_core_ce
 # See varve-count.R for construction of gaus.RDS file
 
 varve_y_lims <- c(-2.5, 5)
-varve_x_lims <- c(-100, 2000)
 err_bar_pos <- c(-2.2, # y axis
                  0.5) # height
 
 gaus <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
+
+varve_x_lims <- c(min(gaus$year_ce_ams, na.rm = T), max(gaus$year_ce_ams, na.rm = T))
 
 v1_se <- c(v1_plt_ams$year_ce-v1_plt_ams$ams_cal_se, v1_plt_ams$year_ce+v1_plt_ams$ams_cal_se)
 
@@ -67,7 +68,7 @@ v2_se <- c(v2_plt_ams$year_ce-v2_plt_ams$ams_cal_se, v2_plt_ams$year_ce+v2_plt_a
 v2_plot <- 
   gaus %>% 
   filter(core == "V2") %>% 
-  ggplot(aes(x = year_bp_ams)) +
+  ggplot(aes(x = year_ce_ams)) +
   geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "black", size = 0.5, se=F, linetype="dashed")+
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
   geom_line(aes(y = ma_30))  +
@@ -108,7 +109,9 @@ saveRDS(cp, "figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.rds")
 
 gs <- readRDS('data/long_cores/grain_size_v1_v2_combined.RDS') 
 
-gs_x_lims <- c(-100, 2050)
+gs_x_lims <- c(min(gs$year_ce_new, na.rm = T), max(gs$year_ce_new, na.rm = T))
+
+# gs_x_lims <- c(-100, 2050)
 
 v1_plot <- 
   gs %>% 
@@ -193,6 +196,8 @@ saveRDS(v2_plot, 'figs/grain_size_v2.rds')
 loi <- readRDS('data/Sediment/LOI/loi_v1_v2_working.RDS') %>% 
   filter(is.na(turbidite) == T)
 
+loi_x_lims <- c(min(loi$year_ce_new, na.rm = T), max(loi$year_ce_new, na.rm = T))
+
 v1_plot <- 
   loi %>%
   filter(core == "V1") %>% 
@@ -214,7 +219,7 @@ v1_plot <-
   ggtitle("V1")+
   scale_x_continuous(
     breaks = seq(0,2000, 250),  
-    limits = gs_x_lims,
+    limits = loi_x_lims,
     labels = label_at(500),  
     sec.axis = 
       sec_axis(
@@ -246,7 +251,7 @@ v2_plot <-
   ggtitle("V2")+
   scale_x_continuous(
     breaks = seq(0,2000, 250),  
-    limits = gs_x_lims,
+    limits = loi_x_lims,
     labels = label_at(500),  
     sec.axis = 
       sec_axis(
