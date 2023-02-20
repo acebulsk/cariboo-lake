@@ -220,11 +220,8 @@ hydro_anom_plot
 
 # gain size 
 
-gs_v1 <- readRDS('figs/grain_size_v1.rds')
-gs_v2 <- readRDS('figs/grain_size_v2.rds')
-
 gs <- readRDS('data/Sediment/Grain Size/grain_size_v1_v2_combined.RDS') |> 
-  mutate(year_ce_avg = round(year_ce_new))
+  mutate(year_ce_avg = round(year_ce_new)) # this is the ams age depth model
 
 gs_plot <- 
   gs |> 
@@ -256,7 +253,7 @@ vt_plot <-
   mutate(
     mvavg = zoo::rollapply(lyr_mm_stdep_fltr, width = 100, by = 1, FUN = mean, na.rm = T, align = "center", partial = T), # partial defines minimum number of objects to continue 25yr window. set 3 to get data point at end of dataset 
   ) |> 
-  ggplot(aes(x = year_ce_lin_interp, colour = core)) +
+  ggplot(aes(x = year_ce_ams, colour = core)) +
   geom_line(aes(y = lyr_mm_stdep_fltr), method = "lm", 
             formula = y ~ 0, colour = "black", se=F, 
             linetype="dotted", size = .5, stat = 'smooth', alpha = 0.4) +  geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +

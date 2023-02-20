@@ -7,7 +7,8 @@ Four vibra sediment cores, ranging from 2 – 4 m in length, were retrieved from
 Organic material for dating in the clastic dominated cores was extremely limited. AMS radiocarbon dates obtained for cores V1 and V2 are presented in Table \ref{tab:amsDates} and provide limited temporal control and evidence of sediment accumulation rates for the long cores. A small twig from V1 at 343 cm and combination of two separate organic pieces which were combined into one sample at V2, with an average depth of 281 cm, yielding a calibrated [@Reimer2013] two-sigma date range of 1918-1820 cal BP and 2043‐1895 cal BP respectively. Figure \ref{fig:amsRates} shows the C14 chronology for V1 and V2 compared to the laminae couplet chronologies for E13, V1, and V2. The C14 dates from samples V1 and V2 yield consistent accumulation rates **(depth of sample divided by age of sample)** of 1.76 +/- 0.05 mm/yr and 1.37 +/- 0.05 mm/yr respectively. 
 
 ```{r amsDates, echo=F}
-ams_meta <- readRDS('../data/long_cores/chronology/long_core_ams_meta.rds')
+ams_meta <- readRDS('../data/long_cores/chronology/long_core_ams_meta.rds') |> 
+  select(-c(cal_age_low, cal_age_hi, ams_cal_se, year_ce))
   
 ams_meta |> 
   knitr::kable(

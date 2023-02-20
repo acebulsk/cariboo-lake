@@ -24,38 +24,45 @@ yr_core_bp <- standard_yr_bp-yr_core_ce
 #### Fig 6 - Temporal Trends in Varve Thickness ####
 # See varve-count.R for construction of gaus.RDS file
 
+varve_y_lims <- c(-2.5, 5)
+varve_x_lims <- c(-100, 2000)
+err_bar_pos <- c(-2.2, # y axis
+                 0.5) # height
+
 gaus <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
 
-# add in ekmans to cover disturbed sections
-
-ek <- read.csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') 
+v1_se <- c(v1_plt_ams$year_ce-v1_plt_ams$ams_cal_se, v1_plt_ams$year_ce+v1_plt_ams$ams_cal_se)
 
 v1_plot <- 
   ggplot(gaus %>% 
-           filter(core == "V1"), aes(x = year_bp_ams)) +
+           filter(core == "V1"), aes(x = year_ce_ams)) +
   geom_smooth(aes(y = lyr_mm_stdep_fltr), 
               method = "lm", formula = y ~ 1, colour = "black", size = 0.5, se=F, linetype="dashed")+
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
   geom_line(aes(y = ma_30)) +
-  # geom_point(data = v1_plt_ams,
-  #            aes(x = year_ce, y = -1.5),  shape = 4, size = 2) +
-  geom_errorbarh(data = v1_plt_ams, 
-                 aes(y = 1, xmin=year_ce-ams_cal_se, xmax=year_ce+ams_cal_se, height = 25)) +
+  geom_point(data = v1_plt_ams,
+             aes(x = year_ce, y = err_bar_pos[1]),  shape = 4, size = 2) +
+  geom_errorbarh(aes(y = err_bar_pos[1], xmin=v1_se[1], xmax=v1_se[2], height = err_bar_pos[2]), lwd = 0.1) +
   ylab("VT Std. Dept.") +
   xlab("Year (CE)") +
-  ylim(c(-2, 5)) +
-  ggtitle("V1")  + # scale sec y axis based on c14
+  ylim(varve_y_lims) +
+  ggtitle("V1")  +
+  scale_x_continuous(
+    breaks = seq(0,2000, 250),  
+    limits = varve_x_lims,
+    labels = label_at(500),  
+    sec.axis = 
+      sec_axis(
+        breaks = seq(400,0, -50),
+        labels = label_at(100),
+        trans= ~((standard_yr_bp - .) - summary(v1_lm)$coeff[1]) / summary(v1_lm)$coeff[2],
+        name="Core Depth (cm)")) + # scale sec y axis based on c14
   theme_bw()
 v1_plot
 
-ggplot() +
-  geom_point(data = v1_plt_ams,
-             aes(x = year_ce, y = -1.5),  shape = 4, size = 2) +
-  geom_errorbarh(data = v1_plt_ams, 
-                 aes(y = -1.5, xmin=year_ce-ams_cal_se, xmax=year_ce+ams_cal_se, height = 25))
-
-
 #ggplotly((v1_plot))
+
+v2_se <- c(v2_plt_ams$year_ce-v2_plt_ams$ams_cal_se, v2_plt_ams$year_ce+v2_plt_ams$ams_cal_se)
 
 v2_plot <- 
   gaus %>% 
@@ -63,25 +70,24 @@ v2_plot <-
   ggplot(aes(x = year_bp_ams)) +
   geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "black", size = 0.5, se=F, linetype="dashed")+
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
-  geom_line(aes(y = ma_30)) +
-  # geom_line(aes(y = smooth)) +
-  geom_point(aes(x = 2017 - v2_C14$year, y = -1.5), shape = 4) +
-  geom_text(aes(x = 2017 - v2_C14$year, y = -1.75), label = "47 ± 75 yr. CE", vjust = 1) +
+  geom_line(aes(y = ma_30))  +
+  geom_point(data = v2_plt_ams,
+             aes(x = year_ce, y = err_bar_pos[1]),  shape = 4, size = 2) +
+  geom_errorbarh(aes(y = err_bar_pos[1], xmin=v2_se[1], xmax=v2_se[2], height = err_bar_pos[2]), lwd = 0.1) +
   xlab("Year (CE)") +
   ylab("VT Std. Dept.") +
-  ylim(c(-2, 5)) +
+  ylim(varve_y_lims) +
   ggtitle("V2") +
   scale_x_continuous(
     breaks = seq(0,2000, 250),  
-    limits = c(-50, 2000),
+    limits = varve_x_lims,
     labels = label_at(500),  
     sec.axis = 
       sec_axis(
-        breaks = seq(4000,0, -500),  
-        labels = label_at(1000),
-        trans=~ . * summary(v2_lm)$coeff[2] 
-        + summary(v2_lm)$coeff[1],
-        name="Core Depth (mm)")) + # scale sec y axis based on c14
+        breaks = seq(400,0, -50),
+        labels = label_at(100),
+        trans= ~((standard_yr_bp - .) - summary(v2_lm)$coeff[1]) / summary(v2_lm)$coeff[2],
+        name="Core Depth (cm)")) + # scale sec y axis based on c14
   theme_bw() 
 
 
@@ -102,6 +108,8 @@ saveRDS(cp, "figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.rds")
 
 gs <- readRDS('data/long_cores/grain_size_v1_v2_combined.RDS') 
 
+gs_x_lims <- c(-100, 2050)
+
 v1_plot <- 
   gs %>% 
   filter(core == 'V1') %>% 
@@ -115,20 +123,22 @@ v1_plot <-
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  geom_point(aes(x = 2017 - v1_C14$year, y = -1.5)) +
-  geom_text(aes(x = 2017 - v1_C14$year, y = -1.70), label = "158 ± 40 yr. CE", vjust = 1) +
+  geom_point(data = v1_plt_ams,
+             aes(x = year_ce, y = err_bar_pos[1]),  shape = 4, size = 2) +
+  geom_errorbarh(aes(y = err_bar_pos[1], xmin=v1_se[1], xmax=v1_se[2], height = err_bar_pos[2]), lwd = 0.1) +
   ylab("D50 Std. Dept.") +
   xlab("Year (CE)") +  
   ggtitle("V1") +
   scale_x_continuous(
     breaks = seq(0,2000, 250),  
-    labels = label_at(500), 
-    limits = c(-75, 2050),
-    sec.axis=sec_axis( 
-      breaks = seq(4000,0, -500),  
-      labels = label_at(1000),
-      trans=~ . * summary(v1_lm)$coeff[2] + summary(v1_lm)$coeff[1] , 
-      name="Core Depth (mm)")) + # scale sec y axis based on c14  theme_bw()
+    limits = gs_x_lims,
+    labels = label_at(500),  
+    sec.axis = 
+      sec_axis(
+        breaks = seq(400,0, -50),
+        labels = label_at(100),
+        trans= ~((standard_yr_bp - .) - summary(v1_lm)$coeff[1]) / summary(v1_lm)$coeff[2],
+        name="Core Depth (cm)"))  + # scale sec y axis based on c14  theme_bw()
   theme_bw()
 
 v1_plot
@@ -145,20 +155,22 @@ v2_plot <-
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  geom_point(aes(x = 2017 - v2_C14$year, y = -1.5), shape = 4) +
-  geom_text(aes(x = 2017 - v2_C14$year, y = -1.75), label = "47 ± 75 yr. CE", vjust = 1) +
+  geom_point(data = v2_plt_ams,
+             aes(x = year_ce, y = err_bar_pos[1]),  shape = 4, size = 2) +
+  geom_errorbarh(aes(y = err_bar_pos[1], xmin=v2_se[1], xmax=v2_se[2], height = err_bar_pos[2]), lwd = 0.1) +
   ylab("D50 Std. Dept.") +
   xlab("Year (CE)") +  
   ggtitle("V2") +
   scale_x_continuous(
     breaks = seq(0,2000, 250),  
-    labels = label_at(500), 
-    limits = c(-75, 2050),
-    sec.axis=sec_axis( 
-      breaks = seq(4000,0, -500),  
-      labels = label_at(1000),
-      trans=~ . * summary(v2_lm)$coeff[2] + summary(v2_lm)$coeff[1] , 
-      name="Core Depth (mm)")) + # scale sec y axis based on c14  theme_bw()
+    limits = gs_x_lims,
+    labels = label_at(500),  
+    sec.axis = 
+      sec_axis(
+        breaks = seq(400,0, -50),
+        labels = label_at(100),
+        trans= ~((standard_yr_bp - .) - summary(v2_lm)$coeff[1]) / summary(v2_lm)$coeff[2],
+        name="Core Depth (cm)")) + # scale sec y axis based on c14  theme_bw()
   theme_bw()
 
 v2_plot
@@ -194,20 +206,22 @@ v1_plot <-
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  geom_point(aes(x = 2017 - v1_C14$year, y = -2.5), shape = 4) +
-  geom_text(aes(x = 2017 - v1_C14$year, y = -2.70), label = "158 ± 40 yr. CE", vjust = 1) +
+  geom_point(data = v1_plt_ams,
+             aes(x = year_ce, y = err_bar_pos[1]),  shape = 4, size = 2) +
+  geom_errorbarh(aes(y = err_bar_pos[1], xmin=v1_se[1], xmax=v1_se[2], height = err_bar_pos[2]), lwd = 0.1) +
   ylab("OM Std. Dept.") +
   xlab("Year (CE)") +  
-  ggtitle("V1") +
+  ggtitle("V1")+
   scale_x_continuous(
     breaks = seq(0,2000, 250),  
-    labels = label_at(500), 
-    limits = c(-75, 2050),
-    sec.axis=sec_axis( 
-      breaks = seq(4000,0, -500),  
-      labels = label_at(1000),
-      trans=~ . * summary(v1_lm)$coeff[2] + summary(v1_lm)$coeff[1] , 
-      name="Core Depth (mm)")) + # scale sec y axis based on c14  theme_bw()
+    limits = gs_x_lims,
+    labels = label_at(500),  
+    sec.axis = 
+      sec_axis(
+        breaks = seq(400,0, -50),
+        labels = label_at(100),
+        trans= ~((standard_yr_bp - .) - summary(v1_lm)$coeff[1]) / summary(v1_lm)$coeff[2],
+        name="Core Depth (cm)")) + # scale sec y axis based on c14  theme_bw()
   theme_bw()
 v1_plot
 
@@ -224,20 +238,22 @@ v2_plot <-
   geom_point(aes(y = stdep), alpha = 1) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = mvavg), colour = "gray") +
-  geom_point(aes(x = 2017 - v2_C14$year, y = -2), shape = 4) +
-  geom_text(aes(x = 2017 - v2_C14$year, y = -2.55), label = "47 ± 75 yr. CE") +
+  geom_point(data = v2_plt_ams,
+             aes(x = year_ce, y = err_bar_pos[1]),  shape = 4, size = 2) +
+  geom_errorbarh(aes(y = err_bar_pos[1], xmin=v2_se[1], xmax=v2_se[2], height = err_bar_pos[2]), lwd = 0.1) +
   ylab("OM Std. Dept.") +
   xlab("Year (CE)") +  
-  ggtitle("V2") +
+  ggtitle("V2")+
   scale_x_continuous(
     breaks = seq(0,2000, 250),  
-    labels = label_at(500), 
-    limits = c(-75, 2050),
-    sec.axis=sec_axis( 
-      breaks = seq(4000,0, -500),  
-      labels = label_at(1000),
-      trans=~ . * summary(v2_lm)$coeff[2] + summary(v2_lm)$coeff[1] , 
-      name="Core Depth (mm)")) + # scale sec y axis based on c14  theme_bw()
+    limits = gs_x_lims,
+    labels = label_at(500),  
+    sec.axis = 
+      sec_axis(
+        breaks = seq(400,0, -50),
+        labels = label_at(100),
+        trans= ~((standard_yr_bp - .) - summary(v2_lm)$coeff[1]) / summary(v2_lm)$coeff[2],
+        name="Core Depth (cm)"))  + # scale sec y axis based on c14  theme_bw()
   theme_bw()
 v2_plot
 
