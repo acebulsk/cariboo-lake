@@ -27,6 +27,28 @@ varve <- read_csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') |>
   mutate(ID = as.numeric(gsub(".*?([0-9]+).*" , "\\1", ID))) |> 
   left_join(ek_meta, by = 'ID') 
 
+# E13 age estimate and accumulation rate
+e13 <- read_csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') |> 
+  filter(core_num == 'EK13') |> 
+  mutate(cumul_depth_new = cumsum(layer_thickness_mm),
+         yr_bp_new = row_number())
+
+counting_error <- 0.1
+
+mean_varve_thick <- mean(e13$layer_thickness_mm)
+basaldepth <- max(e13$cumul_depth_new)
+age_med <- max(e13$yr_bp_new)
+age_hi <- age_med + (age_med * counting_error)
+age_lo <- age_med - (age_med * counting_error)
+
+sed_rate_hi <- basaldepth/age_hi
+sed_rate_med <- basaldepth/age_med
+sed_rate_lo <- basaldepth/age_lo
+
+sed_rate_err <- (sed_rate_hi-sed_rate_lo)/2
+
+# so same as just taking 10% of the avg acc rate
+
 loi <- readxl::read_xlsx('data/Sediment/LOI/LOI_Cariboo_EkmanBulkSamples.xlsx', sheet = 5, skip = 1) |> 
   select(
     ID = `Core #`,
