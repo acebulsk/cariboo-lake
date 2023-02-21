@@ -52,11 +52,22 @@ glob_lims <- c(-50, 2025)
 glacier_extent_dat <- read.csv('2k-network/Solomina_et_al/email_from_olga/alex_manual_trace/alex_manual_trace.csv') |> 
   mutate(relative_glacier_extent = 1 - relative_glacier_extent)
 
+# maurer 2012 castle creek advances 
+
+maurer_ad1 <- c(1.87, 1.72)
+maurer_ad1 <- 1950 - (maurer_ad1*1000)
+maurer_ad2 <- c(1.52, 1.43)
+maurer_ad2 <- 1950 - (maurer_ad2*1000)
+
+
 glc_adv_plot <- glacier_extent_dat |> ggplot(aes(year_ce, relative_glacier_extent, colour = 'none')) +
   annotate("rect", xmin = 400, xmax = 600, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
   annotate("rect", xmin = 1200, xmax = 1500, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
   annotate("rect", xmin = 1690, xmax = 1730, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
   annotate("rect", xmin = 1830, xmax = 1890, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
+  annotate("rect", xmin = 1830, xmax = 1890, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
+  annotate("rect", xmin = maurer_ad1[1], xmax = maurer_ad1[2], ymin = 0, ymax = 1, fill = "blue", alpha = 0.3) +
+  annotate("rect", xmin = maurer_ad2[1], xmax = maurer_ad2[2], ymin = 0, ymax = 1, fill = "blue", alpha = 0.3) +
   geom_line() +
   # scale_x_reverse() +
   xlab('Year (CE)') +
@@ -126,8 +137,8 @@ NH_temp_anom <- ggplot(mob_long, aes(year_ce, value, colour = name)) +
   ggtheme_all +
   theme(legend.text = element_blank(),
         legend.key = element_rect(fill = "white")) +
-  annotate('text', x = 1650, y = .25, label = 'Little Ice Age') +
-  annotate('text', x = 1100, y = -1, label = 'Medieval \n Warm Period') +
+  annotate('text', x = 1650, y = .25, label = 'LIA') +
+  annotate('text', x = 1100, y = -1, label = 'MCA') +
   scale_color_manual(values = c("#fc8961", '#000004', '#000004')) +
   guides(color = guide_legend(override.aes = list(color = NA)))
   # scale_color_manual(values = viridis(3))
@@ -301,7 +312,7 @@ loi_plot
 
 # p <- list(vt_plot, gs_plot, loi_plot, glc_adv_plot, tr, hydro_anom_plot, glob_temp_50_p)
 
-p <- list(vt_plot, gs_plot, loi_plot, NH_temp_anom, glc_adv_plot, hydro_anom_plot)
+p <- list(vt_plot, loi_plot, gs_plot, glc_adv_plot, NH_temp_anom, hydro_anom_plot)
 
 
 cp <- cowplot::plot_grid(plotlist = p, nrow=length(p), 
