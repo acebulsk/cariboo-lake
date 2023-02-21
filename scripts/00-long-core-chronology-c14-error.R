@@ -27,11 +27,10 @@ v2_varve_depth_model <- readRDS('data/long_cores/v2_224_processed.rds') |>
 # median is 50th percentile 
 prob <- 0.5
 
-# counting error was not possible to attribute since there were no clear marker 
-# varves or tephras so we use the average of reported varve counting uncertainties 
+# counting error was inferred from triplicate ekman counts to 5 cm depth
 # in the literature 0.7 - 6 % from @Menenous2008 and @Birlo2022 respectively
 
-counting_error <- 0.03 # fraction of a year
+counting_error <- 0.1 # fraction of a year
 
 standard_yr_bp <- 1950 # the year used in the literature as BP datum
 yr_core_ce <- 2017 # this is the year we took the core
@@ -127,35 +126,37 @@ ams_meta$thickness <- c(0, 1, 0, 1)
 
 #### what are the sedimentation rates from the C14 data ####
 
-ams_chron_v1 <- ams_meta |> 
-  filter(core == 'V1') |> 
-  mutate(cal_curve = c(surface_cal, u_ottawa_cal))
+# this bchron method doesnt appear to work 
 
-ams_chron_v2 <- ams_meta |> 
-  filter(core == 'V2') |> 
-  mutate(cal_curve = c(surface_cal, u_ottawa_cal))
-
-v1_ams_chron_out <- Bchronology(
-  ages = ams_chron_v1$c_14_age,
-  ageSds = replace_na(ams_chron_v1$one_sig, 0),
-  positions = ams_chron_v1$depth,
-  calCurves = ams_chron_v1$cal_curve,
-  positionThickness = ams_chron_v1$thickness,
-)
-
-v2_ams_chron_out <- Bchronology(
-  ages = ams_chron_v2$c_14_age,
-  ageSds = replace_na(ams_chron_v2$one_sig, 0),
-  positions = ams_chron_v2$depth,
-  calCurves = ams_chron_v2$cal_curve,
-  positionThickness = ams_chron_v2$thickness,
-)
-
-# median looks ok but upper and lower bounds are wonky 
-v1_acc_rate <- summary(v1_ams_chron_out,
-                    type = "acc_rate", useExisting = FALSE,
-                    probs = c(0.250, 0.5, 0.975)
-)
+# ams_chron_v1 <- ams_meta |> 
+#   filter(core == 'V1') |> 
+#   mutate(cal_curve = c(surface_cal, u_ottawa_cal))
+# 
+# ams_chron_v2 <- ams_meta |> 
+#   filter(core == 'V2') |> 
+#   mutate(cal_curve = c(surface_cal, u_ottawa_cal))
+# 
+# v1_ams_chron_out <- Bchronology(
+#   ages = ams_chron_v1$c_14_age,
+#   ageSds = replace_na(ams_chron_v1$one_sig, 0),
+#   positions = ams_chron_v1$depth,
+#   calCurves = ams_chron_v1$cal_curve,
+#   positionThickness = ams_chron_v1$thickness,
+# )
+# 
+# v2_ams_chron_out <- Bchronology(
+#   ages = ams_chron_v2$c_14_age,
+#   ageSds = replace_na(ams_chron_v2$one_sig, 0),
+#   positions = ams_chron_v2$depth,
+#   calCurves = ams_chron_v2$cal_curve,
+#   positionThickness = ams_chron_v2$thickness,
+# )
+# 
+# # median looks ok but upper and lower bounds are wonky 
+# v1_acc_rate <- summary(v1_ams_chron_out,
+#                     type = "acc_rate", useExisting = FALSE,
+#                     probs = c(0.250, 0.5, 0.975)
+# )
 
 # NOTE we need to add yr_core_bp since we want to be using the age Before coring
 # i.e. the number of years that have elapsed since depth 0
@@ -186,41 +187,41 @@ sd(c(v2_rate_hi, v2_rate_low, v2_rate_med))
 # note here the varve chronology is already in BP == 1950 
 
 v1_varve <- readRDS('data/long_cores/v1_226_processed.rds') |> 
-  select(year_BP, core_depth_no_turb) |> 
+  select(year_bp, core_depth_no_turb) |> 
   mutate(core_depth_no_turb = core_depth_no_turb / 10)
 
 good_v1_yr_id <- which.min(abs(v1_varve$core_depth_no_turb - v1_c14_depth))
 
-v1_varve_yr <- v1_varve$year_BP[good_v1_yr_id]
+v1_varve_yr <- v1_varve$year_bp[good_v1_yr_id]
 
 v1_varve_yr_se <- v1_varve_yr * counting_error
 
 v2_varve <- readRDS('data/long_cores/v2_224_processed.rds') |> 
-  select(year_BP, core_depth_no_turb) |> 
+  select(year_bp, core_depth_no_turb) |> 
   mutate(core_depth_no_turb = core_depth_no_turb / 10)
 
 good_v2_yr_id <- which.min(abs(v2_varve$core_depth_no_turb - v2_c14_depth))
 
-v2_varve_yr <- v2_varve$year_BP[good_v2_yr_id]
+v2_varve_yr <- v2_varve$year_bp[good_v2_yr_id]
 
 v2_varve_yr_se <- v2_varve_yr * counting_error
 
 paste('The corresponding varve estimate year is', 
       v1_varve_yr, 'and', v2_varve_yr, 
-      'for v1 and v2 respectively. And we also infer a 3% error on these dates so our SE is', 
+      'for v1 and v2 respectively. And we also infer a 10% error on these dates so our SE is', 
       v1_varve_yr_se, 'and', v2_varve_yr_se, 'respectively.')
 
 #### what is the basal age of the core using the varve chronology ####
 
-v1_varve_basal_yr <- max(v1_varve$year_BP) 
-v2_varve_basal_yr <- max(v2_varve$year_BP) 
+v1_varve_basal_yr <- max(v1_varve$year_bp) 
+v2_varve_basal_yr <- max(v2_varve$year_bp) 
 
 v1_varve_basal_yr_se <- v1_varve_basal_yr * counting_error
 v2_varve_basal_yr_se <- v2_varve_basal_yr * counting_error
 
 paste('The basal age of the cores using the varve chronologyis', 
       v1_varve_basal_yr, 'and', v2_varve_basal_yr, 
-      'for v1 and v2 respectively. And we also infer a 3% error on these dates so our SE is', 
+      'for v1 and v2 respectively. And we also infer a 10% error on these dates so our SE is', 
       v1_varve_basal_yr_se, 'and', v2_varve_basal_yr_se, 'respectively.')
 
 #### what is the basal age of the core using the 14C chronology ####
