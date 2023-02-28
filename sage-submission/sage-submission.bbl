@@ -1,4 +1,4 @@
-\begin{thebibliography}{66}
+\begin{thebibliography}{69}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
@@ -23,15 +23,6 @@ Beedle MJ, Menounos BP and Wheate R (2015) {Glacier change in the Cariboo
 \newblock \emph{Cryosphere} 9(1): 65--80.
 \newblock \doi{10.5194/tc-9-65-2015}.
 
-\bibitem[{Birlo et~al.(2022)Birlo, Tylmann and Zolitschka}]{Birlo2022}
-Birlo S, Tylmann W and Zolitschka B (2022) {Bayesian age-depth modelling
-  applied to varve and radiometric dating to optimize the transfer of an
-  existing high-resolution chronology to a new composite sediment profile from
-  Holzmaar (West-Eifel Volcanic Field, Germany)}.
-\newblock \emph{Geochronology Discussions} 2022: 1--43.
-\newblock
-  \urlprefix\url{https://gchron.copernicus.org/preprints/gchron-2022-22/}.
-
 \bibitem[{Bolch and Bolch(2008)}]{Bolch2008}
 Bolch Ts and Bolch Ta (2008) {GLIMS Glacier Database}.
 \newblock \doi{10.7265/N5V98602}.
@@ -52,6 +43,13 @@ Church M and Ryder JM (1972) {Paraglacial Sedimentation: A Consideration of
 \newblock
   \urlprefix\url{https://doi.org/10.1130/0016-7606(1972)83[3059:PSACOF]2.0.CO
   http://0.0.0.2}.
+
+\bibitem[{Clague et~al.(2010)Clague, Koch and Geertsema}]{Clague2010}
+Clague JJ, Koch J and Geertsema M (2010) {Expansion of outlet glaciers of the
+  Juneau Icefield in northwest British Columbia during the past two millennia}.
+\newblock \emph{The Holocene} 20(3): 447--461.
+\newblock \doi{10.1177/0959683609353433}.
+\newblock \urlprefix\url{https://doi.org/10.1177/0959683609353433}.
 
 \bibitem[{Clague et~al.(1989)Clague, Mathews, Ryder, Hughes, Rutter, Jackson,
   Matthews and MacDonald}]{Clague1989}
@@ -279,6 +277,17 @@ Masson-Delmotte V, Schulz M, Abe-Ouchi A, Beer J, Ganopolski J, {Gonz{\'{a}}lez
 \newblock Cambridge, UK: Cambridge University Press, pp. 383--464.
 \newblock \doi{10.1017/CBO9781107415324.013}.
 
+\bibitem[{Maurer et~al.(2012)Maurer, Menounos, Luckman, Osborn, Clague, Beedle,
+  Smith and Atkinson}]{Maurer2012b}
+Maurer MK, Menounos BP, Luckman BH, Osborn GD, Clague J, Beedle MJ, Smith R and
+  Atkinson N (2012) {Late Holocene glacier expansion in the Cariboo and
+  northern Rocky Mountains, British Columbia, Canada}.
+\newblock \emph{Quaternary Science Reviews} 51: 71--80.
+\newblock \doi{10.1016/j.quascirev.2012.07.023}.
+\newblock
+  \urlprefix\url{https://www.sciencedirect.com/science/article/pii/S0277379112002909
+  http://resolver.scholarsportal.info/resolve/02773791/v51inone_c/71_lhgeitnrmbcc}.
+
 \bibitem[{Menounos and Clague(2008)}]{Menounos2008c}
 Menounos BP and Clague JJJ (2008) {Reconstructing hydro-climatic events and
   glacier fluctuations over the past millennium from annually laminated
@@ -383,6 +392,16 @@ Reimer PJ, Bard E, Bayliss A, Beck JW, Blackwell PG, {Bronk Ramsey} C, Buck CE,
   JR, Staff RA, Turney CSM and van~der Plicht J (2013) {IntCal13 and Marine13
   Radiocarbon Age Calibration Curves 0–50,000 Years cal BP}.
 \newblock \emph{Radiocarbon} 55(4): 1869--1887.
+
+\bibitem[{Reyes et~al.(2006)Reyes, Wiles, Smith, Barclay, {Allen Scott Jackson
+  Sonya Larocque Sarah Laxton Dave Lewis}, Calkin and Clague}]{Reyes2006}
+Reyes ADV, Wiles GC, Smith DJ, Barclay DJ, {Allen Scott Jackson Sonya Larocque
+  Sarah Laxton Dave Lewis} S, Calkin PE and Clague J (2006) {Expansion of
+  alpine glaciers in Pacific North America in the first millennium A}.
+\newblock \emph{Geology} 341(3).
+\newblock \doi{10.1130/G21902.1}.
+\newblock \urlprefix\url{https://www.sfu.ca/$\sim$qgrc/papers/1st millennium AD
+  advance.pdf}.
 
 \bibitem[{Ryder and Thomson(1986)}]{Ryder1986}
 Ryder JM and Thomson B (1986) {Neoglaciation in the southern Coast Mountains of
@@ -492,6 +511,11 @@ Zdanowicz CM, Zielinski GA and Germani MS (1999) {Mount Mazama eruption:
   Calendrical age verified and atmospheric impact assessed}.
 \newblock \emph{Geology} 27(7): 621--624.
 \newblock \doi{10.1130/0091-7613(1999)027<0621:MMECAV>2.3.CO;2}.
+
+\bibitem[{Zolitschka(1991)}]{Zolitschka1991}
+Zolitschka B (1991) {Absolute dating of late quaternary lacustrine sediments by
+  high resolution varve chronology}.
+\newblock \emph{Hydrobiologia} 214(1): 59--61.
 
 \bibitem[{Zolitschka et~al.(2015)Zolitschka, Francus, Ojala and
   Schimmelmann}]{Zolitschka2015a}
