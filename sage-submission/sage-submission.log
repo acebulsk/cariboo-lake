@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.2.28)  28 FEB 2023 15:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.2.28)  28 FEB 2023 15:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -689,12 +689,8 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [27 <./figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png>] [28 <./figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png>] [29]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[30] [31] [32]
-
-Package natbib Warning: Citation `Dirszowsky1997' on page 33 undefined on input line 1323.
-
-[33]
-<figs/all_core_stats_2k_anomalies.jpg, id=835, 2409.0pt x 2409.0pt>
+[30] [31] [32] [33]
+<figs/all_core_stats_2k_anomalies.jpg, id=838, 2409.0pt x 2409.0pt>
 File: figs/all_core_stats_2k_anomalies.jpg Graphic file (type jpg)
 <use figs/all_core_stats_2k_anomalies.jpg>
 Package pdftex.def Info: figs/all_core_stats_2k_anomalies.jpg  used on input line 1375.
@@ -734,11 +730,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [43]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[44])
-
-Package natbib Warning: There were undefined citations.
-
-[45] (./sage-submission.aux)
+[44]) [45] (./sage-submission.aux)
 Package rerunfilecheck Info: File `sage-submission.out' has not changed.
 (rerunfilecheck)             Checksum: 0A5D13E3A2D4E614EB8FD0657C39D7D4;1872.
  ) 
@@ -751,10 +743,10 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  75i,11n,77p,1871b,690s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/home/alex/.TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}</home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sage-submission.pdf (45 pages, 13829217 bytes).
+Output written on sage-submission.pdf (45 pages, 13829167 bytes).
 PDF statistics:
- 1037 PDF objects out of 1200 (max. 8388607)
- 937 compressed objects within 10 object streams
+ 1040 PDF objects out of 1200 (max. 8388607)
+ 940 compressed objects within 10 object streams
  170 named destinations out of 1000 (max. 500000)
  178 words of extra memory for PDF output out of 10000 (max. 10000000)
 

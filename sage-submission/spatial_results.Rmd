@@ -4,7 +4,7 @@ Twenty surficial sediment cores ranging from 6-12 cm thick were analyzed for gra
 
 Proximal to the Cariboo River delta (< 500 m) the structure of the surficial sediments exhibits massive layering, erosive contacts and the fraction of sand grains in these samples is greater than 60%. A sand-bed with a thickness of 1 cm is observed in the bulk sample closest to the Cariboo River delta (Figure \ref{fig:ekmanImgs}, A). In the main Cariboo River basin, core E13 had the most distinct laminations and was taken 5.24 km from the Cariboo River delta, proximal to long core V2, in the deepest part at a depth of 40 m. Sediment here shows rhythmic lamination (Figure \ref{fig:ekmanImgs}, B).
 
-```{r ekmanSeds, echo=FALSE, fig.width=8, fig.height=5, fig.cap = "Sediment characteristics from the Ekman surficial bulk samples with distance down lake from the Cariboo River input to Cariboo Lake. Top panel A is the percent clay (0.01 - 2) µm, silt (2 - 63) µm, and sand grains (63 - 2000) µm, panel B is the  D~10~, D~50~, and D~90~ (µm) grain size, panel C is the mean laminae thickness (mm), and the bottom panel D is percent organic matter content (OM)."}
+```{r ekmanSeds, echo=FALSE, fig.cap = "Sediment characteristics from the Ekman surficial bulk samples with distance down lake from the Cariboo River input to Cariboo Lake. Top panel A is the percent clay (0.01 - 2) µm, silt (2 - 63) µm, and sand grains (63 - 2000) µm, panel B is the  D~10~, D~50~, and D~90~ (µm) grain size, panel C is the mean laminae thickness (mm), and the bottom panel D is percent organic matter content (OM)."}
 knitr::include_graphics("figs/ekman_seds.jpg")
 ```
 
