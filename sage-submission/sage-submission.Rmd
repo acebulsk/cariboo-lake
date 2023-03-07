@@ -24,9 +24,31 @@ bibliographystyle: sageh
 output:
   rticles::sage_article:
     keep_tex: yes
+header-includes:
+  - \usepackage[left]{lineno}
+  - \linenumbers
 ---
 
 ```{r setup, include=FALSE}
+# !!! IMPORTANT note that sage requires the bibliography to be inside the .tex file
+# to do this we can generate a .bbl file by hitting knit and copying the .bbl file it creates before it is auto deleted. Can also generate by copying the library.bib into the .tex but this takes longer. Then copy the .bbl into the bottom of the .tex. see <filename>-add-bib.tex for example. 
+# the .bbl syntax for the .tex file is: 
+# \begin{thebibliography}{1}
+# 	\bibitem{wombat2016}
+# 		Walther Wombat and Klaus Koala,
+# 		``The true meaning of 42'' in: Journal of modern skepticism;
+# 		2016
+# 	\bibitem{lion2010}
+# 		Laura Lion, Gabrielle Giraffe and Carl Capybara,
+# 		``The dangers of asking the wrong question'', publishing house;
+# 		2010
+# 	\bibitem{wikibook}
+# 		manually managing references, 
+# 		\url{https://en.wikibooks.org/wiki/LaTeX/Manually_Managing_References}
+# 		2016
+# \end{thebibliography}
+# \end{document}
+
 library(dplyr)
 knitr::opts_chunk$set(echo = F, warning = F, message = F)
 knitr::opts_chunk$set(out.width = "100%", fig.align = 'center')
