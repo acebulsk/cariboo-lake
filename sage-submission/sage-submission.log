@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.2.28)  8 MAR 2023 15:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.2.28)  8 MAR 2023 16:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -775,7 +775,7 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  75i,11n,77p,1871b,708s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/home/alex/.TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}</home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sage-submission.pdf (44 pages, 13840192 bytes).
+Output written on sage-submission.pdf (44 pages, 13840194 bytes).
 PDF statistics:
  1049 PDF objects out of 1200 (max. 8388607)
  950 compressed objects within 10 object streams
