@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.2.28)  7 MAR 2023 14:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.2.28)  8 MAR 2023 15:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -591,7 +591,7 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 25
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [6]
-<figs/cl_small_scale_inset_labels_gimp.png, id=353, 505.89pt x 505.89pt>
+<figs/cl_small_scale_inset_labels_gimp.png, id=355, 505.89pt x 505.89pt>
 File: figs/cl_small_scale_inset_labels_gimp.png Graphic file (type png)
 <use figs/cl_small_scale_inset_labels_gimp.png>
 Package pdftex.def Info: figs/cl_small_scale_inset_labels_gimp.png  used on input line 270.
@@ -600,13 +600,13 @@ LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
 (Font)              scaled to size 8.54997pt on input line 274.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
 (Font)              scaled to size 8.54997pt on input line 274.
-<figs/cariboo_combine_climate_hydro.png, id=355, 650.43pt x 289.08pt>
+<figs/cariboo_combine_climate_hydro.png, id=357, 650.43pt x 289.08pt>
 File: figs/cariboo_combine_climate_hydro.png Graphic file (type png)
 <use figs/cariboo_combine_climate_hydro.png>
 Package pdftex.def Info: figs/cariboo_combine_climate_hydro.png  used on input line 279.
 (pdftex.def)             Requested size: 352.81416pt x 156.81104pt.
 [7 <./figs/cl_small_scale_inset_labels_gimp.png>]
-<figs/cl_bathymetry_acoustics_coring_locations_labels.png, id=364, 844.8363pt x 597.432pt>
+<figs/cl_bathymetry_acoustics_coring_locations_labels.png, id=366, 844.8363pt x 597.432pt>
 File: figs/cl_bathymetry_acoustics_coring_locations_labels.png Graphic file (type png)
 <use figs/cl_bathymetry_acoustics_coring_locations_labels.png>
 Package pdftex.def Info: figs/cl_bathymetry_acoustics_coring_locations_labels.png  used on input line 298.
@@ -618,10 +618,7 @@ LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
 [8 <./figs/cariboo_combine_climate_hydro.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[9 <./figs/cl_bathymetry_acoustics_coring_locations_labels.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[10]
+[9 <./figs/cl_bathymetry_acoustics_coring_locations_labels.png>] [10]
 <figs/acoustics_6_panel.png, id=421, 571.13374pt x 767.86874pt>
 File: figs/acoustics_6_panel.png Graphic file (type png)
 <use figs/acoustics_6_panel.png>
@@ -687,35 +684,35 @@ File: figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png Graphic file (typ
 Package pdftex.def Info: figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png  used on input line 992.
 (pdftex.def)             Requested size: 352.81416pt x 249.04504pt.
 [24 <./figs/turbidite_plot.jpg>]
-<figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png, id=597, 614.295pt x 433.62pt>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[25 <./figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png>]
+<figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png, id=604, 614.295pt x 433.62pt>
 File: figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png Graphic file (type png)
 <use figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png>
 Package pdftex.def Info: figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png  used on input line 1020.
 (pdftex.def)             Requested size: 352.81416pt x 249.04504pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[25 <./figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png>] [26 <./figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png>]
+[26 <./figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png>]
 <figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png, id=619, 614.295pt x 433.62pt>
 File: figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png Graphic file (type png)
 <use figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png>
 Package pdftex.def Info: figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png  used on input line 1053.
 (pdftex.def)             Requested size: 352.81416pt x 249.04504pt.
-[27 <./figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png>] [28] [29] [30] [31] [32]
-<figs/all_core_stats_2k_anomalies.jpg, id=825, 2409.0pt x 2409.0pt>
+[27 <./figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png>] [28] [29] [30] [31]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[32]
+<figs/all_core_stats_2k_anomalies.jpg, id=823, 2409.0pt x 2409.0pt>
 File: figs/all_core_stats_2k_anomalies.jpg Graphic file (type jpg)
 <use figs/all_core_stats_2k_anomalies.jpg>
-Package pdftex.def Info: figs/all_core_stats_2k_anomalies.jpg  used on input line 1330.
+Package pdftex.def Info: figs/all_core_stats_2k_anomalies.jpg  used on input line 1333.
 (pdftex.def)             Requested size: 352.81416pt x 352.80647pt.
 
-LaTeX Warning: Float too large for page by 25.43048pt on input line 1335.
+LaTeX Warning: Float too large for page by 25.43048pt on input line 1338.
 
 [33] [34 <./figs/all_core_stats_2k_anomalies.jpg>]
 LaTeX Font Info:    Font shape `OML/ptm/b/n' in size <10> not available
-(Font)              Font shape `OML/cmm/b/it' tried instead on input line 1371.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+(Font)              Font shape `OML/cmm/b/it' tried instead on input line 1374.
 [35]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -778,10 +775,10 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  75i,11n,77p,1871b,708s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/home/alex/.TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}</home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sage-submission.pdf (44 pages, 13840054 bytes).
+Output written on sage-submission.pdf (44 pages, 13840192 bytes).
 PDF statistics:
- 1051 PDF objects out of 1200 (max. 8388607)
- 952 compressed objects within 10 object streams
+ 1049 PDF objects out of 1200 (max. 8388607)
+ 950 compressed objects within 10 object streams
  168 named destinations out of 1000 (max. 500000)
  178 words of extra memory for PDF output out of 10000 (max. 10000000)
 
