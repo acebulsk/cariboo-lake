@@ -13,7 +13,7 @@ address:
   org: Department of Geography and Department of Earth Sciences, University of Toronto, Toronto, Canada
 corrauth: "Alex Cebulski"
 email: alexcebulski@gmail.com
-abstract: "**An acoustic record of sedimentation and sediment cores from Cariboo Lake are analyzed to present a high-resolution record of sediment accumulation. Acoustically penetrable sediment reaches a maximum thickness of 35 m in deep parts of the lake, representing deglacial and Holocene accumulation.** A transition from massive to well-layered sediments is observed in the sub-bottom acoustic record during final phases of valley deglaciation in the region (ca. 10.5-9 ka BP). Fine clastic sediments produced from the glaciated headwaters are delivered by Cariboo River as over-flow currents into the lake which produce bimodal rhythmic layering of silt and clay sediments. Laminae couplets are inferred to be deposited annually according to two AMS radiocarbon dates and a varve counting chronology. Two long cores, 2.9 and 3.8 m in length, were selected for analysis with estimated basal dates of 2 ka BP. The accumulation of sediment into Cariboo Lake shows above average sediment accumulation rates between 0-700CE and 1500-2017CE which are coincident with cool temperatures and peak glacier extents. Cariboo Lake is situated in a mountainous region of British Columbia Canada and is representative of environments transitioning from semi-arid interior climates to glaciated high mountain regions to the east. The sediment chronology presented in this study contributes to the existing body of knowledge of lake sediment accumulation and Holocene watershed activity for this transitional climate region of western Canada."
+abstract: "**An acoustic record of sedimentation and sediment cores from Cariboo Lake are analyzed to present a high-resolution record of sediment accumulation. Acoustically penetrable sediment reaches a maximum thickness of 35 m in deep parts of the lake, representing deglacial and Holocene accumulation.** A transition from massive to well-layered sediments is observed in the sub-bottom acoustic record during final phases of valley deglaciation in the region (ca. 10.5-9 ka BP). Fine clastic sediments produced from the glaciated headwaters are delivered by Cariboo River as over-flow currents into the lake which produce bimodal rhythmic layering of silt and clay sediments. Laminae couplets are inferred to be deposited annually according to two AMS radiocarbon dates and a varve counting chronology. Two long cores, 2.9 and 3.8 m in length, were selected for analysis with estimated basal dates of 2 ka BP. The accumulation of sediment into Cariboo Lake shows above average sediment accumulation rates between 0-700CE and 1500-2017CE which are coincident with cool temperatures and peak glacier extents. Cariboo Lake is situated in the northern Columbia Mountains, British Columbia, Canada and is representative of environments transitioning from semi-arid interior climates to glaciated high mountain regions to the east. The sediment chronology presented in this study contributes to the existing body of knowledge of lake sediment accumulation and Holocene watershed activity for this transitional climate region of western Canada."
 keywords: Glaciolacustrine; Sediment; Holocene; Connectivity; Varve; British Columbia
 classoption:
   - Royal
@@ -32,6 +32,10 @@ header-includes:
 ```{r setup, include=FALSE}
 # !!! IMPORTANT note that sage requires the bibliography to be inside the .tex file
 # to do this we can generate a .bbl file by hitting knit and copying the .bbl file it creates before it is auto deleted. Can also generate by copying the library.bib into the .tex but this takes longer. Then copy the .bbl into the bottom of the .tex. see <filename>-add-bib.tex for example. 
+# test locally with
+# latexmk sage-submission
+# pdflatex sage-submission
+
 # the .bbl syntax for the .tex file is: 
 # \begin{thebibliography}{1}
 # 	\bibitem{wombat2016}
