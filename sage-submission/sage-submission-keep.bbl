@@ -1,4 +1,4 @@
-\begin{thebibliography}{68}
+\begin{thebibliography}{69}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
@@ -138,9 +138,17 @@ Hallett DU, Hills LV and Clague JJ (1997) {New accelerator mass spectrometry
 \newblock \emph{Canadian Journal of Earth Sciences} 34(9): 1202--1209.
 \newblock \doi{10.1139/e17-096}.
 
+\bibitem[{Harvey et~al.(2012)Harvey, Smith, Laxton, Desloges and
+  Allen}]{Harvey2012}
+Harvey JE, Smith DJ, Laxton S, Desloges J and Allen S (2012) {Mid-Holocene
+  glacier expansion between 7500 and 4000 cal. yr BP in the British Columbia
+  Coast Mountains, Canada}.
+\newblock \emph{Holocene} 22(9): 975--985.
+\newblock \doi{10.1177/0959683612437868}.
+
 \bibitem[{Haslett and Parnell(2008)}]{Haslett2008}
-Haslett J and Parnell A (2008) simple monotone process with application to
-  radiocarbon-dated depth chronologies.
+Haslett J and Parnell A (2008) {A simple monotone process with application to
+  radiocarbon-dated depth chronologies}.
 \newblock \emph{Applied statistics} 57(4): 399--418.
 
 \bibitem[{Heideman et~al.(2018)Heideman, Menounos and Clague}]{Heideman2017}

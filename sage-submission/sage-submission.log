@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.2.28)  8 MAR 2023 16:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.2.28)  10 MAR 2023 09:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -587,132 +587,132 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [3] [4] [5]
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 254.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 255.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [6]
-<figs/cl_small_scale_inset_labels_gimp.png, id=355, 505.89pt x 505.89pt>
+<figs/cl_small_scale_inset_labels_gimp.png, id=360, 505.89pt x 505.89pt>
 File: figs/cl_small_scale_inset_labels_gimp.png Graphic file (type png)
 <use figs/cl_small_scale_inset_labels_gimp.png>
-Package pdftex.def Info: figs/cl_small_scale_inset_labels_gimp.png  used on input line 270.
+Package pdftex.def Info: figs/cl_small_scale_inset_labels_gimp.png  used on input line 271.
 (pdftex.def)             Requested size: 352.81416pt x 352.82375pt.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 8.54997pt on input line 274.
+(Font)              scaled to size 8.54997pt on input line 275.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 8.54997pt on input line 274.
-<figs/cariboo_combine_climate_hydro.png, id=357, 650.43pt x 289.08pt>
+(Font)              scaled to size 8.54997pt on input line 275.
+<figs/cariboo_combine_climate_hydro.png, id=362, 650.43pt x 289.08pt>
 File: figs/cariboo_combine_climate_hydro.png Graphic file (type png)
 <use figs/cariboo_combine_climate_hydro.png>
-Package pdftex.def Info: figs/cariboo_combine_climate_hydro.png  used on input line 279.
+Package pdftex.def Info: figs/cariboo_combine_climate_hydro.png  used on input line 280.
 (pdftex.def)             Requested size: 352.81416pt x 156.81104pt.
 [7 <./figs/cl_small_scale_inset_labels_gimp.png>]
-<figs/cl_bathymetry_acoustics_coring_locations_labels.png, id=366, 844.8363pt x 597.432pt>
+<figs/cl_bathymetry_acoustics_coring_locations_labels.png, id=371, 844.8363pt x 597.432pt>
 File: figs/cl_bathymetry_acoustics_coring_locations_labels.png Graphic file (type png)
 <use figs/cl_bathymetry_acoustics_coring_locations_labels.png>
-Package pdftex.def Info: figs/cl_bathymetry_acoustics_coring_locations_labels.png  used on input line 298.
+Package pdftex.def Info: figs/cl_bathymetry_acoustics_coring_locations_labels.png  used on input line 299.
 (pdftex.def)             Requested size: 352.81416pt x 249.49762pt.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <12> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 309.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 310.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 11.39996pt on input line 309.
+(Font)              scaled to size 11.39996pt on input line 310.
 [8 <./figs/cariboo_combine_climate_hydro.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [9 <./figs/cl_bathymetry_acoustics_coring_locations_labels.png>] [10]
-<figs/acoustics_6_panel.png, id=421, 571.13374pt x 767.86874pt>
+<figs/acoustics_6_panel.png, id=426, 571.13374pt x 767.86874pt>
 File: figs/acoustics_6_panel.png Graphic file (type png)
 <use figs/acoustics_6_panel.png>
-Package pdftex.def Info: figs/acoustics_6_panel.png  used on input line 433.
+Package pdftex.def Info: figs/acoustics_6_panel.png  used on input line 434.
 (pdftex.def)             Requested size: 352.81416pt x 474.35135pt.
 
-LaTeX Warning: Float too large for page by 20.97536pt on input line 438.
+LaTeX Warning: Float too large for page by 20.97536pt on input line 439.
 
 [11] [12 <./figs/acoustics_6_panel.png>] [13]
-LaTeX Font Info:    Trying to load font information for OML+ptm on input line 501.
+LaTeX Font Info:    Trying to load font information for OML+ptm on input line 502.
 (/home/alex/.TinyTeX/texmf-dist/tex/latex/psnfss/omlptm.fd
 File: omlptm.fd 
 )
 LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 501.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 502.
 [14]
-<figs/ekman_seds.jpg, id=463, 2559.5625pt x 1806.75pt>
+<figs/ekman_seds.jpg, id=468, 2559.5625pt x 1806.75pt>
 File: figs/ekman_seds.jpg Graphic file (type jpg)
 <use figs/ekman_seds.jpg>
-Package pdftex.def Info: figs/ekman_seds.jpg  used on input line 574.
+Package pdftex.def Info: figs/ekman_seds.jpg  used on input line 575.
 (pdftex.def)             Requested size: 352.81416pt x 249.02852pt.
 LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
-(Font)              scaled to size 8.54997pt on input line 578.
-<figs/ekman_example.jpg, id=464, 647.41875pt x 636.12656pt>
+(Font)              scaled to size 8.54997pt on input line 579.
+<figs/ekman_example.jpg, id=469, 647.41875pt x 636.12656pt>
 File: figs/ekman_example.jpg Graphic file (type jpg)
 <use figs/ekman_example.jpg>
-Package pdftex.def Info: figs/ekman_example.jpg  used on input line 583.
+Package pdftex.def Info: figs/ekman_example.jpg  used on input line 584.
 (pdftex.def)             Requested size: 352.81416pt x 346.65784pt.
 [15] [16 <./figs/ekman_seds.jpg>] [17 <./figs/ekman_example.jpg>] [18]
-Overfull \hbox (9.6323pt too wide) in paragraph at lines 740--740
+Overfull \hbox (9.6323pt too wide) in paragraph at lines 741--741
 []|\OT1/ptm/m/n/10 Surface|  
  []
 
 
-Overfull \hbox (9.6323pt too wide) in paragraph at lines 742--742
+Overfull \hbox (9.6323pt too wide) in paragraph at lines 743--743
 []|\OT1/ptm/m/n/10 Surface|  
  []
 
-<figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png, id=529, 433.62pt x 325.215pt>
+<figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png, id=534, 433.62pt x 325.215pt>
 File: figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png Graphic file (type png)
 <use figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png>
-Package pdftex.def Info: figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png  used on input line 765.
+Package pdftex.def Info: figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png  used on input line 766.
 (pdftex.def)             Requested size: 352.81416pt x 264.6236pt.
 [19]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [20 <./figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png>]
-<figs/good_vs_flood_vs_disturbed_varves_.png, id=561, 505.89pt x 233.673pt>
+<figs/good_vs_flood_vs_disturbed_varves_.png, id=566, 505.89pt x 233.673pt>
 File: figs/good_vs_flood_vs_disturbed_varves_.png Graphic file (type png)
 <use figs/good_vs_flood_vs_disturbed_varves_.png>
-Package pdftex.def Info: figs/good_vs_flood_vs_disturbed_varves_.png  used on input line 832.
+Package pdftex.def Info: figs/good_vs_flood_vs_disturbed_varves_.png  used on input line 833.
 (pdftex.def)             Requested size: 352.81416pt x 162.97096pt.
 [21] [22 <./figs/good_vs_flood_vs_disturbed_varves_.png>]
-<figs/turbidite_plot.jpg, id=579, 2107.875pt x 1204.5pt>
+<figs/turbidite_plot.jpg, id=584, 2107.875pt x 1204.5pt>
 File: figs/turbidite_plot.jpg Graphic file (type jpg)
 <use figs/turbidite_plot.jpg>
-Package pdftex.def Info: figs/turbidite_plot.jpg  used on input line 940.
+Package pdftex.def Info: figs/turbidite_plot.jpg  used on input line 941.
 (pdftex.def)             Requested size: 352.81416pt x 201.60107pt.
 [23]
-<figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png, id=589, 614.295pt x 433.62pt>
+<figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png, id=594, 614.295pt x 433.62pt>
 File: figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png Graphic file (type png)
 <use figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png>
-Package pdftex.def Info: figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png  used on input line 992.
+Package pdftex.def Info: figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png  used on input line 993.
 (pdftex.def)             Requested size: 352.81416pt x 249.04504pt.
 [24 <./figs/turbidite_plot.jpg>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [25 <./figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png>]
-<figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png, id=604, 614.295pt x 433.62pt>
+<figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png, id=609, 614.295pt x 433.62pt>
 File: figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png Graphic file (type png)
 <use figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png>
-Package pdftex.def Info: figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png  used on input line 1020.
+Package pdftex.def Info: figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png  used on input line 1021.
 (pdftex.def)             Requested size: 352.81416pt x 249.04504pt.
 [26 <./figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png>]
-<figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png, id=619, 614.295pt x 433.62pt>
+<figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png, id=624, 614.295pt x 433.62pt>
 File: figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png Graphic file (type png)
 <use figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png>
-Package pdftex.def Info: figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png  used on input line 1053.
+Package pdftex.def Info: figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png  used on input line 1054.
 (pdftex.def)             Requested size: 352.81416pt x 249.04504pt.
 [27 <./figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png>] [28] [29] [30] [31]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [32]
-<figs/all_core_stats_2k_anomalies.jpg, id=823, 2409.0pt x 2409.0pt>
+<figs/all_core_stats_2k_anomalies.jpg, id=822, 2409.0pt x 2409.0pt>
 File: figs/all_core_stats_2k_anomalies.jpg Graphic file (type jpg)
 <use figs/all_core_stats_2k_anomalies.jpg>
-Package pdftex.def Info: figs/all_core_stats_2k_anomalies.jpg  used on input line 1333.
+Package pdftex.def Info: figs/all_core_stats_2k_anomalies.jpg  used on input line 1334.
 (pdftex.def)             Requested size: 352.81416pt x 352.80647pt.
 
-LaTeX Warning: Float too large for page by 25.43048pt on input line 1338.
+LaTeX Warning: Float too large for page by 25.43048pt on input line 1339.
 
 [33] [34 <./figs/all_core_stats_2k_anomalies.jpg>]
 LaTeX Font Info:    Font shape `OML/ptm/b/n' in size <10> not available
-(Font)              Font shape `OML/cmm/b/it' tried instead on input line 1374.
+(Font)              Font shape `OML/cmm/b/it' tried instead on input line 1375.
 [35]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -729,27 +729,27 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [40]
-Underfull \hbox (badness 10000) in paragraph at lines 248--255
+Underfull \hbox (badness 10000) in paragraph at lines 256--263
 \OT1/ptm/m/n/9 32(3-4): 357--384.  DOI:$10 . 1016 / S0169-[]555X(99 ) 00104-[]X$.  URL [][]$\OT1/pcr/m/n/9 http :
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 248--255
+Underfull \hbox (badness 10000) in paragraph at lines 256--263
 \OT1/pcr/m/n/9 / / linkinghub . elsevier . com / retrieve / pii / S0169555X9900104X %
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 248--255
+Underfull \hbox (badness 10000) in paragraph at lines 256--263
 \OT1/pcr/m/n/9 5Cnfile : / / /Users / whobbs / Documents / PDFs / Papers2 / Luckman / 2000 /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 248--255
+Underfull \hbox (badness 10000) in paragraph at lines 256--263
 \OT1/pcr/m/n/9 Geomorphology2000Luckman . pdf % 5Cnpapers2 : / / publication / uuid /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 284--292
+Underfull \hbox (badness 10000) in paragraph at lines 292--300
 \OT1/pcr/m/n/9 article / pii / S0277379112002909http : / / resolver . scholarsportal .
  []
 
@@ -762,23 +762,26 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [42]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[43]) [44] (./sage-submission.aux)
+[43]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[44]) [45] (./sage-submission.aux)
 Package rerunfilecheck Info: File `sage-submission.out' has not changed.
 (rerunfilecheck)             Checksum: 0A5D13E3A2D4E614EB8FD0657C39D7D4;1872.
  ) 
 Here is how much of TeX's memory you used:
- 13980 strings out of 477984
- 229432 string characters out of 5839299
+ 13985 strings out of 477984
+ 229508 string characters out of 5839299
  1873388 words of memory out of 5000000
- 33718 multiletter control sequences out of 15000+600000
+ 33721 multiletter control sequences out of 15000+600000
  562584 words of font info for 128 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,11n,77p,1871b,708s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,77p,1871b,726s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/home/alex/.TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}</home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></home/alex/.TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sage-submission.pdf (44 pages, 13840194 bytes).
+Output written on sage-submission.pdf (45 pages, 13840825 bytes).
 PDF statistics:
- 1049 PDF objects out of 1200 (max. 8388607)
- 950 compressed objects within 10 object streams
- 168 named destinations out of 1000 (max. 500000)
+ 1055 PDF objects out of 1200 (max. 8388607)
+ 955 compressed objects within 10 object streams
+ 170 named destinations out of 1000 (max. 500000)
  178 words of extra memory for PDF output out of 10000 (max. 10000000)
 
