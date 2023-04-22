@@ -24,6 +24,8 @@ ek_fix_depth <- data.frame(
   count = c(10, 12, 12)
 ) 
 
+saveRDS(ek_fix_depth, 'data/ekman/ek_counting_error_table_supplement.rds')
+
 # now show the counting error stats 
 
 mean_count <- mean(ek_fix_depth$count)
