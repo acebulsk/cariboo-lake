@@ -1,0 +1,136 @@
+From:
+	
+
+atle.nesje@uib.no
+
+To:
+	
+
+alexcebulski@gmail.com
+
+CC:
+	
+
+Subject:
+	
+
+The Holocene - Decision on Manuscript ID HOL-22-0139.R1
+
+Body:
+	
+
+20-Apr-2023
+
+Dear Mr. Cebulski:Manuscript ID HOL-22-0139.R1 entitled "The Influence of Fluvial and Glacial Watershed Dynamics on Holocene Sediment Accumulation in Cariboo Lake, Columbia Mountains, British Columbia, Canada" which you submitted to The Holocene, has been reviewed.  The Review Comments are included at the bottom of this letter.
+
+Some revisions are suggested for your manuscript.  Therefore, I invite you to respond to the Review Comments and to revise your manuscript.
+
+To revise your manuscript, log into https://mc.manuscriptcentral.com/holocene and enter your Author Center, where you will find your manuscript title listed under "Manuscripts with Decisions."  Under "Actions," click on "Create a Revision."  Your manuscript number has been appended to denote a revision.
+
+You will be unable to make your revisions on the originally submitted version of the manuscript.  Instead, revise your manuscript using a word processing program and save it on your computer.  Please also highlight the changes to your manuscript within the document by using the track changes mode in MS Word or by using bold or colored text.
+
+Once the revised manuscript is prepared, you can upload it and submit it through your Author Center.
+
+When submitting your revised manuscript, you will be able to respond to the Review Comments in the space provided.  You can use this space to document any changes you make to the original manuscript.  In order to expedite the processing of the revised manuscript, please be as specific as possible in your response to each Review Comment.
+
+IMPORTANT:  Your original files are available to you when you upload your revised manuscript.  Please delete any redundant files before completing the submission.
+
+Because we are trying to facilitate timely publication of manuscripts submitted to The Holocene, your revised manuscript should be uploaded as soon as possible.  If it is not possible for you to submit your revision in a reasonable amount of time, we may have to consider your paper as a new submission.
+
+Once again, thank you for submitting your manuscript to The Holocene and I look forward to receiving your revision.
+
+Sincerely,
+Dr. Atle Nesje
+Associate Editor, The Holocene
+atle.nesje@uib.no
+
+
+Reviewer(s)' Comments to Author:
+
+Reviewer: 1
+
+Comments to the Author
+The manuscript is much improved by the revisions. It is more clearly argued and substantiated, and the writing is improved. The broader implications are now clear from the detailed discussion of regional records. Many relatively minor issues still need further attention but with that done the evidence presented in this paper will make a useful contribution to this region and methods.
+
+Abstract
+line 10-11: It is unclear here how the ages for the acoustic transition determined. Or, is this an interpretation of the sediments as reflecting the deglacial transition for which the timing is based upon other (glacial) evidence? This distinction is important.
+
+Introduction
+p.3 line 15: This sentence is not quite accurate. Neukom et al., 2019 have not used what I would call a ‘larger paleolimnologic collection’. They used the PAGES 2k paleoclimatic data compilation which includes a few varve sequences, primarily from the Canadian arctic. Most of the data that comprises the compilation are tree-rings.
+
+p.3 Line 25: The second half of this sentences is unclear.
+p.3 Line 28: The second half of this sentence is unclear.
+p.4 lines 54-56: remove commas and by ‘sediment infills’ do you mean ‘high rates of sedimentation’? How was this determined? Unclear how “sediment characteristics were undetectable due to low sedimentation rate” What characteristics? The reasoning of this paragraph is difficult to follow.
+p.4 line 74: remove ‘bottom’. This sentence seems to repeat the first sentence of the previous paragraph. This writing of the introduction needs additional editing and refinement.
+
+Study Area:
+
+p.6 line 130: 3244 km2 seems an order of magnitude too large for this area based on the 10 km scale bar on Figure 1? Check again.
+P7. Paragraph starting at line 151: This reasoning is not clear: It seems that the idea is bathymetric profiles can reveal deep basins that are interpreted to reflect the effects of glacial scouring because subsequent sedimentation that has not yet filled those basins. In contrast, lakes with flat bathymetry in this glaciated landscape are interpreted to reflect higher rates of sedimentation that have filled up glacially scoured deep holes which are assumed to be there? Yet it remains unclear if there is any concrete evidence to support this interpretation and how is it relevant to this study. The rest of the paragraph about Sandy Lake and Matthews River and Lanazi Lake is unclear and the phrase ‘less filtered connection’ is not explained.
+
+Laboratory methods:
+
+p.10 line 187: It helps that the term ‘stratigraphic break’ is now defined, but based on the definition provided, which is a ‘change in grain size or lamination pattern’, the use of the term ‘break’ may not accurately describe the definition. Using ‘break’ implies a discontinuity that could include hiatus, which is not necessarily the same as a ‘change’. Some further clarification here is needed.
+
+p. 10, line 198: This is a helpful explanation of the varve counting error determination and would be further improved by citing the average number of varves in the 5-cm cores plus the standard deviations and including this data in supplementary table. Delete ‘specific’.
+
+p. 10, line 200: What is the depth of disturbance that prevents counting? Clarify here how  the long cores are anchored (or not) to the short cores.
+
+p. 10, line 201: Start a new paragraph with “Organic content…”
+p. 10, line 205: A citation is needed for the LOI methods - Dean 1974 and or Heiri et al., 2001 – and an explanation for how organic matter content is determined from the weights. The correct convention is to use %LOI550˚C as the unit of the measurement.
+p. 10 line 210: Calgon is a trade name, or cite the dispersant as sodium hexametaphosphate
+p. 10 line 211: Start a new paragraph with “The chronology”
+p. 10 line 212: Helpful to state here what material and how many ages were obtained ie., bulk sediments, terrestrial macrofossils etc. Is ‘Andr E.’ a typo?
+p.10 line 214: IntCal 13 is now quite old. IntCal20 would be a better choice.
+
+Results:
+
+p. 11, line 246. Good clarification, but adding ‘acoustic record’ makes clearer distinction from the ‘sediment record’ based on the cores.
+p. 13, line 250. Would ‘considered’ be better described as ‘interpreted’?
+p. 13, line 260. Would ‘inferred’ be better described as ‘interpreted’?
+p. 13, lines 262. Not sure how this unit with less layers ‘indicates’ higher energy and the descriptions in subsequent lines to 271 are also vague; what kind of events are referred to by ‘more frequent events of lower overall magnitude’?
+p. 15, line 345. ‘observed in many other lakes’ could be deleted.
+p. 15, line 350. Not sure I understand what ‘nival’ means here, but it seems to simply mean snowmelt.
+p. 16, line 353. Snowmelt is one word and not sure it is considered an ‘event’ in and of itself. Is the meaning here meant to be rain on (not or) snow during snowmelt?
+p. 16 line 363. It seems that ‘is required’ should be ‘are used to confirm this’.
+p. 18, line 394. Better to just state the number of ages.
+p. 18, line 399. A transition is needed for the sentence beginning with ‘The chronology’ to explain the reasoning here. It seems that the thinking here is based upon the absence of a tephra that it is assumed the cores span the past 2000 years.
+p. 19, line 406-407. Presume the ‘organic pieces’ were unidentifiable, but this should be stated.
+Table 1: It should be stated that the 2-sigma and median ages shown here are based on IntCal13 – a footnote would do.
+p. 19, lines 418-419. Not sure how to understand ‘1.98 0.19 mm/yr’ is this a typo? Or missing a +/- sign?  Same thing for lines 429.
+p. 20, Fig. 7. Are the bold lines formed by the small circles indicating varve counts? It would better to show a line of multiple circles in the key.
+p. 21, line 438-9. Just say differences and delete small or quantify the difference. Add ‘to’ after ‘due’.
+p. 21, line 450. Again, it seems like ‘spring nival high flows’ could just be stated as snowmelt.
+p. 21 lines 487-508, ‘+/-‘ signs are not showing.
+Overall, a much improved discussion of varves and counts through this section!
+
+p.24, line 520, delete ‘and’.
+p. 24, line 525, suggest changing ‘remains’ to ‘are largely’ because in there are some periods when varve thickness is near (V1) and/or slightly below average (V2).
+p. 25, line 527. Rather than ‘below’ a time period (1600 CE) it is more clear to say ‘before’.
+p. 27, line 553. Rather than the ‘last’ 100 years, use ‘past.  We hope they are not the last.
+p. 27, 558-559. Perhaps use ‘stored’ or ‘retained’ rather than ‘locked up’.
+
+Discussion:
+
+p. 28, line 572. Menounos et al., Science 2017 describe large Cordilleran ice loss even earlier, by 12.5 ka or even 14 ka and would be a more up to date reference.
+p.28, line 579. Suggest adding ‘possibly into the earliest Holocene’ as the chronology of the acoustic profile is largely unknown.
+p. 28, lines 584-585. Menounos et al., 2017 show moraine data for valleys and cirques.
+p. 29, line 599. This should be ‘approximately’.
+p. 29, line 601. “in-between’ is not hyphenated, it is two words ‘in between’.
+p. 29, line 619. Suggest changing ‘were used’ to ‘were slower as well.’
+p. 30, line 633. Fix ‘sedimentat’
+p. 34. Figure 13 caption has panel D and E reversed. All figure captions should be thoroughly reviewed for errors and typos.
+p. 33, line 765. Delete ‘very good’ – readers will decide!
+
+
+Reviewer: 2
+
+Comments to the Author
+This is my 2nd time reviewing this paper. There was no response-to-reviews document, so I can't comment on how the authors responded to the reviews. The authors clearly put concerted effort into addressing my concerns. They included an age model figure and revised discussion on the age model, which is good to see. The paper is much stronger as a result. My main concern is that they express too much certainty in their conclusions given the substantial uncertainty in the age model. I feel that with some adjustments to the language, to make it clear to the reader that the age model at this site should be improved upon, the paper will be acceptable for publication. In the annotated pdf I flagged a bunch of places where the phrasing was unclear and/or could be improved as well as other modifications to organization etc.  the authors should undertake prior to publication.
+
+** The application was unable to attach manuscript files to this email, because one or more of the files exceeded the allowable attachment size (6MB). **
+
+Date Sent:
+	
+
+20-Apr-2023
