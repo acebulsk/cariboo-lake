@@ -231,7 +231,7 @@ hydro_anom_plot
 
 # gain size 
 
-gs <- readRDS('data/Sediment/Grain Size/grain_size_v1_v2_combined.RDS') |> 
+gs <- readRDS('data/long_cores/grain_size_v1_v2_combined.RDS') |> 
   mutate(year_ce_avg = round(year_ce_new)) # this is the ams age depth model
 
 gs_plot <- 

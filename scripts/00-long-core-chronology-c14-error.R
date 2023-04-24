@@ -6,7 +6,7 @@ library(tidyverse)
 library(Bchron)
 
 surface_cal <- 'normal'
-u_ottawa_cal <- 'intcal13' # cal reference used on the u ottawa ams analysis sheet they also combined OxCal v4.2.4 too but not sure how to use both with this r package. 
+u_ottawa_cal <- 'intcal20' # cal reference used on the u ottawa ams analysis sheet they also combined OxCal v4.2.4 too but not sure how to use both with this r package. 
 
 # we need the varve chronology data so we can attribute a depth to the AMS
 # samples that has been adjusted to remove turbidites
@@ -128,13 +128,13 @@ ams_meta$thickness <- c(0, 1, 0, 1)
 
 # this bchron method doesnt appear to work 
 
-# ams_chron_v1 <- ams_meta |> 
-#   filter(core == 'V1') |> 
-#   mutate(cal_curve = c(surface_cal, u_ottawa_cal))
-# 
-# ams_chron_v2 <- ams_meta |> 
-#   filter(core == 'V2') |> 
-#   mutate(cal_curve = c(surface_cal, u_ottawa_cal))
+ams_chron_v1 <- ams_meta |>
+  filter(core == 'V1') |>
+  mutate(cal_curve = c(surface_cal, u_ottawa_cal))
+
+ams_chron_v2 <- ams_meta |>
+  filter(core == 'V2') |>
+  mutate(cal_curve = c(surface_cal, u_ottawa_cal))
 # 
 # v1_ams_chron_out <- Bchronology(
 #   ages = ams_chron_v1$c_14_age,
