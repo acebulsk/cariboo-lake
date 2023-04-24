@@ -44,3 +44,4 @@ sage-submission.zip
 *.aux
 *.log
 ec.cache
+deliverables/*
