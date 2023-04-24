@@ -4,6 +4,8 @@ library(plotly)
 library(gridExtra)
 library(tidyr)
 
+v1_lm <- readRDS('data/long_cores/chronology/v1_c14_age_depth_model.rds')
+v2_lm <- readRDS('data/long_cores/chronology/v2_c14_age_depth_model.rds')
 # core stats
 
 core_stats <- readRDS('data/long_cores/core_stats.rds')
@@ -114,14 +116,15 @@ saveRDS(tb, 'data/long_cores/turbidite_metrics.rds')
 
 # tb <- readRDS('data/long_cores/turbidite_metrics.rds')
 
-p <- ggplot(tb, aes(x = year, y = stdep, colour = core)) +
+p <- ggplot(tb, aes(x = year, y = stdep, colour = core, fill = core)) +
   geom_point() +
   geom_bar(stat = 'identity') +
   facet_grid(rows = vars(metric), scales="free_y") +
   xlab('Year (CE)') +
   ylab('Standardized Departure')+
   theme_bw() +
-  scale_color_brewer(palette = 'Set2')
+  scale_color_manual(values = viridis::viridis(3)) +
+  scale_fill_manual(values = viridis::viridis(3))
 p
 ggsave('sage-submission/figs/turbidite_plot.jpg', width = 7, height = 4)
 saveRDS(p, 'figs/turbidite_plot.rds')
