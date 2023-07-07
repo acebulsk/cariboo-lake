@@ -9,7 +9,7 @@ Proximal to the Cariboo River delta (< 500 m) the structure of the surficial sed
 knitr::include_graphics("figs/ekman_seds.jpg")
 ```
 
-```{r ekmanImgs, echo=FALSE, fig.cap = "Selected surficial Ekman sediment core photographs. A (E1) is proximal to the Cariboo River delta (0.3 km down lake). B (E13) was retrieved from the second deepest basin in the lake in the Cariboo River basin (5.24 km down lake). C (E18) was retrieved from the Keithley Creek sub-basin (29.53 km down lake)."}
+```{r ekmanImgs, echo=FALSE, fig.cap = "Selected surficial sub-cores from Ekman dredge samples. A (E1) is proximal to the Cariboo River delta (0.3 km down lake). B (E13) was retrieved from the second deepest basin in the lake in the Cariboo River basin (5.24 km down lake). C (E18) was retrieved from the Keithley Creek sub-basin (29.53 km down lake)."}
 #| label: fig-ekmanImgs
 knitr::include_graphics("figs/ekman_example.jpg")
 ```

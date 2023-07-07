@@ -1,6 +1,8 @@
 library(tidyverse)
 library(viridis)
 
+options(ggplot2.discrete.colour= c("#000000", "#E69F00", "#56B4E9"))
+
 # Data ####
 gs <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_GrainSize_Ekmans.xlsx', sheet = 2) |> 
   select(ID = `Core Number`,
@@ -80,8 +82,7 @@ gs_plot_grains <-
   ylab('Percent (%)') +
   scale_shape_manual(guide = 'none', values = delta_shapes) +
   theme_bw() +
-  theme(axis.title.x = element_blank(), legend.title = element_blank()) +
-  scale_color_manual(values = viridis(3, option = 'C'))
+  theme(axis.title.x = element_blank(), legend.title = element_blank())
 
 gs_plot_grains
   
@@ -95,15 +96,14 @@ gs_plot_dist <-
     ylab('Grain Size (μm)') +
     scale_shape_manual(guide = 'none', values = delta_shapes) +
     theme_bw() +
-    theme(axis.title.x = element_blank(), legend.title = element_blank()) +
-  scale_color_manual(values = viridis(3, option = 'C'))
+    theme(axis.title.x = element_blank(), legend.title = element_blank()) 
 
 gs_plot_dist
 
 varve_plot <- ggplot(varve, aes(x = dist, y = Lam_Thickness, shape = basin)) +
   geom_point(size = 2) +
   xlim(c(0.290,NA)) +
-  ylab('Avg. Lam. (mm)') +
+  ylab('Mean Laminae\nThickness(mm)') +
   theme_bw() +
   theme(axis.title.x = element_blank()) +
   scale_color_brewer(palette = 'Set2', name = '') +
@@ -111,7 +111,7 @@ varve_plot <- ggplot(varve, aes(x = dist, y = Lam_Thickness, shape = basin)) +
 
 loi_plot <- ggplot(loi, aes(x = dist, y = LOI, shape = basin)) +
   geom_point(size = 2) +
-  ylab('OM (%)') +
+  ylab('LOI (%)') +
   xlab('Distance Down Lake (km)')+
   scale_color_brewer(palette = 'Set2', name = '') +
   scale_shape_manual(values = delta_shapes) +
@@ -130,8 +130,6 @@ cp <- cowplot::plot_grid(plotlist = p, nrow=length(p),
 
 cp
 
-cowplot::save_plot('sage-submission/figs/ekman_seds.jpg', plot = cp, base_width = 8.5, base_height = 6)
+cowplot::save_plot('journal-submission/markdown/figs/ekman_seds.jpg', plot = cp, base_width = 8.5, base_height = 6)
 
-saveRDS(cp, file = 'figs/ekman/ekman_seds.rds')
-  
 

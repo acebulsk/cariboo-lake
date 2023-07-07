@@ -592,9 +592,10 @@ ggplot(all_df, aes(year, depth, colour = core, shape = date_type)) +
   scale_color_manual(values = viridis::viridis(4)) +
   scale_shape_manual(values = c(17, 20))  +
   labs(shape = 'chronology', size = 'turbidite') +
-  scale_size(labels = "")
+  scale_size(labels = "")+
+  guides(color = guide_legend(override.aes = list(shape = c(NA, NA, NA) ) ) ) # this removes the triangle from the core legend
 
-ggsave('sage-submission/figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png', width = 6, height = 4.5)
+ggsave('journal-submission/markdown/figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png', width = 6, height = 4.5)
 
 #### Smoothing Functions ####
 comb$core[comb$core == 'V1_varve'] = "V1"
