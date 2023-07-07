@@ -4,6 +4,7 @@ library(CSHShydRology)
 library(sf)
 library(terra)
 
+
 wd <- 'data/gis/cshs-gis-working/'
 
 # download DEMs from BC gov
@@ -36,19 +37,32 @@ dem <- 'data/gis/cshs-gis-working/093a_093h_merge_crop.tif'
 pp <- data.frame(lon = -121.39546,lat = 52.75203) # this is above keithley creek 
 
 pp_sf <- st_as_sf(pp, coords = c('lon', 'lat'), crs = 4326) |> 
-  st_transform(st_crs(c))
+  st_transform(st_crs(rast(dem)))
 
-CSHShydRology::ch_wbt_catchment_onestep(
-  wd = wd,
-  in_dem = dem,
-  pp_sf = pp_sf,
-  sink_method = "fill",
-  threshold = 1,
-  snap_dist = 0.01
-)
+# CSHShydRology::ch_wbt_catchment_onestep(
+#   wd = wd,
+#   in_dem = dem,
+#   pp_sf = pp_sf,
+#   sink_method = "fill",
+#   threshold = 1,
+#   snap_dist = 0.01
+# )
 
-# convert raster catchment to polygon for area calculation and boundary plotting
+# create a catchment polygon from the raster poly
 
-r_catch <- rast('data/gis/cshs-gis-working/catchment_100_th/catchment.tif')
+fn_r_catch <- 'data/gis/cshs-gis-working/catchment_100_th/catchment.tif'
+fn_v_catch_bound <- 'data/gis/cshs-gis-working/catchment_100_th/catchment_boundary.shp'
 
-@todo convert to vector and re calc the area and redo percent glaciated.. etc 
+whitebox::wbt_raster_to_vector_polygons(fn_r_catch, fn_v_catch_bound)
+
+# output to kml for google earth checking
+
+sf_catch_bound <- sf::read_sf(fn_v_catch_bound)
+
+st_write(sf_catch_bound, 'data/gis/cshs-gis-working/catchment_100_th/catchment_boundary.kml')
+
+# create a kml for our old boundary 
+
+sf_catch_bound <- sf::read_sf('data/gis/boundaries/cariboo_lake_basin.gpkg')
+
+st_write(sf_catch_bound, 'data/gis/boundaries/cariboo_watersurvey_basin.kml')
