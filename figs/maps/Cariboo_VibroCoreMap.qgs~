@@ -1,0 +1,2986 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis projectname="" version="3.2.0-Bonn">
+  <homePath path=""/>
+  <title></title>
+  <autotransaction active="0"/>
+  <evaluateDefaultValues active="0"/>
+  <trust active="0"/>
+  <projectCrs>
+    <spatialrefsys>
+      <proj4>+proj=utm +zone=10 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</proj4>
+      <srsid>2287</srsid>
+      <srid>26910</srid>
+      <authid>EPSG:26910</authid>
+      <description>NAD83 / UTM zone 10N</description>
+      <projectionacronym>utm</projectionacronym>
+      <ellipsoidacronym>GRS80</ellipsoidacronym>
+      <geographicflag>false</geographicflag>
+    </spatialrefsys>
+  </projectCrs>
+  <layer-tree-group>
+    <customproperties/>
+    <layer-tree-layer providerKey="ogr" checked="Qt::Unchecked" source="./Analysis/CaribooLake_Waypoints_Ekmans.shp" expanded="1" id="CaribooLake_Waypoints_Ekmans20170918145234787" name="CaribooLake_Waypoints_Ekmans">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer providerKey="ogr" checked="Qt::Unchecked" source="./matthewsGPS_July5/CaribooLake_tracks_TO_july5.kml" expanded="1" id="CaribooLake_tracks_TO_july520170724143427943" name="CaribooLake_tracks_TO_july5">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer providerKey="ogr" checked="Qt::Checked" source="./Analysis/Waypoints_timeConverted.shp" expanded="1" id="Waypoints_timeConverted20180111155617096" name="Waypoints_timeConverted">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer providerKey="ogr" checked="Qt::Unchecked" source="./matthewsGPS_July5/CaribooLake_waypoints_TO_July5.kml" expanded="1" id="CaribooLake_waypoints_TO_July520170724143413479" name="CaribooLake_waypoints_TO_July5">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer providerKey="gdal" checked="Qt::Unchecked" source="./Bathymetry/CaribooLakeBathymetryTIN_clipped2.tif" expanded="0" id="CaribooLakeBathymetryTIN_clipped220170704183104991" name="CaribooLakeBathymetryTIN_clipped2">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer providerKey="wms" checked="Qt::Checked" source="type=xyz&amp;zmin=0&amp;zmax=19&amp;url=https://mt1.google.com/vt/lyrs%3Dy%26x%3D{x}%26y%3D{y}%26z%3D{z}" expanded="1" id="Google_Satellite_Hybrid_2ccca5d1_3a52_4559_b99d_92c415969682" name="Google Satellite Hybrid">
+      <customproperties/>
+    </layer-tree-layer>
+    <custom-order enabled="0">
+      <item>CaribooLakeBathymetryTIN_clipped220170704183104991</item>
+      <item>CaribooLake_waypoints_TO_July520170724143413479</item>
+      <item>CaribooLake_tracks_TO_july520170724143427943</item>
+      <item>CaribooLake_Waypoints_Ekmans20170918145234787</item>
+      <item>Waypoints_timeConverted20180111155617096</item>
+      <item>Google_Satellite_Hybrid_2ccca5d1_3a52_4559_b99d_92c415969682</item>
+    </custom-order>
+  </layer-tree-group>
+  <snapping-settings intersection-snapping="0" enabled="1" unit="2" mode="3" type="1" tolerance="0">
+    <individual-layer-settings>
+      <layer-setting units="0" id="CaribooLake_tracks_TO_july520170724143427943" enabled="0" type="2" tolerance="0"/>
+      <layer-setting units="0" id="CaribooLake_waypoints_TO_July520170724143413479" enabled="0" type="2" tolerance="0"/>
+      <layer-setting units="1" id="Waypoints_timeConverted20180111155617096" enabled="0" type="1" tolerance="12"/>
+      <layer-setting units="0" id="CaribooLake_Waypoints_Ekmans20170918145234787" enabled="0" type="2" tolerance="0"/>
+    </individual-layer-settings>
+  </snapping-settings>
+  <relations/>
+  <mapcanvas annotationsVisible="1" name="theMapCanvas">
+    <units>meters</units>
+    <extent>
+      <xmin>608035.67195337335579097</xmin>
+      <ymin>5846469.44090760685503483</ymin>
+      <xmax>611434.52990339579991996</xmax>
+      <ymax>5848590.01782874204218388</ymax>
+    </extent>
+    <rotation>0</rotation>
+    <destinationsrs>
+      <spatialrefsys>
+        <proj4>+proj=utm +zone=10 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</proj4>
+        <srsid>2287</srsid>
+        <srid>26910</srid>
+        <authid>EPSG:26910</authid>
+        <description>NAD83 / UTM zone 10N</description>
+        <projectionacronym>utm</projectionacronym>
+        <ellipsoidacronym>GRS80</ellipsoidacronym>
+        <geographicflag>false</geographicflag>
+      </spatialrefsys>
+    </destinationsrs>
+    <rendermaptile>0</rendermaptile>
+  </mapcanvas>
+  <legend updateDrawingOrder="true">
+    <legendlayer checked="Qt::Unchecked" open="true" drawingOrder="-1" showFeatureCount="0" name="CaribooLake_Waypoints_Ekmans">
+      <filegroup open="true" hidden="false">
+        <legendlayerfile isInOverview="0" layerid="CaribooLake_Waypoints_Ekmans20170918145234787" visible="0"/>
+      </filegroup>
+    </legendlayer>
+    <legendlayer checked="Qt::Unchecked" open="true" drawingOrder="-1" showFeatureCount="0" name="CaribooLake_tracks_TO_july5">
+      <filegroup open="true" hidden="false">
+        <legendlayerfile isInOverview="0" layerid="CaribooLake_tracks_TO_july520170724143427943" visible="0"/>
+      </filegroup>
+    </legendlayer>
+    <legendlayer checked="Qt::Checked" open="true" drawingOrder="-1" showFeatureCount="0" name="Waypoints_timeConverted">
+      <filegroup open="true" hidden="false">
+        <legendlayerfile isInOverview="0" layerid="Waypoints_timeConverted20180111155617096" visible="1"/>
+      </filegroup>
+    </legendlayer>
+    <legendlayer checked="Qt::Unchecked" open="true" drawingOrder="-1" showFeatureCount="0" name="CaribooLake_waypoints_TO_July5">
+      <filegroup open="true" hidden="false">
+        <legendlayerfile isInOverview="0" layerid="CaribooLake_waypoints_TO_July520170724143413479" visible="0"/>
+      </filegroup>
+    </legendlayer>
+    <legendlayer checked="Qt::Unchecked" open="false" drawingOrder="-1" showFeatureCount="0" name="CaribooLakeBathymetryTIN_clipped2">
+      <filegroup open="false" hidden="false">
+        <legendlayerfile isInOverview="0" layerid="CaribooLakeBathymetryTIN_clipped220170704183104991" visible="0"/>
+      </filegroup>
+    </legendlayer>
+    <legendlayer checked="Qt::Checked" open="true" drawingOrder="-1" showFeatureCount="0" name="Google Satellite Hybrid">
+      <filegroup open="true" hidden="false">
+        <legendlayerfile isInOverview="0" layerid="Google_Satellite_Hybrid_2ccca5d1_3a52_4559_b99d_92c415969682" visible="1"/>
+      </filegroup>
+    </legendlayer>
+  </legend>
+  <mapViewDocks/>
+  <mapViewDocks3D/>
+  <projectlayers>
+    <maplayer maxScale="0" autoRefreshEnabled="0" refreshOnNotifyEnabled="0" hasScaleBasedVisibilityFlag="0" minScale="1e+8" autoRefreshTime="0" refreshOnNotifyMessage="" type="raster">
+      <extent>
+        <xmin>604814.9467119068140164</xmin>
+        <ymin>5843125.98608444817364216</ymin>
+        <xmax>614944.04415967222303152</xmax>
+        <ymax>5852446.05189254973083735</ymax>
+      </extent>
+      <id>CaribooLakeBathymetryTIN_clipped220170704183104991</id>
+      <datasource>./Bathymetry/CaribooLakeBathymetryTIN_clipped2.tif</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>CaribooLakeBathymetryTIN_clipped2</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=utm +zone=10 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</proj4>
+          <srsid>2287</srsid>
+          <srid>26910</srid>
+          <authid>EPSG:26910</authid>
+          <description>NAD83 / UTM zone 10N</description>
+          <projectionacronym>utm</projectionacronym>
+          <ellipsoidacronym>GRS80</ellipsoidacronym>
+          <geographicflag>false</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <resourceMetadata>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
+        <type></type>
+        <title></title>
+        <abstract></abstract>
+        <links/>
+        <fees></fees>
+        <encoding></encoding>
+        <crs>
+          <spatialrefsys>
+            <proj4></proj4>
+            <srsid>0</srsid>
+            <srid>0</srid>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
+            <geographicflag>false</geographicflag>
+          </spatialrefsys>
+        </crs>
+        <extent/>
+      </resourceMetadata>
+      <customproperties>
+        <property key="identify/format" value="Value"/>
+      </customproperties>
+      <provider>gdal</provider>
+      <noData>
+        <noDataList useSrcNoData="1" bandNo="1"/>
+      </noData>
+      <map-layer-style-manager current="default">
+        <map-layer-style name="default"/>
+      </map-layer-style-manager>
+      <pipe>
+        <rasterrenderer opacity="1" classificationMin="0" classificationMax="810.744" band="1" alphaBand="-1" type="singlebandpseudocolor">
+          <rasterTransparency/>
+          <minMaxOrigin>
+            <limits>CumulativeCut</limits>
+            <extent>WholeRaster</extent>
+            <statAccuracy>Estimated</statAccuracy>
+            <cumulativeCutLower>0.02</cumulativeCutLower>
+            <cumulativeCutUpper>0.98</cumulativeCutUpper>
+            <stdDevFactor>2</stdDevFactor>
+          </minMaxOrigin>
+          <rastershader>
+            <colorrampshader classificationMode="1" colorRampType="INTERPOLATED" clip="0">
+              <item value="0" label="0.000000" color="#2b83ba" alpha="255"/>
+              <item value="202.686" label="202.686000" color="#abdda4" alpha="255"/>
+              <item value="405.372" label="405.372000" color="#ffffbf" alpha="255"/>
+              <item value="608.058" label="608.058000" color="#fdae61" alpha="255"/>
+              <item value="810.744" label="810.744000" color="#d7191c" alpha="255"/>
+            </colorrampshader>
+          </rastershader>
+        </rasterrenderer>
+        <brightnesscontrast brightness="0" contrast="0"/>
+        <huesaturation saturation="0" colorizeOn="0" colorizeRed="255" colorizeStrength="100" colorizeGreen="128" grayscaleMode="0" colorizeBlue="128"/>
+        <rasterresampler maxOversampling="2"/>
+      </pipe>
+      <blendMode>0</blendMode>
+    </maplayer>
+    <maplayer geometry="Point" maxScale="-4.65661e-10" autoRefreshEnabled="0" refreshOnNotifyEnabled="0" simplifyDrawingTol="1" simplifyLocal="1" readOnly="0" hasScaleBasedVisibilityFlag="0" simplifyAlgorithm="0" minScale="1e+8" autoRefreshTime="0" simplifyDrawingHints="0" simplifyMaxScale="1" refreshOnNotifyMessage="" type="vector" labelsEnabled="1">
+      <extent>
+        <xmin>-121.43552269999942439</xmin>
+        <ymin>52.73611650999855982</ymin>
+        <xmax>-121.30267929999914145</xmax>
+        <ymax>52.80043034999765439</ymax>
+      </extent>
+      <id>CaribooLake_Waypoints_Ekmans20170918145234787</id>
+      <datasource>./Analysis/CaribooLake_Waypoints_Ekmans.shp</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>CaribooLake_Waypoints_Ekmans</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+          <srsid>3452</srsid>
+          <srid>4326</srid>
+          <authid>EPSG:4326</authid>
+          <description>WGS 84</description>
+          <projectionacronym>longlat</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>true</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <resourceMetadata>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
+        <type></type>
+        <title></title>
+        <abstract></abstract>
+        <links/>
+        <fees></fees>
+        <encoding></encoding>
+        <crs>
+          <spatialrefsys>
+            <proj4></proj4>
+            <srsid>0</srsid>
+            <srid>0</srid>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
+            <geographicflag>false</geographicflag>
+          </spatialrefsys>
+        </crs>
+        <extent/>
+      </resourceMetadata>
+      <provider encoding="WINSAMI2">ogr</provider>
+      <vectorjoins/>
+      <layerDependencies/>
+      <dataDependencies/>
+      <legend type="default-vector"/>
+      <expressionfields/>
+      <map-layer-style-manager current="default">
+        <map-layer-style name="default"/>
+      </map-layer-style-manager>
+      <auxiliaryLayer/>
+      <renderer-v2 forceraster="0" enableorderby="0" type="singleSymbol" symbollevels="0">
+        <symbols>
+          <symbol clip_to_extent="1" name="0" alpha="1" type="marker">
+            <layer pass="0" locked="0" enabled="1" class="SimpleMarker">
+              <prop v="0" k="angle"/>
+              <prop v="197,52,50,255" k="color"/>
+              <prop v="1" k="horizontal_anchor_point"/>
+              <prop v="bevel" k="joinstyle"/>
+              <prop v="circle" k="name"/>
+              <prop v="0,0" k="offset"/>
+              <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+              <prop v="MM" k="offset_unit"/>
+              <prop v="0,0,0,255" k="outline_color"/>
+              <prop v="solid" k="outline_style"/>
+              <prop v="0" k="outline_width"/>
+              <prop v="3x:0,0,0,0,0,0" k="outline_width_map_unit_scale"/>
+              <prop v="MM" k="outline_width_unit"/>
+              <prop v="area" k="scale_method"/>
+              <prop v="2" k="size"/>
+              <prop v="3x:0,0,0,0,0,0" k="size_map_unit_scale"/>
+              <prop v="MM" k="size_unit"/>
+              <prop v="1" k="vertical_anchor_point"/>
+              <data_defined_properties>
+                <Option type="Map">
+                  <Option value="" name="name" type="QString"/>
+                  <Option name="properties"/>
+                  <Option value="collection" name="type" type="QString"/>
+                </Option>
+              </data_defined_properties>
+            </layer>
+          </symbol>
+        </symbols>
+        <rotation/>
+        <sizescale/>
+      </renderer-v2>
+      <labeling type="simple">
+        <settings>
+          <text-style fontFamily="MS Shell Dlg 2" isExpression="0" textOpacity="1" fontLetterSpacing="0" fontUnderline="0" multilineHeight="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" useSubstitutions="0" namedStyle="Bold" textColor="0,0,0,255" fontWeight="75" blendMode="0" fontSize="12" fontCapitals="0" fieldName="Name" previewBkgrdColor="#ffffff" fontStrikeout="0" fontWordSpacing="0" fontItalic="0" fontSizeUnit="Point">
+            <text-buffer bufferSizeUnits="MM" bufferColor="255,255,255,255" bufferBlendMode="0" bufferDraw="0" bufferSize="1" bufferOpacity="1" bufferNoFill="0" bufferJoinStyle="64" bufferSizeMapUnitScale="3x:0,0,0,0,0,0"/>
+            <background shapeRotationType="0" shapeOpacity="1" shapeBorderWidthUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiY="0" shapeSizeUnit="MM" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0" shapeDraw="0" shapeFillColor="255,255,255,255" shapeSizeY="0" shapeRadiiX="0" shapeSizeType="0" shapeBlendMode="0" shapeOffsetX="0" shapeOffsetY="0" shapeBorderColor="128,128,128,255" shapeBorderWidth="0" shapeOffsetUnit="MM" shapeType="0" shapeRotation="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="MM" shapeSVGFile="" shapeJoinStyle="64"/>
+            <shadow shadowScale="100" shadowRadiusAlphaOnly="0" shadowOffsetGlobal="1" shadowRadius="1.5" shadowRadiusUnit="MM" shadowOffsetUnit="MM" shadowDraw="0" shadowUnder="0" shadowOffsetAngle="135" shadowOffsetDist="1" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowOpacity="0.7" shadowColor="0,0,0,255" shadowBlendMode="6" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0"/>
+            <substitutions/>
+          </text-style>
+          <text-format plussign="0" addDirectionSymbol="0" placeDirectionSymbol="0" reverseDirectionSymbol="0" wrapChar="" multilineAlign="0" rightDirectionSymbol=">" decimals="3" leftDirectionSymbol="&lt;" formatNumbers="0"/>
+          <placement priority="5" xOffset="0" yOffset="0" fitInPolygonOnly="0" offsetUnits="MapUnit" repeatDistanceUnits="MM" centroidInside="0" distUnits="MM" centroidWhole="0" preserveRotation="1" rotationAngle="0" quadOffset="4" placementFlags="0" distMapUnitScale="3x:0,0,0,0,0,0" maxCurvedCharAngleIn="20" offsetType="0" placement="0" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" repeatDistance="0" dist="0" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" maxCurvedCharAngleOut="-20" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR"/>
+          <rendering displayAll="0" obstacle="1" drawLabels="1" upsidedownLabels="0" fontMaxPixelSize="10000" mergeLines="0" minFeatureSize="0" limitNumLabels="0" maxNumLabels="2000" fontMinPixelSize="3" scaleMin="1" obstacleFactor="1" scaleVisibility="0" fontLimitPixelSize="0" obstacleType="0" labelPerPart="0" scaleMax="10000000" zIndex="0"/>
+          <dd_properties>
+            <Option type="Map">
+              <Option value="" name="name" type="QString"/>
+              <Option name="properties"/>
+              <Option value="collection" name="type" type="QString"/>
+            </Option>
+          </dd_properties>
+        </settings>
+      </labeling>
+      <customproperties/>
+      <blendMode>0</blendMode>
+      <featureBlendMode>0</featureBlendMode>
+      <layerOpacity>1</layerOpacity>
+      <fieldConfiguration/>
+      <aliases/>
+      <excludeAttributesWMS/>
+      <excludeAttributesWFS/>
+      <defaults/>
+      <constraints/>
+      <constraintExpressions/>
+      <attributeactions>
+        <defaultAction key="Canvas" value="{00000000-0000-0000-0000-000000000000}"/>
+      </attributeactions>
+      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="0">
+        <columns/>
+      </attributetableconfig>
+      <editform>.</editform>
+      <editforminit/>
+      <editforminitcodesource>0</editforminitcodesource>
+      <editforminitfilepath></editforminitfilepath>
+      <editforminitcode><![CDATA[]]></editforminitcode>
+      <featformsuppress>0</featformsuppress>
+      <editorlayout>generatedlayout</editorlayout>
+      <editable/>
+      <labelOnTop/>
+      <widgets/>
+      <conditionalstyles>
+        <rowstyles/>
+        <fieldstyles/>
+      </conditionalstyles>
+      <expressionfields/>
+      <previewExpression>COALESCE( "Name", '&lt;NULL>' )</previewExpression>
+      <mapTip>Name</mapTip>
+    </maplayer>
+    <maplayer geometry="Point" maxScale="0" autoRefreshEnabled="0" refreshOnNotifyEnabled="0" simplifyDrawingTol="1" simplifyLocal="1" readOnly="0" hasScaleBasedVisibilityFlag="0" simplifyAlgorithm="0" minScale="1e+8" autoRefreshTime="0" simplifyDrawingHints="1" simplifyMaxScale="1" refreshOnNotifyMessage="" type="vector" labelsEnabled="1">
+      <extent>
+        <xmin>-121.59266009999963387</xmin>
+        <ymin>52.61885459999922432</ymin>
+        <xmax>-121.3025855999991478</xmax>
+        <ymax>52.8004911999976585</ymax>
+      </extent>
+      <id>CaribooLake_tracks_TO_july520170724143427943</id>
+      <datasource>./matthewsGPS_July5/CaribooLake_tracks_TO_july5.kml</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>CaribooLake_tracks_TO_july5</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+          <srsid>3452</srsid>
+          <srid>4326</srid>
+          <authid>EPSG:4326</authid>
+          <description>WGS 84</description>
+          <projectionacronym>longlat</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>true</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <resourceMetadata>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
+        <type></type>
+        <title></title>
+        <abstract></abstract>
+        <links/>
+        <fees></fees>
+        <encoding></encoding>
+        <crs>
+          <spatialrefsys>
+            <proj4></proj4>
+            <srsid>0</srsid>
+            <srid>0</srid>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
+            <geographicflag>false</geographicflag>
+          </spatialrefsys>
+        </crs>
+        <extent/>
+      </resourceMetadata>
+      <provider encoding="UTF-8">ogr</provider>
+      <vectorjoins/>
+      <layerDependencies/>
+      <dataDependencies/>
+      <legend type="default-vector"/>
+      <expressionfields/>
+      <map-layer-style-manager current="default">
+        <map-layer-style name="default"/>
+      </map-layer-style-manager>
+      <auxiliaryLayer/>
+      <renderer-v2 forceraster="0" enableorderby="0" type="singleSymbol" symbollevels="0">
+        <symbols>
+          <symbol clip_to_extent="1" name="0" alpha="1" type="marker">
+            <layer pass="0" locked="0" enabled="1" class="SimpleMarker">
+              <prop v="0" k="angle"/>
+              <prop v="213,139,129,255" k="color"/>
+              <prop v="1" k="horizontal_anchor_point"/>
+              <prop v="bevel" k="joinstyle"/>
+              <prop v="circle" k="name"/>
+              <prop v="0,0" k="offset"/>
+              <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+              <prop v="MM" k="offset_unit"/>
+              <prop v="0,0,0,255" k="outline_color"/>
+              <prop v="solid" k="outline_style"/>
+              <prop v="0" k="outline_width"/>
+              <prop v="3x:0,0,0,0,0,0" k="outline_width_map_unit_scale"/>
+              <prop v="MM" k="outline_width_unit"/>
+              <prop v="area" k="scale_method"/>
+              <prop v="2" k="size"/>
+              <prop v="3x:0,0,0,0,0,0" k="size_map_unit_scale"/>
+              <prop v="MM" k="size_unit"/>
+              <prop v="1" k="vertical_anchor_point"/>
+              <data_defined_properties>
+                <Option type="Map">
+                  <Option value="" name="name" type="QString"/>
+                  <Option name="properties"/>
+                  <Option value="collection" name="type" type="QString"/>
+                </Option>
+              </data_defined_properties>
+            </layer>
+          </symbol>
+        </symbols>
+        <rotation/>
+        <sizescale/>
+      </renderer-v2>
+      <customproperties/>
+      <blendMode>0</blendMode>
+      <featureBlendMode>0</featureBlendMode>
+      <layerOpacity>1</layerOpacity>
+      <fieldConfiguration>
+        <field name="Name">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="description">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="timestamp">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="begin">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="end">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="altitudeMode">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="tessellate">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="extrude">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="visibility">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="drawOrder">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="icon">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="ID">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="trksegID">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="lat">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="lon">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="ele">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="time">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="magvar">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="geoidheigh">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="cmt">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="desc">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="src">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="sym">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="type">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="fix">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="sat">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="hdop">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="vdop">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="pdop">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="ageofdgpsd">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="dgpsid">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="Temperatur">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="Depth">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="wtemp">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="hr">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="cad">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+      </fieldConfiguration>
+      <aliases>
+        <alias index="0" name="" field="Name"/>
+        <alias index="1" name="" field="description"/>
+        <alias index="2" name="" field="timestamp"/>
+        <alias index="3" name="" field="begin"/>
+        <alias index="4" name="" field="end"/>
+        <alias index="5" name="" field="altitudeMode"/>
+        <alias index="6" name="" field="tessellate"/>
+        <alias index="7" name="" field="extrude"/>
+        <alias index="8" name="" field="visibility"/>
+        <alias index="9" name="" field="drawOrder"/>
+        <alias index="10" name="" field="icon"/>
+        <alias index="11" name="" field="ID"/>
+        <alias index="12" name="" field="trksegID"/>
+        <alias index="13" name="" field="lat"/>
+        <alias index="14" name="" field="lon"/>
+        <alias index="15" name="" field="ele"/>
+        <alias index="16" name="" field="time"/>
+        <alias index="17" name="" field="magvar"/>
+        <alias index="18" name="" field="geoidheigh"/>
+        <alias index="19" name="" field="cmt"/>
+        <alias index="20" name="" field="desc"/>
+        <alias index="21" name="" field="src"/>
+        <alias index="22" name="" field="sym"/>
+        <alias index="23" name="" field="type"/>
+        <alias index="24" name="" field="fix"/>
+        <alias index="25" name="" field="sat"/>
+        <alias index="26" name="" field="hdop"/>
+        <alias index="27" name="" field="vdop"/>
+        <alias index="28" name="" field="pdop"/>
+        <alias index="29" name="" field="ageofdgpsd"/>
+        <alias index="30" name="" field="dgpsid"/>
+        <alias index="31" name="" field="Temperatur"/>
+        <alias index="32" name="" field="Depth"/>
+        <alias index="33" name="" field="wtemp"/>
+        <alias index="34" name="" field="hr"/>
+        <alias index="35" name="" field="cad"/>
+      </aliases>
+      <excludeAttributesWMS/>
+      <excludeAttributesWFS/>
+      <defaults>
+        <default applyOnUpdate="0" expression="" field="Name"/>
+        <default applyOnUpdate="0" expression="" field="description"/>
+        <default applyOnUpdate="0" expression="" field="timestamp"/>
+        <default applyOnUpdate="0" expression="" field="begin"/>
+        <default applyOnUpdate="0" expression="" field="end"/>
+        <default applyOnUpdate="0" expression="" field="altitudeMode"/>
+        <default applyOnUpdate="0" expression="" field="tessellate"/>
+        <default applyOnUpdate="0" expression="" field="extrude"/>
+        <default applyOnUpdate="0" expression="" field="visibility"/>
+        <default applyOnUpdate="0" expression="" field="drawOrder"/>
+        <default applyOnUpdate="0" expression="" field="icon"/>
+        <default applyOnUpdate="0" expression="" field="ID"/>
+        <default applyOnUpdate="0" expression="" field="trksegID"/>
+        <default applyOnUpdate="0" expression="" field="lat"/>
+        <default applyOnUpdate="0" expression="" field="lon"/>
+        <default applyOnUpdate="0" expression="" field="ele"/>
+        <default applyOnUpdate="0" expression="" field="time"/>
+        <default applyOnUpdate="0" expression="" field="magvar"/>
+        <default applyOnUpdate="0" expression="" field="geoidheigh"/>
+        <default applyOnUpdate="0" expression="" field="cmt"/>
+        <default applyOnUpdate="0" expression="" field="desc"/>
+        <default applyOnUpdate="0" expression="" field="src"/>
+        <default applyOnUpdate="0" expression="" field="sym"/>
+        <default applyOnUpdate="0" expression="" field="type"/>
+        <default applyOnUpdate="0" expression="" field="fix"/>
+        <default applyOnUpdate="0" expression="" field="sat"/>
+        <default applyOnUpdate="0" expression="" field="hdop"/>
+        <default applyOnUpdate="0" expression="" field="vdop"/>
+        <default applyOnUpdate="0" expression="" field="pdop"/>
+        <default applyOnUpdate="0" expression="" field="ageofdgpsd"/>
+        <default applyOnUpdate="0" expression="" field="dgpsid"/>
+        <default applyOnUpdate="0" expression="" field="Temperatur"/>
+        <default applyOnUpdate="0" expression="" field="Depth"/>
+        <default applyOnUpdate="0" expression="" field="wtemp"/>
+        <default applyOnUpdate="0" expression="" field="hr"/>
+        <default applyOnUpdate="0" expression="" field="cad"/>
+      </defaults>
+      <constraints>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Name"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="description"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="timestamp"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="begin"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="end"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="altitudeMode"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="tessellate"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="extrude"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="visibility"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="drawOrder"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="icon"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="ID"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="trksegID"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="lat"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="lon"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="ele"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="time"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="magvar"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="geoidheigh"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="cmt"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="desc"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="src"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="sym"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="type"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="fix"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="sat"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="hdop"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="vdop"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="pdop"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="ageofdgpsd"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="dgpsid"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Temperatur"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Depth"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="wtemp"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="hr"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="cad"/>
+      </constraints>
+      <constraintExpressions>
+        <constraint desc="" field="Name" exp=""/>
+        <constraint desc="" field="description" exp=""/>
+        <constraint desc="" field="timestamp" exp=""/>
+        <constraint desc="" field="begin" exp=""/>
+        <constraint desc="" field="end" exp=""/>
+        <constraint desc="" field="altitudeMode" exp=""/>
+        <constraint desc="" field="tessellate" exp=""/>
+        <constraint desc="" field="extrude" exp=""/>
+        <constraint desc="" field="visibility" exp=""/>
+        <constraint desc="" field="drawOrder" exp=""/>
+        <constraint desc="" field="icon" exp=""/>
+        <constraint desc="" field="ID" exp=""/>
+        <constraint desc="" field="trksegID" exp=""/>
+        <constraint desc="" field="lat" exp=""/>
+        <constraint desc="" field="lon" exp=""/>
+        <constraint desc="" field="ele" exp=""/>
+        <constraint desc="" field="time" exp=""/>
+        <constraint desc="" field="magvar" exp=""/>
+        <constraint desc="" field="geoidheigh" exp=""/>
+        <constraint desc="" field="cmt" exp=""/>
+        <constraint desc="" field="desc" exp=""/>
+        <constraint desc="" field="src" exp=""/>
+        <constraint desc="" field="sym" exp=""/>
+        <constraint desc="" field="type" exp=""/>
+        <constraint desc="" field="fix" exp=""/>
+        <constraint desc="" field="sat" exp=""/>
+        <constraint desc="" field="hdop" exp=""/>
+        <constraint desc="" field="vdop" exp=""/>
+        <constraint desc="" field="pdop" exp=""/>
+        <constraint desc="" field="ageofdgpsd" exp=""/>
+        <constraint desc="" field="dgpsid" exp=""/>
+        <constraint desc="" field="Temperatur" exp=""/>
+        <constraint desc="" field="Depth" exp=""/>
+        <constraint desc="" field="wtemp" exp=""/>
+        <constraint desc="" field="hr" exp=""/>
+        <constraint desc="" field="cad" exp=""/>
+      </constraintExpressions>
+      <attributeactions>
+        <defaultAction key="Canvas" value="{00000000-0000-0000-0000-000000000000}"/>
+      </attributeactions>
+      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="0">
+        <columns/>
+      </attributetableconfig>
+      <editform>.</editform>
+      <editforminit/>
+      <editforminitcodesource>0</editforminitcodesource>
+      <editforminitfilepath></editforminitfilepath>
+      <editforminitcode><![CDATA[]]></editforminitcode>
+      <featformsuppress>0</featformsuppress>
+      <editorlayout>generatedlayout</editorlayout>
+      <editable/>
+      <labelOnTop/>
+      <widgets/>
+      <conditionalstyles>
+        <rowstyles/>
+        <fieldstyles/>
+      </conditionalstyles>
+      <expressionfields/>
+      <previewExpression>COALESCE( "Name", '&lt;NULL>' )</previewExpression>
+      <mapTip></mapTip>
+    </maplayer>
+    <maplayer geometry="Point" maxScale="0" autoRefreshEnabled="0" refreshOnNotifyEnabled="0" simplifyDrawingTol="1" simplifyLocal="1" readOnly="0" hasScaleBasedVisibilityFlag="0" simplifyAlgorithm="0" minScale="1e+8" autoRefreshTime="0" simplifyDrawingHints="1" simplifyMaxScale="1" refreshOnNotifyMessage="" type="vector" labelsEnabled="1">
+      <extent>
+        <xmin>-128.56416489758714761</xmin>
+        <ymin>52.73592195999855647</ymin>
+        <xmax>-121.30267929999914145</xmax>
+        <ymax>54.37908284721653018</ymax>
+      </extent>
+      <id>CaribooLake_waypoints_TO_July520170724143413479</id>
+      <datasource>./matthewsGPS_July5/CaribooLake_waypoints_TO_July5.kml</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>CaribooLake_waypoints_TO_July5</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+          <srsid>3452</srsid>
+          <srid>4326</srid>
+          <authid>EPSG:4326</authid>
+          <description>WGS 84</description>
+          <projectionacronym>longlat</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>true</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <resourceMetadata>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
+        <type></type>
+        <title></title>
+        <abstract></abstract>
+        <links/>
+        <fees></fees>
+        <encoding></encoding>
+        <crs>
+          <spatialrefsys>
+            <proj4></proj4>
+            <srsid>0</srsid>
+            <srid>0</srid>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
+            <geographicflag>false</geographicflag>
+          </spatialrefsys>
+        </crs>
+        <extent/>
+      </resourceMetadata>
+      <provider encoding="UTF-8">ogr</provider>
+      <vectorjoins/>
+      <layerDependencies/>
+      <dataDependencies/>
+      <legend type="default-vector"/>
+      <expressionfields/>
+      <map-layer-style-manager current="default">
+        <map-layer-style name="default"/>
+      </map-layer-style-manager>
+      <auxiliaryLayer/>
+      <renderer-v2 forceraster="0" enableorderby="0" type="singleSymbol" symbollevels="0">
+        <symbols>
+          <symbol clip_to_extent="1" name="0" alpha="1" type="marker">
+            <layer pass="0" locked="0" enabled="1" class="SimpleMarker">
+              <prop v="0" k="angle"/>
+              <prop v="97,123,169,255" k="color"/>
+              <prop v="1" k="horizontal_anchor_point"/>
+              <prop v="bevel" k="joinstyle"/>
+              <prop v="circle" k="name"/>
+              <prop v="0,0" k="offset"/>
+              <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+              <prop v="MM" k="offset_unit"/>
+              <prop v="0,0,0,255" k="outline_color"/>
+              <prop v="solid" k="outline_style"/>
+              <prop v="0" k="outline_width"/>
+              <prop v="3x:0,0,0,0,0,0" k="outline_width_map_unit_scale"/>
+              <prop v="MM" k="outline_width_unit"/>
+              <prop v="area" k="scale_method"/>
+              <prop v="2" k="size"/>
+              <prop v="3x:0,0,0,0,0,0" k="size_map_unit_scale"/>
+              <prop v="MM" k="size_unit"/>
+              <prop v="1" k="vertical_anchor_point"/>
+              <data_defined_properties>
+                <Option type="Map">
+                  <Option value="" name="name" type="QString"/>
+                  <Option name="properties"/>
+                  <Option value="collection" name="type" type="QString"/>
+                </Option>
+              </data_defined_properties>
+            </layer>
+          </symbol>
+        </symbols>
+        <rotation/>
+        <sizescale/>
+      </renderer-v2>
+      <customproperties/>
+      <blendMode>0</blendMode>
+      <featureBlendMode>0</featureBlendMode>
+      <layerOpacity>1</layerOpacity>
+      <fieldConfiguration>
+        <field name="Name">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="description">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="timestamp">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="begin">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="end">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="altitudeMode">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="tessellate">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="extrude">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="visibility">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="drawOrder">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="icon">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="ID">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="lat">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="lon">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="ele">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="time">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="magvar">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="geoidheigh">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="cmt">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="desc">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="src">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="sym">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="type">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="fix">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="sat">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="hdop">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="vdop">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="pdop">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="ageofdgpsd">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="dgpsid">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="Proximity">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="Temperatur">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="Depth">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="DisplayMod">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="Samples">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="Expiration">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="CreationTi">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+      </fieldConfiguration>
+      <aliases>
+        <alias index="0" name="" field="Name"/>
+        <alias index="1" name="" field="description"/>
+        <alias index="2" name="" field="timestamp"/>
+        <alias index="3" name="" field="begin"/>
+        <alias index="4" name="" field="end"/>
+        <alias index="5" name="" field="altitudeMode"/>
+        <alias index="6" name="" field="tessellate"/>
+        <alias index="7" name="" field="extrude"/>
+        <alias index="8" name="" field="visibility"/>
+        <alias index="9" name="" field="drawOrder"/>
+        <alias index="10" name="" field="icon"/>
+        <alias index="11" name="" field="ID"/>
+        <alias index="12" name="" field="lat"/>
+        <alias index="13" name="" field="lon"/>
+        <alias index="14" name="" field="ele"/>
+        <alias index="15" name="" field="time"/>
+        <alias index="16" name="" field="magvar"/>
+        <alias index="17" name="" field="geoidheigh"/>
+        <alias index="18" name="" field="cmt"/>
+        <alias index="19" name="" field="desc"/>
+        <alias index="20" name="" field="src"/>
+        <alias index="21" name="" field="sym"/>
+        <alias index="22" name="" field="type"/>
+        <alias index="23" name="" field="fix"/>
+        <alias index="24" name="" field="sat"/>
+        <alias index="25" name="" field="hdop"/>
+        <alias index="26" name="" field="vdop"/>
+        <alias index="27" name="" field="pdop"/>
+        <alias index="28" name="" field="ageofdgpsd"/>
+        <alias index="29" name="" field="dgpsid"/>
+        <alias index="30" name="" field="Proximity"/>
+        <alias index="31" name="" field="Temperatur"/>
+        <alias index="32" name="" field="Depth"/>
+        <alias index="33" name="" field="DisplayMod"/>
+        <alias index="34" name="" field="Samples"/>
+        <alias index="35" name="" field="Expiration"/>
+        <alias index="36" name="" field="CreationTi"/>
+      </aliases>
+      <excludeAttributesWMS/>
+      <excludeAttributesWFS/>
+      <defaults>
+        <default applyOnUpdate="0" expression="" field="Name"/>
+        <default applyOnUpdate="0" expression="" field="description"/>
+        <default applyOnUpdate="0" expression="" field="timestamp"/>
+        <default applyOnUpdate="0" expression="" field="begin"/>
+        <default applyOnUpdate="0" expression="" field="end"/>
+        <default applyOnUpdate="0" expression="" field="altitudeMode"/>
+        <default applyOnUpdate="0" expression="" field="tessellate"/>
+        <default applyOnUpdate="0" expression="" field="extrude"/>
+        <default applyOnUpdate="0" expression="" field="visibility"/>
+        <default applyOnUpdate="0" expression="" field="drawOrder"/>
+        <default applyOnUpdate="0" expression="" field="icon"/>
+        <default applyOnUpdate="0" expression="" field="ID"/>
+        <default applyOnUpdate="0" expression="" field="lat"/>
+        <default applyOnUpdate="0" expression="" field="lon"/>
+        <default applyOnUpdate="0" expression="" field="ele"/>
+        <default applyOnUpdate="0" expression="" field="time"/>
+        <default applyOnUpdate="0" expression="" field="magvar"/>
+        <default applyOnUpdate="0" expression="" field="geoidheigh"/>
+        <default applyOnUpdate="0" expression="" field="cmt"/>
+        <default applyOnUpdate="0" expression="" field="desc"/>
+        <default applyOnUpdate="0" expression="" field="src"/>
+        <default applyOnUpdate="0" expression="" field="sym"/>
+        <default applyOnUpdate="0" expression="" field="type"/>
+        <default applyOnUpdate="0" expression="" field="fix"/>
+        <default applyOnUpdate="0" expression="" field="sat"/>
+        <default applyOnUpdate="0" expression="" field="hdop"/>
+        <default applyOnUpdate="0" expression="" field="vdop"/>
+        <default applyOnUpdate="0" expression="" field="pdop"/>
+        <default applyOnUpdate="0" expression="" field="ageofdgpsd"/>
+        <default applyOnUpdate="0" expression="" field="dgpsid"/>
+        <default applyOnUpdate="0" expression="" field="Proximity"/>
+        <default applyOnUpdate="0" expression="" field="Temperatur"/>
+        <default applyOnUpdate="0" expression="" field="Depth"/>
+        <default applyOnUpdate="0" expression="" field="DisplayMod"/>
+        <default applyOnUpdate="0" expression="" field="Samples"/>
+        <default applyOnUpdate="0" expression="" field="Expiration"/>
+        <default applyOnUpdate="0" expression="" field="CreationTi"/>
+      </defaults>
+      <constraints>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Name"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="description"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="timestamp"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="begin"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="end"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="altitudeMode"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="tessellate"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="extrude"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="visibility"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="drawOrder"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="icon"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="ID"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="lat"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="lon"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="ele"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="time"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="magvar"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="geoidheigh"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="cmt"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="desc"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="src"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="sym"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="type"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="fix"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="sat"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="hdop"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="vdop"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="pdop"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="ageofdgpsd"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="dgpsid"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Proximity"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Temperatur"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Depth"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="DisplayMod"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Samples"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Expiration"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="CreationTi"/>
+      </constraints>
+      <constraintExpressions>
+        <constraint desc="" field="Name" exp=""/>
+        <constraint desc="" field="description" exp=""/>
+        <constraint desc="" field="timestamp" exp=""/>
+        <constraint desc="" field="begin" exp=""/>
+        <constraint desc="" field="end" exp=""/>
+        <constraint desc="" field="altitudeMode" exp=""/>
+        <constraint desc="" field="tessellate" exp=""/>
+        <constraint desc="" field="extrude" exp=""/>
+        <constraint desc="" field="visibility" exp=""/>
+        <constraint desc="" field="drawOrder" exp=""/>
+        <constraint desc="" field="icon" exp=""/>
+        <constraint desc="" field="ID" exp=""/>
+        <constraint desc="" field="lat" exp=""/>
+        <constraint desc="" field="lon" exp=""/>
+        <constraint desc="" field="ele" exp=""/>
+        <constraint desc="" field="time" exp=""/>
+        <constraint desc="" field="magvar" exp=""/>
+        <constraint desc="" field="geoidheigh" exp=""/>
+        <constraint desc="" field="cmt" exp=""/>
+        <constraint desc="" field="desc" exp=""/>
+        <constraint desc="" field="src" exp=""/>
+        <constraint desc="" field="sym" exp=""/>
+        <constraint desc="" field="type" exp=""/>
+        <constraint desc="" field="fix" exp=""/>
+        <constraint desc="" field="sat" exp=""/>
+        <constraint desc="" field="hdop" exp=""/>
+        <constraint desc="" field="vdop" exp=""/>
+        <constraint desc="" field="pdop" exp=""/>
+        <constraint desc="" field="ageofdgpsd" exp=""/>
+        <constraint desc="" field="dgpsid" exp=""/>
+        <constraint desc="" field="Proximity" exp=""/>
+        <constraint desc="" field="Temperatur" exp=""/>
+        <constraint desc="" field="Depth" exp=""/>
+        <constraint desc="" field="DisplayMod" exp=""/>
+        <constraint desc="" field="Samples" exp=""/>
+        <constraint desc="" field="Expiration" exp=""/>
+        <constraint desc="" field="CreationTi" exp=""/>
+      </constraintExpressions>
+      <attributeactions/>
+      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="0">
+        <columns/>
+      </attributetableconfig>
+      <editform>.</editform>
+      <editforminit/>
+      <editforminitcodesource>0</editforminitcodesource>
+      <editforminitfilepath></editforminitfilepath>
+      <editforminitcode><![CDATA[]]></editforminitcode>
+      <featformsuppress>0</featformsuppress>
+      <editorlayout>generatedlayout</editorlayout>
+      <editable/>
+      <labelOnTop/>
+      <widgets/>
+      <conditionalstyles>
+        <rowstyles/>
+        <fieldstyles/>
+      </conditionalstyles>
+      <expressionfields/>
+      <previewExpression>COALESCE( "Name", '&lt;NULL>' )</previewExpression>
+      <mapTip></mapTip>
+    </maplayer>
+    <maplayer maxScale="0" autoRefreshEnabled="0" refreshOnNotifyEnabled="0" hasScaleBasedVisibilityFlag="0" minScale="1e+8" autoRefreshTime="0" refreshOnNotifyMessage="" type="raster">
+      <extent>
+        <xmin>-20037508.34278924390673637</xmin>
+        <ymin>-20037508.34278925508260727</ymin>
+        <xmax>20037508.34278924390673637</xmax>
+        <ymax>20037508.34278924390673637</ymax>
+      </extent>
+      <id>Google_Satellite_Hybrid_2ccca5d1_3a52_4559_b99d_92c415969682</id>
+      <datasource>type=xyz&amp;zmin=0&amp;zmax=19&amp;url=https://mt1.google.com/vt/lyrs%3Dy%26x%3D{x}%26y%3D{y}%26z%3D{z}</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>Google Satellite Hybrid</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs</proj4>
+          <srsid>3857</srsid>
+          <srid>3857</srid>
+          <authid>EPSG:3857</authid>
+          <description>WGS 84 / Pseudo-Mercator</description>
+          <projectionacronym>merc</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>false</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <resourceMetadata>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
+        <type></type>
+        <title></title>
+        <abstract></abstract>
+        <links/>
+        <fees></fees>
+        <encoding></encoding>
+        <crs>
+          <spatialrefsys>
+            <proj4></proj4>
+            <srsid>0</srsid>
+            <srid>0</srid>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
+            <geographicflag>false</geographicflag>
+          </spatialrefsys>
+        </crs>
+        <extent/>
+      </resourceMetadata>
+      <customproperties>
+        <property key="identify/format" value="Undefined"/>
+      </customproperties>
+      <provider>wms</provider>
+      <noData>
+        <noDataList useSrcNoData="0" bandNo="1"/>
+      </noData>
+      <map-layer-style-manager current="default">
+        <map-layer-style name="default"/>
+      </map-layer-style-manager>
+      <pipe>
+        <rasterrenderer opacity="1" band="1" alphaBand="-1" type="singlebandcolordata">
+          <rasterTransparency/>
+          <minMaxOrigin>
+            <limits>None</limits>
+            <extent>WholeRaster</extent>
+            <statAccuracy>Estimated</statAccuracy>
+            <cumulativeCutLower>0.02</cumulativeCutLower>
+            <cumulativeCutUpper>0.98</cumulativeCutUpper>
+            <stdDevFactor>2</stdDevFactor>
+          </minMaxOrigin>
+        </rasterrenderer>
+        <brightnesscontrast brightness="0" contrast="0"/>
+        <huesaturation saturation="0" colorizeOn="0" colorizeRed="255" colorizeStrength="100" colorizeGreen="128" grayscaleMode="0" colorizeBlue="128"/>
+        <rasterresampler maxOversampling="2"/>
+      </pipe>
+      <blendMode>0</blendMode>
+    </maplayer>
+    <maplayer geometry="Point" maxScale="0" autoRefreshEnabled="0" refreshOnNotifyEnabled="0" simplifyDrawingTol="1" simplifyLocal="1" readOnly="0" hasScaleBasedVisibilityFlag="0" simplifyAlgorithm="0" minScale="1e+8" autoRefreshTime="0" simplifyDrawingHints="0" simplifyMaxScale="1" refreshOnNotifyMessage="" type="vector" labelsEnabled="1">
+      <extent>
+        <xmin>-121.43635729999999739</xmin>
+        <ymin>52.73592195999999888</ymin>
+        <xmax>-121.3026792999999941</xmax>
+        <ymax>52.80043034999999918</ymax>
+      </extent>
+      <id>Waypoints_timeConverted20180111155617096</id>
+      <datasource>./Analysis/Waypoints_timeConverted.shp</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>Waypoints_timeConverted</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
+          <srsid>3401</srsid>
+          <srid>4269</srid>
+          <authid>EPSG:4269</authid>
+          <description>NAD83</description>
+          <projectionacronym>longlat</projectionacronym>
+          <ellipsoidacronym>GRS80</ellipsoidacronym>
+          <geographicflag>true</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <resourceMetadata>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
+        <type></type>
+        <title></title>
+        <abstract></abstract>
+        <contact>
+          <name></name>
+          <organization></organization>
+          <position></position>
+          <voice></voice>
+          <fax></fax>
+          <email></email>
+          <role></role>
+        </contact>
+        <links/>
+        <fees></fees>
+        <encoding></encoding>
+        <crs>
+          <spatialrefsys>
+            <proj4></proj4>
+            <srsid>0</srsid>
+            <srid>0</srid>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
+            <geographicflag>false</geographicflag>
+          </spatialrefsys>
+        </crs>
+        <extent>
+          <spatial dimensions="2" miny="0" minx="0" crs="" minz="0" maxz="0" maxx="0" maxy="0"/>
+          <temporal>
+            <period>
+              <start></start>
+              <end></end>
+            </period>
+          </temporal>
+        </extent>
+      </resourceMetadata>
+      <provider encoding="System">ogr</provider>
+      <vectorjoins/>
+      <layerDependencies/>
+      <dataDependencies/>
+      <legend type="default-vector"/>
+      <expressionfields/>
+      <map-layer-style-manager current="default">
+        <map-layer-style name="default"/>
+      </map-layer-style-manager>
+      <auxiliaryLayer/>
+      <renderer-v2 forceraster="0" enableorderby="0" type="singleSymbol" symbollevels="0">
+        <symbols>
+          <symbol clip_to_extent="1" name="0" alpha="1" type="marker">
+            <layer pass="0" locked="0" enabled="1" class="SimpleMarker">
+              <prop v="0" k="angle"/>
+              <prop v="114,169,142,255" k="color"/>
+              <prop v="1" k="horizontal_anchor_point"/>
+              <prop v="bevel" k="joinstyle"/>
+              <prop v="circle" k="name"/>
+              <prop v="0,0" k="offset"/>
+              <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+              <prop v="MM" k="offset_unit"/>
+              <prop v="0,0,0,255" k="outline_color"/>
+              <prop v="solid" k="outline_style"/>
+              <prop v="0" k="outline_width"/>
+              <prop v="3x:0,0,0,0,0,0" k="outline_width_map_unit_scale"/>
+              <prop v="MM" k="outline_width_unit"/>
+              <prop v="area" k="scale_method"/>
+              <prop v="2" k="size"/>
+              <prop v="3x:0,0,0,0,0,0" k="size_map_unit_scale"/>
+              <prop v="MM" k="size_unit"/>
+              <prop v="1" k="vertical_anchor_point"/>
+              <data_defined_properties>
+                <Option type="Map">
+                  <Option value="" name="name" type="QString"/>
+                  <Option name="properties"/>
+                  <Option value="collection" name="type" type="QString"/>
+                </Option>
+              </data_defined_properties>
+            </layer>
+          </symbol>
+        </symbols>
+        <rotation/>
+        <sizescale/>
+      </renderer-v2>
+      <labeling type="simple">
+        <settings>
+          <text-style fontFamily="MS Shell Dlg 2" isExpression="0" textOpacity="1" fontLetterSpacing="0" fontUnderline="0" multilineHeight="1" fontSizeMapUnitScale="3x:0,0,0,0,0,0" useSubstitutions="0" namedStyle="Bold" textColor="0,0,0,255" fontWeight="75" blendMode="0" fontSize="10" fontCapitals="0" fieldName="name" previewBkgrdColor="#ffffff" fontStrikeout="0" fontWordSpacing="0" fontItalic="0" fontSizeUnit="Point">
+            <text-buffer bufferSizeUnits="MM" bufferColor="255,255,255,255" bufferBlendMode="0" bufferDraw="0" bufferSize="1" bufferOpacity="1" bufferNoFill="1" bufferJoinStyle="128" bufferSizeMapUnitScale="3x:0,0,0,0,0,0"/>
+            <background shapeRotationType="0" shapeOpacity="1" shapeBorderWidthUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiY="0" shapeSizeUnit="MM" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0" shapeDraw="0" shapeFillColor="255,255,255,255" shapeSizeY="0" shapeRadiiX="0" shapeSizeType="0" shapeBlendMode="0" shapeOffsetX="0" shapeOffsetY="0" shapeBorderColor="128,128,128,255" shapeBorderWidth="0" shapeOffsetUnit="MM" shapeType="0" shapeRotation="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="MM" shapeSVGFile="" shapeJoinStyle="64"/>
+            <shadow shadowScale="100" shadowRadiusAlphaOnly="0" shadowOffsetGlobal="1" shadowRadius="1.5" shadowRadiusUnit="MM" shadowOffsetUnit="MM" shadowDraw="0" shadowUnder="0" shadowOffsetAngle="135" shadowOffsetDist="1" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowOpacity="0.7" shadowColor="0,0,0,255" shadowBlendMode="6" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0"/>
+            <substitutions/>
+          </text-style>
+          <text-format plussign="0" addDirectionSymbol="0" placeDirectionSymbol="0" reverseDirectionSymbol="0" wrapChar="" multilineAlign="3" rightDirectionSymbol=">" decimals="3" leftDirectionSymbol="&lt;" formatNumbers="0"/>
+          <placement priority="5" xOffset="0" yOffset="0" fitInPolygonOnly="0" offsetUnits="MM" repeatDistanceUnits="MM" centroidInside="0" distUnits="MM" centroidWhole="0" preserveRotation="1" rotationAngle="0" quadOffset="4" placementFlags="10" distMapUnitScale="3x:0,0,0,0,0,0" maxCurvedCharAngleIn="25" offsetType="0" placement="0" repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" repeatDistance="0" dist="0" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" maxCurvedCharAngleOut="-25" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR"/>
+          <rendering displayAll="0" obstacle="1" drawLabels="1" upsidedownLabels="0" fontMaxPixelSize="10000" mergeLines="0" minFeatureSize="0" limitNumLabels="0" maxNumLabels="2000" fontMinPixelSize="3" scaleMin="0" obstacleFactor="1" scaleVisibility="0" fontLimitPixelSize="0" obstacleType="0" labelPerPart="0" scaleMax="0" zIndex="0"/>
+          <dd_properties>
+            <Option type="Map">
+              <Option value="" name="name" type="QString"/>
+              <Option name="properties"/>
+              <Option value="collection" name="type" type="QString"/>
+            </Option>
+          </dd_properties>
+        </settings>
+      </labeling>
+      <customproperties>
+        <property key="embeddedWidgets/count" value="0"/>
+        <property key="variableNames"/>
+        <property key="variableValues"/>
+      </customproperties>
+      <blendMode>0</blendMode>
+      <featureBlendMode>0</featureBlendMode>
+      <layerOpacity>1</layerOpacity>
+      <SingleCategoryDiagramRenderer attributeLegend="1" diagramType="Histogram">
+        <DiagramCategory sizeType="MM" rotationOffset="270" enabled="0" diagramOrientation="Up" maxScaleDenominator="1e+8" width="15" opacity="1" penWidth="0" labelPlacementMethod="XHeight" backgroundColor="#ffffff" height="15" minimumSize="0" penAlpha="255" lineSizeScale="3x:0,0,0,0,0,0" lineSizeType="MM" minScaleDenominator="0" penColor="#000000" backgroundAlpha="255" sizeScale="3x:0,0,0,0,0,0" scaleDependency="Area" barWidth="5" scaleBasedVisibility="0">
+          <fontProperties description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style=""/>
+        </DiagramCategory>
+      </SingleCategoryDiagramRenderer>
+      <DiagramLayerSettings dist="0" obstacle="0" placement="0" linePlacementFlags="18" showAll="1" priority="0" zIndex="0">
+        <properties>
+          <Option type="Map">
+            <Option value="" name="name" type="QString"/>
+            <Option name="properties"/>
+            <Option value="collection" name="type" type="QString"/>
+          </Option>
+        </properties>
+      </DiagramLayerSettings>
+      <fieldConfiguration>
+        <field name="FID_">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="ID">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="lat">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="lon">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="ele">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="time">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="gps_time">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="conv_time">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="magvar">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="geoidheigh">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="name">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="cmt">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="desc_">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="src">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="sym">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="type">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="fix">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="sat">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="hdop">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="vdop">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="pdop">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="ageofdgpsd">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="dgpsid">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="Proximity">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="Temperatur">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="Depth">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="DisplayMod">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="Samples">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="Expiration">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+        <field name="CreationTi">
+          <editWidget type="TextEdit">
+            <config>
+              <Option type="Map">
+                <Option value="0" name="IsMultiline" type="QString"/>
+                <Option value="0" name="UseHtml" type="QString"/>
+              </Option>
+            </config>
+          </editWidget>
+        </field>
+      </fieldConfiguration>
+      <aliases>
+        <alias index="0" name="" field="FID_"/>
+        <alias index="1" name="" field="ID"/>
+        <alias index="2" name="" field="lat"/>
+        <alias index="3" name="" field="lon"/>
+        <alias index="4" name="" field="ele"/>
+        <alias index="5" name="" field="time"/>
+        <alias index="6" name="" field="gps_time"/>
+        <alias index="7" name="" field="conv_time"/>
+        <alias index="8" name="" field="magvar"/>
+        <alias index="9" name="" field="geoidheigh"/>
+        <alias index="10" name="" field="name"/>
+        <alias index="11" name="" field="cmt"/>
+        <alias index="12" name="" field="desc_"/>
+        <alias index="13" name="" field="src"/>
+        <alias index="14" name="" field="sym"/>
+        <alias index="15" name="" field="type"/>
+        <alias index="16" name="" field="fix"/>
+        <alias index="17" name="" field="sat"/>
+        <alias index="18" name="" field="hdop"/>
+        <alias index="19" name="" field="vdop"/>
+        <alias index="20" name="" field="pdop"/>
+        <alias index="21" name="" field="ageofdgpsd"/>
+        <alias index="22" name="" field="dgpsid"/>
+        <alias index="23" name="" field="Proximity"/>
+        <alias index="24" name="" field="Temperatur"/>
+        <alias index="25" name="" field="Depth"/>
+        <alias index="26" name="" field="DisplayMod"/>
+        <alias index="27" name="" field="Samples"/>
+        <alias index="28" name="" field="Expiration"/>
+        <alias index="29" name="" field="CreationTi"/>
+      </aliases>
+      <excludeAttributesWMS/>
+      <excludeAttributesWFS/>
+      <defaults>
+        <default applyOnUpdate="0" expression="" field="FID_"/>
+        <default applyOnUpdate="0" expression="" field="ID"/>
+        <default applyOnUpdate="0" expression="" field="lat"/>
+        <default applyOnUpdate="0" expression="" field="lon"/>
+        <default applyOnUpdate="0" expression="" field="ele"/>
+        <default applyOnUpdate="0" expression="" field="time"/>
+        <default applyOnUpdate="0" expression="" field="gps_time"/>
+        <default applyOnUpdate="0" expression="" field="conv_time"/>
+        <default applyOnUpdate="0" expression="" field="magvar"/>
+        <default applyOnUpdate="0" expression="" field="geoidheigh"/>
+        <default applyOnUpdate="0" expression="" field="name"/>
+        <default applyOnUpdate="0" expression="" field="cmt"/>
+        <default applyOnUpdate="0" expression="" field="desc_"/>
+        <default applyOnUpdate="0" expression="" field="src"/>
+        <default applyOnUpdate="0" expression="" field="sym"/>
+        <default applyOnUpdate="0" expression="" field="type"/>
+        <default applyOnUpdate="0" expression="" field="fix"/>
+        <default applyOnUpdate="0" expression="" field="sat"/>
+        <default applyOnUpdate="0" expression="" field="hdop"/>
+        <default applyOnUpdate="0" expression="" field="vdop"/>
+        <default applyOnUpdate="0" expression="" field="pdop"/>
+        <default applyOnUpdate="0" expression="" field="ageofdgpsd"/>
+        <default applyOnUpdate="0" expression="" field="dgpsid"/>
+        <default applyOnUpdate="0" expression="" field="Proximity"/>
+        <default applyOnUpdate="0" expression="" field="Temperatur"/>
+        <default applyOnUpdate="0" expression="" field="Depth"/>
+        <default applyOnUpdate="0" expression="" field="DisplayMod"/>
+        <default applyOnUpdate="0" expression="" field="Samples"/>
+        <default applyOnUpdate="0" expression="" field="Expiration"/>
+        <default applyOnUpdate="0" expression="" field="CreationTi"/>
+      </defaults>
+      <constraints>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="FID_"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="ID"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="lat"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="lon"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="ele"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="time"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="gps_time"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="conv_time"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="magvar"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="geoidheigh"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="name"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="cmt"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="desc_"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="src"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="sym"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="type"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="fix"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="sat"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="hdop"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="vdop"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="pdop"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="ageofdgpsd"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="dgpsid"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Proximity"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Temperatur"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Depth"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="DisplayMod"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Samples"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="Expiration"/>
+        <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="CreationTi"/>
+      </constraints>
+      <constraintExpressions>
+        <constraint desc="" field="FID_" exp=""/>
+        <constraint desc="" field="ID" exp=""/>
+        <constraint desc="" field="lat" exp=""/>
+        <constraint desc="" field="lon" exp=""/>
+        <constraint desc="" field="ele" exp=""/>
+        <constraint desc="" field="time" exp=""/>
+        <constraint desc="" field="gps_time" exp=""/>
+        <constraint desc="" field="conv_time" exp=""/>
+        <constraint desc="" field="magvar" exp=""/>
+        <constraint desc="" field="geoidheigh" exp=""/>
+        <constraint desc="" field="name" exp=""/>
+        <constraint desc="" field="cmt" exp=""/>
+        <constraint desc="" field="desc_" exp=""/>
+        <constraint desc="" field="src" exp=""/>
+        <constraint desc="" field="sym" exp=""/>
+        <constraint desc="" field="type" exp=""/>
+        <constraint desc="" field="fix" exp=""/>
+        <constraint desc="" field="sat" exp=""/>
+        <constraint desc="" field="hdop" exp=""/>
+        <constraint desc="" field="vdop" exp=""/>
+        <constraint desc="" field="pdop" exp=""/>
+        <constraint desc="" field="ageofdgpsd" exp=""/>
+        <constraint desc="" field="dgpsid" exp=""/>
+        <constraint desc="" field="Proximity" exp=""/>
+        <constraint desc="" field="Temperatur" exp=""/>
+        <constraint desc="" field="Depth" exp=""/>
+        <constraint desc="" field="DisplayMod" exp=""/>
+        <constraint desc="" field="Samples" exp=""/>
+        <constraint desc="" field="Expiration" exp=""/>
+        <constraint desc="" field="CreationTi" exp=""/>
+      </constraintExpressions>
+      <attributeactions>
+        <defaultAction key="Canvas" value="{00000000-0000-0000-0000-000000000000}"/>
+      </attributeactions>
+      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="&quot;name&quot;" sortOrder="0">
+        <columns>
+          <column hidden="0" width="-1" name="FID_" type="field"/>
+          <column hidden="0" width="-1" name="ID" type="field"/>
+          <column hidden="0" width="-1" name="lat" type="field"/>
+          <column hidden="0" width="-1" name="lon" type="field"/>
+          <column hidden="0" width="-1" name="ele" type="field"/>
+          <column hidden="0" width="-1" name="time" type="field"/>
+          <column hidden="0" width="-1" name="gps_time" type="field"/>
+          <column hidden="0" width="-1" name="conv_time" type="field"/>
+          <column hidden="0" width="-1" name="magvar" type="field"/>
+          <column hidden="0" width="-1" name="geoidheigh" type="field"/>
+          <column hidden="0" width="-1" name="name" type="field"/>
+          <column hidden="0" width="-1" name="cmt" type="field"/>
+          <column hidden="0" width="-1" name="desc_" type="field"/>
+          <column hidden="0" width="-1" name="src" type="field"/>
+          <column hidden="0" width="-1" name="sym" type="field"/>
+          <column hidden="0" width="-1" name="type" type="field"/>
+          <column hidden="0" width="-1" name="fix" type="field"/>
+          <column hidden="0" width="-1" name="sat" type="field"/>
+          <column hidden="0" width="-1" name="hdop" type="field"/>
+          <column hidden="0" width="-1" name="vdop" type="field"/>
+          <column hidden="0" width="-1" name="pdop" type="field"/>
+          <column hidden="0" width="-1" name="ageofdgpsd" type="field"/>
+          <column hidden="0" width="-1" name="dgpsid" type="field"/>
+          <column hidden="0" width="-1" name="Proximity" type="field"/>
+          <column hidden="0" width="-1" name="Temperatur" type="field"/>
+          <column hidden="0" width="-1" name="Depth" type="field"/>
+          <column hidden="0" width="-1" name="DisplayMod" type="field"/>
+          <column hidden="0" width="-1" name="Samples" type="field"/>
+          <column hidden="0" width="-1" name="Expiration" type="field"/>
+          <column hidden="0" width="-1" name="CreationTi" type="field"/>
+          <column hidden="1" width="-1" type="actions"/>
+        </columns>
+      </attributetableconfig>
+      <editform>.</editform>
+      <editforminit/>
+      <editforminitcodesource>0</editforminitcodesource>
+      <editforminitfilepath></editforminitfilepath>
+      <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
+"""
+QGIS forms can have a Python function that is called when the form is
+opened.
+
+Use this function to add extra logic to your forms.
+
+Enter the name of the function in the "Python Init function"
+field.
+An example follows:
+"""
+from qgis.PyQt.QtWidgets import QWidget
+
+def my_form_open(dialog, layer, feature):
+	geom = feature.geometry()
+	control = dialog.findChild(QWidget, "MyLineEdit")
+]]></editforminitcode>
+      <featformsuppress>0</featformsuppress>
+      <editorlayout>generatedlayout</editorlayout>
+      <editable>
+        <field editable="1" name="CreationTi"/>
+        <field editable="1" name="Depth"/>
+        <field editable="1" name="DisplayMod"/>
+        <field editable="1" name="Expiration"/>
+        <field editable="1" name="FID_"/>
+        <field editable="1" name="ID"/>
+        <field editable="1" name="Proximity"/>
+        <field editable="1" name="Samples"/>
+        <field editable="1" name="Temperatur"/>
+        <field editable="1" name="ageofdgpsd"/>
+        <field editable="1" name="cmt"/>
+        <field editable="1" name="conv_time"/>
+        <field editable="1" name="desc_"/>
+        <field editable="1" name="dgpsid"/>
+        <field editable="1" name="ele"/>
+        <field editable="1" name="fix"/>
+        <field editable="1" name="geoidheigh"/>
+        <field editable="1" name="gps_time"/>
+        <field editable="1" name="hdop"/>
+        <field editable="1" name="lat"/>
+        <field editable="1" name="lon"/>
+        <field editable="1" name="magvar"/>
+        <field editable="1" name="name"/>
+        <field editable="1" name="pdop"/>
+        <field editable="1" name="sat"/>
+        <field editable="1" name="src"/>
+        <field editable="1" name="sym"/>
+        <field editable="1" name="time"/>
+        <field editable="1" name="type"/>
+        <field editable="1" name="vdop"/>
+      </editable>
+      <labelOnTop>
+        <field name="CreationTi" labelOnTop="0"/>
+        <field name="Depth" labelOnTop="0"/>
+        <field name="DisplayMod" labelOnTop="0"/>
+        <field name="Expiration" labelOnTop="0"/>
+        <field name="FID_" labelOnTop="0"/>
+        <field name="ID" labelOnTop="0"/>
+        <field name="Proximity" labelOnTop="0"/>
+        <field name="Samples" labelOnTop="0"/>
+        <field name="Temperatur" labelOnTop="0"/>
+        <field name="ageofdgpsd" labelOnTop="0"/>
+        <field name="cmt" labelOnTop="0"/>
+        <field name="conv_time" labelOnTop="0"/>
+        <field name="desc_" labelOnTop="0"/>
+        <field name="dgpsid" labelOnTop="0"/>
+        <field name="ele" labelOnTop="0"/>
+        <field name="fix" labelOnTop="0"/>
+        <field name="geoidheigh" labelOnTop="0"/>
+        <field name="gps_time" labelOnTop="0"/>
+        <field name="hdop" labelOnTop="0"/>
+        <field name="lat" labelOnTop="0"/>
+        <field name="lon" labelOnTop="0"/>
+        <field name="magvar" labelOnTop="0"/>
+        <field name="name" labelOnTop="0"/>
+        <field name="pdop" labelOnTop="0"/>
+        <field name="sat" labelOnTop="0"/>
+        <field name="src" labelOnTop="0"/>
+        <field name="sym" labelOnTop="0"/>
+        <field name="time" labelOnTop="0"/>
+        <field name="type" labelOnTop="0"/>
+        <field name="vdop" labelOnTop="0"/>
+      </labelOnTop>
+      <widgets/>
+      <conditionalstyles>
+        <rowstyles/>
+        <fieldstyles/>
+      </conditionalstyles>
+      <expressionfields/>
+      <previewExpression>COALESCE( "name", '&lt;NULL>' )</previewExpression>
+      <mapTip></mapTip>
+    </maplayer>
+  </projectlayers>
+  <layerorder>
+    <layer id="CaribooLakeBathymetryTIN_clipped220170704183104991"/>
+    <layer id="CaribooLake_waypoints_TO_July520170724143413479"/>
+    <layer id="CaribooLake_tracks_TO_july520170724143427943"/>
+    <layer id="CaribooLake_Waypoints_Ekmans20170918145234787"/>
+    <layer id="Waypoints_timeConverted20180111155617096"/>
+    <layer id="Google_Satellite_Hybrid_2ccca5d1_3a52_4559_b99d_92c415969682"/>
+  </layerorder>
+  <properties>
+    <Digitizing>
+      <LayerSnappingEnabledList type="QStringList">
+        <value>disabled</value>
+        <value>disabled</value>
+        <value>disabled</value>
+        <value>disabled</value>
+        <value>disabled</value>
+        <value>disabled</value>
+        <value>disabled</value>
+        <value>disabled</value>
+        <value>disabled</value>
+      </LayerSnappingEnabledList>
+      <AvoidIntersectionsList type="QStringList"/>
+      <LayerSnapToList type="QStringList">
+        <value>to_vertex_and_segment</value>
+        <value>to_vertex_and_segment</value>
+        <value>to_vertex_and_segment</value>
+        <value>to_vertex_and_segment</value>
+        <value>to_vertex_and_segment</value>
+        <value>to_vertex_and_segment</value>
+        <value>to_vertex_and_segment</value>
+        <value>to_vertex_and_segment</value>
+        <value>to_vertex_and_segment</value>
+      </LayerSnapToList>
+      <LayerSnappingToleranceUnitList type="QStringList">
+        <value>0</value>
+        <value>0</value>
+        <value>0</value>
+        <value>0</value>
+        <value>0</value>
+        <value>0</value>
+        <value>0</value>
+        <value>0</value>
+        <value>0</value>
+      </LayerSnappingToleranceUnitList>
+      <LayerSnappingList type="QStringList">
+        <value>CaribooBathymetryContourLines20170704183925576</value>
+        <value>CaribooLakeOnly_poly20170704183447677</value>
+        <value>CaribooLake_Waypoints_Ekmans20170918145234787</value>
+        <value>CaribooLake_tracks_TO_july520170724142949567</value>
+        <value>CaribooLake_tracks_TO_july520170724143427943</value>
+        <value>CaribooLake_waypoints_TO_July520170724143413479</value>
+        <value>Vibrocore_waypoints20170907113449064</value>
+        <value>watercourse_250k_clipped_to_watershed20170907114447599</value>
+        <value>watercourse_50kclipped20170907111441935</value>
+      </LayerSnappingList>
+      <LayerSnappingToleranceList type="QStringList">
+        <value>0.000000</value>
+        <value>0.000000</value>
+        <value>0.000000</value>
+        <value>0.000000</value>
+        <value>0.000000</value>
+        <value>0.000000</value>
+        <value>0.000000</value>
+        <value>0.000000</value>
+        <value>0.000000</value>
+      </LayerSnappingToleranceList>
+    </Digitizing>
+    <WFSLayers type="QStringList"/>
+    <WMSOnlineResource type="QString"></WMSOnlineResource>
+    <SpatialRefSys>
+      <ProjectionsEnabled type="int">1</ProjectionsEnabled>
+      <ProjectCRSProj4String type="QString">+proj=utm +zone=10 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</ProjectCRSProj4String>
+      <ProjectCRSID type="int">2287</ProjectCRSID>
+      <ProjectCrs type="QString">EPSG:26910</ProjectCrs>
+    </SpatialRefSys>
+    <Measurement>
+      <DistanceUnits type="QString">meters</DistanceUnits>
+      <AreaUnits type="QString">m2</AreaUnits>
+    </Measurement>
+    <DefaultStyles>
+      <RandomColors type="bool">true</RandomColors>
+      <Line type="QString"></Line>
+      <ColorRamp type="QString"></ColorRamp>
+      <Fill type="QString"></Fill>
+      <AlphaInt type="int">255</AlphaInt>
+      <Marker type="QString"></Marker>
+    </DefaultStyles>
+    <Legend>
+      <filterByMap type="bool">false</filterByMap>
+    </Legend>
+    <WMSKeywordList type="QStringList">
+      <value></value>
+    </WMSKeywordList>
+    <Gui>
+      <CanvasColorGreenPart type="int">255</CanvasColorGreenPart>
+      <SelectionColorAlphaPart type="int">255</SelectionColorAlphaPart>
+      <SelectionColorGreenPart type="int">255</SelectionColorGreenPart>
+      <SelectionColorRedPart type="int">255</SelectionColorRedPart>
+      <SelectionColorBluePart type="int">0</SelectionColorBluePart>
+      <CanvasColorBluePart type="int">255</CanvasColorBluePart>
+      <CanvasColorRedPart type="int">255</CanvasColorRedPart>
+    </Gui>
+    <WFSUrl type="QString"></WFSUrl>
+    <WMSPrecision type="QString">8</WMSPrecision>
+    <WMSContactPhone type="QString"></WMSContactPhone>
+    <WMSAddWktGeometry type="bool">false</WMSAddWktGeometry>
+    <WMSContactPerson type="QString"></WMSContactPerson>
+    <Paths>
+      <Absolute type="bool">false</Absolute>
+    </Paths>
+    <Macros>
+      <pythonCode type="QString"></pythonCode>
+    </Macros>
+    <WMSUrl type="QString"></WMSUrl>
+    <Measure>
+      <Ellipsoid type="QString">GRS80</Ellipsoid>
+    </Measure>
+    <WMSImageQuality type="int">90</WMSImageQuality>
+    <WMSServiceCapabilities type="bool">false</WMSServiceCapabilities>
+    <PositionPrecision>
+      <Automatic type="bool">true</Automatic>
+      <DecimalPlaces type="int">2</DecimalPlaces>
+      <DegreeFormat type="QString">D</DegreeFormat>
+    </PositionPrecision>
+    <WCSLayers type="QStringList"/>
+    <PAL>
+      <CandidatesLine type="int">50</CandidatesLine>
+      <ShowingPartialsLabels type="bool">true</ShowingPartialsLabels>
+      <ShowingCandidates type="bool">false</ShowingCandidates>
+      <CandidatesPolygon type="int">30</CandidatesPolygon>
+      <SearchMethod type="int">0</SearchMethod>
+      <CandidatesPoint type="int">16</CandidatesPoint>
+      <ShowingAllLabels type="bool">false</ShowingAllLabels>
+      <DrawRectOnly type="bool">false</DrawRectOnly>
+      <DrawOutlineLabels type="bool">true</DrawOutlineLabels>
+    </PAL>
+    <WFSTLayers>
+      <Insert type="QStringList"/>
+      <Update type="QStringList"/>
+      <Delete type="QStringList"/>
+    </WFSTLayers>
+    <WMSContactMail type="QString"></WMSContactMail>
+    <WMSContactOrganization type="QString"></WMSContactOrganization>
+    <Identify>
+      <disabledLayers type="QStringList"/>
+    </Identify>
+    <WMSFees type="QString"></WMSFees>
+    <WMSServiceAbstract type="QString"></WMSServiceAbstract>
+    <WMSUseLayerIDs type="bool">false</WMSUseLayerIDs>
+    <WCSUrl type="QString"></WCSUrl>
+    <WMSAccessConstraints type="QString"></WMSAccessConstraints>
+    <WMSServiceTitle type="QString"></WMSServiceTitle>
+  </properties>
+  <visibility-presets/>
+  <transformContext/>
+  <projectMetadata>
+    <identifier></identifier>
+    <parentidentifier></parentidentifier>
+    <language></language>
+    <type></type>
+    <title></title>
+    <abstract></abstract>
+    <links/>
+    <author></author>
+    <creation></creation>
+  </projectMetadata>
+  <Annotations/>
+  <Layouts>
+    <Layout units="mm" printResolution="300" name="Vibro Core Locations" worldFileMap="">
+      <Snapper snapToGrid="0" snapToItems="1" snapToGuides="1" tolerance="5"/>
+      <Grid resolution="10" resUnits="mm" offsetX="0" offsetY="0" offsetUnits="mm"/>
+      <PageCollection>
+        <symbol clip_to_extent="1" name="" alpha="1" type="fill">
+          <layer pass="0" locked="0" enabled="1" class="SimpleFill">
+            <prop v="3x:0,0,0,0,0,0" k="border_width_map_unit_scale"/>
+            <prop v="255,255,255,255" k="color"/>
+            <prop v="miter" k="joinstyle"/>
+            <prop v="0,0" k="offset"/>
+            <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+            <prop v="MM" k="offset_unit"/>
+            <prop v="0,0,0,255" k="outline_color"/>
+            <prop v="no" k="outline_style"/>
+            <prop v="0.26" k="outline_width"/>
+            <prop v="MM" k="outline_width_unit"/>
+            <prop v="solid" k="style"/>
+            <data_defined_properties>
+              <Option type="Map">
+                <Option value="" name="name" type="QString"/>
+                <Option name="properties"/>
+                <Option value="collection" name="type" type="QString"/>
+              </Option>
+            </data_defined_properties>
+          </layer>
+        </symbol>
+        <LayoutItem templateUuid="{5a4e0a92-baac-4ca2-aec5-da07dc80c0ef}" background="true" positionLock="false" id="" frameJoinStyle="miter" opacity="1" frame="false" type="65638" itemRotation="0" uuid="{5a4e0a92-baac-4ca2-aec5-da07dc80c0ef}" outlineWidthM="0.3,mm" referencePoint="0" blendMode="0" size="210,148,mm" zValue="0" positionOnPage="0,0,mm" position="0,0,mm" groupUuid="" visibility="1" excludeFromExports="0">
+          <FrameColor red="0" blue="0" alpha="255" green="0"/>
+          <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
+          <LayoutObject>
+            <dataDefinedProperties>
+              <Option type="Map">
+                <Option value="" name="name" type="QString"/>
+                <Option name="properties"/>
+                <Option value="collection" name="type" type="QString"/>
+              </Option>
+            </dataDefinedProperties>
+            <customproperties/>
+          </LayoutObject>
+        </LayoutItem>
+        <GuideCollection visible="1"/>
+      </PageCollection>
+      <LayoutItem opacity="1" blendMode="0" lineCapStyle="square" maxBarWidth="150" positionOnPage="140.185,18.0865,mm" groupUuid="" labelBarSpace="3" alignment="0" type="65646" unitLabel="km" unitType="meters" excludeFromExports="0" numSegments="4" visibility="1" style="Single Box" positionLock="false" numSegmentsLeft="2" segmentMillimeters="27.9598" templateUuid="{a79dfb21-3ac9-438e-9d9e-d43809ae7519}" minBarWidth="50" background="false" height="3" uuid="{a79dfb21-3ac9-438e-9d9e-d43809ae7519}" referencePoint="0" id="" boxContentSpace="1" numUnitsPerSegment="2500" outlineWidthM="0.3,mm" itemRotation="0" position="140.185,18.0865,mm" mapUuid="{5800b9fd-f480-492e-a9ab-9d2aac23f0ea}" numMapUnitsPerScaleBarUnit="1000" lineJoinStyle="miter" outlineWidth="1" zValue="2" size="155.949,16.2436,mm" frame="false" frameJoinStyle="miter" segmentSizeMode="0">
+        <FrameColor red="0" blue="0" alpha="255" green="0"/>
+        <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
+        <LayoutObject>
+          <dataDefinedProperties>
+            <Option type="Map">
+              <Option value="" name="name" type="QString"/>
+              <Option name="properties"/>
+              <Option value="collection" name="type" type="QString"/>
+            </Option>
+          </dataDefinedProperties>
+          <customproperties/>
+        </LayoutObject>
+        <text-style blendMode="0" fontWeight="50" textColor="0,0,0,255" namedStyle="" fontSizeUnit="Point" textOpacity="1" multilineHeight="1" fontCapitals="0" fontStrikeout="0" fontWordSpacing="0" fontItalic="0" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontFamily=".SF NS Text" fontSize="12" fontLetterSpacing="0" fontUnderline="0">
+          <text-buffer bufferSizeUnits="MM" bufferColor="255,255,255,255" bufferBlendMode="0" bufferDraw="0" bufferSize="1" bufferOpacity="1" bufferNoFill="1" bufferJoinStyle="128" bufferSizeMapUnitScale="3x:0,0,0,0,0,0"/>
+          <background shapeRotationType="0" shapeOpacity="1" shapeBorderWidthUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiY="0" shapeSizeUnit="MM" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0" shapeDraw="0" shapeFillColor="255,255,255,255" shapeSizeY="0" shapeRadiiX="0" shapeSizeType="0" shapeBlendMode="0" shapeOffsetX="0" shapeOffsetY="0" shapeBorderColor="128,128,128,255" shapeBorderWidth="0" shapeOffsetUnit="MM" shapeType="0" shapeRotation="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="MM" shapeSVGFile="" shapeJoinStyle="64"/>
+          <shadow shadowScale="100" shadowRadiusAlphaOnly="0" shadowOffsetGlobal="1" shadowRadius="1.5" shadowRadiusUnit="MM" shadowOffsetUnit="MM" shadowDraw="0" shadowUnder="0" shadowOffsetAngle="135" shadowOffsetDist="1" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowOpacity="0.7" shadowColor="0,0,0,255" shadowBlendMode="6" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0"/>
+        </text-style>
+        <fillColor red="0" blue="0" alpha="255" green="0"/>
+        <fillColor2 red="255" blue="255" alpha="255" green="255"/>
+        <strokeColor red="0" blue="0" alpha="255" green="0"/>
+      </LayoutItem>
+      <LayoutItem templateUuid="{5800b9fd-f480-492e-a9ab-9d2aac23f0ea}" background="true" positionLock="false" mapRotation="0" id="" frameJoinStyle="miter" opacity="1" frame="false" type="65639" drawCanvasItems="true" keepLayerSet="false" itemRotation="0" uuid="{5800b9fd-f480-492e-a9ab-9d2aac23f0ea}" outlineWidthM="0.3,mm" referencePoint="0" blendMode="0" size="296,210,mm" followPresetName="" zValue="1" positionOnPage="0,0,mm" followPreset="false" position="0,0,mm" groupUuid="" visibility="1" excludeFromExports="0">
+        <FrameColor red="0" blue="0" alpha="255" green="0"/>
+        <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
+        <LayoutObject>
+          <dataDefinedProperties>
+            <Option type="Map">
+              <Option value="" name="name" type="QString"/>
+              <Option name="properties"/>
+              <Option value="collection" name="type" type="QString"/>
+            </Option>
+          </dataDefinedProperties>
+          <customproperties/>
+        </LayoutObject>
+        <Extent xmin="597619.87221767997834831" ymax="5856603.0054700868204236" xmax="624079.83720898174215108" ymin="5837830.73301004152745008"/>
+        <LayerSet/>
+        <ComposerMapGrid gridStyle="0" topAnnotationDirection="0" rightAnnotationPosition="1" blendMode="0" annotationExpression="" crossLength="3" offsetX="0" frameFillColor1="255,255,255,255" leftAnnotationDisplay="0" leftAnnotationPosition="1" offsetY="0" annotationFontColor="0,0,0,255" bottomFrameDivisions="0" bottomAnnotationDisplay="0" rightAnnotationDirection="0" gridFrameWidth="2" bottomAnnotationDirection="0" leftAnnotationDirection="0" leftFrameDivisions="0" gridFramePenColor="0,0,0,255" annotationFormat="0" gridFrameSideFlags="15" frameAnnotationDistance="1" frameFillColor2="0,0,0,255" rightAnnotationDisplay="0" annotationPrecision="3" intervalX="0" uuid="{9c25d29d-f067-4fcc-b9d4-cfcd132c8419}" topFrameDivisions="0" topAnnotationDisplay="0" unit="0" intervalY="0" bottomAnnotationPosition="1" showAnnotation="0" name="Grid 1" gridFrameStyle="0" gridFramePenThickness="0.5" rightFrameDivisions="0" show="0" topAnnotationPosition="1">
+          <lineStyle>
+            <symbol clip_to_extent="1" name="" alpha="1" type="line">
+              <layer pass="0" locked="0" enabled="1" class="SimpleLine">
+                <prop v="square" k="capstyle"/>
+                <prop v="5;2" k="customdash"/>
+                <prop v="3x:0,0,0,0,0,0" k="customdash_map_unit_scale"/>
+                <prop v="MM" k="customdash_unit"/>
+                <prop v="0" k="draw_inside_polygon"/>
+                <prop v="bevel" k="joinstyle"/>
+                <prop v="0,0,0,255" k="line_color"/>
+                <prop v="solid" k="line_style"/>
+                <prop v="0" k="line_width"/>
+                <prop v="MM" k="line_width_unit"/>
+                <prop v="0" k="offset"/>
+                <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+                <prop v="MM" k="offset_unit"/>
+                <prop v="0" k="use_custom_dash"/>
+                <prop v="3x:0,0,0,0,0,0" k="width_map_unit_scale"/>
+                <data_defined_properties>
+                  <Option type="Map">
+                    <Option value="" name="name" type="QString"/>
+                    <Option name="properties"/>
+                    <Option value="collection" name="type" type="QString"/>
+                  </Option>
+                </data_defined_properties>
+              </layer>
+            </symbol>
+          </lineStyle>
+          <markerStyle>
+            <symbol clip_to_extent="1" name="" alpha="1" type="marker">
+              <layer pass="0" locked="0" enabled="1" class="SimpleMarker">
+                <prop v="0" k="angle"/>
+                <prop v="0,0,0,255" k="color"/>
+                <prop v="1" k="horizontal_anchor_point"/>
+                <prop v="bevel" k="joinstyle"/>
+                <prop v="circle" k="name"/>
+                <prop v="0,0" k="offset"/>
+                <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+                <prop v="MM" k="offset_unit"/>
+                <prop v="0,0,0,255" k="outline_color"/>
+                <prop v="solid" k="outline_style"/>
+                <prop v="0" k="outline_width"/>
+                <prop v="3x:0,0,0,0,0,0" k="outline_width_map_unit_scale"/>
+                <prop v="MM" k="outline_width_unit"/>
+                <prop v="area" k="scale_method"/>
+                <prop v="2" k="size"/>
+                <prop v="3x:0,0,0,0,0,0" k="size_map_unit_scale"/>
+                <prop v="MM" k="size_unit"/>
+                <prop v="1" k="vertical_anchor_point"/>
+                <data_defined_properties>
+                  <Option type="Map">
+                    <Option value="" name="name" type="QString"/>
+                    <Option name="properties"/>
+                    <Option value="collection" name="type" type="QString"/>
+                  </Option>
+                </data_defined_properties>
+              </layer>
+            </symbol>
+          </markerStyle>
+          <annotationFontProperties description=".SF NS Text,13,-1,5,50,0,0,0,0,0" style=""/>
+        </ComposerMapGrid>
+        <AtlasMap margin="0.10000000000000001" atlasDriven="0" scalingMode="2"/>
+      </LayoutItem>
+      <customproperties/>
+      <Atlas sortFeatures="0" filterFeatures="0" coverageLayer="" hideCoverage="0" pageNameExpression="" enabled="0" filenamePattern="'output_'||@atlas_featurenumber"/>
+    </Layout>
+    <Layout units="mm" printResolution="300" name="Ekman Core Locations" worldFileMap="">
+      <Snapper snapToGrid="0" snapToItems="1" snapToGuides="1" tolerance="5"/>
+      <Grid resolution="10" resUnits="mm" offsetX="0" offsetY="0" offsetUnits="mm"/>
+      <PageCollection>
+        <symbol clip_to_extent="1" name="" alpha="1" type="fill">
+          <layer pass="0" locked="0" enabled="1" class="SimpleFill">
+            <prop v="3x:0,0,0,0,0,0" k="border_width_map_unit_scale"/>
+            <prop v="255,255,255,255" k="color"/>
+            <prop v="miter" k="joinstyle"/>
+            <prop v="0,0" k="offset"/>
+            <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+            <prop v="MM" k="offset_unit"/>
+            <prop v="0,0,0,255" k="outline_color"/>
+            <prop v="no" k="outline_style"/>
+            <prop v="0.26" k="outline_width"/>
+            <prop v="MM" k="outline_width_unit"/>
+            <prop v="solid" k="style"/>
+            <data_defined_properties>
+              <Option type="Map">
+                <Option value="" name="name" type="QString"/>
+                <Option name="properties"/>
+                <Option value="collection" name="type" type="QString"/>
+              </Option>
+            </data_defined_properties>
+          </layer>
+        </symbol>
+        <LayoutItem templateUuid="{c7957afb-ede5-47b2-8c76-8ef02cb9822a}" background="true" positionLock="false" id="" frameJoinStyle="miter" opacity="1" frame="false" type="65638" itemRotation="0" uuid="{c7957afb-ede5-47b2-8c76-8ef02cb9822a}" outlineWidthM="0.3,mm" referencePoint="0" blendMode="0" size="297,210,mm" zValue="0" positionOnPage="0,0,mm" position="0,0,mm" groupUuid="" visibility="1" excludeFromExports="0">
+          <FrameColor red="0" blue="0" alpha="255" green="0"/>
+          <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
+          <LayoutObject>
+            <dataDefinedProperties>
+              <Option type="Map">
+                <Option value="" name="name" type="QString"/>
+                <Option name="properties"/>
+                <Option value="collection" name="type" type="QString"/>
+              </Option>
+            </dataDefinedProperties>
+            <customproperties/>
+          </LayoutObject>
+        </LayoutItem>
+        <GuideCollection visible="1"/>
+      </PageCollection>
+      <LayoutItem templateUuid="{a765682a-6f86-4f35-a36f-c61d750711ff}" background="false" positionLock="false" outlineWidth="1" id="" frameJoinStyle="miter" opacity="1" startMarkerFile="" frame="false" type="65645" arrowHeadFillColor="0,0,0,255" itemRotation="0" uuid="{a765682a-6f86-4f35-a36f-c61d750711ff}" startMarkerMode="0" outlineWidthM="0.3,mm" referencePoint="0" blendMode="0" size="0,12.37,mm" arrowHeadWidth="4" zValue="3" positionOnPage="257.715,179.37,mm" endMarkerFile="" markerMode="1" position="257.715,179.37,mm" groupUuid="" arrowHeadOutlineColor="0,0,0,255" visibility="1" excludeFromExports="0">
+        <FrameColor red="0" blue="0" alpha="255" green="0"/>
+        <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
+        <LayoutObject>
+          <dataDefinedProperties>
+            <Option type="Map">
+              <Option value="" name="name" type="QString"/>
+              <Option name="properties"/>
+              <Option value="collection" name="type" type="QString"/>
+            </Option>
+          </dataDefinedProperties>
+          <customproperties/>
+        </LayoutObject>
+        <symbol clip_to_extent="1" name="" alpha="1" type="line">
+          <layer pass="0" locked="0" enabled="1" class="SimpleLine">
+            <prop v="square" k="capstyle"/>
+            <prop v="5;2" k="customdash"/>
+            <prop v="3x:0,0,0,0,0,0" k="customdash_map_unit_scale"/>
+            <prop v="MM" k="customdash_unit"/>
+            <prop v="0" k="draw_inside_polygon"/>
+            <prop v="bevel" k="joinstyle"/>
+            <prop v="0,0,0,255" k="line_color"/>
+            <prop v="solid" k="line_style"/>
+            <prop v="1" k="line_width"/>
+            <prop v="MM" k="line_width_unit"/>
+            <prop v="0" k="offset"/>
+            <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+            <prop v="MM" k="offset_unit"/>
+            <prop v="0" k="use_custom_dash"/>
+            <prop v="3x:0,0,0,0,0,0" k="width_map_unit_scale"/>
+            <data_defined_properties>
+              <Option type="Map">
+                <Option value="" name="name" type="QString"/>
+                <Option name="properties"/>
+                <Option value="collection" name="type" type="QString"/>
+              </Option>
+            </data_defined_properties>
+          </layer>
+        </symbol>
+        <nodes>
+          <node y="12.37" x="0"/>
+          <node y="0" x="0"/>
+        </nodes>
+      </LayoutItem>
+      <LayoutItem opacity="1" blendMode="0" lineCapStyle="square" maxBarWidth="150" positionOnPage="223.914,196.276,mm" groupUuid="" labelBarSpace="3" alignment="0" type="65646" unitLabel="km" unitType="meters" excludeFromExports="0" numSegments="4" visibility="1" style="Single Box" positionLock="false" numSegmentsLeft="2" segmentMillimeters="12.9047" templateUuid="{3613e284-ea39-445b-95b2-3b97a166a591}" minBarWidth="50" background="false" height="3" uuid="{3613e284-ea39-445b-95b2-3b97a166a591}" referencePoint="0" id="" boxContentSpace="1" numUnitsPerSegment="1000" outlineWidthM="0.3,mm" itemRotation="0" position="223.914,196.276,mm" mapUuid="{1792a748-3b1e-4537-877e-e8708aac5952}" numMapUnitsPerScaleBarUnit="1000" lineJoinStyle="miter" outlineWidth="1" zValue="2" size="77.7235,20,mm" frame="false" frameJoinStyle="miter" segmentSizeMode="0">
+        <FrameColor red="0" blue="0" alpha="255" green="0"/>
+        <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
+        <LayoutObject>
+          <dataDefinedProperties>
+            <Option type="Map">
+              <Option value="" name="name" type="QString"/>
+              <Option name="properties"/>
+              <Option value="collection" name="type" type="QString"/>
+            </Option>
+          </dataDefinedProperties>
+          <customproperties/>
+        </LayoutObject>
+        <text-style blendMode="0" fontWeight="50" textColor="0,0,0,255" namedStyle="" fontSizeUnit="Point" textOpacity="1" multilineHeight="1" fontCapitals="0" fontStrikeout="0" fontWordSpacing="0" fontItalic="0" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontFamily=".SF NS Text" fontSize="12" fontLetterSpacing="0" fontUnderline="0">
+          <text-buffer bufferSizeUnits="MM" bufferColor="255,255,255,255" bufferBlendMode="0" bufferDraw="0" bufferSize="1" bufferOpacity="1" bufferNoFill="1" bufferJoinStyle="128" bufferSizeMapUnitScale="3x:0,0,0,0,0,0"/>
+          <background shapeRotationType="0" shapeOpacity="1" shapeBorderWidthUnit="MM" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiY="0" shapeSizeUnit="MM" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeSizeX="0" shapeDraw="0" shapeFillColor="255,255,255,255" shapeSizeY="0" shapeRadiiX="0" shapeSizeType="0" shapeBlendMode="0" shapeOffsetX="0" shapeOffsetY="0" shapeBorderColor="128,128,128,255" shapeBorderWidth="0" shapeOffsetUnit="MM" shapeType="0" shapeRotation="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="MM" shapeSVGFile="" shapeJoinStyle="64"/>
+          <shadow shadowScale="100" shadowRadiusAlphaOnly="0" shadowOffsetGlobal="1" shadowRadius="1.5" shadowRadiusUnit="MM" shadowOffsetUnit="MM" shadowDraw="0" shadowUnder="0" shadowOffsetAngle="135" shadowOffsetDist="1" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowOpacity="0.7" shadowColor="0,0,0,255" shadowBlendMode="6" shadowRadiusMapUnitScale="3x:0,0,0,0,0,0"/>
+        </text-style>
+        <fillColor red="0" blue="0" alpha="255" green="0"/>
+        <fillColor2 red="255" blue="255" alpha="255" green="255"/>
+        <strokeColor red="0" blue="0" alpha="255" green="0"/>
+      </LayoutItem>
+      <LayoutItem templateUuid="{1792a748-3b1e-4537-877e-e8708aac5952}" background="true" positionLock="false" mapRotation="0" id="" frameJoinStyle="miter" opacity="1" frame="false" type="65639" drawCanvasItems="true" keepLayerSet="false" itemRotation="0" uuid="{1792a748-3b1e-4537-877e-e8708aac5952}" outlineWidthM="0.3,mm" referencePoint="0" blendMode="0" size="297,210,mm" followPresetName="" zValue="1" positionOnPage="0,0,mm" followPreset="false" position="0,0,mm" groupUuid="" visibility="1" excludeFromExports="0">
+        <FrameColor red="0" blue="0" alpha="255" green="0"/>
+        <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
+        <LayoutObject>
+          <dataDefinedProperties>
+            <Option type="Map">
+              <Option value="" name="name" type="QString"/>
+              <Option name="properties"/>
+              <Option value="collection" name="type" type="QString"/>
+            </Option>
+          </dataDefinedProperties>
+          <customproperties/>
+        </LayoutObject>
+        <Extent xmin="600108.07056210690643638" ymax="5856976.17780710197985172" xmax="623117.30289427272509784" ymin="5840707.02363284304738045"/>
+        <LayerSet/>
+        <ComposerMapGrid gridStyle="0" topAnnotationDirection="0" rightAnnotationPosition="1" blendMode="0" annotationExpression="" crossLength="3" offsetX="0" frameFillColor1="255,255,255,255" leftAnnotationDisplay="0" leftAnnotationPosition="1" offsetY="0" annotationFontColor="0,0,0,255" bottomFrameDivisions="0" bottomAnnotationDisplay="0" rightAnnotationDirection="0" gridFrameWidth="2" bottomAnnotationDirection="0" leftAnnotationDirection="0" leftFrameDivisions="0" gridFramePenColor="0,0,0,255" annotationFormat="0" gridFrameSideFlags="15" frameAnnotationDistance="1" frameFillColor2="0,0,0,255" rightAnnotationDisplay="0" annotationPrecision="3" intervalX="0" uuid="{8ad4a794-fbf1-43b5-ae24-5843030f510b}" topFrameDivisions="0" topAnnotationDisplay="0" unit="0" intervalY="0" bottomAnnotationPosition="1" showAnnotation="0" name="Grid 1" gridFrameStyle="0" gridFramePenThickness="0.5" rightFrameDivisions="0" show="0" topAnnotationPosition="1">
+          <lineStyle>
+            <symbol clip_to_extent="1" name="" alpha="1" type="line">
+              <layer pass="0" locked="0" enabled="1" class="SimpleLine">
+                <prop v="square" k="capstyle"/>
+                <prop v="5;2" k="customdash"/>
+                <prop v="3x:0,0,0,0,0,0" k="customdash_map_unit_scale"/>
+                <prop v="MM" k="customdash_unit"/>
+                <prop v="0" k="draw_inside_polygon"/>
+                <prop v="bevel" k="joinstyle"/>
+                <prop v="0,0,0,255" k="line_color"/>
+                <prop v="solid" k="line_style"/>
+                <prop v="0" k="line_width"/>
+                <prop v="MM" k="line_width_unit"/>
+                <prop v="0" k="offset"/>
+                <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+                <prop v="MM" k="offset_unit"/>
+                <prop v="0" k="use_custom_dash"/>
+                <prop v="3x:0,0,0,0,0,0" k="width_map_unit_scale"/>
+                <data_defined_properties>
+                  <Option type="Map">
+                    <Option value="" name="name" type="QString"/>
+                    <Option name="properties"/>
+                    <Option value="collection" name="type" type="QString"/>
+                  </Option>
+                </data_defined_properties>
+              </layer>
+            </symbol>
+          </lineStyle>
+          <markerStyle>
+            <symbol clip_to_extent="1" name="" alpha="1" type="marker">
+              <layer pass="0" locked="0" enabled="1" class="SimpleMarker">
+                <prop v="0" k="angle"/>
+                <prop v="0,0,0,255" k="color"/>
+                <prop v="1" k="horizontal_anchor_point"/>
+                <prop v="bevel" k="joinstyle"/>
+                <prop v="circle" k="name"/>
+                <prop v="0,0" k="offset"/>
+                <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+                <prop v="MM" k="offset_unit"/>
+                <prop v="0,0,0,255" k="outline_color"/>
+                <prop v="solid" k="outline_style"/>
+                <prop v="0" k="outline_width"/>
+                <prop v="3x:0,0,0,0,0,0" k="outline_width_map_unit_scale"/>
+                <prop v="MM" k="outline_width_unit"/>
+                <prop v="area" k="scale_method"/>
+                <prop v="2" k="size"/>
+                <prop v="3x:0,0,0,0,0,0" k="size_map_unit_scale"/>
+                <prop v="MM" k="size_unit"/>
+                <prop v="1" k="vertical_anchor_point"/>
+                <data_defined_properties>
+                  <Option type="Map">
+                    <Option value="" name="name" type="QString"/>
+                    <Option name="properties"/>
+                    <Option value="collection" name="type" type="QString"/>
+                  </Option>
+                </data_defined_properties>
+              </layer>
+            </symbol>
+          </markerStyle>
+          <annotationFontProperties description=".SF NS Text,13,-1,5,50,0,0,0,0,0" style=""/>
+        </ComposerMapGrid>
+        <AtlasMap margin="0.10000000000000001" atlasDriven="0" scalingMode="2"/>
+      </LayoutItem>
+      <customproperties/>
+      <Atlas sortFeatures="0" filterFeatures="0" coverageLayer="" hideCoverage="0" pageNameExpression="" enabled="0" filenamePattern="'output_'||@atlas_featurenumber"/>
+    </Layout>
+    <Layout units="mm" printResolution="300" name="Composer 3" worldFileMap="">
+      <Snapper snapToGrid="0" snapToItems="1" snapToGuides="1" tolerance="5"/>
+      <Grid resolution="10" resUnits="mm" offsetX="0" offsetY="0" offsetUnits="mm"/>
+      <PageCollection>
+        <symbol clip_to_extent="1" name="" alpha="1" type="fill">
+          <layer pass="0" locked="0" enabled="1" class="SimpleFill">
+            <prop v="3x:0,0,0,0,0,0" k="border_width_map_unit_scale"/>
+            <prop v="255,255,255,255" k="color"/>
+            <prop v="miter" k="joinstyle"/>
+            <prop v="0,0" k="offset"/>
+            <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+            <prop v="MM" k="offset_unit"/>
+            <prop v="0,0,0,255" k="outline_color"/>
+            <prop v="no" k="outline_style"/>
+            <prop v="0.26" k="outline_width"/>
+            <prop v="MM" k="outline_width_unit"/>
+            <prop v="solid" k="style"/>
+            <data_defined_properties>
+              <Option type="Map">
+                <Option value="" name="name" type="QString"/>
+                <Option name="properties"/>
+                <Option value="collection" name="type" type="QString"/>
+              </Option>
+            </data_defined_properties>
+          </layer>
+        </symbol>
+        <LayoutItem templateUuid="{9185598c-0af0-490d-b307-6e67e1d8bb5a}" background="true" positionLock="false" id="" frameJoinStyle="miter" opacity="1" frame="false" type="65638" itemRotation="0" uuid="{9185598c-0af0-490d-b307-6e67e1d8bb5a}" outlineWidthM="0.3,mm" referencePoint="0" blendMode="0" size="297,210,mm" zValue="0" positionOnPage="0,0,mm" position="0,0,mm" groupUuid="" visibility="1" excludeFromExports="0">
+          <FrameColor red="0" blue="0" alpha="255" green="0"/>
+          <BackgroundColor red="255" blue="255" alpha="255" green="255"/>
+          <LayoutObject>
+            <dataDefinedProperties>
+              <Option type="Map">
+                <Option value="" name="name" type="QString"/>
+                <Option name="properties"/>
+                <Option value="collection" name="type" type="QString"/>
+              </Option>
+            </dataDefinedProperties>
+            <customproperties/>
+          </LayoutObject>
+        </LayoutItem>
+        <GuideCollection visible="1"/>
+      </PageCollection>
+      <customproperties/>
+      <Atlas sortFeatures="0" filterFeatures="0" coverageLayer="" hideCoverage="0" pageNameExpression="" enabled="0" filenamePattern="'output_'||@atlas_featurenumber"/>
+    </Layout>
+  </Layouts>
+</qgis>
