@@ -111,7 +111,7 @@ varve_plot <- ggplot(varve, aes(x = dist, y = Lam_Thickness, shape = basin)) +
 
 loi_plot <- ggplot(loi, aes(x = dist, y = LOI, shape = basin)) +
   geom_point(size = 2) +
-  ylab('LOI (%)') +
+  ylab('OM (%)') +
   xlab('Distance Down Lake (km)')+
   scale_color_brewer(palette = 'Set2', name = '') +
   scale_shape_manual(values = delta_shapes) +
