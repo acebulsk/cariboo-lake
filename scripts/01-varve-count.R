@@ -7,6 +7,9 @@ library(zoo)
 library(tsibble)
 library(pracma)
 
+options(ggplot2.discrete.colour= c("#000000", "#E69F00", "#56B4E9"))
+
+
 ams_meta <- readRDS('data/long_cores/chronology/long_core_ams_meta.rds')
 
 standard_yr_bp <- 1950 # the year used in the literature as BP datum
@@ -594,6 +597,73 @@ ggplot(all_df, aes(year, depth, colour = core, shape = date_type)) +
   labs(shape = 'chronology', size = 'turbidite') +
   scale_size(labels = "")+
   guides(color = guide_legend(override.aes = list(shape = c(NA, NA, NA) ) ) ) # this removes the triangle from the core legend
+
+varve_c14_df <- all_df |> 
+  filter(core != 'E13')
+
+ek_df <- all_df |> 
+  filter(core == 'E13')
+
+turb_df <- turb_join |> 
+  select(depth, year = year_bp, core) |> 
+  mutate(point_type = 'turbidite')
+
+c14_df <- ams_meta |> 
+  select(depth, year = median_age, core) |> 
+  filter(depth != 0) |> 
+  mutate(point_type = 'C14 sample')
+
+turb_c14_df <- rbind(turb_df, c14_df)
+
+main.plot <- ggplot(data = all_df, aes(year, depth, colour = core)) +
+  geom_line(aes(linetype = date_type))  +
+  geom_ribbon(aes(xmin = year-varve_se,
+                  xmax = year+varve_se),
+              alpha = 0.25, linetype = 'blank') +
+  geom_point(data = turb_c14_df,
+             aes(year, depth, shape = point_type),  size = 4) +
+  geom_errorbarh(data = subset(all_df, ams_cal_se != 0), aes(xmin=year-ams_cal_se, xmax=year+ams_cal_se, height = 25)) +
+  scale_y_continuous(trans = 'reverse') +
+  xlab("Estimated Age (cal yr BP)") +
+  ylab("Core Depth (cm)") +
+  theme_bw() +
+  # scale_color_manual(values = viridis::viridis(4)) +
+  # scale_shape_manual(values = c(17, 3))  +
+  labs(linetype = 'chronology', shape = 'sample', colour = 'core')
+
+inset.plot <- ggplot(data = all_df, aes(year, depth, colour = core)) +
+  geom_line(aes(linetype = date_type))  +
+  geom_ribbon(aes(xmin = year-varve_se,
+                  xmax = year+varve_se),
+              alpha = 0.25, linetype = 'blank') +
+  geom_point(data = turb_c14_df,
+             aes(year, depth, shape = point_type),  size = 4) +
+  # geom_errorbarh(data = subset(all_df, ams_cal_se != 0), aes(xmin=year-ams_cal_se, xmax=year+ams_cal_se, height = 25)) +
+  xlab("Estimated Age (cal yr BP)") +
+  ylab("Core Depth (cm)") +
+  theme_bw() +
+  # xlim(c(NA, 150)) +
+  scale_y_continuous(trans = 'reverse') +
+  coord_cartesian(xlim=c(-75, 50), ylim=c(35, 0)) +
+  # scale_color_manual(values = viridis::viridis(4)) +
+  # scale_shape_manual(values = c(17, 3))  +
+  labs(linetype = 'chronology', shape = 'sample', colour = 'core') +
+  theme(legend.position = 'none',
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank())
+
+inset.plot
+
+plot.with.inset <-
+  cowplot::ggdraw() +
+  cowplot::draw_plot(main.plot) +
+  cowplot::draw_plot(inset.plot, 
+                     x = .44,
+                     y = .65, 
+                     width = .33, 
+                     height = .33)
+
+plot.with.inset
 
 ggsave('journal-submission/markdown/figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png', width = 6, height = 4.5)
 
