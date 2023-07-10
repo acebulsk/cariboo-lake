@@ -47,7 +47,7 @@ ggplot(qn, aes(x = month_name, y = Value, group = 1)) +
 
 # maximum mean daily discharge as in Menounos2008
 qn_dl <- hy_daily_flows(qn_id) %>% 
-  filter(is.na(Symbol) == T) %>% 
+  # filter(is.na(Symbol) == T) %>% 
   mutate(
     Date = as.Date(Date),
     year = lubridate::year(Date)) %>% 
@@ -72,57 +72,33 @@ ek <- ek %>%
 
 # plot good ones 
 
-good <- c('EK13', 'EK11')
+good <- c('EK13', 'EK11', 'EK17', 'EK19', 'EK20')
 
-ek %>% 
-  filter(core_num %in% good) %>% 
-  select(year = Year, layer_thickness_mm, core_num) %>% 
-  ggplot(aes(x = year, y = layer_thickness_mm, colour = core_num)) +
-  geom_line()
+# remove some outliers
+
+ek$layer_thickness_mm[ek$core_num == 'EK11' & ek$layer_thickness_mm == 3.9601] <- NA
+ek$layer_thickness_mm[ek$core_num == 'EK13' & ek$layer_thickness_mm == 2.5639] <- NA
+ek$layer_thickness_mm[ek$core_num == 'EK13' & ek$layer_thickness_mm == 4.3897] <- NA
+ek$layer_thickness_mm[ek$core_num == 'EK13' & ek$layer_thickness_mm == 4.7821] <- NA
+
+ek_fltr <- ek |> 
+  # filter(core_num %in% good) %>% 
+  select(year = Year, layer_thickness_mm, core_num) |> 
+  mutate(year = 
+           case_when(core_num == 'EK11' ~ year + 1,
+                     TRUE ~ year)) |> 
+  left_join(qn_dl) |> 
+  mutate(core_num = as.numeric(gsub(".*?([0-9]+).*" , "\\1", core_num))) 
   
+# ggplot(ek_fltr, aes(x = year, y = layer_thickness_mm, colour = core_num)) +
+#   geom_line()
 
-ek13 <- ek %>%
-  filter(core_num == "EK13") %>% 
-  select(year = Year, layer_thickness_mm) %>% 
-  mutate(year = year + 1)
+ggplot(ek_fltr, aes(layer_thickness_mm, Value)) +
+  facet_wrap(~core_num, scales = 'free_x') +
+  ylab(expression(paste("Mean Daily Discharge ", m^{3},s^{-1}))) +
+  xlab('Varve Thickness (mm)') +
+  geom_smooth(method = 'lm', se = F) +
+  ggpubr::stat_cor(aes(label = after_stat(r.label)), geom = "label", show.legend = F) +
+  geom_point()
 
-jn <- left_join(qn_dl, ek13)
-
-plot(jn$layer_thickness_mm, jn$Value)
-
-ek13_lm <- lm(Value ~ layer_thickness_mm, data = jn)
-
-summary(ek13_lm)$r.squared
-
-ek11 <- ek %>%
-  filter(core_num == "EK11") %>% 
-  select(year = Year, layer_thickness_mm) %>% 
-  mutate(year = year + 1)
-
-jn <- left_join(qn_dl, ek11)
-
-plot(jn$layer_thickness_mm, jn$Value)
-
-ek11_lm <- lm(Value ~ layer_thickness_mm, data = jn)
-
-summary(ek11_lm)$r.squared
-
-ek8 <- ek %>%
-  filter(core_num == "EK8") %>% 
-  select(year = Year, layer_thickness_mm) %>% 
-  mutate(year = year)
-
-jn <- left_join(qn_dl, ek8)
-
-ek8_redo <- data.frame(
-  layer_number = c(0:7),
-  thickness = c(2, 1.7,1.2,1.8,1.3,1.7,0.7,1.5)) %>% 
-  mutate(
-    thickness = thickness / 2, # measured at 2x scale with ruler 
-    year = 2017 - layer_number
-  )
-
-jn <- left_join(qn_dl, ek8_redo)
-
-
-plot(jn$thickness, jn$Value)
+ggsave('figs/ekman/ekman_varve_q_regress.bmp', width = 8.5, height = 8.5)
