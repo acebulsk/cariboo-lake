@@ -5,6 +5,7 @@ library(tidyverse)
 library(sf)
 library(plyr)
 library(weathercan)
+library(ggthemes)
 
 # create a hydrograph for cariboo river at the forks 1971-2000 to correspond to climate normals --------------------
 
@@ -121,6 +122,8 @@ flowdepth_unreg <- flows_out |>
     mean = mean(runoff),
     min = min(runoff),
     max = max(runoff),
+    # upper_quantile = quantile(runoff,0.75),
+    # lower_quantile = quantile(runoff, 0.25),
     Q = mean(Value)
   ) |> 
   left_join(record_length) |> 
@@ -138,7 +141,7 @@ hg <- ggplot(flowdepth_unreg, aes(x = month_abb, y= value, group = name, colour 
   # xlab("Month") +
   xlab(NULL) +
   theme_bw() +
-  scale_color_viridis_d() +
+  scale_color_colorblind() +
   theme(legend.title = element_blank())
 
 hg
@@ -173,7 +176,7 @@ t <- ggplot(likely_normals_avg_tmps, aes(x = period, y= value, group = name, col
   # xlab("Month") +
   xlab(NULL) +
   theme_bw() +
-  scale_color_viridis_d() +
+  scale_color_colorblind() +
   theme(legend.title = element_blank())
 
 t
@@ -214,5 +217,5 @@ cp <- cowplot::plot_grid(hg, right_side, labels = c('A', ''), label_size = 12, n
 cp
 
 ggsave('figs/climate/cariboo_combine_climate_hydro.png', width = 9, height = 4)
-ggsave('sage-submission/figs/cariboo_combine_climate_hydro.png', width = 9, height = 4)
+ggsave('journal-submission/markdown/figs/cariboo_combine_climate_hydro.png', width = 9, height = 4)
 
