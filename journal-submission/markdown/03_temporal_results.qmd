@@ -52,43 +52,43 @@ Where possible the thickness, grain size statistics, and percent organic matter 
 
 ```{r include=FALSE}
 # construct df for turb tbl
-# non_event <-readRDS('../../data/long_cores/core_stats.rds') |>
-#   # mutate(metric = case_when(
-#   #   metric == 'grain_size' ~ 'Grain Size',
-#   #   metric == 'varve_thickness' ~ 'Varve Thickness',
-#   #   metric == 'loi' ~ 'LOI',
-#   # ))
-#   dplyr::filter(stat %in% c('mean_no_flood')) |>
-#   dplyr::group_by(core, metric) |>
-#   dplyr::summarise(non_event_mean = mean(value))
-# 
-# 
-# tb <-readRDS('../../data/long_cores/turbidite_metrics.rds') |>
-#   dplyr::select(value, stdep, core, metric) |>
-#   dplyr::group_by(core, metric) |>
-#   dplyr::summarise(event_mean = mean(value),
-#             event_sd = sd(value),
-#             event_n = dplyr::n()) |>
-#   dplyr::mutate(metric = dplyr::case_when(
-#     metric == 'Grain Size' ~ 'grain_size',
-#     metric == 'Varve Thickness' ~ 'varve_thickness',
-#     metric == 'LOI' ~ 'loi',
-#   ))
+non_event <-readRDS('../../data/long_cores/core_stats.rds') |>
+  # mutate(metric = case_when(
+  #   metric == 'grain_size' ~ 'Grain Size',
+  #   metric == 'varve_thickness' ~ 'Varve Thickness',
+  #   metric == 'loi' ~ 'LOI',
+  # )) |> 
+  dplyr::filter(stat %in% c('mean_no_flood')) |>
+  dplyr::group_by(core, metric) |>
+  dplyr::summarise(non_event_mean = mean(value))
+
+
+tb <-readRDS('../../data/long_cores/turbidite_metrics.rds') |>
+  dplyr::select(value, stdep, core, metric) |>
+  dplyr::group_by(core, metric) |>
+  dplyr::summarise(event_mean = mean(value),
+            event_sd = sd(value),
+            event_n = dplyr::n()) |>
+  dplyr::mutate(metric = dplyr::case_when(
+    metric == 'Grain Size' ~ 'grain_size',
+    metric == 'Varve Thickness' ~ 'varve_thickness',
+    metric == 'LOI' ~ 'loi',
+  ))
 ```
 
 ```{r turbTbl, echo=F}
 #| label: tbl-turbTbl
 #| tbl-cap: "Sediment characteristics of regular laminae 'Couplet (varve)' compared to beds classified as turbidites for V1 and V2. The 'Couplet (varve)' is the mean sediment characteristic for all regular laminae couplets. The 'Event mean' is the mean sediment characteristic value for laminae/beds classified as events, 'Event sd' is the standard deviation, and 'Event n' is the number of turbidite beds."
 
-# tb_out <- dplyr::left_join(non_event, tb) |>
-#   dplyr::arrange(metric)  |>
-#   dplyr::mutate(metric = dplyr::case_when(
-#     metric == 'grain_size' ~ 'D~50~ (µm)',
-#     metric == 'varve_thickness' ~ 'Avg. Thickness (mm)',
-#     metric == 'loi' ~ 'OM (%)',
-#   )) |>
-#   dplyr::rename(`Couplet (varve) mean` = non_event_mean, `Event mean` = event_mean, `Event sd` = event_sd, `Event n` = event_n)
-# 
+tb_out <- dplyr::left_join(non_event, tb) |>
+  dplyr::arrange(metric)  |>
+  dplyr::mutate(metric = dplyr::case_when(
+    metric == 'grain_size' ~ 'D~50~ (µm)',
+    metric == 'varve_thickness' ~ 'Avg. Thickness (mm)',
+    metric == 'loi' ~ 'OM (%)',
+  )) |>
+  dplyr::rename(`Couplet (varve) mean` = non_event_mean, `Event mean` = event_mean, `Event sd` = event_sd, `Event n` = event_n)
+
 # write.csv(tb_out, 'figs/table2.csv')
 # saveRDS(tb_out, '../../data/long_cores/turbidite_tbl_manuscript.rds')
 tb_out <- readRDS('../../data/long_cores/turbidite_tbl_manuscript.rds')

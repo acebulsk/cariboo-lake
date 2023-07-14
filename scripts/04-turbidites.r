@@ -126,6 +126,6 @@ p <- ggplot(tb, aes(x = year, y = stdep, colour = core, fill = core)) +
   scale_color_manual(values = viridis::viridis(3)) +
   scale_fill_manual(values = viridis::viridis(3))
 p
-ggsave('sage-submission/figs/turbidite_plot.jpg', width = 7, height = 4)
+ggsave('journal-submission/markdown/figs/turbidite_plot.jpg', width = 7, height = 4)
 saveRDS(p, 'figs/turbidite_plot.rds')
 
