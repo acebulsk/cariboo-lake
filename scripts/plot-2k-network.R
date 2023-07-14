@@ -19,6 +19,8 @@ source("2k-network/2k-recon/R-functions_gmst.R")
 
 tmap_mode("view")
 
+options(ggplot2.discrete.colour= c("#000000", "#56B4E9"))
+
 # custom function so ggplot has no colour at 0 value
 mid_rescaler <- function(mid = 0) {
   function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
@@ -229,7 +231,7 @@ hydro_anom_plot
 
 #### plot cariboo long core on climate proxy ####
 
-# gain size 
+# gain size ----
 
 gs <- readRDS('data/long_cores/grain_size_v1_v2_combined.RDS') |> 
   mutate(year_ce_avg = round(year_ce_new)) # this is the ams age depth model
@@ -251,11 +253,10 @@ gs_plot <-
   # xlab("Year (CE)") +  
   theme_bw()+
   xlim(glob_lims) +
-  ggtheme_all +
-  scale_color_manual(values = viridis(3))
+  ggtheme_all 
 
 
-# varve thickness 
+# varve thickness ----
 
 vt <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
 
@@ -267,21 +268,21 @@ vt_plot <-
   ggplot(aes(x = year_ce_ams, colour = core)) +
   geom_line(aes(y = lyr_mm_stdep_fltr), method = "lm", 
             formula = y ~ 0, colour = "black", se=F, 
-            linetype="dotted", size = .5, stat = 'smooth', alpha = 0.4) +  geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
+            linetype="dotted", size = .5, stat = 'smooth', alpha = 0.4) +  
+  geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 0.3) +
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = ma_30)) +
   ylab("VT Sd. Dept.") +
   ylim(c(-2.1, 5))+
   theme_bw()+
   xlim(-50, 2025) +
-  ggtheme_all +
-  scale_color_manual(values = viridis(3))
+  ggtheme_all 
 
-# vt_plot
+vt_plot
 
 # plotly::ggplotly()
 
-# LOI
+# LOI ----
 
 loi <- readRDS('data/Sediment/LOI/loi_v1_v2_working.RDS') |> 
   filter(stdep < 3 & stdep > -3)
@@ -303,8 +304,7 @@ loi_plot <-
   theme_bw() +
   xlim(glob_lims) +
   ylim(-3, 3)+
-  ggtheme_all+
-  scale_color_manual(values = viridis(3))
+  ggtheme_all
 
 loi_plot
 
@@ -323,6 +323,6 @@ cp <- cowplot::plot_grid(plotlist = p, nrow=length(p),
 cp
 
 saveRDS(cp, 'figs/2k-network/all_core_stats_2k_anomalies.rds')
-cowplot::save_plot('sage-submission/figs/all_core_stats_2k_anomalies.jpg', 
+cowplot::save_plot('journal-submission/markdown/figs/all_core_stats_2k_anomalies.jpg', 
                    cp, base_width = 8, base_height = 8)
 

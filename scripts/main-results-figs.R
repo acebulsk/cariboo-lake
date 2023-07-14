@@ -2,6 +2,11 @@
 
 library(dplyr)
 library(ggplot2)
+library(ggthemes)
+
+options(ggplot2.discrete.colour= c("#000000", "#56B4E9"))
+
+gs_loi_dot_sz <- 0.5
 
 label_at <- function(n) function(x) ifelse(x %% n == 0, x, "")
 
@@ -30,7 +35,7 @@ err_bar_pos <- c(-2.2, # y axis
 
 gaus <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
 
-varve_x_lims <- c(min(gaus$year_ce_ams, na.rm = T), max(gaus$year_ce_ams, na.rm = T))
+varve_x_lims <- c(-100, max(gaus$year_ce_ams, na.rm = T))
 
 v1_se <- c(v1_plt_ams$year_ce-v1_plt_ams$ams_cal_se, v1_plt_ams$year_ce+v1_plt_ams$ams_cal_se)
 
@@ -38,7 +43,7 @@ v1_plot <-
   ggplot(gaus %>% 
            filter(core == "V1"), aes(x = year_ce_ams)) +
   geom_smooth(aes(y = lyr_mm_stdep_fltr), 
-              method = "lm", formula = y ~ 1, colour = "black", size = 0.5, se=F, linetype="dashed")+
+              method = "lm", formula = y ~ 1, colour = "black", linewidth = 0.5, se=F, linetype="dotted")+
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
   geom_line(aes(y = ma_30)) +
   geom_point(data = v1_plt_ams,
@@ -69,7 +74,15 @@ v2_plot <-
   gaus %>% 
   filter(core == "V2") %>% 
   ggplot(aes(x = year_ce_ams)) +
-  geom_smooth(aes(y = lyr_mm_stdep_fltr), method = "lm", formula = y ~ 1, colour = "black", size = 0.5, se=F, linetype="dashed")+
+  geom_smooth(
+    aes(y = lyr_mm_stdep_fltr),
+    method = "lm",
+    formula = y ~ 1,
+    colour = "black",
+    size = 0.5,
+    se = F,
+    linetype = "dotted"
+  ) +
   geom_line(aes(y = lyr_mm_stdep_fltr), alpha = 1/4) +
   geom_line(aes(y = ma_30))  +
   geom_point(data = v2_plt_ams,
@@ -100,8 +113,9 @@ p <- list(v1_plot, v2_plot)
 cp <- cowplot::plot_grid(plotlist = p, nrow=2, align = 'v')
 cp
 
-ggsave("sage-submission/figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png", cp,  width = 8.5, height = 6)
-saveRDS(cp, "figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.rds")
+ggsave("journal-submission/markdown/figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png", cp,  width = 8.5, height = 6)
+
+# saveRDS(cp, "figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.rds")
 
 #### Fig 7 - Grain Size ####
 
@@ -113,25 +127,20 @@ gs_x_lims <- c(min(gs$year_ce_new, na.rm = T), max(gs$year_ce_new, na.rm = T))
 
 # gs_x_lims <- c(-100, 2050)
 
-v1_plot <- 
+gs_plot <- 
   gs %>% 
-  filter(core == 'V1') %>% 
   mutate(
     smooth = smoother::smth(x = stdep, method = 'gaussian', window = 5),
     mvavg = zoo::rollapply(stdep, width = 3, by = 1, FUN = mean, na.rm = T, align = "center", partial = T)
   ) %>% 
-  ggplot(aes(x = year_ce_new)) +
-  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
+  ggplot(aes(x = year_ce_new, color = core)) +
+  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 0, colour = "black", se=F, linetype="dotted", size = .5) +
   # geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE, colour = "gray") +
-  geom_point(aes(y = stdep), alpha = 1) +
+  geom_point(aes(y = stdep), alpha = 1, size = gs_loi_dot_sz) +
   #geom_line(aes(y = smooth)) +
-  geom_line(aes(y = mvavg), colour = "gray") +
-  geom_point(data = v1_plt_ams,
-             aes(x = year_ce, y = err_bar_pos[1]),  shape = 4, size = 2) +
-  geom_errorbarh(aes(y = err_bar_pos[1], xmin=v1_se[1], xmax=v1_se[2], height = err_bar_pos[2]), lwd = 0.1) +
+  geom_line(aes(y = mvavg)) +
   ylab("D50 Std. Dept.") +
   xlab("Year (CE)") +  
-  ggtitle("V1") +
   scale_x_continuous(
     breaks = seq(0,2000, 250),  
     limits = gs_x_lims,
@@ -142,52 +151,16 @@ v1_plot <-
         labels = label_at(100),
         trans= ~((standard_yr_bp - .) - summary(v1_lm)$coeff[1]) / summary(v1_lm)$coeff[2],
         name="Core Depth (cm)"))  + # scale sec y axis based on c14  theme_bw()
+  # scale_color_colorblind() +
   theme_bw()
 
-v1_plot
+gs_plot
 
-v2_plot <- 
-  gs %>% 
-  filter(core == 'V2') %>% 
-  mutate(
-    smooth = smoother::smth(x = stdep, method = 'gaussian', window = 3),
-    mvavg = zoo::rollapply(stdep, 5, mean, align = 'center', fill = NA)
-  ) %>% 
-  ggplot(aes(x = year_ce_new)) +
-  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
-  geom_point(aes(y = stdep), alpha = 1) +
-  #geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE) +
-  geom_line(aes(y = mvavg), colour = "gray") +
-  geom_point(data = v2_plt_ams,
-             aes(x = year_ce, y = err_bar_pos[1]),  shape = 4, size = 2) +
-  geom_errorbarh(aes(y = err_bar_pos[1], xmin=v2_se[1], xmax=v2_se[2], height = err_bar_pos[2]), lwd = 0.1) +
-  ylab("D50 Std. Dept.") +
-  xlab("Year (CE)") +  
-  ggtitle("V2") +
-  scale_x_continuous(
-    breaks = seq(0,2000, 250),  
-    limits = gs_x_lims,
-    labels = label_at(500),  
-    sec.axis = 
-      sec_axis(
-        breaks = seq(400,0, -50),
-        labels = label_at(100),
-        trans= ~((standard_yr_bp - .) - summary(v2_lm)$coeff[1]) / summary(v2_lm)$coeff[2],
-        name="Core Depth (cm)")) + # scale sec y axis based on c14  theme_bw()
-  theme_bw()
-
-v2_plot
-
-p <- list(v1_plot, v2_plot)
-
-cp <- cowplot::plot_grid(plotlist = p, nrow = 2, align = 'v')
-cp
-# saveRDS(cp, "sage-submission/figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.rds")
-ggsave("sage-submission/figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png", cp,  width = 8.5, height = 6)
-
-saveRDS(v1_plot, 'figs/grain_size_v1.rds')
-saveRDS(v2_plot, 'figs/grain_size_v2.rds')
-
+# saveRDS(cp, "journal-submission/markdown/figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.rds")
+ggsave("journal-submission/markdown/figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png", 
+       gs_plot,  
+       width = 8, 
+       height = 3)
 
 #### Fig 8 - LOI ####
 
@@ -198,25 +171,20 @@ loi <- readRDS('data/Sediment/LOI/loi_v1_v2_working.RDS') %>%
 
 loi_x_lims <- c(min(loi$year_ce_new, na.rm = T), max(loi$year_ce_new, na.rm = T))
 
-v1_plot <- 
+loi_plot <- 
   loi %>%
-  filter(core == "V1") %>% 
   mutate(
     # smooth = smoother::smth(x = stdep, method = 'gaussian', window = 5),
     mvavg = zoo::rollapply(stdep, width = 3, by = 1, FUN = mean, na.rm = T, align = "center", partial = T)
   ) %>% 
-  ggplot(aes(x = year_ce_new)) +
-  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
+  ggplot(aes(x = year_ce_new, colour = core)) +
+  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 0, colour = "black", se=F, linetype="dotted", size = .5) +
   # geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE, colour = "gray") +
-  geom_point(aes(y = stdep), alpha = 1) +
+  geom_point(aes(y = stdep), alpha = 1, size = gs_loi_dot_sz) +
   #geom_line(aes(y = smooth)) +
-  geom_line(aes(y = mvavg), colour = "gray") +
-  geom_point(data = v1_plt_ams,
-             aes(x = year_ce, y = err_bar_pos[1]),  shape = 4, size = 2) +
-  geom_errorbarh(aes(y = err_bar_pos[1], xmin=v1_se[1], xmax=v1_se[2], height = err_bar_pos[2]), lwd = 0.1) +
+  geom_line(aes(y = mvavg)) +
   ylab("OM Std. Dept.") +
   xlab("Year (CE)") +  
-  ggtitle("V1")+
   scale_x_continuous(
     breaks = seq(0,2000, 250),  
     limits = loi_x_lims,
@@ -228,45 +196,12 @@ v1_plot <-
         trans= ~((standard_yr_bp - .) - summary(v1_lm)$coeff[1]) / summary(v1_lm)$coeff[2],
         name="Core Depth (cm)")) + # scale sec y axis based on c14  theme_bw()
   theme_bw()
-v1_plot
+loi_plot
 
-v2_plot <- 
-  loi %>% 
-  filter(core == "V2") %>% 
-  mutate(
-    smooth = smoother::smth(x = stdep, method = 'gaussian', window = 5),
-    mvavg = zoo::rollapply(stdep, width = 3, by = 1, FUN = mean, na.rm = T, align = "center", partial = T)
-  ) %>% 
-  ggplot(aes(x = year_ce_new)) +
-  geom_smooth(aes(y = stdep), method = "lm", formula = y ~ 1, colour = "black", se=F, linetype="dashed", size = .5) +
-  # geom_smooth(aes(y = stdep), method = lm, formula = y ~ splines::bs(x), se = FALSE, colour = "gray") +
-  geom_point(aes(y = stdep), alpha = 1) +
-  #geom_line(aes(y = smooth)) +
-  geom_line(aes(y = mvavg), colour = "gray") +
-  geom_point(data = v2_plt_ams,
-             aes(x = year_ce, y = err_bar_pos[1]),  shape = 4, size = 2) +
-  geom_errorbarh(aes(y = err_bar_pos[1], xmin=v2_se[1], xmax=v2_se[2], height = err_bar_pos[2]), lwd = 0.1) +
-  ylab("OM Std. Dept.") +
-  xlab("Year (CE)") +  
-  ggtitle("V2")+
-  scale_x_continuous(
-    breaks = seq(0,2000, 250),  
-    limits = loi_x_lims,
-    labels = label_at(500),  
-    sec.axis = 
-      sec_axis(
-        breaks = seq(400,0, -50),
-        labels = label_at(100),
-        trans= ~((standard_yr_bp - .) - summary(v2_lm)$coeff[1]) / summary(v2_lm)$coeff[2],
-        name="Core Depth (cm)"))  + # scale sec y axis based on c14  theme_bw()
-  theme_bw()
-v2_plot
-
-p <- list(v1_plot, v2_plot)
-
-cp <- cowplot::plot_grid(plotlist = p, nrow = 2, align = 'v')
-cp
-
-saveRDS(cp, "figs/V1_V2_LOI_vs_depth_and_C14_est_yr.rds")
-ggsave("sage-submission/figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png", cp,  width = 8.5, height = 6)
+ggsave(
+  "journal-submission/markdown/figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png",
+  loi_plot,
+  width = 8,
+  height = 3
+)
 
