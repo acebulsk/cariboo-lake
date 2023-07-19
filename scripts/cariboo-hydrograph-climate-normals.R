@@ -137,14 +137,14 @@ flowdepth_unreg$month_abb <- factor(flowdepth_unreg$month_abb, levels = c(month.
 hg <- ggplot(flowdepth_unreg, aes(x = month_abb, y= value, group = name)) +
   #geom_point() +
   # geom_jitter()+
-  geom_ribbon(aes(ymin=lower_quantile, ymax=upper_quantile, fill = '5th to 95th percentile'), alpha=0.5) +
+  geom_ribbon(aes(ymin=lower_quantile, ymax=upper_quantile, fill = '5th to 95th\npercentile'), alpha=0.5) +
   geom_line(aes(colour = name)) +
   ylab("Runoff (mm)") +
   # xlab("Month") +
   xlab(NULL) +
   theme_bw() +
   scale_color_colorblind() +
-  scale_fill_manual(values = c('5th to 95th percentile' = 'grey')) +
+  scale_fill_manual(values = c('5th to 95th\npercentile' = 'grey')) +
   theme(legend.title = element_blank())
 
 hg

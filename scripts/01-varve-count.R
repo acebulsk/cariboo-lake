@@ -7,7 +7,7 @@ library(zoo)
 library(tsibble)
 library(pracma)
 
-options(ggplot2.discrete.colour= c("#000000", "#E69F00", "#56B4E9"))
+options(ggplot2.discrete.colour= c("#E69F00", "#000000", "#56B4E9"))
 
 
 ams_meta <- readRDS('data/long_cores/chronology/long_core_ams_meta.rds')
