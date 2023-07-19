@@ -215,7 +215,7 @@ plist <- list(hg, t, p)
 
 right_side <- cowplot::plot_grid(t, p, nrow = 2, labels = c('B', 'C'), label_size = 12)
 
-cp <- cowplot::plot_grid(hg, right_side, labels = c('A', ''), label_size = 12, ncol = 2, nrow = 1)
+cp <- cowplot::plot_grid(hg, right_side, labels = c('A', ''), label_size = 12, ncol = 2, nrow = 1,rel_widths = c(.52,.48))
 
 cp
 
