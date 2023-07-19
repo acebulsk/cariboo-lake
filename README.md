@@ -4,3 +4,4 @@ Data analysis for the glaciolacustrine sediment record from Cariboo Lake, BC for
 
 - See the `sage-submission` folder for the markdown documents to create the manuscript.
 - The `scripts` folder contains the data analysis code and figure creation.
+- The `data` folder contains the data used in the analysis.
