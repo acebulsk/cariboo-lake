@@ -120,28 +120,31 @@ flowdepth_unreg <- flows_out |>
   dplyr::summarise(
     area_km2 = first(DRAINAGE_AREA_GROSS),
     mean = mean(runoff),
-    min = min(runoff),
-    max = max(runoff),
-    # upper_quantile = quantile(runoff,0.75),
-    # lower_quantile = quantile(runoff, 0.25),
+    # min = min(runoff),
+    # max = max(runoff),
+    median = median(runoff),
+    upper_quantile = quantile(runoff,0.95),
+    lower_quantile = quantile(runoff, 0.05),
     Q = mean(Value)
   ) |> 
   left_join(record_length) |> 
   left_join(stn_meta_fltr) |> 
-  tidyr::pivot_longer(mean:max) |> 
+  tidyr::pivot_longer(mean:median) |> 
   left_join(month_dict)
 
 flowdepth_unreg$month_abb <- factor(flowdepth_unreg$month_abb, levels = c(month.abb[10:12], month.abb[1:9]))
 
-hg <- ggplot(flowdepth_unreg, aes(x = month_abb, y= value, group = name, colour = name)) +
+hg <- ggplot(flowdepth_unreg, aes(x = month_abb, y= value, group = name)) +
   #geom_point() +
   # geom_jitter()+
-  geom_line() +
+  geom_ribbon(aes(ymin=lower_quantile, ymax=upper_quantile, fill = '5th to 95th percentile'), alpha=0.5) +
+  geom_line(aes(colour = name)) +
   ylab("Runoff (mm)") +
   # xlab("Month") +
   xlab(NULL) +
   theme_bw() +
   scale_color_colorblind() +
+  scale_fill_manual(values = c('5th to 95th percentile' = 'grey')) +
   theme(legend.title = element_blank())
 
 hg
