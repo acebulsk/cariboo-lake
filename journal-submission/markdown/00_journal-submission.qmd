@@ -5,8 +5,9 @@ date: today
 date-format: long
 format:
   pdf:
-    extra-dependencies: ["flafter", "subfig"]
-    keep-tex: false
+    extra-dependencies: ["subfig"]
+    # extra-dependencies: ["flafter", "subfig"]
+    keep-tex: true
     number-sections: true
     colorlinks: false
     toc: false
@@ -63,31 +64,17 @@ Environmental proxy records that extend back beyond the modern observable record
 
 The purpose of this research is to 1) establish an understanding of the mechanisms that control the delivery and deposition of the fine sediment fraction to Cariboo Lake, 2) to reconstruct the highest resolution and longest possible sediment accumulation record from cores and acoustic methods for this semi arid region of British Columbia, 3) determine if the sediment accumulation record contains a signal from fluvial and glacial activity driven by regional to continental hydroclimate change, and 4) ascertain how this record of hydroclimatic variability differs from other records collected in the Coastal and Rocky Mountains.
 
-# Study Area
+# Materials and methods
+
+## Study Area
 
 Cariboo Lake is located in the northern foothills of the Columbia Mountains, 85 km northeast of Williams Lake, British Columbia (@fig-map-basin). The lake is separated into two basins by a large alluvial fan building cross-valley from Keithley Creek (@fig-map-lake). The main Cariboo Lake basin, to the northeast of Keithley Creek, receives discharge from an area of 2636 km^2^, which is filtered by three upper watershed lakes: Issac Lake, Lanezi Lake, and Ghost Lake (@fig-map-basin). While these lakes are more proximal to glacial activity, and may contain sediment archives that are more closely linked to headwater changes in fluvial and glacial activity, higher sediment accumulation rates expected for these lakes, and their remote location, would have made it very difficult to retrieve a long-term sediment record. With this upstream filtering, Cariboo Lake has a lower sediment accumulation rate which presented a more accessible option to retrieve a sediment record that spans a longer time interval. 
 
 The watershed relief ranges from 2600 m in the eastern Cariboo Mountain headwaters to 600 m at the western Cariboo Lake outlet. The lake area to watershed area ratio of the main Cariboo Lake basin is 0.3%. The southwest to northeast, 75 km long watershed spans a precipitation gradient ranging from 1370 mm yr^-1^ in the headwaters to 477 mm yr^-1^ at the semi-arid outlet to the lake. The Cariboo Lake watershed has 75 km^2^ of permanent ice cover which covers 3% of the total watershed [@Bolch2008]. The most extensive glaciated terrain is proximal to Mt. Lunn roughly 60 km upstream of Cariboo Lake (@fig-map-basin). The Cariboo Lake basin hydrology is inferred from the Water Survey of Canada station 08KH003 [@Albers2017] 20 km downvalley from the Cariboo Lake outlet (@fig-map-basin). The watershed is snow- and glacier-melt dominated with average 1971-2000 monthly runoff peaking in June (220 mm) and low-flows that occur between December and March (15-25 mm) (@fig-cl-hydro, A). From December to March air temperature is mostly below 0 °C and precipitation falls primarily as snow (@fig-cl-hydro). The bathymetry of the lake reaches a maximum depth of just over 50 m in two deep holes within the central part of the main Lake basin (@fig-map-lake). These deep holes provide some evidence of pre Holocene glacial scouring and ice extents that reached the lake.
 
-```{r map-basin, echo=FALSE, fig.cap = "Map of the Cariboo Lake basin and surrounding area. The watershed boundary for the main Cariboo Lake basin above the Keithley Creek delta is shown using a dashed line. The inset map shows the location of the Cariboo Lake basin within British Columbia relative to the Mud Lake basin from the Hodder et. al, (2006) study. See Figure 2 for a detailed map of Cariboo Lake. The map coordinate reference system is NAD83 - BC Albers."}
-#| label: fig-map-basin
-knitr::include_graphics("figs/cl_small_scale_inset_labels_gimp.png")
-```
 
-```{r map-lake, echo=FALSE, fig.cap = "Map of the Cariboo Lake bathymetry and coring locations. Bathymetric interval is 10 m. Acoustic transects selected for analysis are shown with a black solid line and labeled A, B, C, D, E and F. Fan deltas mentioned in the text are represented by black triangles and are refered to by the upstream creek. The map coordinate reference system is NAD83 - UTM zone 10N."}
-#| label: fig-map-lake
-
-knitr::include_graphics("figs/cl_bathymetry_acoustics_coring_locations_labels.png")
-```
 
 Upper watershed Lanezi Lake and Sandy Lake contrast significantly in maximum depths at 170 m and 6 m, respectively (@fig-map-basin). The Matthews River, which meets the Cariboo River below Lanezi Lake, is filtered by Ghost Lake and provides an important connection to meltwater sources draining several alpine glaciers including the largest area of ice (10 km^2^) in the Cariboo Lake watershed, proximal to Roberts Peak (@fig-map-basin).
-
-```{r cl-hydro, echo=FALSE, fig.cap = "1971-2000 monthly runoff statistics for Water Survey of Canada station 08KH003 (A) and 1971-2000 temperature and precipitation normals from Environment Canada station 1094616 (B). The top of each bar on panel C corresponds to the average monthly total precipitation and the coloured portion shows the fraction of rain or snow."}
-#| label: fig-cl-hydro
-knitr::include_graphics("figs/cariboo_combine_climate_hydro.png")
-```
-
-# Methods
 
 ## Field Methods
 
@@ -142,13 +129,6 @@ The second glacier advance of the LIA, which centres around 1850 CE in the Canad
 
 Following the LIA, around 1800 to 1900 CE a dramatic decline in organic matter and increase in grain size is observed in Cariboo Lake suggestive of high magnitude clastic sediment delivery. This could be attributed to the increase of sediment availability as glaciers retreated more rapidly from LIA extents and exposed stores of clastic sediments [@Beedle2015]. As glaciers declined from peak LIA extents around 1850 CE [@Leonard1997; @Luckman2000g], an increase in soil development, vegetation growth and subsequent bank stability is expected which may also contribute to a decline in OM as organic content is stored as needleleaf coniferous forest.
 
-```{r proxy-comparison, fig.cap='Cariboo Lake sediment characteristics for cores V1 (purple) and V2 (green) and Northern Hemisphere (NH) climate proxies. A, is the standardized departure (Sd. Dept.) from the mean varve thickness (VT) for annual couplets (light colour) and 30-year moving average (dark lines). B, is the standardized departure from the mean percent organic matter (OM) for cores V1 and V2. The coloured dots represent percent OM at 2.5 - 5 cm intervals and the coloured lines are the 3 sample (75 year) moving average. C, is the standardized departure from the mean D~50~ grain size, the coloured dots represent D~50~ grain size at 5 - 10 cm intervals and the coloured lines are the 3 sample (125 year) moving average. D, Solomina et al. (2016) reconstructed relative glacier extent in western North America (black line), expansion of the Castle Creek glacier (blue bars, Maurer et al., 2012), and periods of peak glacier extent in western Canada (gray bars, Solomina et al., 2016). E, Moberg et al. (2005) Nothern Hemisphere annual temperature anomaly from the 1961-1990 mean, the orange line is the full reconstruction from high and low frequency proxies, and the black line is the low frequency proxy component with upper and lower uncertainty marked by dashed blue lines. MCA is the Medieval Climatic Anomaly and LIA is the Little Ice Age. F, Ljungqvist et al. (2016) Nothern Hemisphere hydroclimate variability, expressed as standardized unitless anomalies ranging from -2 to 2, relative to the centennial mean and standard deviation over the eleventh-nineteenth centuries (see methods in Ljungqvist et al. 2016).'}
-#| label: fig-proxy-comparison
-
-knitr::include_graphics("figs/all_core_stats_2k_anomalies.jpg")
-
-```
-
 # Conclusions
 
 The moderate-sized Cariboo Lake provides a record of deglacial and Holocene sediment inputs for central British Columbia. The steep climatic gradient from the wetter, glacier covered, headwaters of the Cariboo Mountains to the semi-arid, lower elevation zones of Cariboo Lake, result in sediment input via the main Cariboo Lake delta that is predominately derived from the glacier production zone. This conclusion is supported by the down-lake trends in varve thickness and grain size. The temporal sediment records presented here show trends in sediment accumulation and grain size which correspond to Holocene fluvial and glacial activity.
@@ -176,7 +156,184 @@ All files associated with this study will be made available via a repository on 
 
 \pagebreak
 
-# Supplementary Information
+# References
+
+::: {#refs}
+:::
+
+\pagebreak
+
+# Tables
+
+```{r amsDates, echo=F}
+#| label: tbl-amsDates
+#| tbl-cap: "Cariboo Lake chronologic control points. The ^14^C samples were analyzed at the Andre E. Lalonde AMS Laboratory at the University of Ottawa. Note that the 2-sigma and median ages shown here are based on IntCal20."
+library(dplyr)
+ams_meta <-readRDS('../../data/long_cores/chronology/long_core_ams_meta.rds') |> 
+  select(-c(cal_age_low, material, cal_age_hi, ams_cal_se, year_ce)) |> 
+  filter(depth > 0)
+
+write.csv(ams_meta, 'figs/table1.csv')
+  
+ams_meta |> 
+  knitr::kable(
+    col.names = c('Core Name', 
+                  'Type', 
+                  'Depth (cm)', 
+                  '^14^C (yr BP)', 
+                  '^14^C 1$\\sigma$', 
+                  '2$\\sigma$ age range (cal BP)',
+                  'Median age (cal BP)'),
+    digits = c(NA,NA, 0, 0,0,NA,0),
+    align = 'l'
+  )
+```
+
+```{r include=FALSE}
+# construct df for turb tbl
+non_event <-readRDS('../../data/long_cores/core_stats.rds') |>
+  # mutate(metric = case_when(
+  #   metric == 'grain_size' ~ 'Grain Size',
+  #   metric == 'varve_thickness' ~ 'Varve Thickness',
+  #   metric == 'loi' ~ 'LOI',
+  # )) |> 
+  dplyr::filter(stat %in% c('mean_no_flood')) |>
+  dplyr::group_by(core, metric) |>
+  dplyr::summarise(non_event_mean = mean(value))
+
+
+tb <-readRDS('../../data/long_cores/turbidite_metrics.rds') |>
+  dplyr::select(value, stdep, core, metric) |>
+  dplyr::group_by(core, metric) |>
+  dplyr::summarise(event_mean = mean(value),
+            event_sd = sd(value),
+            event_n = dplyr::n()) |>
+  dplyr::mutate(metric = dplyr::case_when(
+    metric == 'Grain Size' ~ 'grain_size',
+    metric == 'Varve Thickness' ~ 'varve_thickness',
+    metric == 'LOI' ~ 'loi',
+  ))
+```
+
+```{r turbTbl, echo=F}
+#| label: tbl-turbTbl
+#| tbl-cap: "Sediment characteristics of regular laminae (Couplet or varve) compared to beds classified as turbidites (Event) for V1 and V2. The 'Couplet (varve) mean' is the mean sediment characteristic for all regular laminae couplets. The 'Event mean' is the mean sediment characteristic value for laminae/beds classified as events, 'Event sd' is the standard deviation, and 'Event n' is the number of turbidite beds."
+
+tb_out <- dplyr::left_join(non_event, tb) |>
+  dplyr::arrange(metric)  |>
+  dplyr::mutate(metric = dplyr::case_when(
+    metric == 'grain_size' ~ 'D~50~ (µm)',
+    metric == 'varve_thickness' ~ 'Avg. Thickness (mm)',
+    metric == 'loi' ~ 'OM (%)',
+  )) |>
+  dplyr::rename(`Couplet (varve) mean` = non_event_mean, `Event mean` = event_mean, `Event sd` = event_sd, `Event n` = event_n)
+
+# write.csv(tb_out, 'figs/table2.csv')
+# saveRDS(tb_out, '../../data/long_cores/turbidite_tbl_manuscript.rds')
+tb_out <- readRDS('../../data/long_cores/turbidite_tbl_manuscript.rds')
+tb_out |>
+  knitr::kable(
+    digits = 2
+  )
+```
+
+\pagebreak
+
+# Figure Captions
+
+Figure 1: Map of the Cariboo Lake basin and surrounding area. The inset map shows the location of the Cariboo Lake basin within British Columbia relative to the Mud Lake basin from the Hodder et. al, (2006) study. The map coordinate reference system is NAD83 - BC Albers.
+
+Figure 2: Map of the Cariboo Lake bathymetry and coring locations. Bathymetric interval is 10 m. Acoustic transects selected for analysis are shown with a black solid line and labeled A, B, C, D, E and F. Fan deltas mentioned in the text are represented by black triangles and are refered to by the upstream creek. The map coordinate reference system is NAD83 - UTM zone 10N.
+
+Figure 3: 1971-2000 monthly runoff statistics for Water Survey of Canada station 08KH003 (A) and 1971-2000 temperature and precipitation normals from Environment Canada station 1094616 (B). The top of each bar on panel C corresponds to the average monthly total precipitation and the coloured portion shows the fraction of rain or snow.
+
+Figure 4: Panel of six sub-bottom acoustic transects A, B, C, D, E, and F. The left-hand side of each transect corresponds to the north-shore of the lake, see Figure 2 for location of each transect. Transect A and B: Acoustic echo (multiple) is denoted by (i). Transect C: (i) denotes inferred bedrock or coarse late-glacial material. (ii) and (iii) are v-notch scour channels. (A) and (B) are sediment facies. Transect D: Scour channels are denoted by (i) and (ii). Slumping is observed at (iii).
+
+Figure 5: Sediment characteristics from the Ekman surficial bulk samples with distance down lake from the Cariboo River input to Cariboo Lake. Top panel A is the percent clay (0.01 - 2) µm, silt (2 - 63) µm, and sand grains (63 - 2000) µm, panel B is the  D~10~, D~50~, and D~90~ (µm) grain size, panel C is the mean laminae thickness (mm), and the bottom panel D is percent organic matter content (OM).
+
+Figure 6: Selected surficial sub-cores from Ekman dredge samples. A (E1), is proximal to the Cariboo River delta (0.3 km down lake). B (E13), was retrieved from the second deepest basin in the lake in the Cariboo River basin (5.24 km down lake). C (E18), was retrieved from the Keithley Creek sub-basin (29.53 km down lake).
+
+Figure 7: Age-depth model for cores V1 (orange) and V2 (blue). The median calibrated ^14^C AMS chronologies are shown with a solid line and the organic samples used for AMS analysis are shown with a dot. The varve-based chronologies from lamanae couplet counting and thicknesses measurements are shown using a dotted line. Turbidite events are shown as solid triangles and were excised from the varve-based chronology. The error bars on the median calibrated ^14^C dates are the two-sigma uncertainty range and the grey shading around the varve points is the 10% counting error. Gaps between the varve chronology (points) denote periods that had indiscernable varves. The inset graph on the upper right hand side of the figure shows the begining of the record in higher detail including the varve-based chronology for the Ekman surficial core (E13) which has a maximum observed depth of 9 cm.
+
+Figure 8: Photographs of the long core stratigraphy. A, Example of regular laminae from V1 at a depth of 360 cm. B, a graded event-based turbidite bed from V2 at a depth of 230 cm. Features labeled within this figure include: ‘a’ high flow spring/summer freshet laminae, ‘b’ low flow winter laminae, ‘c’  top of the turbidite bed, and ‘d’ the bottom of the turbidite bed. C, shows massive beds ‘e’ over more distict laminations ‘f’.
+
+Figure 9: Standardized departure from the mean varve thickness (VT) for cores V1 and V2. Events are removed from the record and disturbed facies are shown as blank gaps in the record. The gap width of disturbed facies was calculated using a linear interpolation from the ^14^C dates. The gray lines represent measured varve thickness at couplet (annual) resolution where available, the black line is a 30-year moving average. Gaps correspond to portions of the core that did not have discernible varves. The bottom axes, labeled Year (CE), was estimated using linear interpolation from the median calibrated ^14^C age. Laminae counting in V1 was not possible beyond the estimated date of 1900 CE and beyond 1970 CE in V2. The black X's on the bottom graph of V1 and V2 denote the ^14^C age and depth of the respective sample.
+
+Figure 10: Standardized departure from the mean D~50~ grain size for cores V1 and V2. The points represent D~50~ grain size at 2.5 - 5 cm intervals and the lines represent the 3 sample (75 year) moving average. The top axes, labeled Year (CE), was estimated using linear interpolation from the median calibrated ^14^C age.
+
+Figure 11: Standardized departure from the mean percent organic matter (OM) for cores V1 and V2. The points represent percent OM at 2.5 - 5 cm intervals and the lines represent the 3 sample (75 year) moving average. The top axes, labelelled Year (CE), was estimated using linear interpolation from the median calibrated ^14^C age.
+
+Figure 12: Cariboo Lake sediment characteristics for cores V1 (purple) and V2 (green) and Northern Hemisphere (NH) climate proxies. A, is the standardized departure (Sd. Dept.) from the mean varve thickness (VT) for annual couplets (light colour) and 30-year moving average (dark lines). B, is the standardized departure from the mean percent organic matter (OM) for cores V1 and V2. The coloured dots represent percent OM at 2.5 - 5 cm intervals and the coloured lines are the 3 sample (75 year) moving average. C, is the standardized departure from the mean D~50~ grain size, the coloured dots represent D~50~ grain size at 5 - 10 cm intervals and the coloured lines are the 3 sample (125 year) moving average. D, Solomina et al. (2016) reconstructed relative glacier extent in western North America (black line), expansion of the Castle Creek glacier (blue bars, Maurer et al., 2012), and periods of peak glacier extent in western Canada (gray bars, Solomina et al., 2016). E, Moberg et al. (2005) Nothern Hemisphere annual temperature anomaly from the 1961-1990 mean, the orange line is the full reconstruction from high and low frequency proxies, and the black line is the low frequency proxy component with upper and lower uncertainty marked by dashed blue lines. MCA is the Medieval Climatic Anomaly and LIA is the Little Ice Age. F, Ljungqvist et al. (2016) Nothern Hemisphere hydroclimate variability, expressed as standardized unitless anomalies ranging from -2 to 2, relative to the centennial mean and standard deviation over the eleventh-nineteenth centuries (see methods in Ljungqvist et al. 2016).\pagebreak
+
+# Figures
+```{r map-basin, out.width='95%', echo=FALSE, fig.cap = "..."}
+#| label: fig-map-basin
+knitr::include_graphics("figs/cl_small_scale_inset_labels_gimp.png")
+```
+
+```{r map-lake, echo=FALSE, fig.cap = "..."}
+#| label: fig-map-lake
+
+knitr::include_graphics("figs/cl_bathymetry_acoustics_coring_locations_labels.png")
+```
+
+```{r cl-hydro, echo=FALSE, fig.cap = "..."}
+#| label: fig-cl-hydro
+knitr::include_graphics("figs/cariboo_combine_climate_hydro.png")
+```
+
+```{r acoustics, echo=FALSE, fig.cap = "..."}
+#| label: fig-acoustics
+knitr::include_graphics("figs/acoustics_6_panel.png")
+```
+
+```{r ekmanSeds, echo=FALSE, fig.cap = "..."}
+#| label: fig-ekmanSeds
+knitr::include_graphics("figs/ekman_seds.jpg")
+```
+
+```{r ekmanImgs, echo=FALSE, fig.cap = "..."}
+#| label: fig-ekmanImgs
+knitr::include_graphics("figs/ekman_example.jpg")
+```
+
+```{r amsRates, echo=FALSE, fig.cap = "..."}
+#| label: fig-amsRates
+knitr::include_graphics("figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png")
+```
+
+```{r varve-turb, echo=FALSE, fig.cap = "..."}
+#| label: fig-varve-turb
+knitr::include_graphics("figs/good_vs_flood_vs_disturbed_varves_.png")
+```
+
+```{r varves-a, fig.width = 8, fig.height = 6, echo=FALSE, fig.cap = "..."}
+#| label: fig-varves-a
+knitr::include_graphics('figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png')
+#readRDS('../../figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.rds')
+```
+
+```{r particle, echo=FALSE, fig.width = 8, fig.height = 6, fig.cap = "..."}
+#| label: fig-particle
+knitr::include_graphics('figs/V1_V2_grainsize_vs_depth_and_C14_est_yr.png')
+# readRDS("../figs/grain-size/V1_V2_grainsize_vs_depth_and_C14_est_yr.rds")
+```
+
+```{r loi, echo=FALSE, fig.width = 8, fig.height = 6, fig.cap = "..."}
+#| label: fig-loi
+# readRDS("../figs/V1_V2_LOI_vs_depth_and_C14_est_yr.rds")
+knitr::include_graphics("figs/V1_V2_LOI_vs_depth_and_C14_est_yr.png")
+```
+
+```{r proxy-comparison, fig.cap='...'}
+#| label: fig-proxy-comparison
+
+knitr::include_graphics("figs/all_core_stats_2k_anomalies.jpg")
+```
+
+\pagebreak
+
+# Appendix
 
 ```{r ekErr, echo=F}
 #| label: tbl-ekErr
@@ -191,5 +348,3 @@ tb_out |>
     digits = 2,col.names = c("Core ID", "Depth (cm)", "Couplet Count")
   )
 ```
-
-# References
