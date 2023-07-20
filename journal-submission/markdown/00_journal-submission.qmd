@@ -10,6 +10,7 @@ format:
     number-sections: true
     colorlinks: false
     toc: false
+    linestretch: 1.5
   # docx:
   #   reference-doc: word_template.docx
   #   number-sections: true
@@ -163,7 +164,7 @@ The moderate-sized Cariboo Lake provides a record of deglacial and Holocene sedi
 
 # Acknowledgements
 
-We thank Michael Allchin, Laszlo Enyedy, and Caitlin Langford at the Quesnel River Research Centre for assistance in field. Brian Menounos kindly provided access to vibra-coring equipment. Mike Gorton, George Kretschmann, Anna Soleski and Selina Amaral provided assistance with lab analysis of sediment samples. Funding was provided by the University of Toronto.
+We thank Michael Allchin, Laszlo Enyedy, and Caitlin Langford at the Quesnel River Research Centre for assistance in field. Brian Menounos provided access to vibra-coring equipment. Matt Peros loaned us the StrataBox. Mike Gorton, George Kretschmann, Anna Soleski and Selina Amaral provided assistance with lab analysis of sediment samples. Funding was provided by the University of Toronto.
 
 # Competing Interests
 
