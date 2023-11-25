@@ -92,6 +92,7 @@ paste('At V2 the mean of the 2.5th and 97.5th percentile is', mean(c(1895, 2043)
 
 # construct age table for manuscript
 
+id <- c(NA, 'UOC‐5416', NA, 'UOC‐5767')
 core <- c('V1', 'V1', 'V2', 'V2')
 material <- c(NA, 'Wood', NA, 'Wood & Spruce Needle')
 type <- c('Surface', '14C', 'Surface', '14C')
@@ -104,6 +105,7 @@ cal_age_low <- c(NA, v1_cal_range[1], NA, v2_cal_range[1])
 cal_age_hi <- c(NA, v1_cal_range[2], NA, v2_cal_range[2])
 
 ams_meta <- data.frame(
+  id,
   core,
   material,
   type,
@@ -119,6 +121,7 @@ ams_meta <- data.frame(
          year_ce = standard_yr_bp - median_age)
 
 saveRDS(ams_meta, 'data/long_cores/chronology/long_core_ams_meta.rds')
+write.csv(ams_meta, 'data/long_cores/chronology/long_core_ams_meta.csv')
 
 # mod here for slight diff from manuscript table whrere steinman shows NA for c14 surface date but we need to have -67 to run the model properly.. 
 ams_meta$c_14_age <-  c(yr_core_bp, v1_c14, yr_core_bp, v2_c14)
