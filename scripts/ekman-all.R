@@ -3,6 +3,16 @@ library(viridis)
 
 options(ggplot2.discrete.colour= c("#000000", "#E69F00", "#56B4E9"))
 
+cbs_pal <-
+  c(
+    "#000000",
+    "#E69F00",
+    "#009E73",
+    "#F0E442",
+    "#CC79A7",
+    "#56B4E9"
+  )
+
 # Data ####
 gs <- readxl::read_xlsx('data/Sediment/Grain Size/CB17_GrainSize_Ekmans.xlsx', sheet = 2) |> 
   select(ID = `Core Number`,
@@ -76,13 +86,12 @@ gs_plot_grains <-
              y = gs_value, 
              color = factor(grain_size_stat, levels = c("Clay", 
                                                                 "Silt", 
-                                                                "Sand")),
-             shape = basin)) +
+                                                                "Sand")))) +
   geom_point(size = 2) +
   ylab('Percent (%)') +
-  scale_shape_manual(guide = 'none', values = delta_shapes) +
   theme_bw() +
-  theme(axis.title.x = element_blank(), legend.title = element_blank())
+  theme(axis.title.x = element_blank(), legend.title = element_blank())+
+  scale_colour_manual(values = c("#E69F00", "#56B4E9", "#009E73"))
 
 gs_plot_grains
   
@@ -91,32 +100,44 @@ gs_plot_dist <-
     pivot_longer(D10:D90, 
                  names_to = 'grain_size_stat', 
                  values_to = 'gs_value') |> 
-  ggplot(aes(x = dist, y = gs_value, color = grain_size_stat, shape = basin)) +
+  ggplot(aes(x = dist, y = gs_value, color = grain_size_stat)) +
     geom_point(size = 2) +
     ylab('Grain Size (μm)') +
-    scale_shape_manual(guide = 'none', values = delta_shapes) +
     theme_bw() +
-    theme(axis.title.x = element_blank(), legend.title = element_blank()) 
+    theme(axis.title.x = element_blank(), legend.title = element_blank()) +
+  scale_color_viridis_d(end = .95, direction = -1)
 
 gs_plot_dist
 
-varve_plot <- ggplot(varve, aes(x = dist, y = Lam_Thickness, shape = basin)) +
+varve_plot <- ggplot(varve, aes(x = dist, y = Lam_Thickness)) +
   geom_point(size = 2) +
   xlim(c(0.290,NA)) +
   ylab('Mean Laminae\nThickness(mm)') +
   theme_bw() +
-  theme(axis.title.x = element_blank()) +
-  scale_color_brewer(palette = 'Set2', name = '') +
-  scale_shape_discrete(guide = 'none')
+  theme(axis.title.x = element_blank())
 
-loi_plot <- ggplot(loi, aes(x = dist, y = LOI, shape = basin)) +
-  geom_point(size = 2) +
+basin_label_df <- data.frame(
+  basin = c("Cariboo River", "Frank Creek", "Keithley Creek"),
+  start = c(0, 6.9, 9.19),
+  end = c(6.9, 9.19, 12.3)
+) |> 
+  mutate(mid_point = (start+end)/2)
+
+# basin_label_df <- loi |> 
+#   group_by(basin) |> 
+#   summarise(start = min(dist),
+#             end = max(dist),
+#             mid_point = (start+end)/2)
+
+loi_plot <- ggplot() +
+  geom_errorbarh(data = basin_label_df, aes(xmin = start, xmax = end, y = 3), height = 0.5, alpha = 0.35)+
+  geom_label(data = basin_label_df, aes(x = mid_point, y = 3, label = basin), hjust = 0.5, fill = "white", color = "black", size = 2.5) +
+  geom_point(data = loi, aes(x = dist, y = LOI), size = 2) +
   ylab('OM (%)') +
   xlab('Distance Down Lake (km)')+
-  scale_color_brewer(palette = 'Set2', name = '') +
-  scale_shape_manual(values = delta_shapes) +
   theme_bw()
 
+loi_plot
 p <- list(gs_plot_grains, gs_plot_dist, varve_plot, loi_plot)
 
 
@@ -124,7 +145,7 @@ cp <- cowplot::plot_grid(plotlist = p, nrow=length(p),
                          # labels = LETTERS[seq( from = 1, to = length(p) )], 
                          labels = "AUTO",
                          label_y = 0.95,
-                         label_x = .74,
+                         label_x = .72,
                          align = 'v',
                          axis = 'tblr')
 
