@@ -21,7 +21,7 @@ ek <- read_csv('data/ekman/EK_varveCounting_orig_long_analysis.csv') |>
   ) |> 
   filter(core_num %in% c('EK13', 'EK11')) |> 
   ungroup() |> 
-  select(year_CE, lyr_mm = layer_thickness_mm, stdep_mm, core_num)
+  select(year_CE, lyr_mm = layer_thickness_mm, stdep_mm = stdep_mm_e, core_num)
 
 ek
 
@@ -30,7 +30,7 @@ ggplot(ek, aes(year_CE, stdep_mm, colour = core_num)) +
 plotly::ggplotly()
 
 vc <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS') |> 
-  filter(core == 'V2') |> 
+  # filter(core == 'V2') |> 
   select(core_num = core, year_CE, lyr_mm = lyr_mm_cln, stdep_mm = lyr_mm_stdep_fltr)
 
 all <- rbind(ek, vc) |> 
