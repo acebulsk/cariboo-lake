@@ -87,6 +87,20 @@ ggplot(ek_v2, aes(year_bp, cumul_depth_mm/10, colour = core_num)) +
 
 #ggsave('figs/ekman_sed_rate_near_V2.png', width = 6, height = 4.5)
 
+# plot all three
+
+ek_all <- ek %>%  
+  filter(core_num %in% c(prox_v1, prox_v2),
+         sd_flag == F)
+
+ggplot(ek_all, aes(year_bp, cumul_depth_mm/10, colour = core_num)) +
+  geom_point() +
+  scale_y_continuous(trans = 'reverse') +
+  geom_smooth(method = 'lm', se = F, fullrange=TRUE, linetype = "dashed", size= 0.5) +
+  # xlab("Couplet Number") +
+  ylab("Core Depth (cm)")
+
+
 #### age depth model and c14 meta ####
 
 v1_lm <- readRDS('data/long_cores/chronology/v1_c14_age_depth_model.rds')
@@ -556,7 +570,7 @@ ek_v2_cln <- ek_v2 %>%
 
 # compare to AMS
 
-ams_meta$date_type <- 'C14'
+ams_meta$date_type <- 'C14 age-depth model'
 
 long_core_cln <- comb %>% 
   select(year = year_bp, depth = core_depth_no_turb, core, date_type) %>% 
@@ -564,8 +578,8 @@ long_core_cln <- comb %>%
          varve_se = abs(year * counting_error))
 
 all_df <- rbind(ams_meta |> mutate(varve_se = NA) |> select(year = median_age, depth, core, date_type,varve_se, ams_cal_se) , 
-                long_core_cln |> mutate(ams_cal_se = NA)) %>%
-  rbind(ek_v2_cln|> mutate(date_type = 'varve', ams_cal_se = NA))
+                long_core_cln |> mutate(ams_cal_se = NA, date_type = 'varve chronology')) %>%
+  rbind(ek_v2_cln|> mutate(date_type = 'varve chronology', ams_cal_se = NA))
 
 plot_reg_line <- c('E13', 'V1', 'V2')
 
@@ -593,7 +607,7 @@ ggplot(all_df, aes(year, depth, colour = core, shape = date_type)) +
   ylab("Core Depth (cm)") +
   theme_bw() +
   scale_color_manual(values = viridis::viridis(4)) +
-  scale_shape_manual(values = c(17, 20))  +
+  scale_shape_manual(values = c(1, 17, 20))  +
   labs(shape = 'chronology', size = 'turbidite') +
   scale_size(labels = "")+
   guides(color = guide_legend(override.aes = list(shape = c(NA, NA, NA) ) ) ) # this removes the triangle from the core legend
@@ -627,9 +641,12 @@ main.plot <- ggplot(data = all_df, aes(year, depth, colour = core)) +
   xlab("Estimated Age (cal yr BP)") +
   ylab("Core Depth (cm)") +
   theme_bw() +
-  # scale_color_manual(values = viridis::viridis(4)) +
-  # scale_shape_manual(values = c(17, 3))  +
-  labs(linetype = 'chronology', shape = 'sample', colour = 'core')
+  # scale_color_manual(values = viridis::tur(4)) +
+  scale_shape_manual(values = c(17, 3)) +
+  theme(legend.title = element_blank()) + 
+  guides(color = guide_legend(override.aes = list(shape = 15, linetype = 0, size=5, fill = 'white')))
+
+main.plot
 
 inset.plot <- ggplot(data = all_df, aes(year, depth, colour = core)) +
   geom_line(aes(linetype = date_type))  +
@@ -646,7 +663,7 @@ inset.plot <- ggplot(data = all_df, aes(year, depth, colour = core)) +
   scale_y_continuous(trans = 'reverse') +
   coord_cartesian(xlim=c(-75, 50), ylim=c(35, 0)) +
   # scale_color_manual(values = viridis::viridis(4)) +
-  # scale_shape_manual(values = c(17, 3))  +
+  scale_shape_manual(values = c(17, 3))  +
   labs(linetype = 'chronology', shape = 'sample', colour = 'core') +
   theme(legend.position = 'none',
         axis.title.x = element_blank(),
