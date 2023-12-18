@@ -91,7 +91,7 @@ gs_plot_grains <-
   ylab('Percent (%)') +
   theme_bw() +
   theme(axis.title.x = element_blank(), legend.title = element_blank())+
-  scale_colour_manual(values = c("#E69F00", "#56B4E9", "#009E73"))
+  scale_colour_manual(values = c("#E69F00", "#56B4E9", "#9E9E9E"))
 
 gs_plot_grains
   

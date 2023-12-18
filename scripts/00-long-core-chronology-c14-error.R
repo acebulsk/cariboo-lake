@@ -61,13 +61,13 @@ plot(both_cals)
 
 v1_prob <- hdr(both_cals$`V1‐C-347`, 0.95)
 
-v1_cal_range <- c(min(do.call(cbind, v1_prob)), max(do.call(cbind, v1_prob)))
+v1_cal_range <- c(min(do.call(cbind, v1_prob)), max(do.call(cbind, v1_prob))) |> round(digits = -1)
 
 paste('We are 95% sure the V1 c14 date is within', v1_cal_range[1], 'and', v1_cal_range[2])
 
 v2_prob <- hdr(both_cals$`V2‐C-286`, 0.95)
 
-v2_cal_range <- c(min(do.call(cbind, v2_prob)), max(do.call(cbind, v2_prob)))
+v2_cal_range <- c(min(do.call(cbind, v2_prob)), max(do.call(cbind, v2_prob))) |> round(digits = -1)
 
 paste('We are 95% sure the v2 c14 date is within', v2_cal_range[1], 'and', v2_cal_range[2])
 
@@ -103,6 +103,7 @@ age_range <- c(NA, paste0(v1_cal_range[1], '-', v1_cal_range[2]), NA, paste0(v2_
 median_age <- c(yr_core_bp, median_ages[[1]], yr_core_bp,  median_ages[[2]])
 cal_age_low <- c(NA, v1_cal_range[1], NA, v2_cal_range[1])
 cal_age_hi <- c(NA, v1_cal_range[2], NA, v2_cal_range[2])
+f_14_c <- c(NA, 0.7881, NA, 0.7777) # From the U ottawa report - The fraction modern carbon, F14C, is calculated according to Reimer et al. (2004) as the ratio of the sample 14C/12C ratio to the standard 14C/12C ratio (in our case Ox‐II) measured in the same data block. We do not report δ13C as it is measured on the AMS and contains machine fractionation.
 
 ams_meta <- data.frame(
   id,
@@ -115,7 +116,8 @@ ams_meta <- data.frame(
   age_range,
   median_age,
   cal_age_low,
-  cal_age_hi
+  cal_age_hi,
+  f_14_c
 ) |> 
   mutate(ams_cal_se = replace_na((cal_age_hi-cal_age_low)/2, 0),
          year_ce = standard_yr_bp - median_age)
@@ -189,7 +191,8 @@ sd(c(v2_rate_hi, v2_rate_low, v2_rate_med))
 
 # note here the varve chronology is already in BP == 1950 
 
-v1_varve <- readRDS('data/long_cores/v1_226_processed.rds') |> 
+# v1_varve <- readRDS('data/long_cores/v1_226_processed.rds') |> 
+v1_varve <- readRDS('data/long_cores/v1_226_w_e13_processed.rds') |> 
   select(year_bp, core_depth_no_turb) |> 
   mutate(core_depth_no_turb = core_depth_no_turb / 10)
 
@@ -199,7 +202,7 @@ v1_varve_yr <- v1_varve$year_bp[good_v1_yr_id]
 
 v1_varve_yr_se <- v1_varve_yr * counting_error
 
-v2_varve <- readRDS('data/long_cores/v2_224_processed.rds') |> 
+v2_varve <- readRDS('data/long_cores/v2_224_w_e13_processed.rds') |> 
   select(year_bp, core_depth_no_turb) |> 
   mutate(core_depth_no_turb = core_depth_no_turb / 10)
 

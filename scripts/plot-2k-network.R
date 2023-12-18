@@ -15,6 +15,16 @@ library(zoo)
 library(RColorBrewer)
 library(viridis)
 
+x_breaks <- seq(2000,0, -250)
+mca_dates_bp <- 1950-c(900, 1300)
+lia_dates_bp <- 1950-c(1450, 1850)
+varve_y_lims <- c(-2.5, 5)
+err_bar_pos <- c(-2.2, # y axis
+                 0.5) # height
+
+label_at <- function(n) function(x) ifelse(x %% n == 0, x, "")
+
+
 source("2k-network/2k-recon/R-functions_gmst.R")
 
 tmap_mode("view")
@@ -42,7 +52,7 @@ ggtheme_sel <- theme(
   legend.key.size = unit(0, 'cm'),
 )
 
-glob_lims <- c(-50, 2025)
+glob_lims <- c(2000, -75)
 
 #### solomina et al #### 
 # Solomina et al Glacier Advance Review for western canada she also sites Koch 2011
@@ -52,27 +62,28 @@ glob_lims <- c(-50, 2025)
 # relative glacier extent from fig. 3 in solomina et al 2016 was digitized using https://apps.automeris.io/wpd/
 
 glacier_extent_dat <- read.csv('2k-network/Solomina_et_al/email_from_olga/alex_manual_trace/alex_manual_trace.csv') |> 
-  mutate(relative_glacier_extent = 1 - relative_glacier_extent)
+  mutate(relative_glacier_extent = 1 - relative_glacier_extent,
+         year_bp = 1950 - year_ce)
 
 # maurer 2012 castle creek advances 
 
 maurer_ad1 <- c(1.87, 1.72)
-maurer_ad1 <- 1950 - (maurer_ad1*1000)
+maurer_ad1 <- (maurer_ad1*1000)
 maurer_ad2 <- c(1.52, 1.43)
-maurer_ad2 <- 1950 - (maurer_ad2*1000)
+maurer_ad2 <- (maurer_ad2*1000)
 
 
-glc_adv_plot <- glacier_extent_dat |> ggplot(aes(year_ce, relative_glacier_extent, colour = 'none')) +
-  annotate("rect", xmin = 400, xmax = 600, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
-  annotate("rect", xmin = 1200, xmax = 1500, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
-  annotate("rect", xmin = 1690, xmax = 1730, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
-  annotate("rect", xmin = 1830, xmax = 1890, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
-  annotate("rect", xmin = 1830, xmax = 1890, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
+glc_adv_plot <- glacier_extent_dat |> ggplot(aes(year_bp, relative_glacier_extent, colour = 'none')) +
+  annotate("rect", xmin = 1950-400, xmax = 1950-600, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
+  annotate("rect", xmin = 1950-1200, xmax = 1950-1500, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
+  annotate("rect", xmin = 1950-1690, xmax = 1950-1730, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
+  annotate("rect", xmin = 1950-1830, xmax = 1950-1890, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
+  annotate("rect", xmin = 1950-1830, xmax = 1950-1890, ymin = 0, ymax = 1, fill = "gray", alpha = 0.5) +
   annotate("rect", xmin = maurer_ad1[1], xmax = maurer_ad1[2], ymin = 0, ymax = 1, fill = "blue", alpha = 0.3) +
   annotate("rect", xmin = maurer_ad2[1], xmax = maurer_ad2[2], ymin = 0, ymax = 1, fill = "blue", alpha = 0.3) +
   geom_line() +
   # scale_x_reverse() +
-  xlab('Year (CE)') +
+  xlab('Age (cal yr BP)') +
   ylab('Relative Glacier\nExtent') +
   theme_bw() +
   ggtheme_all +
@@ -115,15 +126,15 @@ mob <- read.table('2k-network/Moberg_et_al/moberg_et_al_2k_t_anom.txt',
             comment.char = '#', col.names = col_names, na.strings = '-9.9999')
 
 mob_long <-  mob |> 
-  pivot_longer(temp_anom:temp_anom_low_freq)
-
-mob_sel <- mob |> 
-  select(year_ce, temp_anom) |> 
-  mutate(group = 'NH')
+  pivot_longer(temp_anom:temp_anom_low_freq) |> 
+  mutate(year_bp = 1950 - year_ce)
 
 nh_ann_mean_t <- 14.586 # from https://crudata.uea.ac.uk/cru/data/temperature/abs_glnhsh.txt
 
-NH_temp_anom <- ggplot(mob_long, aes(year_ce, value, colour = name)) +
+nh_y_lims_hi <- max(mob_long$value, na.rm = T)
+nh_y_lims_lo <- min(mob_long$value, na.rm = T)
+
+NH_temp_anom <- ggplot(mob_long, aes(year_bp, value, colour = name)) +
   geom_line(aes()) +
   geom_ribbon(aes(ymin = low_se_1,
                   ymax = upper_se_1),
@@ -139,10 +150,28 @@ NH_temp_anom <- ggplot(mob_long, aes(year_ce, value, colour = name)) +
   ggtheme_all +
   theme(legend.text = element_blank(),
         legend.key = element_rect(fill = "white")) +
-  annotate('text', x = 1650, y = .25, label = 'LIA') +
-  annotate('text', x = 1100, y = -1, label = 'MCA') +
+  annotate('text', x = mean(lia_dates_bp), y = .25, label = 'LIA') +
+  annotate('text', x = mean(mca_dates_bp), y = -1, label = 'MCA') +
   scale_color_manual(values = c("#fc8961", '#000004', '#000004')) +
-  guides(color = guide_legend(override.aes = list(color = NA)))
+  guides(color = guide_legend(override.aes = list(color = NA))) +
+  annotate(
+    "rect",
+    xmin = mca_dates_bp[1],
+    xmax = mca_dates_bp[2],
+    ymin = nh_y_lims_lo,
+    ymax = nh_y_lims_hi,
+    fill = "salmon",
+    alpha = 0.4
+  ) +
+  annotate(
+    "rect",
+    xmin = lia_dates_bp[1],
+    xmax = lia_dates_bp[2],
+    ymin = nh_y_lims_lo,
+    ymax = nh_y_lims_hi,
+    fill = "lightblue",
+    alpha = 0.4
+  )
   # scale_color_manual(values = viridis(3))
 
 NH_temp_anom
@@ -199,7 +228,8 @@ cariboo_hydro <- hydro_df |>
          value = as.numeric(value),
          Label = 'Hydroclimate Anomaly') |> 
   filter(value != -999.00) |> 
-  rbind(blanks)
+  rbind(blanks) |> 
+  mutate(Year = 1950 - Year)
 
 
 # cariboo_hydro_median <- median(cariboo_hydro$value, na.rm = T)
@@ -222,7 +252,7 @@ hydro_anom_plot <- cariboo_hydro |>
     axis.title.y = element_text(angle=0,vjust = 0.5),
     legend.key.size = unit(0.3, 'cm')) +
   xlim(glob_lims) +
-  xlab('Year (CE)') +
+  xlab('Age (cal yr BP)') +
   ylab('NH Precip.\nAnomaly')
 
 hydro_anom_plot
@@ -234,7 +264,8 @@ hydro_anom_plot
 # gain size ----
 
 gs <- readRDS('data/long_cores/grain_size_v1_v2_combined.RDS') |> 
-  mutate(year_ce_avg = round(year_ce_new)) # this is the ams age depth model
+  mutate(year_ce_avg = round(year_ce_new),
+         year_bp_ams = 1950 - year_ce_avg) # this is the ams age depth model
 
 gs_plot <- 
   gs |> 
@@ -242,7 +273,7 @@ gs_plot <-
     smooth = smoother::smth(x = stdep, method = 'gaussian', window = 6),
     mvavg = zoo::rollapply(stdep, 3, mean, align = 'center', fill = NA)
   ) |> 
-  ggplot(aes(x = year_ce_avg, color = core)) +
+  ggplot(aes(x = year_bp_ams, color = core)) +
   geom_line(aes(y = stdep), method = "lm", 
             formula = y ~ 0, colour = "black", se=F, 
             linetype="dotted", size = .5, stat = 'smooth', alpha = 0.4) +
@@ -262,10 +293,11 @@ vt <- readRDS('data/long_cores/varve_thickness_v1_v2_working.RDS')
 
 vt_plot <- 
   vt |> 
+  filter(core_sub_id != "E13-V1") %>% 
   mutate(
     mvavg = zoo::rollapply(lyr_mm_stdep_fltr, width = 100, by = 1, FUN = mean, na.rm = T, align = "center", partial = T), # partial defines minimum number of objects to continue 25yr window. set 3 to get data point at end of dataset 
   ) |> 
-  ggplot(aes(x = year_ce_ams, colour = core)) +
+  ggplot(aes(x = year_bp_ams, colour = core)) +
   geom_line(aes(y = lyr_mm_stdep_fltr), method = "lm", 
             formula = y ~ 0, colour = "black", se=F, 
             linetype="dotted", size = .5, stat = 'smooth', alpha = 0.4) +  
@@ -273,9 +305,14 @@ vt_plot <-
   #geom_line(aes(y = smooth)) +
   geom_line(aes(y = ma_30)) +
   ylab("VT Sd. Dept.") +
-  ylim(c(-2.1, 5))+
+  ylim(varve_y_lims)+
   theme_bw()+
-  xlim(-50, 2025) +
+  xlim(-50, 2025)+
+  scale_color_manual(values = c("#E69F00", "#000000", "#56B4E9"))+
+  scale_x_reverse(breaks = x_breaks,  
+                  limits = glob_lims,
+                  labels = label_at(500)) +
+  xlim(glob_lims) +
   ggtheme_all 
 
 vt_plot
@@ -285,7 +322,8 @@ vt_plot
 # LOI ----
 
 loi <- readRDS('data/Sediment/LOI/loi_v1_v2_working.RDS') |> 
-  filter(stdep < 3 & stdep > -3)
+  filter(stdep < 3 & stdep > -3) |> 
+  mutate(year_bp_ams = 1950 - year_ce_new)
 
 loi_plot <- 
   loi |> 
@@ -293,7 +331,7 @@ loi_plot <-
     #  smooth = smoother::smth(x = stdep, method = 'gaussian', window = 3),
     mvavg = zoo::rollapply(stdep, 3, mean, align = 'center', fill = NA)
   ) |> 
-  ggplot(aes(x = year_ce_new, colour = core)) +
+  ggplot(aes(x = year_bp_ams, colour = core)) +
   geom_line(aes(y = stdep), method = "lm", 
             formula = y ~ 0, colour = "black", se=F, 
             linetype="dotted", size = .5, stat = 'smooth', alpha = 0.4) + 
