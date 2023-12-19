@@ -24,6 +24,8 @@ header-includes:
   - \usepackage{xcolor}
   - \usepackage{caption}
   - \captionsetup[figure]{font=footnotesize}
+  - \usepackage{float} # allow tables after section header
+  - \floatplacement{table}{H} # allow tables after section header
 ---
 
 ```{r setup, include=FALSE}
@@ -265,7 +267,7 @@ tb_out |>
 
 Figure 1: Map of the Cariboo Lake basin and surrounding area. The inset map shows the location of the Cariboo Lake basin within British Columbia relative to the Mud Lake basin from the Hodder et. al, (2006) study. The map coordinate reference system is NAD83 - BC Albers.
 
-Figure 2: Map of the Cariboo Lake bathymetry and coring locations. The bathymetric interval is 10 m. Acoustic Transects selected for analysis are shown with a black solid line and labeled A, B, C, D, E and F. Fan deltas mentioned in the text are represented by black triangles and are refereed to by the upstream creek. The map coordinate reference system is NAD83 - UTM zone 10N.
+Figure 2: Map of the Cariboo Lake bathymetry and coring locations. The bathymetric interval is 10 m. Acoustic Transects selected for analysis are shown with a black solid line and labeled A, B, C, D, E and F. Fan deltas mentioned in the text are represented by black triangles and are referred to by the upstream creek. The map coordinate reference system is NAD83 - UTM zone 10N.
 
 Figure 3: 1971–2000 monthly discharge statistics for Water Survey of Canada station 08KH003 Cariboo River Below Kangaroo Creek (A) and 1971–2000 temperature and precipitation normals from Environment Canada station 1094616 Likely, BC (B). The top of each bar on panel C corresponds to the average monthly total precipitation and the coloured portion shows the fraction of rain or snow.
 

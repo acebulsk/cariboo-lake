@@ -121,6 +121,8 @@
 \usepackage{xcolor}
 \usepackage{caption}
 \captionsetup[figure]{font=footnotesize}
+\usepackage{float}
+\floatplacement{table}{H}
 \makeatletter
 \makeatother
 \makeatletter
@@ -190,11 +192,11 @@
 Holocene Sediment Accumulation in Cariboo Lake, Columbia Mountains,
 British Columbia, Canada}
 \author{A. Cebulski \& J. Desloges}
-\date{December 18, 2023}
+\date{December 19, 2023}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, boxrule=0pt, frame hidden, sharp corners, borderline west={3pt}{0pt}{shadecolor}, enhanced, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, enhanced, boxrule=0pt, sharp corners, frame hidden, breakable, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \setstretch{1.5}
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -1533,9 +1535,9 @@ events, `Event sd' is the standard deviation, and `Event n' is the
 number of turbidite beds.}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
-core
+Core
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-metric
+Metric
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
 Couplet (varve) mean
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
@@ -1549,9 +1551,9 @@ Event n
 \endfirsthead
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
-core
+Core
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-metric
+Metric
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
 Couplet (varve) mean
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
@@ -1570,7 +1572,7 @@ V2 & D\textsubscript{50} (µm) & 6.35 & 16.20 & 9.40 & 6 \\
 V1 & OM (\%) & 4.75 & 4.67 & 0.53 & 3 \\
 V2 & OM (\%) & 4.71 & 2.86 & 0.94 & 4 \\
 V1 & Avg. Thickness (mm) & 2.37 & 10.32 & 4.24 & 5 \\
-V2 & Avg. Thickness (mm) & 1.52 & 11.17 & 15.89 & 7 \\
+V2 & Avg. Thickness (mm) & 1.52 & 11.18 & 15.89 & 7 \\
 \end{longtable}
 
 \pagebreak
@@ -1587,7 +1589,7 @@ Figure 2: Map of the Cariboo Lake bathymetry and coring locations. The
 bathymetric interval is 10 m. Acoustic Transects selected for analysis
 are shown with a black solid line and labeled A, B, C, D, E and F. Fan
 deltas mentioned in the text are represented by black triangles and are
-refereed to by the upstream creek. The map coordinate reference system
+referred to by the upstream creek. The map coordinate reference system
 is NAD83 - UTM zone 10N.
 
 Figure 3: 1971--2000 monthly discharge statistics for Water Survey of
