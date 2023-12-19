@@ -44,3 +44,7 @@ sage-submission.zip
 *.log
 ec.cache
 deliverables/*
+figs/acoustics/*
+acoustics_6_panel_cjes.svg
+good_vs_flood_vs_disturbed_varves_.xcf
+cl_small_scale_inset_labels_gimp.xcf

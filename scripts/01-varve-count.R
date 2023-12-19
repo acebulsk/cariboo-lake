@@ -661,7 +661,8 @@ long_core_cln <- comb |>
          varve_se = abs(lyr_num * counting_error),
          date_type = 'Varve') |> 
   select(-lyr_num) |> 
-  select(year, depth, core, date_type,varve_se, ams_cal_se,date_type)
+  select(year, depth, core, date_type,varve_se, ams_cal_se,date_type) |> 
+  rbind()
 
 all_df <- rbind(ams_meta |> mutate(varve_se = NA) |> select(year = median_age, depth, core, date_type,varve_se, ams_cal_se) , 
                 long_core_cln) %>%
@@ -730,8 +731,9 @@ main.plot <- ggplot(data = all_df, aes(year, depth, colour = core)) +
 
 main.plot
 
-inset.plot <- ggplot(data = long_core_cln, aes(year, depth, colour = core)) +
+inset.plot <- ggplot(data = all_df, aes(year, depth, colour = core)) +
   geom_point()  +
+  geom_line(data = subset(all_df, date_type == 'C14'), aes(linetype = date_type))  +
   geom_ribbon(aes(xmin = year-varve_se,
                   xmax = year+varve_se),
               alpha = 0.25, linetype = 'blank') +
