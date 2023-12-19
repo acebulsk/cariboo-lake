@@ -161,15 +161,17 @@ All files associated with this study will be made available via a repository on 
 #| label: tbl-amsDates
 #| tbl-cap: "Radiocarbon ages from Cariboo Lake sediment cores. The ^14^C samples were analyzed at the Andre E. Lalonde AMS Laboratory at the University of Ottawa. Note that the 2-sigma and median ages shown here are based on IntCal20 (Reimer, 2020)."
 library(dplyr)
-ams_meta <-readRDS('../../data/long_cores/chronology/long_core_ams_meta.rds') |> 
-  select(id, core, depth, c_14_age, one_sig, f_14_c, age_range, median_age) |> 
-  filter(depth > 0) |> 
-  mutate(c_14_age = round(c_14_age, -1),
-         one_sig = round(one_sig, -1),
-         f_14_c = round(f_14_c, 2), 
-         median_age = round(median_age, -1))
+# ams_meta <-readRDS('../../data/long_cores/chronology/long_core_ams_meta.rds') |> 
+#   select(id, core, depth, c_14_age, one_sig, f_14_c, age_range, median_age) |> 
+#   filter(depth > 0) |> 
+#   mutate(c_14_age = round(c_14_age, -1),
+#          one_sig = round(one_sig, -1),
+#          f_14_c = round(f_14_c, 2), 
+#          median_age = round(median_age, -1))
+# 
+# write.csv(ams_meta, 'figs/table1.csv')
 
-write.csv(ams_meta, 'figs/table1.csv')
+ams_meta <- read.csv('figs/table1.csv') |> select(-X)
   
 ams_meta |>
   knitr::kable(
@@ -200,48 +202,58 @@ ams_meta |>
 
 ```{r include=FALSE}
 # construct df for turb tbl
-non_event <-readRDS('../../data/long_cores/core_stats.rds') |>
-  # mutate(metric = case_when(
-  #   metric == 'grain_size' ~ 'Grain Size',
-  #   metric == 'varve_thickness' ~ 'Varve Thickness',
-  #   metric == 'loi' ~ 'LOI',
-  # )) |> 
-  dplyr::filter(stat %in% c('mean_no_flood')) |>
-  dplyr::group_by(core, metric) |>
-  dplyr::summarise(non_event_mean = mean(value))
-
-
-tb <-readRDS('../../data/long_cores/turbidite_metrics.rds') |>
-  dplyr::select(value, stdep, core, metric) |>
-  dplyr::group_by(core, metric) |>
-  dplyr::summarise(event_mean = mean(value),
-            event_sd = sd(value),
-            event_n = dplyr::n()) |>
-  dplyr::mutate(metric = dplyr::case_when(
-    metric == 'Grain Size' ~ 'grain_size',
-    metric == 'Varve Thickness' ~ 'varve_thickness',
-    metric == 'LOI' ~ 'loi',
-  ))
+# non_event <-readRDS('../../data/long_cores/core_stats.rds') |>
+#   # mutate(metric = case_when(
+#   #   metric == 'grain_size' ~ 'Grain Size',
+#   #   metric == 'varve_thickness' ~ 'Varve Thickness',
+#   #   metric == 'loi' ~ 'LOI',
+#   # )) |>
+#   dplyr::filter(stat %in% c('mean_no_flood')) |>
+#   dplyr::group_by(core, metric) |>
+#   dplyr::summarise(non_event_mean = mean(value))
+# 
+# 
+# tb <-readRDS('../../data/long_cores/turbidite_metrics.rds') |>
+#   dplyr::select(value, stdep, core, metric) |>
+#   dplyr::group_by(core, metric) |>
+#   dplyr::summarise(event_mean = mean(value),
+#             event_sd = sd(value),
+#             event_n = dplyr::n()) |>
+#   dplyr::mutate(metric = dplyr::case_when(
+#     metric == 'Grain Size' ~ 'grain_size',
+#     metric == 'Varve Thickness' ~ 'varve_thickness',
+#     metric == 'LOI' ~ 'loi',
+#   ))
 ```
 
 ```{r turbTbl, echo=F}
 #| label: tbl-turbTbl
 #| tbl-cap: "Sediment characteristics of regular laminae (Couplet or varve) compared to beds classified as turbidites (Event) for V1 and V2. The 'Couplet (varve) mean' is the mean sediment characteristic for all regular laminae couplets. The 'Event mean' is the mean sediment characteristic value for laminae/beds classified as events, 'Event sd' is the standard deviation, and 'Event n' is the number of turbidite beds."
 
-tb_out <- dplyr::left_join(non_event, tb) |>
-  dplyr::arrange(metric)  |>
-  dplyr::mutate(metric = dplyr::case_when(
-    metric == 'grain_size' ~ 'D~50~ (µm)',
-    metric == 'varve_thickness' ~ 'Avg. Thickness (mm)',
-    metric == 'loi' ~ 'OM (%)',
-  )) |>
-  dplyr::rename(`Couplet (varve) mean` = non_event_mean, `Event mean` = event_mean, `Event sd` = event_sd, `Event n` = event_n)
-
+# tb_out <- dplyr::left_join(non_event, tb) |>
+#   dplyr::arrange(metric)  |>
+#   dplyr::mutate(metric = dplyr::case_when(
+#     metric == 'grain_size' ~ 'D~50~ (µm)',
+#     metric == 'varve_thickness' ~ 'Avg. Thickness (mm)',
+#     metric == 'loi' ~ 'OM (%)',
+#   )) |>
+#   dplyr::rename(`Couplet (varve) mean` = non_event_mean, `Event mean` = event_mean, `Event sd` = event_sd, `Event n` = event_n)
+# 
 # write.csv(tb_out, 'figs/table2.csv')
-saveRDS(tb_out, '../../data/long_cores/turbidite_tbl_manuscript.rds')
-tb_out_old <- readRDS('../../data/long_cores/turbidite_tbl_manuscript_old.rds')
+# saveRDS(tb_out, '../../data/long_cores/turbidite_tbl_manuscript.rds')
+
+tb_out <- read.csv('figs/table2.csv') |> select(-X)
+
 tb_out |>
   knitr::kable(
+    col.names = c(
+      'Core',
+      'Metric',
+      'Couplet (varve) mean',
+      'Event mean',
+      'Event sd',
+      'Event n'
+    ),
     digits = 2,
     format = 'pipe'
   )
@@ -346,9 +358,11 @@ knitr::include_graphics("figs/all_core_stats_2k_anomalies.jpg")
 #| label: tbl-ekErr
 #| tbl-cap: "Counting error statistics from three Ekman short cores."
 
-tb_out <-readRDS('../../data/ekman/ek_counting_error_table_supplement.rds') 
+# tb_out <-readRDS('../../data/ekman/ek_counting_error_table_supplement.rds') 
+# 
+# write.csv(tb_out, 'figs/table_A1.csv')
 
-# write.csv(tb_out, 'figs/table1.csv')
+tb_out <- read.csv('figs/table_A1.csv') |> select(-X)
   
 tb_out |> 
   knitr::kable(
