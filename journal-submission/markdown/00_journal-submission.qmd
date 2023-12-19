@@ -4,18 +4,18 @@ author: "A. Cebulski & J. Desloges"
 date: today
 date-format: long
 format:
-  # pdf:
-  #   extra-dependencies: ["subfig"]
-  #   # extra-dependencies: ["flafter", "subfig"]
-  #   keep-tex: true
-  #   number-sections: true
-  #   colorlinks: false
-  #   toc: false
-  #   linestretch: 1.5
-  docx:
-    reference-doc: word_template.docx
+  pdf:
+    extra-dependencies: ["subfig"]
+    # extra-dependencies: ["flafter", "subfig"]
+    keep-tex: true
     number-sections: true
+    colorlinks: false
     toc: false
+    linestretch: 1.5
+  # docx:
+  #   reference-doc: word_template.docx
+  #   number-sections: true
+  #   toc: false
 bibliography: ['/home/alex/local-usask/papers/bibtex/library.bib']
 csl: 'config/apa-disable-disambiguate-add-names.csl'
 header-includes:
@@ -238,6 +238,14 @@ tb_out <- read.csv('figs/table2.csv') |> select(-X)
 
 tb_out |>
   knitr::kable(
+      col.names = c(
+      'core',
+      'metric',
+      'Couplet (varve) mean',
+      'Event mean',
+      'Event sd',
+      'Event n'
+    ),
     digits = 2
   )
 ```
