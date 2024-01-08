@@ -213,9 +213,9 @@ ggsave('figs/climate/likely_1094616_1971_2000_climate_normals_snow.png', width =
 
 plist <- list(hg, t, p)
 
-right_side <- cowplot::plot_grid(t, p, nrow = 2, labels = c('B', 'C'), label_size = 12)
+right_side <- cowplot::plot_grid(t, p, ncol = 2, labels = c('B', 'C'), label_size = 12)
 
-cp <- cowplot::plot_grid(hg, right_side, labels = c('A', ''), label_size = 12, ncol = 2, nrow = 1,rel_widths = c(.52,.48))
+cp <- cowplot::plot_grid(hg, right_side, labels = c('A', ''), label_size = 12, ncol = 1, nrow = 2,rel_widths = c(.52,.48))
 
 cp
 
