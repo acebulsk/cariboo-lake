@@ -77,28 +77,38 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
 \newlength{\csllabelwidth}
 \setlength{\csllabelwidth}{3em}
-\newlength{\cslentryspacingunit} % times entry-spacing
-\setlength{\cslentryspacingunit}{\parskip}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
   % turn on hanging indent if param 1 is 1
   \ifodd #1
-  \let\oldpar\par
-  \def\par{\hangindent=\cslhangindent\oldpar}
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
   \fi
   % set entry spacing
-  \setlength{\parskip}{#2\cslentryspacingunit}
- }%
- {}
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
 \usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \usepackage{booktabs}
@@ -123,10 +133,6 @@
 \captionsetup[figure]{font=footnotesize}
 \usepackage{float}
 \floatplacement{table}{H}
-\makeatletter
-\makeatother
-\makeatletter
-\makeatother
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -163,23 +169,16 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \makeatother
 \makeatletter
+\makeatother
+\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
-\makeatother
-\makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
-\makeatother
-\makeatletter
-\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
-\makeatother
-\makeatletter
-\makeatother
-\makeatletter
 \makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
+
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
@@ -192,11 +191,10 @@
 Holocene Sediment Accumulation in Cariboo Lake, Columbia Mountains,
 British Columbia, Canada}
 \author{A. Cebulski \& J. Desloges}
-\date{December 19, 2023}
+\date{January 8, 2024}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, enhanced, boxrule=0pt, sharp corners, frame hidden, breakable, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \setstretch{1.5}
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -248,8 +246,7 @@ Columbia; Holocene
 
 \pagebreak
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\section{Introduction}\label{introduction}
 
 Climatic variability in the western Canadian Cordillera over the
 Holocene contributed to several fluctuations in glacial activity with
@@ -347,11 +344,9 @@ glacial activity driven by regional to continental hydroclimate change,
 and 4) ascertain how this record of hydroclimatic variability differs
 from other records collected in the Coastal and Rocky Mountains.
 
-\hypertarget{materials-and-methods}{%
-\section{Materials and methods}\label{materials-and-methods}}
+\section{Materials and methods}\label{materials-and-methods}
 
-\hypertarget{study-area}{%
-\subsection{Study Area}\label{study-area}}
+\subsection{Study Area}\label{study-area}
 
 Cariboo Lake is located in the northern foothills of the Columbia
 Mountains, 85 km northeast of Williams Lake, British Columbia
@@ -399,8 +394,7 @@ an important connection to a large area of ice (10
 km\textsuperscript{2}), proximal to Roberts Peak
 (Figure~\ref{fig-map-basin}).
 
-\hypertarget{field-methods}{%
-\subsection{Field Methods}\label{field-methods}}
+\subsection{Field Methods}\label{field-methods}
 
 A field campaign was conducted during the summer of 2017 to collect
 sub-bottom acoustic soundings, dredge samples, and sediment cores.
@@ -440,8 +434,7 @@ closer to the Frank Creek and Keithley Creek deltas also had higher
 fractions of coarse grained sediments and core disturbance and were not
 analyzed in detail.
 
-\hypertarget{laboratory-methods}{%
-\subsection{Laboratory Methods}\label{laboratory-methods}}
+\subsection{Laboratory Methods}\label{laboratory-methods}
 
 Long and short cores were split longitudinally with one half preserved
 as an archive and the other as a working half. The working half samples
@@ -457,17 +450,18 @@ using the ImageJ software (Schneider et al., 2012). The uncertainty of
 the laminae counting in this study was inferred from Ekman short cores
 (E12, E13, E14) which had statistically similar sediment accumulation
 rates. The varve counting error was estimated by counting the number of
-couplets down to a depth of 5 cm in each Ekman core. The top section of
-cores V1 and V2 were disturbed during coring and transport which
-prevented counting and measurement of laminae couplets in 11 cm of V1
-and 7 cm of V2. The short core E13, with a depth of 8.8 cm, was used to
-provide a sedimentation rate for the top sections of V1 and V2 with
-indiscernible laminae. The absence of clear marker laminae limited the
-confidence in anchoring of V1 and V2 to E13. To align cores V1 and V2
-with E13 an age of 2017 (the year of core retrieval) was assigned to the
-top of the cores. The confidence in the top of each core representing
-the year of core retrieval relies on the assumption that no sediment was
-lost from the top of the core during retrieval or transport.
+couplets down to a depth of 5 cm in each Ekman core
+(Table~\ref{tbl-ekErr}). The top section of cores V1 and V2 were
+disturbed during coring and transport which prevented counting and
+measurement of laminae couplets in 11 cm of V1 and 7 cm of V2. The short
+core E13, with a depth of 8.8 cm, was used to provide a sedimentation
+rate for the top sections of V1 and V2 with indiscernible laminae. The
+absence of clear marker laminae limited the confidence in anchoring of
+V1 and V2 to E13. To align cores V1 and V2 with E13 an age of 2017 (the
+year of core retrieval) was assigned to the top of the cores. The
+confidence in the top of each core representing the year of core
+retrieval relies on the assumption that no sediment was lost from the
+top of the core during retrieval or transport.
 
 Organic matter was approximated from percent weight loss-on-ignition
 analysis (550 °C) (Dean, 1974; Smith, 2003). Grain size analysis was
@@ -493,11 +487,9 @@ thousands of years before 1950 (cal ka BP) or the number of years before
 1950 (cal yr BP). Non calibrated dates are reported as the number of
 years before 1950 (yr BP).
 
-\hypertarget{results}{%
-\section{Results}\label{results}}
+\section{Results}\label{results}
 
-\hypertarget{sub-bottom-acoustics}{%
-\subsection{Sub-bottom Acoustics}\label{sub-bottom-acoustics}}
+\subsection{Sub-bottom Acoustics}\label{sub-bottom-acoustics}
 
 Acoustic stratigraphy from six Transects (Figure~\ref{fig-map-lake})
 reveal the range of morphologies and character of infilling sedimentary
@@ -555,8 +547,7 @@ a thickness of 2--3 m and have a higher amplitude compared to Facies B
 in Transect C. Some slumping of sidewall sediments is observed on the
 south sidewall (Figure~\ref{fig-acoustics}, D-Sp).
 
-\hypertarget{spatial}{%
-\subsection{Spatial Trends in Surficial Sediment}\label{spatial}}
+\subsection{Spatial Trends in Surficial Sediment}\label{spatial}
 
 The surficial sediment cores show declining trends in grain size and
 laminae thickness with distance from the main Cariboo River delta.
@@ -611,12 +602,10 @@ sediment stratigraphy of Ekman cores E9--E15 and E18--E20 resemble
 varves, further analysis of the Cariboo Lake long-cores and
 \textsuperscript{14}C chronology are used to confirm this.
 
-\hypertarget{sediment-accumulation-chronology}{%
 \subsection{Sediment Accumulation
-Chronology}\label{sediment-accumulation-chronology}}
+Chronology}\label{sediment-accumulation-chronology}
 
-\hypertarget{chronology}{%
-\subsubsection{Chronology}\label{chronology}}
+\subsubsection{Chronology}\label{chronology}
 
 Organic material for AMS \textsuperscript{14}C dating in the clastic
 dominated cores was extremely limited. AMS \textsuperscript{14}C dates
@@ -789,9 +778,8 @@ physical mechanisms that control sedimentation in Cariboo Lake it is
 likely both cores primarily contain couplets that are deposited
 annually.
 
-\hypertarget{sediment-laminae-statistics}{%
 \subsubsection{Sediment Laminae
-Statistics}\label{sediment-laminae-statistics}}
+Statistics}\label{sediment-laminae-statistics}
 
 A time series of varve thickness (as standardized departures) is
 presented in Figure~\ref{fig-varves-a}. The chronology for this time
@@ -809,8 +797,7 @@ thickness between the two cores depart, with V2 above average and V1
 remains mainly below average. Sub-centennial trends are not reported due
 to the coarse temporal control for both V1 and V2.
 
-\hypertarget{grain-size}{%
-\paragraph{Grain Size}\label{grain-size}}
+\paragraph{Grain Size}\label{grain-size}
 
 The mean D\textsubscript{50} grain size is 7.6 ± 0.01 µm at V1, which is
 closer to the Cariboo River delta, compared to 6.3 ± 0.01 µm at V2. The
@@ -824,8 +811,7 @@ earlier increase in grain size compared to V2. Overall, grain size
 fluctuations at a temporal resolution of about 100-years shows good
 correspondence between the two cores over the last 2 ka.
 
-\hypertarget{organic-matter}{%
-\paragraph{Organic Matter}\label{organic-matter}}
+\paragraph{Organic Matter}\label{organic-matter}
 
 The average percent organic matter (OM) of V1 and V2 is similar at
 4.76\% and 4.80\%, respectively, suggesting that the flux of
@@ -842,8 +828,7 @@ average OM for V1 occur around cal yr BP 1900--1450, 1300--800, around
 cal yr BP 1700--1400 and 1300--1000 (Figure~\ref{fig-proxy-comparison},
 B).
 
-\hypertarget{discussion}{%
-\section{Discussion}\label{discussion}}
+\section{Discussion}\label{discussion}
 
 Cariboo Lake was chosen to assess whether sediment archives from
 filtered, moderately sized glacier-fed lakes can provide a proxy for
@@ -1030,8 +1015,7 @@ in soil development, vegetation growth and subsequent bank stability is
 expected which may also contribute to a decline in OM as organic content
 is stored as needleleaf coniferous forest.
 
-\hypertarget{conclusions}{%
-\section{Conclusions}\label{conclusions}}
+\section{Conclusions}\label{conclusions}
 
 Cariboo Lake provides a new record of deglacial and Holocene sediment
 inputs for central British Columbia. The steep climatic gradient from
@@ -1103,202 +1087,214 @@ correspond to Holocene fluvial and glacial activity.
 
 \pagebreak
 
-\hypertarget{acknowledgements}{%
-\section{Acknowledgements}\label{acknowledgements}}
+\section{Acknowledgements}\label{acknowledgements}
 
 We thank Michael Allchin, Laszlo Enyedy, and Caitlin Langford at the
 Quesnel River Research Centre for assistance in field. Brian Menounos
 provided access to vibra-coring equipment. Matt Peros loaned us the
 StrataBox acoustic device. Mike Gorton, George Kretschmann, Anna Soleski
 and Selina Amaral provided assistance with lab analysis of sediment
-samples. Funding was provided by the University of Toronto.
+samples. Funding was provided by the University of Toronto. Byron A.
+Steinman and three anonymous reviewers provided careful and constructive
+comments which greatly improved this manuscript.
 
-\hypertarget{competing-interests}{%
-\section{Competing Interests}\label{competing-interests}}
+\section{Competing Interests}\label{competing-interests}
 
 The authors declare there are no competing interests.
 
-\hypertarget{data-availability}{%
-\section{Data Availability}\label{data-availability}}
+\section{Data Availability}\label{data-availability}
 
 All files associated with this study will be made available via a
 repository on Zenodo with a DOI.
 
 \pagebreak
 
-\hypertarget{references}{%
-\section{References}\label{references}}
+\section{References}\label{references}
 
-\hypertarget{refs}{}
+\phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-Albers2017}{}}%
+\bibitem[\citeproctext]{ref-Albers2017}
 Albers, S. (2017). {tidyhydat: Extract and Tidy Canadian Hydrometric
 Data}. \emph{The Journal of Open Source Software}, \emph{2}(20).
 \url{https://doi.org/10.21105/joss.00511}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Allen2007}{}}%
+\bibitem[\citeproctext]{ref-Allen2007}
 Allen, S. M., \& Smith, D. J. (2007). {Late Holocene glacial activity of
 Bridge Glacier, British Columbia Coast Mountains}. \emph{Canadian
 Journal of Earth Sciences}, \emph{44}(12), 1753--1773.
 \url{https://doi.org/10.1139/E07-059}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Beedle2015}{}}%
+\bibitem[\citeproctext]{ref-Beedle2015}
 Beedle, M. J., Menounos, B. P., \& Wheate, R. (2015). {Glacier change in
 the Cariboo Mountains, British Columbia, Canada (1952-2005)}.
 \emph{Cryosphere}, \emph{9}(1), 65--80.
 \url{https://doi.org/10.5194/tc-9-65-2015}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Bolch2008}{}}%
+\bibitem[\citeproctext]{ref-Bolch2008}
 Bolch, T. (2008). \emph{{GLIMS Glacier Database}}. National Snow; Ice
 Data Center. Boulder, CO. \url{https://doi.org/10.7265/N5V98602}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Brown2006}{}}%
+\bibitem[\citeproctext]{ref-WSA2011}
+Bradley, J., \& Munro, R. (2011). \emph{{WSA - Water Polygon Features
+(50,000)}}.
+\url{https://open.canada.ca/data/en/dataset/414be2d6-f4d9-4f32-b960-caa074c6d36b}
+
+\bibitem[\citeproctext]{ref-Brown2006}
 Brown, K. J., Fitton, R. J., Schoups, G., Allen, G. B., Wahl, K. A., \&
 Hebda, R. J. (2006). {Holocene precipitation in the coastal temperate
 rainforest complex of southern British Columbia, Canada}.
 \emph{Quaternary Science Reviews}, \emph{25}(21-22), 2762--2779.
 \url{https://doi.org/10.1016/j.quascirev.2006.02.020}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Clague2010}{}}%
+\bibitem[\citeproctext]{ref-BoundaryFiles2016}
+Census Boundary Files. (2016). \emph{{Statistics Canada Catalogue no.
+92-160-X.}}
+
+\bibitem[\citeproctext]{ref-Clague2010}
 Clague, J. J., Koch, J., \& Geertsema, M. (2010). {Expansion of outlet
 glaciers of the Juneau Icefield in northwest British Columbia during the
 past two millennia}. \emph{The Holocene}, \emph{20}(3), 447--461.
 \url{https://doi.org/10.1177/0959683609353433}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Clague1989}{}}%
+\bibitem[\citeproctext]{ref-Clague1989}
 Clague, J. J., Mathews, W. H., Ryder, J. M., Hughes, O. L., Rutter, N.
 W., Jackson, L. E., Matthews, J. V., \& MacDonald, G. M. (1989).
 {Quaternary geology of the Canadian Cordillera}. In \emph{Quaternary
 geology of canada and greenland} (pp. 15--96). Geological Society of
 America. \url{https://doi.org/10.1130/dnag-gna-k1.15}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Dean1974}{}}%
+\bibitem[\citeproctext]{ref-Dean1974}
 Dean, W. E. (1974). {Determination of Carbonate and Organic Matter in
 Calcareous Sediments and Sedimentary Rocks by Loss on Ignition:
 Comparison With Other Methods}. \emph{SEPM Journal of Sedimentary
 Research}, \emph{Vol. 44}(I), 242--248.
 \url{https://doi.org/10.1306/74D729D2-2B21-11D7-8648000102C1865D}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Desloges1999}{}}%
+\bibitem[\citeproctext]{ref-Desloges1999}
 Desloges, J. R. (1999). {Geomorphic and climatic interpretations of
 abrupt changes in glaciolacustrine deposition at Moose Lake, British
 Columbia, Canada}. \emph{Gff}, \emph{121}(3), 202--207.
 \url{https://doi.org/10.1080/11035899901213202}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Gilbert2012}{}}%
+\bibitem[\citeproctext]{ref-Gilbert2012}
 Gilbert, R., \& Desloges, J. R. (2012). {Late glacial and Holocene
 sedimentary environments of Quesnel Lake, British Columbia}.
 \emph{Geomorphology}, \emph{179}, 186--196.
 \url{https://doi.org/10.1016/j.geomorph.2012.08.010}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Gilbert1997}{}}%
+\bibitem[\citeproctext]{ref-Gilbert1997}
 Gilbert, R., Desloges, J. R., \& Clague, J. J. (1997). {The
 glacilacustrine sedimentary environment of Bowser Lake in the northern
 Coast Mountains of British Columbia, Canada}. \emph{Journal of
 Paleolimnology}, \emph{17}(3), 333--348.
 \url{https://doi.org/10.1023/A:1007900411724}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Gray2010}{}}%
+\bibitem[\citeproctext]{ref-BCDEM2012}
+Government of British Columbia. (2012). \emph{{Digital Elevation Model
+for British Columbia}}.
+\url{https://open.canada.ca/data/en/dataset/7b4fef7e-7cae-4379-97b8-62b03e9ac83d}
+
+\bibitem[\citeproctext]{ref-Gray2010}
 Gray, A. B., Pasternack, G. B., \& Watson, E. B. (2010). {Hydrogen
 peroxide treatment effects on the particle size distribution of alluvial
 and marsh sediments}. \emph{The Holocene}, \emph{20}(2), 293--301.
 \url{https://doi.org/10.1177/0959683609350390}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Hallett1997}{}}%
+\bibitem[\citeproctext]{ref-Hallett1997}
 Hallett, D. U., Hills, L. V., \& Clague, J. J. (1997). {New accelerator
 mass spectrometry radiocarbon ages for the Mazama tephra layer from
 Kootenay National Park, British Columbia, Canada}. \emph{Canadian
 Journal of Earth Sciences}, \emph{34}(9), 1202--1209.
 \url{https://doi.org/10.1139/e17-096}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Haslett2008}{}}%
+\bibitem[\citeproctext]{ref-Haslett2008}
 Haslett, J., \& Parnell, A. (2008). {A simple monotone process with
 application to radiocarbon-dated depth chronologies}. \emph{Applied
 Statistics}, \emph{57}(4), 399--418.
 
-\leavevmode\vadjust pre{\hypertarget{ref-Heideman2017}{}}%
+\bibitem[\citeproctext]{ref-Heideman2017}
 Heideman, M., Menounos, B., \& Clague, J. J. (2018). {A multi-century
 estimate of suspended sediment yield from Lillooet Lake, southern Coast
 Mountains, Canada}. \emph{Canadian Journal of Earth Sciences},
 \emph{55}(1), 18--32.
 
-\leavevmode\vadjust pre{\hypertarget{ref-Hodder2006b}{}}%
+\bibitem[\citeproctext]{ref-Hodder2006b}
 Hodder, K. R., Desloges, J. R., \& Gilbert, R. (2006). {Pattern and
 timing of sediment infill at glacier-fed Mud Lake: Implications for
 lateglacial and Holocene environments in the Monashee Mountain region of
 British Columbia, Canada}. \emph{Holocene}, \emph{16}(5), 705--716.
 \url{https://doi.org/10.1191/0959683606hl965rp}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Hodder2007c}{}}%
+\bibitem[\citeproctext]{ref-Hodder2007c}
 Hodder, K. R., Gilbert, R., \& Desloges, J. R. (2007). {Glaciolacustrine
 varved sediment as an alpine hydroclimatic proxy}. \emph{Journal of
 Paleolimnology}, \emph{38}(3), 365--394.
 \url{https://doi.org/10.1007/s10933-006-9083-9}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Huber2012}{}}%
+\bibitem[\citeproctext]{ref-Huber2012}
 Huber, M., \& Knutti, R. (2012). {Anthropogenic and natural warming
 inferred from changes in Earth's energy balance}. \emph{Nature
 Geoscience}, \emph{5}(1), 31--36.
 
-\leavevmode\vadjust pre{\hypertarget{ref-Koch2007a}{}}%
+\bibitem[\citeproctext]{ref-Koch2007a}
 Koch, J., Osborn, G. D., \& Clague, J. J. (2007). {Pre-'Little Ice Age'
 glacier fluctuations in Garibaldi Provincial Park, Coast Mountains,
 British Columbia, Canada}. \emph{Holocene}, \emph{17}(8), 1069--1078.
 \url{https://doi.org/10.1177/0959683607082546}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Leonard1997}{}}%
+\bibitem[\citeproctext]{ref-Leonard1997}
 Leonard, E. M. (1997). {The relationship between glacial activity and
 sediment production: Evidence from a 4450-year varve record of
 neoglacial sedimentation in Hector Lake, Alberta, Canada}. \emph{Journal
 of Paleolimnology}, \emph{17}(3), 319--330.
 
-\leavevmode\vadjust pre{\hypertarget{ref-Leonard1999}{}}%
+\bibitem[\citeproctext]{ref-Leonard1999}
 Leonard, E. M., \& Reasoner, M. A. (1999). {A continuous holocene
 glacial record inferred from proglacial lake sediments in Banff National
 Park, Alberta, Canada}. \emph{Quaternary Research}, \emph{51}(1), 1--13.
 \url{https://doi.org/10.1006/qres.1998.2009}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Ljungqvist2016}{}}%
+\bibitem[\citeproctext]{ref-Ljungqvist2016}
 Ljungqvist, F. C., Krusic, P. J., Sundqvist, H. S., Zorita, E.,
 Brattstrom, G., \& Frank, D. (2016). {Northern hemisphere hydroclimate
 variability over the past twelve centuries}. \emph{Nature}, \emph{532},
 94+.
-\url{https://link.gale.com/apps/doc/A449108229/EAIM?u=usaskmain\&sid=bookmark-EAIM\&xid=1dfbd232}
+\url{https://link.gale.com/apps/doc/A449108229/EAIM?u=usaskmain&sid=bookmark-EAIM&xid=1dfbd232}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Luckman1986}{}}%
+\bibitem[\citeproctext]{ref-Luckman1986}
 Luckman, B. H. (1986). {Reconstruction of Little Ice Age Events in the
 Canadian Rocky Mountains}. \emph{G{é}ographie Physique Et Quaternaire},
 \emph{40}(1), 17--28.
 
-\leavevmode\vadjust pre{\hypertarget{ref-Luckman1988}{}}%
+\bibitem[\citeproctext]{ref-Luckman1988}
 Luckman, B. H. (1988). {8000 year old wood from the Athabasca Glacier,
 Alberta}. \emph{Canadian Journal of Earth Sciences}, \emph{25}(1),
 148--151. \url{https://doi.org/10.1139/e88-015}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Luckman1993}{}}%
+\bibitem[\citeproctext]{ref-Luckman1993}
 Luckman, B. H. (1993). {Glacier fluctuation and tree-ring records for
 the last millennium in the Canadian Rockies}. \emph{Quaternary Science
 Reviews}, \emph{12}(6), 441--450.
 \url{https://doi.org/10.1016/S0277-3791(05)80008-3}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Luckman1995}{}}%
+\bibitem[\citeproctext]{ref-Luckman1995}
 Luckman, B. H. (1995). {Calendar-dated, early `Little Ice Age' glacier
 advance at Robson Glacier, British Columbia, Canada}. \emph{The
 Holocene}, \emph{5}(2), 149--159.
 \url{https://doi.org/10.1177/095968369500500203}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Luckman2000g}{}}%
+\bibitem[\citeproctext]{ref-Luckman2000g}
 Luckman, B. H. (2000). {The Little Ice Age in the Canadian Rockies}.
 \emph{Geomorphology}, \emph{32}(3-4), 357--384.
 \url{https://doi.org/10.1016/S0169-555X(99)00104-X}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Luckman1993a}{}}%
+\bibitem[\citeproctext]{ref-Luckman1993a}
 Luckman, B. H., Holdsworth, G., \& Osborn, G. D. (1993). {Neoglacial
 glacier fluctuations in the canadian rockies}. \emph{Quaternary
 Research}, \emph{39}(2), 144--153.
 \url{https://doi.org/10.1006/qres.1993.1018}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Masson2013}{}}%
+\bibitem[\citeproctext]{ref-Masson2013}
 Masson-Delmotte, V., Schulz, M., Abe-Ouchi, A., Beer, J., Ganopolski,
 J., González Rouco, J. F., Jansen, E., Lambeck, K., Luterbacher, J.,
 Naish, T., Osborn, T., Otto-Bliesner, B., Quinn, T., Ramesh, R., Rojas,
@@ -1308,40 +1304,40 @@ Contribution of working group i to the fifth assessment report of the
 intergovernmental panel on climate change} (pp. 383--464). Cambridge
 University Press. \url{https://doi.org/10.1017/CBO9781107415324.013}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Maurer2012b}{}}%
+\bibitem[\citeproctext]{ref-Maurer2012b}
 Maurer, M. K., Menounos, B. P., Luckman, B. H., Osborn, G. D., Clague,
 J. J., Beedle, M. J., Smith, R., \& Atkinson, N. (2012). {Late Holocene
 glacier expansion in the Cariboo and northern Rocky Mountains, British
 Columbia, Canada}. \emph{Quaternary Science Reviews}, \emph{51}, 71--80.
 \url{https://doi.org/10.1016/j.quascirev.2012.07.023}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Menounos2006b}{}}%
+\bibitem[\citeproctext]{ref-Menounos2006b}
 Menounos, B. P. (2006). {Anomalous early 20th century sedimentation in
 proglacial Green Lake, British Columbia, Canada}. \emph{Canadian Journal
 of Earth Sciences}, \emph{43}(6), 671--678.
 \url{https://doi.org/10.1139/e06-016}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Menounos2008c}{}}%
+\bibitem[\citeproctext]{ref-Menounos2008c}
 Menounos, B. P., \& Clague, J. J. (2008). {Reconstructing hydro-climatic
 events and glacier fluctuations over the past millennium from annually
 laminated sediments of Cheakamus Lake, southern Coast Mountains, British
 Columbia, Canada}. \emph{Quaternary Science Reviews}, \emph{27}(7-8),
 701--713. \url{https://doi.org/10.1016/j.quascirev.2008.01.007}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Menounos2004}{}}%
+\bibitem[\citeproctext]{ref-Menounos2004}
 Menounos, B. P., Koch, J., Osborn, G. D., Clague, J. J., \& Mazzucchi,
 D. (2004). {Early Holocene glacier advance, southern Coast Mountains,
 British Columbia, Canada}. \emph{Quaternary Science Reviews},
 \emph{23}(14-15), 1543--1550.
 \url{https://doi.org/10.1016/j.quascirev.2003.12.023}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Menounos2009b}{}}%
+\bibitem[\citeproctext]{ref-Menounos2009b}
 Menounos, B. P., Osborn, G. D., Clague, J. J., \& Luckman, B. H. (2009).
 {Latest Pleistocene and Holocene glacier fluctuations in western
 Canada}. \emph{Quaternary Science Reviews}, \emph{28}(21-22),
 2049--2074. \url{https://doi.org/10.1016/j.quascirev.2008.10.018}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Menounos2017}{}}%
+\bibitem[\citeproctext]{ref-Menounos2017}
 Menounos, B., Goehring, B. M., Osborn, G., Margold, M., Ward, B., Bond,
 J., Clarke, G. K. C., Clague, J. J., Lakeman, T., Koch, J., Caffee, M.
 W., Gosse, J., Stroeven, A. P., Seguinot, J., \& Heyman, J. (2017).
@@ -1349,13 +1345,13 @@ W., Gosse, J., Stroeven, A. P., Seguinot, J., \& Heyman, J. (2017).
 Pleistocene Termination}. \emph{Science}, \emph{358}(6364), 781--784.
 \url{https://doi.org/10.1126/science.aan3001}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Moberg2005}{}}%
+\bibitem[\citeproctext]{ref-Moberg2005}
 Moberg, A., Sonechkin, D. M., Holmgren, K., Datsenko, M. H., \& Karlén,
 W. (2005). {Highly variable Northern Hemisphere temperatures
 reconstructed from low- and high-resolution proxy data}. \emph{Nature},
 \emph{433}(7026), 613--617. \url{https://doi.org/10.1038/nature03265}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Nelson2016}{}}%
+\bibitem[\citeproctext]{ref-Nelson2016}
 Nelson, M. C., Ingram, S. E., Dugmore, A. J., Streeter, R., Peeples, M.
 A., McGovern, T. H., Hegmon, M., Arneborg, J., Kintigh, K. W.,
 Brewington, S., Spielmann, K. A., Simpson, I. A., Strawhacker, C.,
@@ -1364,7 +1360,7 @@ Smiarowski, K. (2016). {Climate challenges, vulnerabilities, and food
 security}. \emph{Proceedings of the National Academy of Sciences},
 \emph{113}(2), 298--303. \url{https://doi.org/10.1073/pnas.1506494113}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Neukom2019}{}}%
+\bibitem[\citeproctext]{ref-Neukom2019}
 Neukom, R., Barboza, L. A., Erb, M. P., Shi, F., Emile-Geay, J., Evans,
 M. N., Franke, J. J., Kaufman, D. S., Lücke, L., Rehfeld, K., Schurer,
 A., Zhu, F., Brönnimann, S., Hakim, G. J., Henley, B. J., Ljungqvist, F.
@@ -1374,79 +1370,79 @@ reconstructions and simulations over the Common Era}. \emph{Nature
 Geoscience}, \emph{12}(8), 643--649.
 \url{https://doi.org/10.1038/s41561-019-0400-0}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Osborn2007}{}}%
+\bibitem[\citeproctext]{ref-Osborn2007}
 Osborn, G. D., Menounos, B. P., Koch, J., Clague, J. J., \& Vallis, V.
 (2007). {Multi-proxy record of Holocene glacial history of the Spearhead
 and Fitzsimmons ranges, southern Coast Mountains, British Columbia}.
 \emph{Quaternary Science Reviews}, \emph{26}(3-4), 479--493.
 \url{https://doi.org/10.1016/j.quascirev.2006.09.003}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Osborn2001}{}}%
+\bibitem[\citeproctext]{ref-Osborn2001}
 Osborn, G. D., Robinson, B. J., \& Luckman, B. H. (2001). {Holocene and
 latest Pleistocene fluctuations of Stutfield Glacier, Canadian Rockies}.
 \emph{Canadian Journal of Earth Sciences}, \emph{38}(8), 1141--1155.
 \url{https://doi.org/10.1139/e01-012}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Parnell2011}{}}%
+\bibitem[\citeproctext]{ref-Parnell2011}
 Parnell, A. C., Buck, C. E., \& Doan, T. K. (2011). {A review of
 statistical chronology models for high-resolution, proxy-based Holocene
 palaeoenvironmental reconstruction}. \emph{Quaternary Science Reviews},
 \emph{30}(21), 2948--2960.
 
-\leavevmode\vadjust pre{\hypertarget{ref-Parnell2008}{}}%
+\bibitem[\citeproctext]{ref-Parnell2008}
 Parnell, A. C., Haslett, J., Allen, J. R. M., Buck, C. E., \& Huntley,
 B. (2008). {A flexible approach to assessing synchroneity of past events
 using Bayesian reconstructions of sedimentation history}.
 \emph{Quaternary Science Reviews}, \emph{27}(19), 1872--1885.
 
-\leavevmode\vadjust pre{\hypertarget{ref-R2022}{}}%
+\bibitem[\citeproctext]{ref-R2022}
 R Core Team. (2022). \emph{{R: A Language and Environment for
 Statistical Computing}}. R Foundation for Statistical Computing.
 \url{https://www.r-project.org/}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Reimer2020}{}}%
+\bibitem[\citeproctext]{ref-Reimer2020}
 Reimer, P. J. (2020). {Composition and consequences of the IntCal20
 radiocarbon calibration curve}. \emph{Quaternary Research (United
 States)}, \emph{96}, 22--27. \url{https://doi.org/10.1017/qua.2020.42}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Reyes2006}{}}%
+\bibitem[\citeproctext]{ref-Reyes2006}
 Reyes, A. D. V., Wiles, G. C., Smith, D. J., Barclay, D. J., Allen Scott
 Jackson Sonya Larocque Sarah Laxton Dave Lewis, S., Calkin, P. E., \&
 Clague, J. J. (2006). {Expansion of alpine glaciers in Pacific North
 America in the first millennium A}. \emph{Geology}, \emph{341}(3).
 \url{https://doi.org/10.1130/G21902.1}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Ryder1986}{}}%
+\bibitem[\citeproctext]{ref-Ryder1986}
 Ryder, J. M., \& Thomson, B. (1986). {Neoglaciation in the southern
 Coast Mountains of British Columbia: chronology prior to the late
 Neoglacial maximum}. \emph{Canadian Journal of Earth Sciences},
 \emph{23}(3), 273--287. \url{https://doi.org/10.1139/e86-031}
 
-\leavevmode\vadjust pre{\hypertarget{ref-sabatier2022}{}}%
+\bibitem[\citeproctext]{ref-sabatier2022}
 Sabatier, P., Moernaut, J., Bertrand, S., Daele, M. V., Kremer, K.,
 Chaumillon, E., Arnaud, F., Van Daele, M., Kremer, K., Chaumillon, E.,
 \& Arnaud, F. (2022). {A Review of Event Deposits in Lake Sediments}.
 \emph{Quaternary}, \emph{5}(3), 34.
 \url{https://doi.org/10.3390/quat5030034}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Schneider2012}{}}%
+\bibitem[\citeproctext]{ref-Schneider2012}
 Schneider, C. A., Rasband, W. S., \& Eliceiri, K. W. (2012). {NIH Image
 to ImageJ: 25 years of image analysis}. \emph{Nature Methods},
 \emph{9}(7), 671--675. \url{https://doi.org/10.1038/nmeth.2089}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Smith2003}{}}%
+\bibitem[\citeproctext]{ref-Smith2003}
 Smith, J. G. (2003). {Aspects of the loss‐on‐ignition (loi) technique in
 the context of clay‐rich, glaciolacustrine sediments}. \emph{Geografiska
 Annaler: Series A, Physical Geography}, \emph{85}(1), 91--97.
 \url{https://doi.org/10.1111/1468-0459.00191}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Ashley1985}{}}%
+\bibitem[\citeproctext]{ref-Ashley1985}
 Smith, N. D., \& Ashley, G. M. (1985). {Proglacial Lacustrine
 Environment}. In G. M. Ashley, J. Shaw, \& N. D. Smith (Eds.),
 \emph{Glacial sedimentary environments} (SEPM Short, pp. 135--216).
 Society of Economic Paleontologists; Mineralogists.
 
-\leavevmode\vadjust pre{\hypertarget{ref-Solomina2016}{}}%
+\bibitem[\citeproctext]{ref-Solomina2016}
 Solomina, O. N., Bradley, R. S., Jomelli, V., Geirsdottir, A., Kaufman,
 D. S., Koch, J., McKay, N. P., Masiokas, M., Miller, G., Nesje, A.,
 Nicolussi, K., Owen, L. A., Putnam, A. E., Wanner, H., Wiles, G., \&
@@ -1454,14 +1450,14 @@ Yang, B. (2016). {Glacier fluctuations during the past 2000 years}.
 \emph{Quaternary Science Reviews}, \emph{149}, 61--90.
 \url{https://doi.org/10.1016/j.quascirev.2016.04.008}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Steinman2012}{}}%
+\bibitem[\citeproctext]{ref-Steinman2012}
 Steinman, B. A., Abbott, M. B., Mann, M. E., Stansell, N. D., \& Finney,
 B. P. (2012). {1,500 year quantitative reconstruction of winter
 precipitation in the Pacific Northwest}. \emph{Proceedings of the
 National Academy of Sciences}, \emph{109}(29), 11619--11623.
 \url{https://doi.org/10.1073/pnas.1201083109}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Steinman2019}{}}%
+\bibitem[\citeproctext]{ref-Steinman2019}
 Steinman, B. A., Nelson, D. B., Abbott, M. B., Stansell, N. D.,
 Finkenbinder, M. S., \& Finney, B. P. (2019). {Lake sediment records of
 Holocene hydroclimate and impacts of the Mount Mazama eruption,
@@ -1469,25 +1465,25 @@ north-central Washington, USA}. \emph{Quaternary Science Reviews},
 \emph{204}, 17--36.
 \url{https://doi.org/10.1016/j.quascirev.2018.09.018}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Turney2019}{}}%
+\bibitem[\citeproctext]{ref-Turney2019}
 Turney, C. S. M., McGregor, H. V., Francus, P., Abram, N., Evans, M. N.,
 Goosse, H., Von Gunten, L., Kaufman, D., Linderholm, H., Loutre, M.-F.,
 \& Neukom, R. (2019). {Introduction to the special issue "climate of the
 past 2000 years: Regional and trans-regional syntheses"}. \emph{Climate
 of the Past}, \emph{15}(2), 611--615.
 
-\leavevmode\vadjust pre{\hypertarget{ref-Westgate1977}{}}%
+\bibitem[\citeproctext]{ref-Westgate1977}
 Westgate, J. A. (1977). {Identification and Significance of Late
 Holocene Tephra From Otter Creek, Southern British Columbia, and
 Localities in West-Central Alberta.} \emph{Can J Earth Sci},
 \emph{14}(11), 2593--2600. \url{https://doi.org/10.1139/e77-224}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Zolitschka1991}{}}%
+\bibitem[\citeproctext]{ref-Zolitschka1991}
 Zolitschka, B. (1991). {Absolute dating of late quaternary lacustrine
 sediments by high resolution varve chronology}. \emph{Hydrobiologia},
 \emph{214}(1), 59--61. \url{https://doi.org/10.1007/BF00050932}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Zolitschka2015a}{}}%
+\bibitem[\citeproctext]{ref-Zolitschka2015a}
 Zolitschka, B., Francus, P., Ojala, A. E. K., \& Schimmelmann, A.
 (2015). {Varves in lake sediments - a review}. \emph{Quaternary Science
 Reviews}, \emph{117}, 1--41.
@@ -1497,15 +1493,17 @@ Reviews}, \emph{117}, 1--41.
 
 \pagebreak
 
-\hypertarget{tables}{%
-\section{Tables}\label{tables}}
+\section{Tables}\label{tables}
 
-\hypertarget{tbl-amsDates}{}
 \begin{table}
-\caption{\label{tbl-amsDates}Radiocarbon ages from Cariboo Lake sediment cores. The
-\textsuperscript{14}C samples were analyzed at the Andre E. Lalonde AMS
-Laboratory at the University of Ottawa. Note that the 2-sigma and median
-ages shown here are based on IntCal20 (Reimer, 2020). }\tabularnewline
+
+\caption{\label{tbl-amsDates}Radiocarbon ages from Cariboo Lake sediment
+cores. The \textsuperscript{14}C samples were analyzed at the Andre E.
+Lalonde AMS Laboratory at the University of Ottawa. Note that the
+2-sigma and median ages shown here are based on IntCal20 (Reimer,
+2020).}
+
+\centering{
 
 \centering
 \begin{tabular}{l>{\raggedright\arraybackslash}p{1cm}>{\raggedright\arraybackslash}p{1cm}>{\raggedright\arraybackslash}p{1.5cm}>{\raggedright\arraybackslash}p{1.5cm}l>{\raggedright\arraybackslash}p{2cm}>{\raggedright\arraybackslash}p{2cm}}
@@ -1516,9 +1514,11 @@ UOC‐5416 & V1 & 343 & 1910 & 20 & 0.79 & 1740-1880 & 1820\\
 UOC‐5767 & V2 & 281 & 2020 & 30 & 0.78 & 1870-2040 & 1960\\
 \bottomrule
 \end{tabular}
-\end{table}
 
-\hypertarget{tbl-turbTbl}{}
+}
+
+\end{table}%
+
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0676}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2703}}
@@ -1526,29 +1526,17 @@ UOC‐5767 & V2 & 281 & 2020 & 30 & 0.78 & 1870-2040 & 1960\\
   >{\raggedleft\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1486}}
   >{\raggedleft\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1216}}
   >{\raggedleft\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1081}}@{}}
+
 \caption{\label{tbl-turbTbl}Sediment characteristics of regular laminae
 (Couplet or varve) compared to beds classified as turbidites (Event) for
 V1 and V2. The `Couplet (varve) mean' is the mean sediment
 characteristic for all regular laminae couplets. The `Event mean' is the
 mean sediment characteristic value for laminae/beds classified as
 events, `Event sd' is the standard deviation, and `Event n' is the
-number of turbidite beds.}\tabularnewline
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Core
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Metric
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Couplet (varve) mean
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Event mean
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Event sd
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Event n
-\end{minipage} \\
-\midrule\noalign{}
-\endfirsthead
+number of turbidite beds.}
+
+\tabularnewline
+
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Core
@@ -1573,23 +1561,28 @@ V1 & OM (\%) & 4.75 & 4.67 & 0.53 & 3 \\
 V2 & OM (\%) & 4.71 & 2.86 & 0.94 & 4 \\
 V1 & Avg. Thickness (mm) & 2.37 & 10.32 & 4.24 & 5 \\
 V2 & Avg. Thickness (mm) & 1.52 & 11.18 & 15.89 & 7 \\
+
 \end{longtable}
 
 \pagebreak
 
-\hypertarget{figure-captions}{%
-\section{Figure Captions}\label{figure-captions}}
+\section{Figure Captions}\label{figure-captions}
 
 Figure 1: Map of the Cariboo Lake basin and surrounding area. The inset
 map shows the location of the Cariboo Lake basin within British Columbia
 relative to the Mud Lake basin from the Hodder et. al, (2006) study. The
-map coordinate reference system is NAD83 - BC Albers.
+data sources are: digital elevation model (Government of British
+Columbia, 2012), waterbody shapefile (Bradley \& Munro, 2011), and
+provincial boundary files (Census Boundary Files, 2016). The map
+coordinate reference system is NAD83 - BC Albers.
 
 Figure 2: Map of the Cariboo Lake bathymetry and coring locations. The
 bathymetric interval is 10 m. Acoustic Transects selected for analysis
 are shown with a black solid line and labeled A, B, C, D, E and F. Fan
 deltas mentioned in the text are represented by black triangles and are
-referred to by the upstream creek. The map coordinate reference system
+referred to by the upstream creek. The data sources are: digital
+elevation model (Government of British Columbia, 2012) and waterbody
+shapefile (Bradley \& Munro, 2011). The map coordinate reference system
 is NAD83 - UTM zone 10N.
 
 Figure 3: 1971--2000 monthly discharge statistics for Water Survey of
@@ -1689,119 +1682,144 @@ panel F, negative values refer to dry anomalies and positive values
 refer to wet anomalies (see methods in Ljungqvist et
 al.~2016).\pagebreak
 
-\hypertarget{figures}{%
-\section{Figures}\label{figures}}
+\section{Figures}\label{figures}
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.95\textwidth,height=\textheight]{figs/cl_small_scale_inset_labels_gimp.png}
+\centering{
+
+\includegraphics[width=0.95\textwidth,height=\textheight]{figs/cl_small_scale_inset_labels_gimp.png}
 
 }
 
 \caption{\label{fig-map-basin}\ldots{}}
 
-\end{figure}
+\end{figure}%
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\textwidth,height=\textheight]{figs/cl_bathymetry_acoustics_coring_locations_labels.png}
+\centering{
+
+\includegraphics[width=1\textwidth,height=\textheight]{figs/cl_bathymetry_acoustics_coring_locations_labels.png}
 
 }
 
 \caption{\label{fig-map-lake}\ldots{}}
 
-\end{figure}
+\end{figure}%
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\textwidth,height=\textheight]{figs/cariboo_combine_climate_hydro.png}
+\centering{
+
+\includegraphics[width=1\textwidth,height=\textheight]{figs/cariboo_combine_climate_hydro.png}
 
 }
 
 \caption{\label{fig-cl-hydro}\ldots{}}
 
-\end{figure}
+\end{figure}%
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\textwidth,height=\textheight]{figs/acoustics_6_panel_cjes.png}
+\centering{
+
+\includegraphics[width=1\textwidth,height=\textheight]{figs/acoustics_6_panel_cjes.png}
 
 }
 
 \caption{\label{fig-acoustics}\ldots{}}
 
-\end{figure}
+\end{figure}%
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\textwidth,height=\textheight]{figs/ekman_seds.jpg}
+\centering{
+
+\includegraphics[width=1\textwidth,height=\textheight]{figs/ekman_seds.jpg}
 
 }
 
 \caption{\label{fig-ekmanSeds}\ldots{}}
 
-\end{figure}
+\end{figure}%
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\textwidth,height=\textheight]{figs/ekman_example.jpg}
+\centering{
+
+\includegraphics[width=1\textwidth,height=\textheight]{figs/ekman_example.jpg}
 
 }
 
 \caption{\label{fig-ekmanImgs}\ldots{}}
 
-\end{figure}
+\end{figure}%
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\textwidth,height=\textheight]{figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png}
+\centering{
+
+\includegraphics[width=1\textwidth,height=\textheight]{figs/longcore_cumulative_depth_vs_estimated_year_w_ams_and_varve.png}
 
 }
 
 \caption{\label{fig-amsRates}\ldots{}}
 
-\end{figure}
+\end{figure}%
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\textwidth,height=\textheight]{figs/good_vs_flood_vs_disturbed_varves_.png}
+\centering{
+
+\includegraphics[width=1\textwidth,height=\textheight]{figs/good_vs_flood_vs_disturbed_varves_.png}
 
 }
 
 \caption{\label{fig-varve-turb}\ldots{}}
 
-\end{figure}
+\end{figure}%
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\textwidth,height=\textheight]{figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png}
+\centering{
+
+\includegraphics[width=1\textwidth,height=\textheight]{figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.png}
 
 }
 
 \caption{\label{fig-varves-a}\ldots{}}
 
-\end{figure}
+\end{figure}%
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\textwidth,height=\textheight]{figs/all_core_stats_2k_anomalies.jpg}
+\centering{
+
+\includegraphics[width=1\textwidth,height=\textheight]{figs/all_core_stats_2k_anomalies.jpg}
 
 }
 
 \caption{\label{fig-proxy-comparison}\ldots{}}
 
-\end{figure}
+\end{figure}%
 
-\pagebreak
+\newpage
+\appendix
+\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{figure}{0}
+\setcounter{table}{0}
 
-\hypertarget{appendix}{%
-\section{Appendix}\label{appendix}}
+\section{Appendix A}\label{appendix-a}
 
-\hypertarget{tbl-ekErr}{}
 \begin{table}
-\caption{\label{tbl-ekErr}Counting error statistics from three Ekman short cores. }\tabularnewline
 
-\centering
+\caption{\label{tbl-ekErr}Counting error statistics from three Ekman
+short cores.}
+
+\centering{
+
 \begin{tabular}{r|r|r}
 \hline
 Core ID & Depth (cm) & Couplet Count\\
@@ -1813,7 +1831,10 @@ Core ID & Depth (cm) & Couplet Count\\
 14 & 5 & 12\\
 \hline
 \end{tabular}
-\end{table}
+
+}
+
+\end{table}%
 
 
 

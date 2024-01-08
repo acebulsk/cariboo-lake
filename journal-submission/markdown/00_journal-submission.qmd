@@ -84,7 +84,7 @@ Four long sediment cores (V1–V4) were collected using a Rossfelder submersible
 
 ## Laboratory Methods
 
-Long and short cores were split longitudinally with one half preserved as an archive and the other as a working half. The working half samples were prepared for imaging by scraping the core parallel to the sediment laminae to show the sediment stratigraphy. The short and long sediment cores were analyzed for laminae thickness, organic content, and particle size. The working halves of long cores V1 and V2 were subsampled with 2 cm^3^ of sediment extracted at a 5 cm interval, with additional samples taken within stratigraphic facies that had visual changes in grain size and lamination patterns. Laminae couplets observed on the working halves were digitally counted and measured for thickness using the ImageJ software [@Schneider2012]. The uncertainty of the laminae counting in this study was inferred from Ekman short cores (E12, E13, E14) which had statistically similar sediment accumulation rates. The varve counting error was estimated by counting the number of couplets down to a depth of 5 cm in each Ekman core. The top section of cores V1 and V2 were disturbed during coring and transport which prevented counting and measurement of laminae couplets in 11 cm of V1 and 7 cm of V2. The short core E13, with a depth of 8.8 cm, was used to provide a sedimentation rate for the top sections of V1 and V2 with indiscernible laminae. The absence of clear marker laminae limited the confidence in anchoring of V1 and V2 to E13. To align cores V1 and V2 with E13 an age of 2017 (the year of core retrieval) was assigned to the top of the cores. The confidence in the top of each core representing the year of core retrieval relies on the assumption that no sediment was lost from the top of the core during retrieval or transport. 
+Long and short cores were split longitudinally with one half preserved as an archive and the other as a working half. The working half samples were prepared for imaging by scraping the core parallel to the sediment laminae to show the sediment stratigraphy. The short and long sediment cores were analyzed for laminae thickness, organic content, and particle size. The working halves of long cores V1 and V2 were subsampled with 2 cm^3^ of sediment extracted at a 5 cm interval, with additional samples taken within stratigraphic facies that had visual changes in grain size and lamination patterns. Laminae couplets observed on the working halves were digitally counted and measured for thickness using the ImageJ software [@Schneider2012]. The uncertainty of the laminae counting in this study was inferred from Ekman short cores (E12, E13, E14) which had statistically similar sediment accumulation rates. The varve counting error was estimated by counting the number of couplets down to a depth of 5 cm in each Ekman core (@tbl-ekErr). The top section of cores V1 and V2 were disturbed during coring and transport which prevented counting and measurement of laminae couplets in 11 cm of V1 and 7 cm of V2. The short core E13, with a depth of 8.8 cm, was used to provide a sedimentation rate for the top sections of V1 and V2 with indiscernible laminae. The absence of clear marker laminae limited the confidence in anchoring of V1 and V2 to E13. To align cores V1 and V2 with E13 an age of 2017 (the year of core retrieval) was assigned to the top of the cores. The confidence in the top of each core representing the year of core retrieval relies on the assumption that no sediment was lost from the top of the core during retrieval or transport. 
 
 Organic matter was approximated from percent weight loss-on-ignition analysis (550 °C) [@Dean1974; @Smith2003]. Grain size analysis was conducted using a Mastersizer Particle Size Analyzer 3000. Samples were prepared following methods by @Gray2010 to remove organic material. Three sequential aliquots of 20% H~2~0~2~ were added until the sample stopped reacting. To prevent flocculation of sediment grains the samples were dispersed in 0.05% solution of sodium hexametaphosphate for 24 hours. Grain size was measured three times for each sample, resulting in an average standard deviation of ± 0.01 µm. 
 
@@ -138,7 +138,7 @@ Cariboo Lake provides a new record of deglacial and Holocene sediment inputs for
 
 # Acknowledgements
 
-We thank Michael Allchin, Laszlo Enyedy, and Caitlin Langford at the Quesnel River Research Centre for assistance in field. Brian Menounos provided access to vibra-coring equipment. Matt Peros loaned us the StrataBox acoustic device. Mike Gorton, George Kretschmann, Anna Soleski and Selina Amaral provided assistance with lab analysis of sediment samples. Funding was provided by the University of Toronto.
+We thank Michael Allchin, Laszlo Enyedy, and Caitlin Langford at the Quesnel River Research Centre for assistance in field. Brian Menounos provided access to vibra-coring equipment. Matt Peros loaned us the StrataBox acoustic device. Mike Gorton, George Kretschmann, Anna Soleski and Selina Amaral provided assistance with lab analysis of sediment samples. Funding was provided by the University of Toronto. Byron A. Steinman and three anonymous reviewers provided careful and constructive comments which greatly improved this manuscript.
 
 # Competing Interests
 
@@ -265,9 +265,9 @@ tb_out |>
 
 # Figure Captions
 
-Figure 1: Map of the Cariboo Lake basin and surrounding area. The inset map shows the location of the Cariboo Lake basin within British Columbia relative to the Mud Lake basin from the Hodder et. al, (2006) study. The map coordinate reference system is NAD83 - BC Albers.
+Figure 1: Map of the Cariboo Lake basin and surrounding area. The inset map shows the location of the Cariboo Lake basin within British Columbia relative to the Mud Lake basin from the Hodder et. al, (2006) study. The data sources are: digital elevation model [@BCDEM2012], waterbody shapefile [@WSA2011], and provincial boundary files [@BoundaryFiles2016]. The map coordinate reference system is NAD83 - BC Albers.
 
-Figure 2: Map of the Cariboo Lake bathymetry and coring locations. The bathymetric interval is 10 m. Acoustic Transects selected for analysis are shown with a black solid line and labeled A, B, C, D, E and F. Fan deltas mentioned in the text are represented by black triangles and are referred to by the upstream creek. The map coordinate reference system is NAD83 - UTM zone 10N.
+Figure 2: Map of the Cariboo Lake bathymetry and coring locations. The bathymetric interval is 10 m. Acoustic Transects selected for analysis are shown with a black solid line and labeled A, B, C, D, E and F. Fan deltas mentioned in the text are represented by black triangles and are referred to by the upstream creek. The data sources are: digital elevation model [@BCDEM2012] and waterbody shapefile [@WSA2011]. The map coordinate reference system is NAD83 - UTM zone 10N.
 
 Figure 3: 1971–2000 monthly discharge statistics for Water Survey of Canada station 08KH003 Cariboo River Below Kangaroo Creek (A) and 1971–2000 temperature and precipitation normals from Environment Canada station 1094616 Likely, BC (B). The top of each bar on panel C corresponds to the average monthly total precipitation and the coloured portion shows the fraction of rain or snow.
 
@@ -352,21 +352,26 @@ knitr::include_graphics('figs/V1_V2_varvethickness_vs_depth_and_C14_est_yr_ma.pn
 knitr::include_graphics("figs/all_core_stats_2k_anomalies.jpg")
 ```
 
-\pagebreak
+\newpage
+\appendix
+\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{figure}{0}
+\setcounter{table}{0}
 
-# Appendix
+# Appendix A {.appendix}
 
 ```{r ekErr, echo=F}
 #| label: tbl-ekErr
 #| tbl-cap: "Counting error statistics from three Ekman short cores."
 
-# tb_out <-readRDS('../../data/ekman/ek_counting_error_table_supplement.rds') 
-# 
+# tb_out <-readRDS('../../data/ekman/ek_counting_error_table_supplement.rds')
+#
 # write.csv(tb_out, 'figs/table_A1.csv')
 
 tb_out <- read.csv('figs/table_A1.csv') |> select(-X)
-  
-tb_out |> 
+
+tb_out |>
   knitr::kable(
     digits = 2,col.names = c("Core ID", "Depth (cm)", "Couplet Count")
   )
