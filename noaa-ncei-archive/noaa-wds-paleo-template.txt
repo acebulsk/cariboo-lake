@@ -1,0 +1,175 @@
+﻿# WDS PALEO DATA SUBMISSION TEMPLATE, AND SAMPLE DATA DESCRIPTION
+#
+# LAST UPDATE: 19 Oct 2012 (for PAGES 2K Meeting 01 NOV 2012)
+#              09 Oct 2012 (for PAGES 2K Meeting 11 OCT 2012)
+#              02 NOV 2012 (updated during AND AFTER PAGES 2K Meeting 11 OCT 2012)
+#              13 NOV 2012 (move Abstract to end of Publication Section)
+#              14 NOV 2012 (move Data to its own section, and add tag for "Missing_Value") 
+#              15 NOV 2012 (Make tag names legal XML tags and Oracle column names)
+#                          (Publication and Funding Agency can be repeated)
+#                          (Contribution_Date and Published_Date format changed to Oracle 'YYYY-MM-DD')
+#              19 DEC 2012 (WSG changed tag names First_Year/Last_Year to Earliest_Year/Most_Recent_Year)
+#              08 JAN 2013 (WSG added Full_Citation tag to Publications Section
+#                            to be USED ONLY FOR NON-JOURNAL CITATIONS)
+#              08 FEB 2013 (WSG variable definition modified. Seasonality now takes
+#                            the place of Anomaly Period. Anomaly Period is to be 
+#                            defined in Details.)
+#              21 MAR 2013 (WSG Online_Resource is now Required if it is applicable.)
+#              21 MAR 2013 (WSG Data_Collection section Notes field now permits 
+#                           tagged data describing Climate Variables and Correlation
+#                           information to be entered.)
+#              24 MAR 2014 (WSG made the following changes: 
+#                          (1) Changed "Description_and_Notes" tag to": "Descriptions_Notes_and_Keywords"; 
+#                          (2) Placed "##" prior to each Variable definition of Variables section, in 
+#                              columns one and two;
+#                          (3) Added Variable "notes" as an example in the Variables section. The notes Variable 
+#                              can be used to define information on a sample by sample basis.
+#              4 JUN 2015  Template Version 2.0
+#                          (1) Added Parameter_Keywords for grouping parameters
+#                          (2) Added Tree_species_code to Species section
+#              18 Mar 2017 Template Version 3.0
+#                           (1) Added Description fields to Original_Source_URL and Online_Resource links
+#                          (2) Added Additional Information as a 10th field to the Variable descriptions
+#              28 Apr 2020 Template Version 3.1
+#                           (1) Changed Archive tag to Data_Type
+#                          (2) Removed unused Country tag under Site_Information
+#
+#  Version 4.0 
+#        Change label for the landing page to NOAA_Landing_Page from Online_Resource
+#        Change label for Data Download Files to Data_Download_Resource from Online_Resource
+#        Add Related_Online_Resource for related files that aren't part of Data Downloads links
+#        Add ORCiDs to Investigators list
+#             Move Parameter_Keywords to Data_Collection
+#        Add Science_Keywords to header section
+#        Replace tree-species-code.txt with tree-species-code.csv in tree species instructions
+#        Change time_unit options in Data_Collection section to match PaST options
+#        Online_Resource Descriptions for Template files contain URL Description Fields- Link Description; Link Text
+#
+# 
+#----------------------------------------------------------------------- 
+#                World Data Service for Paleoclimatology, Boulder 
+#                                  and 
+#                     NOAA Paleoclimatology Program 
+#             National Centers for Environmental Information (NCEI)
+#----------------------------------------------------------------------- 
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available), and date accessed when using downloaded data. If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed. 
+#
+# Description/Documentation lines begin with #
+# Data lines have no #
+#
+# NOAA_Landing_Page:  https://www.ncdc.noaa.gov/paleo/study/999??? (assigned by WDS Paleo)
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/  (assigned by WDS Paleo)
+#   Study_Level_JSON_Description: JSON metadata of this data file's parent study, which includes all study metadata.
+#
+# Data_Type: (i.e proxy type or reconstruction - ice core, paleoceanography, etc)
+#
+# Dataset_DOI: (placeholder for eventual minting by NOAA)
+#
+# Science_Keywords: (Select from controlled list in https://www.ncei.noaa.gov/pub/data/paleo/templates/noaa-science-keywords.txt. Keyword list is separated by commas, e.g. "oxygen isotopes, geochemistry, physical properties" )
+#--------------------
+# Resource_Links
+#   
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/ (assigned by WDS Paleo)
+#   Data_Download_Description: 
+#
+# Supplemental_Download_Resource: (URL to untemplated supplemental information, if applicable)
+#   Supplemental_Description: 
+#
+# Related_Online_Resource: https://www.ncei.noaa.gov/pub/data/paleo/ (assigned by WDS Paleo)
+#   Related_Online_Description: 
+#
+# Original_Source_URL: (URL to original source of data, if applicable)
+#   Original_Source_Description: 
+#--------------------
+# Contribution_Date
+#    Date: YYYY-MM-DD
+#--------------------
+# File_Last_Modified_Date
+#     Date: YYYY-MM-DD
+#--------------------
+# Title
+#   Study_Name: Where, When and What - e.g. Fort Stanton Cave, New Mexico 55-11kY Speleothem d18O Data 
+#--------------------
+# Investigators
+#   Investigators: Last_name, first_name Middle_initial.; ... Last_name, first_name Middle_initial.
+#--------------------
+# Description_Notes_and_Keywords
+#   Description:  
+#--------------------
+# Publication 
+#   Authors:
+#   Published_Date_or_Year: YYYY-MM-DD or YYYY 
+#   Published_Title: 
+#   Journal_Name: 
+#   Volume: 
+#   Edition: 
+#   Issue: 
+#   Pages:
+#   Report_Number: 
+#   DOI: 
+#   Publication_Place: 
+#   Publisher:
+#   ISBN: 
+#   Online_Resource: 
+#   Other_Reference_Details: 
+#   Full_Citation:
+#   Abstract: 
+#--------------------
+# Funding_Agency 
+#   Funding_Agency_Name: 
+#   Grant:
+#--------------------
+# Site_Information 
+#   Site_Name: 
+#   Location: 
+#   Northernmost_Latitude: 
+#   Southernmost_Latitude: 
+#   Easternmost_Longitude: 
+#   Westernmost_Longitude: 
+#   Elevation_m: 
+#--------------------
+# Data_Collection  
+#   Collection_Name: 
+#   Earliest_Year:
+#   Most_Recent_Year: 
+#   Time_Unit: 
+#   Core_Length_m: 
+#   Parameter_Keywords: (Select from controlled list in http://www.ncei.noaa.gov/pub/data/paleo/templates/parameter-keywords.txt. Keyword list is separated by commas, e.g. "oxygen isotopes, geochemistry, physical properties" )
+#   Notes:
+#--------------------
+# Species - this section is used only for the tree ring and fire history data types.
+# Tree_Species_Download_Resource:  https://www.ncei.noaa.gov/pub/data/paleo/templates/tree-species-code.csv
+#   Tree_Species_Download_Description:  List of accepted tree species names and codes. 
+#
+#   Species_Name: (See Tree_Species_Download_Resource above for list of possible values for these fields)
+#   Common_Name: 
+#   Tree_Species_Code: 
+#          
+#--------------------
+# Chronology_Information
+#   Chronology: 
+#
+#--------------------
+# Variables  
+#
+# PaST_Thesaurus_Download_Resource:  https://www.ncei.noaa.gov/pub/data/paleo/PaST-thesaurus/SKOS/past-thesaurus-v1.0.rdf
+#   PaST_Thesaurus_Download_Description: Paleoenvironmental Standard Terms (PaST) Thesaurus terms, definitions, and relationships in SKOS format.
+#
+# Variables format: Short_name <tab> what,material,error,units,seasonality,data_type,detail,method,data_format,additional_information
+#  Note: the Short_name does not require a PaST term.
+#
+## depth_cm	depth, , , centimeter, , speleothems, , ,N,
+## age_calBP	age, , , calendar year before present, , speleothems, , ,N,
+## d18OcarbVPDB	delta 18O, calcium carbonate, , per mil VPDB, , speleothems, corrected, isotope ratio mass spectrometry,N, corrected for ice volume 
+## notes	notes, , , , , speleothems, , ,C, sample source	
+#
+#--------------------
+# Data:
+# Data lines follow (have no #)
+# Data line format - tab-delimited text, variable short name as header
+# Missing_Values: (Value used to flag missing data in the table below) 
+depth_cm	age_calBP	d18OcarbVPDB	notes
